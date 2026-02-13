@@ -71,6 +71,7 @@ function main() {
   } else {
     allow();
   }
+
 }
 
 function allow() {
