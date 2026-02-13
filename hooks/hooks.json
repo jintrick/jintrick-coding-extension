@@ -1,0 +1,26 @@
+{
+  "BeforeTool": [
+    {
+      "matcher": "write_file|replace",
+      "hooks": [
+        {
+          "name": "linter-hook",
+          "type": "command",
+          "command": "node \"${extensionPath}${/}hooks${/}scripts${/}linter_hook.cjs\"",
+          "description": "ファイルの書き込み・置換前に構文エラー（JSON, Python等）をチェックします。"
+        }
+      ]
+    },
+    {
+      "matcher": "activate_skill",
+      "hooks": [
+        {
+          "name": "skill-version-checker",
+          "type": "command",
+          "command": "node \"${extensionPath}${/}hooks${/}scripts${/}skill_version_hook.cjs\" \"${extensionPath}\"",
+          "description": "スキルのソースとインストール済みバージョンの不一致を検知し、自動更新を促します。"
+        }
+      ]
+    }
+  ]
+}
