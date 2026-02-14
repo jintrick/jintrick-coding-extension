@@ -29,8 +29,9 @@ You are developing `jintrick-coding-extension`, a Gemini CLI extension that prov
    - Tests verify the bundled scripts in `dist/`.
 
 ## Documentation
-- **CRITICAL**: Refer to `docs/reference/hooks-cheatsheet.md` for Hook implementation details (Magic Strings, JSON protocols, Environment Variables).
-- Refer to `docs/reference/skills-cheatsheet.md` for Agent Skill development guidelines.
+- **CRITICAL**: Refer to `docs/reference/development-guide.md` for the extension's Build & Release process. This is REQUIRED reading.
+- Refer to `docs/reference/hooks-api-reference.md` for complete Hook API specifications.
+- Refer to `docs/reference/skills-api-reference.md` for Agent Skill development guidelines.
 
 ## Deployment
 - The `.geminiignore` file excludes source files and `node_modules`, only including `dist/` and configuration files.
