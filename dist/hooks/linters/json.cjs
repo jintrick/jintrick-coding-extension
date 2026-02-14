@@ -7,7 +7,7 @@ module.exports = function(content, filePath, tool_name) {
     return {
       valid: false,
       reason: `JSON syntax error after ${tool_name} in '${filePath}': ${e.message}`,
-      systemMessage: `\u{1F6AB} JSON Lint Error: ${tool_name} \u5F8C\u306E ${filePath} \u306E\u69CB\u6587\u304C\u4E0D\u6B63\u3060\u3002`
+      systemMessage: `\u274C JSON Lint Error: ${tool_name} \u5F8C\u306E ${filePath} \u306E\u69CB\u6587\u304C\u4E0D\u6B63\u3067\u3059\u3002`
     };
   }
 };

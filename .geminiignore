@@ -2,7 +2,6 @@ node_modules/
 .git/
 tests/
 hooks/scripts/
-package.json
 package-lock.json
 vitest.config.js
 build.js
