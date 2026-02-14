@@ -1,15 +1,17 @@
 {
-  "BeforeTool": [
-    {
-      "matcher": "write_file|replace",
-      "hooks": [
-        {
-          "name": "linter-hook",
-          "type": "command",
-          "command": "node \"${extensionPath}${/}dist${/}hooks${/}linter_hook.cjs\"",
-          "description": "ファイルの書き込み・置換前に構文エラー（JSON, Python等）をチェックします。"
-        }
-      ]
-    }
-  ]
+  "hooks": {
+    "BeforeTool": [
+      {
+        "matcher": "write_file|replace",
+        "hooks": [
+          {
+            "name": "linter-hook",
+            "type": "command",
+            "command": "node \"${extensionPath}${/}dist${/}hooks${/}linter_hook.cjs\"",
+            "description": "ファイルの書き込み・置換前に構文エラー（JSON, Python等）をチェックします。"
+          }
+        ]
+      }
+    ]
+  }
 }
