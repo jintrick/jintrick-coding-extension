@@ -42,11 +42,6 @@ jobs:
           # 配布に不要なルートファイルを削除
           rm -f build.js
           rm -f package-lock.json
-          
-          # .geminiignore を配布用に差し替える
-          if [ -f .geminiignore.dist ]; then
-            mv .geminiignore.dist .geminiignore
-          fi
 
       - name: Commit and Push changes
         run: |
