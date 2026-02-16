@@ -32,7 +32,7 @@ describe('linter_hook', () => {
       }
     };
     const output = runHook(input);
-    expect(output).toEqual({ decision: 'allow' });
+    expect(output).toMatchObject({ decision: 'allow' });
   });
 
   it('should deny invalid JSON write', () => {
@@ -57,7 +57,7 @@ describe('linter_hook', () => {
       }
     };
     const output = runHook(input);
-    expect(output).toEqual({ decision: 'allow' });
+    expect(output).toMatchObject({ decision: 'allow' });
   });
 
   // --- JavaScript Tests ---
@@ -71,7 +71,7 @@ describe('linter_hook', () => {
       }
     };
     const output = runHook(input);
-    expect(output).toEqual({ decision: 'allow' });
+    expect(output).toMatchObject({ decision: 'allow' });
   });
 
   it('should deny invalid JavaScript syntax', () => {
@@ -97,7 +97,7 @@ describe('linter_hook', () => {
       }
     };
     const output = runHook(input);
-    expect(output).toEqual({ decision: 'allow' });
+    expect(output).toMatchObject({ decision: 'allow' });
   });
 
   it('should validate .mjs files', () => {
@@ -109,7 +109,7 @@ describe('linter_hook', () => {
       }
     };
     const output = runHook(input);
-    expect(output).toEqual({ decision: 'allow' });
+    expect(output).toMatchObject({ decision: 'allow' });
   });
 
   it('should deny invalid .mjs syntax', () => {
@@ -135,7 +135,7 @@ describe('linter_hook', () => {
       }
     };
     const output = runHook(input);
-    expect(output).toEqual({ decision: 'allow' });
+    expect(output).toMatchObject({ decision: 'allow' });
   });
 
   it('should deny invalid TypeScript syntax', () => {

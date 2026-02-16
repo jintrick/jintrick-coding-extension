@@ -10,18 +10,23 @@ You are developing `jintrick-coding-extension`, a Gemini CLI extension that prov
   - JSON (`.json`)
   - Markdown (`.md`)
 
-## Development Workflow
-1. **Source Code**:
+## Development Workflow (IDD: Issue-Driven Development)
+1. **Issue Drafting**: Create a task in `docs/issue/` and solidify the design.
+2. **Approval (Review)**: User (jintrick) reviews and approves the Issue content. **Do not write implementation code until approved.**
+3. **Commit Plan**: Commit the approved Issue document and any related planning files (e.g., `hooks.json`).
+4. **Implementation**: Implement based on the approved Issue.
+5. **Source Code**:
    - Hooks logic is in `hooks/scripts/`.
    - Linters are in `hooks/scripts/linters/`.
-2. **Build Process (CRITICAL)**:
+   - Tools and maintenance scripts are in `tools/`.
+6. **Build Process (CRITICAL)**:
    - This project uses `esbuild` to bundle dependencies (`acorn`, `typescript`) into `dist/`.
    - **AFTER EDITING ANY SCRIPT**, you must run:
      ```bash
      npm run build
      ```
    - The `hooks/hooks.json` points to the `dist/` files.
-3. **Testing**:
+7. **Testing**:
    - Run unit/integration tests with:
      ```bash
      npm test
