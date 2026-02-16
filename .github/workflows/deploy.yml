@@ -44,7 +44,7 @@ jobs:
           rm -rf tools
           
           # 配布に不要なルートファイルを削除
-          rm -f package-lock.json
+          # package-lock.json は CI のキャッシュと整合性のために保持する
 
       - name: Commit and Push changes
         id: commit_step
