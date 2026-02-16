@@ -1,0 +1,58 @@
+name: Build and Clean for Distribution
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - '.github/workflows/**'
+
+jobs:
+  distribute:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Clean up for distribution
+        run: |
+          # 物理的に不要なファイルを削除
+          rm -rf hooks/scripts tests docs/issue .gitattributes
+          
+          # .geminiignore を配布用に差し替える
+          if [ -f .geminiignore.dist ]; then
+            mv .geminiignore.dist .geminiignore
+          fi
+
+      - name: Commit and Push changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          
+          # 削除されたファイルと変更されたファイルをステージング
+          git add -A
+          
+          # 差分がある場合のみコミットとプッシュを実行
+          if ! git diff --cached --quiet; then
+            git commit -m "chore: automated distribution build and cleanup [skip ci]"
+            git push origin main
+          else
+            echo "No changes to commit"
+          fi
