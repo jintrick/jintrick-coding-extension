@@ -1,22 +1,23 @@
-name: Build and Clean for Distribution
+name: Build and Deploy to Main
 
 on:
   push:
     branches:
-      - main
+      - dev
     paths-ignore:
       - '.github/workflows/**'
 
 jobs:
-  distribute:
+  deploy:
     runs-on: ubuntu-latest
     permissions:
       contents: write
 
     steps:
-      - name: Checkout
+      - name: Checkout dev branch
         uses: actions/checkout@v4
         with:
+          ref: dev
           fetch-depth: 0
 
       - name: Setup Node.js
@@ -34,34 +35,27 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Clean up for distribution
+      - name: Prepare distribution package
         run: |
-          # 物理的に不要なファイルを削除
-          rm -rf hooks/scripts
-          rm -rf tests
-          rm -rf docs/issue
-          rm -rf docs/reference
-          rm -rf tools
+          # 物理的に不要なファイルを削除 (hooks/scripts, tests, docs/issue, docs/reference, tools)
+          rm -rf hooks/scripts tests docs/issue docs/reference tools
           
-          # 配布に不要なルートファイルを削除
-          # package-lock.json は CI のキャッシュと整合性のために保持する
+          # 配布に不要なルートファイルを削除 (package-lock.json は残す)
+          # .gitignore や .geminiignore は dev のものをそのまま使う
 
-      - name: Commit and Push changes
-        id: commit_step
+      - name: Deploy to main branch
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           
-          # 削除されたファイルと変更されたファイル（gemini-extension.json等）をステージング
+          # 変更をステージング
           git add -A
           
-          # 差分がある場合のみコミットとプッシュを実行
-          if ! git diff --cached --quiet; then
-            git commit -m "chore: automated distribution build and cleanup [skip ci]"
-            git push origin main
-          else
-            echo "No changes to commit"
-          fi
+          # コミットを作成 (ビルドアーティファクトとして)
+          git commit -m "chore: deploy build artifacts from dev $(git rev-parse --short HEAD) [skip ci]"
+          
+          # main ブランチへ強制プッシュ
+          git push origin HEAD:main --force
 
       - name: Create and Push Tag
         run: |
@@ -73,7 +67,8 @@ jobs:
           if git rev-parse "$VERSION" >/dev/null 2>&1; then
             echo "Tag $VERSION already exists. Skipping."
           else
-            echo "Creating tag $VERSION"
+            echo "Creating tag $VERSION on main branch"
+            # main ブランチの最新コミットにタグを打つ
             git tag "$VERSION"
             git push origin "$VERSION"
           fi
