@@ -28,6 +28,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Sync manifest version
+        run: node tools/sync-version.cjs
+
       - name: Build
         run: npm run build
 
@@ -38,17 +41,18 @@ jobs:
           rm -rf tests
           rm -rf docs/issue
           rm -rf docs/reference
+          rm -rf tools
           
           # 配布に不要なルートファイルを削除
-          rm -f build.js
           rm -f package-lock.json
 
       - name: Commit and Push changes
+        id: commit_step
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           
-          # 削除されたファイルと変更されたファイルをステージング
+          # 削除されたファイルと変更されたファイル（gemini-extension.json等）をステージング
           git add -A
           
           # 差分がある場合のみコミットとプッシュを実行
@@ -57,4 +61,19 @@ jobs:
             git push origin main
           else
             echo "No changes to commit"
+          fi
+
+      - name: Create and Push Tag
+        run: |
+          # package.json からバージョンを取得
+          VERSION=v$(node -p "require('./package.json').version")
+          echo "Version: $VERSION"
+          
+          # タグが既に存在するか確認
+          if git rev-parse "$VERSION" >/dev/null 2>&1; then
+            echo "Tag $VERSION already exists. Skipping."
+          else
+            echo "Creating tag $VERSION"
+            git tag "$VERSION"
+            git push origin "$VERSION"
           fi
