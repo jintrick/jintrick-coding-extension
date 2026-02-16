@@ -34,7 +34,14 @@ jobs:
       - name: Clean up for distribution
         run: |
           # 物理的に不要なファイルを削除
-          rm -rf hooks/scripts tests docs/issue .gitattributes
+          rm -rf hooks/scripts
+          rm -rf tests
+          rm -rf docs/issue
+          rm -rf docs/reference
+          
+          # 配布に不要なルートファイルを削除
+          rm -f build.js
+          rm -f package-lock.json
           
           # .geminiignore を配布用に差し替える
           if [ -f .geminiignore.dist ]; then
