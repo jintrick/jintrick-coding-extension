@@ -152,4 +152,20 @@ describe('linter_hook', () => {
     expect(output.reason).toContain('Syntax Error');
     expect(output.systemMessage).toContain('Expression expected'); // TS error message
   });
+
+  // --- Markdown / Preview Tests ---
+
+  it('should create preview and allow Markdown files', () => {
+    const input = {
+      tool_name: 'write_file',
+      tool_input: {
+        file_path: 'README.md',
+        content: '# Title\n\nBody content'
+      }
+    };
+    const output = runHook(input);
+    expect(output).toMatchObject({ decision: 'allow' });
+    // Verify that the preview logic ran by checking stderr
+    expect(output._stderr).toContain('[Human Linter] Preview created:');
+  });
 });

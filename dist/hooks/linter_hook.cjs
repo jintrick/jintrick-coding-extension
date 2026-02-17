@@ -30,7 +30,7 @@ function main() {
     allow();
   }
   const ext = path.extname(filePath).toLowerCase();
-  const supportedExtensions = [".js", ".cjs", ".mjs", ".ts", ".json"];
+  const supportedExtensions = [".js", ".cjs", ".mjs", ".ts", ".json", ".md"];
   if (!supportedExtensions.includes(ext)) {
     allow();
   }

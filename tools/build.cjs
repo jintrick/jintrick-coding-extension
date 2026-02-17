@@ -4,8 +4,7 @@ const fs = require('fs');
 
 const hooks = [
   'hooks/scripts/linter_hook.cjs',
-  'hooks/scripts/expert_docs_hook.cjs',
-  'hooks/scripts/open_file_hook.cjs'
+  'hooks/scripts/expert_docs_hook.cjs'
 ];
 
 const linters = [
@@ -13,7 +12,8 @@ const linters = [
   'hooks/scripts/linters/cjs.cjs',
   'hooks/scripts/linters/mjs.cjs',
   'hooks/scripts/linters/ts.cjs',
-  'hooks/scripts/linters/json.cjs'
+  'hooks/scripts/linters/json.cjs',
+  'hooks/scripts/linters/md.cjs'
 ];
 
 async function build() {

@@ -24,18 +24,6 @@
         ]
       }
     ],
-    "AfterTool": [
-      {
-        "matcher": "write_file|replace",
-        "hooks": [
-          {
-            "name": "open-file-hook",
-            "type": "command",
-            "command": "node \"${extensionPath}${/}dist${/}hooks${/}open_file_hook.cjs\"",
-            "description": "成果物（Markdown/TOML等）が書き込まれたら、人間が確認・調整できるよう VSCode で自動的に開きます。"
-          }
-        ]
-      }
-    ]
+    "AfterTool": []
   }
 }

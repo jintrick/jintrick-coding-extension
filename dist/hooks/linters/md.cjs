@@ -1,45 +1,33 @@
 // hooks/scripts/linters/md.cjs
-var cp = require("child_process");
+var { spawn } = require("child_process");
 var fs = require("fs");
 var path = require("path");
-function mdLinter(content, filePath, tool_name) {
-  const execSync = mdLinter.execSync || cp.execSync;
-  const writeFileSync = mdLinter.writeFileSync || fs.writeFileSync;
-  const existsSync = mdLinter.existsSync || fs.existsSync;
-  const mkdirSync = mdLinter.mkdirSync || fs.mkdirSync;
-  const _process = mdLinter.process || process;
-  const isCI = !!_process.env.CI || _process.env.TERM === "dumb";
-  let hasCode = false;
+var os = require("os");
+module.exports = function(content, filePath, tool_name) {
   try {
-    const checkCommand = _process.platform === "win32" ? "where code" : "which code";
-    execSync(checkCommand, { stdio: "ignore" });
-    hasCode = true;
-  } catch (e) {
-    hasCode = false;
-  }
-  if (isCI || !hasCode) {
-    console.error(`[Human Linter] Skipping manual review (CI: ${isCI}, code: ${hasCode})`);
-    return { valid: true };
-  }
-  try {
-    console.error(`[Human Linter] Opening ${filePath} in VSCode for manual review...`);
-    execSync(`code -w "${filePath}"`);
-    console.error(`[Human Linter] User closed the file. Returning feedback to agent.`);
-    return {
-      valid: false,
-      reason: "User has manually verified and edited the content in VSCode. This content is now final.",
-      systemMessage: "User has manually verified and edited the content in VSCode.",
-      hookSpecificOutput: {
-        additionalContext: "The user has reviewed your proposed markdown changes and made manual adjustments in VSCode. The file on disk now contains the final version approved by the user. Please proceed to the next task based on this fact."
-      }
-    };
+    const tempDir = os.tmpdir();
+    const fileName = path.basename(filePath);
+    const tempFilePath = path.join(tempDir, `preview_${Date.now()}_${fileName}`);
+    fs.writeFileSync(tempFilePath, content, "utf8");
+    let child;
+    if (process.platform === "win32") {
+      child = spawn("cmd", ["/c", "start", '""', "code", `"${tempFilePath}"`], {
+        detached: true,
+        stdio: "ignore",
+        windowsVerbatimArguments: true
+      });
+    } else {
+      child = spawn("code", [tempFilePath], {
+        detached: true,
+        stdio: "ignore"
+      });
+    }
+    child.unref();
+    process.stderr.write(`[Human Linter] Preview created: ${tempFilePath}
+`);
   } catch (error) {
-    console.error(`[MD Linter] Failed: ${error.message}`);
-    return {
-      valid: false,
-      reason: `Linter failed: ${error.message}`,
-      systemMessage: `Linter failed: ${error.message}`
-    };
+    process.stderr.write(`[MD Linter] Failed: ${error.message}
+`);
   }
-}
-module.exports = mdLinter;
+  return { valid: true };
+};
