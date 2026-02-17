@@ -35,23 +35,39 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Prepare distribution package
+      - name: Prepare distribution package (Whitelist approach)
         run: |
-          # 物理的に不要なファイルを削除 (hooks/scripts, tests, docs/issue, docs/reference, tools)
-          rm -rf hooks/scripts tests docs/issue docs/reference tools
+          # 作業ディレクトリの作成
+          mkdir deploy_out
           
-          # 配布に不要なルートファイルを削除 (package-lock.json は残す)
-          # .gitignore や .geminiignore は dev のものをそのまま使う
+          # 必要なファイルをコピー
+          cp -r dist deploy_out/
+          cp -r hooks deploy_out/
+          # hooks 内のソース (scripts) は不要だが、hooks.json は必要。
+          # ホワイトリスト方式なので、まずは全部コピーしてから scripts を消すか、
+          # あるいは個別にコピーする。ここでは確実性をとり、ディレクトリ構造を維持しつつ抽出する。
+          rm -rf deploy_out/hooks/scripts
+          
+          cp gemini-extension.json deploy_out/
+          cp package.json deploy_out/
+          cp package-lock.json deploy_out/
+          cp README.md deploy_out/
+          
+          # LICENSE ファイルがあればコピー
+          [ -f LICENSE ] && cp LICENSE deploy_out/ || echo "No LICENSE found"
 
       - name: Deploy to main branch
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           
-          # 変更をステージング
-          git add -A
+          # deploy_out ディレクトリを orphan ブランチ（履歴のないブランチ）のルートとして初期化
+          cd deploy_out
+          git init
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
           
-          # コミットを作成 (ビルドアーティファクトとして)
+          git add -A
           git commit -m "chore: deploy build artifacts from dev $(git rev-parse --short HEAD) [skip ci]"
           
           # main ブランチへ強制プッシュ
