@@ -8,7 +8,7 @@ function mdLinter(content, filePath, tool_name) {
   const existsSync = mdLinter.existsSync || fs.existsSync;
   const mkdirSync = mdLinter.mkdirSync || fs.mkdirSync;
   const _process = mdLinter.process || process;
-  const isTTY = _process.stdout.isTTY && _process.env.TERM !== "dumb";
+  const isCI = !!_process.env.CI || _process.env.TERM === "dumb";
   let hasCode = false;
   try {
     const checkCommand = _process.platform === "win32" ? "where code" : "which code";
@@ -17,8 +17,8 @@ function mdLinter(content, filePath, tool_name) {
   } catch (e) {
     hasCode = false;
   }
-  if (!isTTY || !hasCode) {
-    console.error(`[Human Linter] Skipping manual review (TTY: ${!!isTTY}, code: ${hasCode})`);
+  if (isCI || !hasCode) {
+    console.error(`[Human Linter] Skipping manual review (CI: ${isCI}, code: ${hasCode})`);
     return { valid: true };
   }
   try {
