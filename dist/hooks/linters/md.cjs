@@ -1,14 +1,32 @@
 // hooks/scripts/linters/md.cjs
-var { execSync } = require("child_process");
+var cp = require("child_process");
 var fs = require("fs");
 var path = require("path");
-module.exports = function(content, filePath, tool_name) {
+function mdLinter(content, filePath, tool_name) {
+  const execSync = mdLinter.execSync || cp.execSync;
+  const writeFileSync = mdLinter.writeFileSync || fs.writeFileSync;
+  const existsSync = mdLinter.existsSync || fs.existsSync;
+  const mkdirSync = mdLinter.mkdirSync || fs.mkdirSync;
+  const _process = mdLinter.process || process;
+  const isTTY = _process.stdout.isTTY && _process.env.TERM !== "dumb";
+  let hasCode = false;
+  try {
+    const checkCommand = _process.platform === "win32" ? "where code" : "which code";
+    execSync(checkCommand, { stdio: "ignore" });
+    hasCode = true;
+  } catch (e) {
+    hasCode = false;
+  }
+  if (!isTTY || !hasCode) {
+    console.error(`[Human Linter] Skipping manual review (TTY: ${!!isTTY}, code: ${hasCode})`);
+    return { valid: true };
+  }
   try {
     const dir = path.dirname(filePath);
-    if (!fs.existsSync(dir)) {
-      fs.mkdirSync(dir, { recursive: true });
+    if (!existsSync(dir)) {
+      mkdirSync(dir, { recursive: true });
     }
-    fs.writeFileSync(filePath, content, "utf8");
+    writeFileSync(filePath, content, "utf8");
     console.error(`[Human Linter] Opening ${filePath} in VSCode for manual review...`);
     execSync(`code -w "${filePath}"`);
     console.error(`[Human Linter] User closed the file. Returning deny to prevent overwrite.`);
@@ -25,4 +43,5 @@ module.exports = function(content, filePath, tool_name) {
       systemMessage: `Linter failed: ${error.message}`
     };
   }
-};
+}
+module.exports = mdLinter;
