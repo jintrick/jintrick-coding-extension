@@ -1,6 +1,7 @@
 ---
 id: vX.Y.Z
-status: drafting | in-progress | done
+type: feat # feat, fix, docs, chore, refactor
+status: drafting | in-progress | completed
 created: yyyy-mm-dd
 fixed_commit: 
 ---
