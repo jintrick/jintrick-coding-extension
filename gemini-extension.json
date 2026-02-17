@@ -1,6 +1,26 @@
 {
   "name": "jintrick-coding-extension",
-  "version": "1.3.2",
-  "description": "Coding assistance extensions including linters and skill management.",
-  "contextFileName": "GEMINI.md"
+  "version": "1.4.0",
+  "description": "Coding assistance extensions including linters, skill management, and automated code review.",
+  "contextFileName": "GEMINI.md",
+  "hooks": [
+    {
+      "event": "on_tool_call",
+      "path": "dist/linter_hook.js"
+    },
+    {
+      "event": "on_tool_call",
+      "path": "dist/expert_docs_hook.js"
+    }
+  ],
+  "agents": [
+    {
+      "path": "agents/code-reviewer.md"
+    }
+  ],
+  "commands": [
+    {
+      "path": "commands/review.toml"
+    }
+  ]
 }
