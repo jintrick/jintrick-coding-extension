@@ -26,19 +26,13 @@ function main() {
 `);
     allow();
   }
+  if (hook_event_name !== "BeforeTool") {
+    allow();
+  }
   const ext = path.extname(filePath).toLowerCase();
-  if (hook_event_name === "BeforeTool") {
-    if (ext === ".md") {
-      process.stderr.write(`[Debug] Skipping .md in BeforeTool (will handle in AfterTool)
-`);
-      allow();
-    }
-  } else if (hook_event_name === "AfterTool") {
-    if (ext !== ".md") {
-      process.stderr.write(`[Debug] Skipping ${ext} in AfterTool (already handled in BeforeTool)
-`);
-      allow();
-    }
+  const supportedExtensions = [".js", ".cjs", ".mjs", ".ts", ".json"];
+  if (!supportedExtensions.includes(ext)) {
+    allow();
   }
   let contentToValidate = "";
   if (tool_name === "write_file") {
