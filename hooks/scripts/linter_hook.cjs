@@ -30,19 +30,17 @@ function main() {
     allow();
   }
 
-  const ext = path.extname(filePath).toLowerCase();
+  // BeforeTool (バリデーション) のみを処理
+  if (hook_event_name !== 'BeforeTool') {
+    allow();
+  }
 
-  // イベントと拡張子のフィルタリング
-  if (hook_event_name === 'BeforeTool') {
-    if (ext === '.md') {
-      process.stderr.write(`[Debug] Skipping .md in BeforeTool (will handle in AfterTool)\n`);
-      allow();
-    }
-  } else if (hook_event_name === 'AfterTool') {
-    if (ext !== '.md') {
-      process.stderr.write(`[Debug] Skipping ${ext} in AfterTool (already handled in BeforeTool)\n`);
-      allow();
-    }
+  const ext = path.extname(filePath).toLowerCase();
+  
+  // バリデーション対象外の拡張子はスキップ
+  const supportedExtensions = ['.js', '.cjs', '.mjs', '.ts', '.json'];
+  if (!supportedExtensions.includes(ext)) {
+    allow();
   }
 
   let contentToValidate = '';

@@ -6,11 +6,15 @@
   "hooks": [
     {
       "event": "on_tool_call",
-      "path": "dist/linter_hook.js"
+      "path": "dist/hooks/linter_hook.cjs"
     },
     {
       "event": "on_tool_call",
-      "path": "dist/expert_docs_hook.js"
+      "path": "dist/hooks/open_file_hook.cjs"
+    },
+    {
+      "event": "on_tool_call",
+      "path": "dist/hooks/expert_docs_hook.cjs"
     }
   ],
   "agents": [
