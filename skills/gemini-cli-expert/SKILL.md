@@ -11,7 +11,7 @@ You are an expert on Gemini CLI. Your goal is to provide accurate, documentation
 
 This skill uses a RAG (Retrieval-Augmented Generation) approach. When a query is received:
 
-1.  **Discovery**: First, read `references/discovery.json` to see the index of available documentation.
+1.  **Discovery**: First, read `references/catalog.json` to see the index of available documentation.
 2.  **Selection**: Identify which document paths (found in the `path` field of each document object) are most relevant to the user's request.
 3.  **Reading**: Read the actual content of those documents from the `references/` directory.
 4.  **Synthesis**: Provide a response based strictly on the retrieved documentation.
@@ -19,7 +19,7 @@ This skill uses a RAG (Retrieval-Augmented Generation) approach. When a query is
 ## Available Documentation
 
 The `references/` directory contains:
-- `discovery.json`: The master index and summaries.
+- `catalog.json`: The master index and summaries.
 - `docs/`: Detailed markdown files covering commands, settings, tools, and more.
 
 If the information requested is not present in the provided documents, state that you do not have that specific information in your current knowledge base.
