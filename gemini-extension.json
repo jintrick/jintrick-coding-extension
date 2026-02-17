@@ -3,20 +3,6 @@
   "version": "1.5.4",
   "description": "Coding assistance extensions including linters, skill management, and automated code review.",
   "contextFileName": "GEMINI.md",
-  "hooks": [
-    {
-      "event": "on_tool_call",
-      "path": "dist/hooks/linter_hook.cjs"
-    },
-    {
-      "event": "on_tool_call",
-      "path": "dist/hooks/open_file_hook.cjs"
-    },
-    {
-      "event": "on_tool_call",
-      "path": "dist/hooks/expert_docs_hook.cjs"
-    }
-  ],
   "agents": [
     {
       "path": "agents/code-reviewer.md"
