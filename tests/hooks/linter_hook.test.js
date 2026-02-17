@@ -4,10 +4,11 @@ import path from 'path';
 
 const HOOK_SCRIPT = path.join(__dirname, '../../dist/hooks/linter_hook.cjs');
 
-function runHook(input) {
+function runHook(input, env = {}) {
   const result = spawnSync('node', [HOOK_SCRIPT], {
     input: JSON.stringify(input),
     encoding: 'utf-8',
+    env: { ...process.env, ...env }
   });
   
   try {
@@ -150,5 +151,49 @@ describe('linter_hook', () => {
     expect(output.decision).toBe('deny');
     expect(output.reason).toContain('Syntax Error');
     expect(output.systemMessage).toContain('Expression expected'); // TS error message
+  });
+
+  // --- v1.5.0 Event Branching Tests ---
+
+  it('should skip .md files in BeforeTool', () => {
+    const input = {
+      hook_event_name: 'BeforeTool',
+      tool_name: 'write_file',
+      tool_input: {
+        file_path: 'README.md',
+        content: '# Test'
+      }
+    };
+    const output = runHook(input);
+    expect(output).toMatchObject({ decision: 'allow' });
+    expect(output._stderr).toContain('Skipping .md in BeforeTool');
+  });
+
+  it('should skip non-md files in AfterTool', () => {
+    const input = {
+      hook_event_name: 'AfterTool',
+      tool_name: 'write_file',
+      tool_input: {
+        file_path: 'test.json',
+        content: '{"a":1}'
+      }
+    };
+    const output = runHook(input);
+    expect(output).toMatchObject({ decision: 'allow' });
+    expect(output._stderr).toContain('Skipping .json in AfterTool');
+  });
+
+  it('should process .md files in AfterTool (CI mode)', () => {
+    const input = {
+      hook_event_name: 'AfterTool',
+      tool_name: 'write_file',
+      tool_input: {
+        file_path: 'README.md',
+        content: '# Test'
+      }
+    };
+    const output = runHook(input, { CI: 'true' });
+    expect(output).toMatchObject({ decision: 'allow' });
+    expect(output._stderr).toContain('Skipping manual review (CI: true');
   });
 });

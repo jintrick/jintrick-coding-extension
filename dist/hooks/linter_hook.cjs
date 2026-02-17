@@ -14,7 +14,7 @@ function main() {
 `);
     process.exit(0);
   }
-  const { tool_name, tool_input } = input;
+  const { hook_event_name, tool_name, tool_input } = input;
   if (!tool_input) {
     process.stderr.write(`[Debug] No tool_input found
 `);
@@ -27,6 +27,19 @@ function main() {
     allow();
   }
   const ext = path.extname(filePath).toLowerCase();
+  if (hook_event_name === "BeforeTool") {
+    if (ext === ".md") {
+      process.stderr.write(`[Debug] Skipping .md in BeforeTool (will handle in AfterTool)
+`);
+      allow();
+    }
+  } else if (hook_event_name === "AfterTool") {
+    if (ext !== ".md") {
+      process.stderr.write(`[Debug] Skipping ${ext} in AfterTool (already handled in BeforeTool)
+`);
+      allow();
+    }
+  }
   let contentToValidate = "";
   if (tool_name === "write_file") {
     contentToValidate = tool_input.content;

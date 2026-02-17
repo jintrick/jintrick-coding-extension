@@ -36,26 +36,22 @@ function mdLinter(content, filePath, tool_name) {
   }
 
   try {
-    // 1. 先行書き込み (Pre-write)
-    // ターゲットファイルに直接書き込む
-    const dir = path.dirname(filePath);
-    if (!existsSync(dir)) {
-      mkdirSync(dir, { recursive: true });
-    }
-    writeFileSync(filePath, content, 'utf8');
-
-    // 2. 編集待機 (Wait for User Edit)
-    // VSCode でファイルを開き、ユーザーが閉じるのを待つ (-w / --wait)
+    // 1. 編集待機 (Wait for User Edit)
+    // 本体による書き込みは既に完了しているため、そのまま VSCode で開く
     console.error(`[Human Linter] Opening ${filePath} in VSCode for manual review...`);
     execSync(`code -w "${filePath}"`);
 
-    console.error(`[Human Linter] User closed the file. Returning deny to prevent overwrite.`);
+    console.error(`[Human Linter] User closed the file. Returning feedback to agent.`);
     
-    // 3. 上書き阻止 (Deny Overwrite)
+    // 2. フィードバック (Feedback to Agent)
+    // valid: false を返しつつ、結果を置換して additionalContext を付与する
     return {
       valid: false,
-      reason: "User manually verified and edited the file.",
-      systemMessage: "User manually verified and edited the file."
+      reason: "User has manually verified and edited the content in VSCode. This content is now final.",
+      systemMessage: "User has manually verified and edited the content in VSCode.",
+      hookSpecificOutput: {
+        additionalContext: "The user has reviewed your proposed markdown changes and made manual adjustments in VSCode. The file on disk now contains the final version approved by the user. Please proceed to the next task based on this fact."
+      }
     };
 
   } catch (error) {

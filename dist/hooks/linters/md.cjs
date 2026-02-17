@@ -22,18 +22,16 @@ function mdLinter(content, filePath, tool_name) {
     return { valid: true };
   }
   try {
-    const dir = path.dirname(filePath);
-    if (!existsSync(dir)) {
-      mkdirSync(dir, { recursive: true });
-    }
-    writeFileSync(filePath, content, "utf8");
     console.error(`[Human Linter] Opening ${filePath} in VSCode for manual review...`);
     execSync(`code -w "${filePath}"`);
-    console.error(`[Human Linter] User closed the file. Returning deny to prevent overwrite.`);
+    console.error(`[Human Linter] User closed the file. Returning feedback to agent.`);
     return {
       valid: false,
-      reason: "User manually verified and edited the file.",
-      systemMessage: "User manually verified and edited the file."
+      reason: "User has manually verified and edited the content in VSCode. This content is now final.",
+      systemMessage: "User has manually verified and edited the content in VSCode.",
+      hookSpecificOutput: {
+        additionalContext: "The user has reviewed your proposed markdown changes and made manual adjustments in VSCode. The file on disk now contains the final version approved by the user. Please proceed to the next task based on this fact."
+      }
     };
   } catch (error) {
     console.error(`[MD Linter] Failed: ${error.message}`);

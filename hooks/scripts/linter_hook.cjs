@@ -18,7 +18,7 @@ function main() {
     process.exit(0);
   }
 
-  const { tool_name, tool_input } = input;
+  const { hook_event_name, tool_name, tool_input } = input;
   if (!tool_input) {
     process.stderr.write(`[Debug] No tool_input found\n`);
     allow();
@@ -31,6 +31,20 @@ function main() {
   }
 
   const ext = path.extname(filePath).toLowerCase();
+
+  // イベントと拡張子のフィルタリング
+  if (hook_event_name === 'BeforeTool') {
+    if (ext === '.md') {
+      process.stderr.write(`[Debug] Skipping .md in BeforeTool (will handle in AfterTool)\n`);
+      allow();
+    }
+  } else if (hook_event_name === 'AfterTool') {
+    if (ext !== '.md') {
+      process.stderr.write(`[Debug] Skipping ${ext} in AfterTool (already handled in BeforeTool)\n`);
+      allow();
+    }
+  }
+
   let contentToValidate = '';
 
   // 置換後のコンテンツを再現
