@@ -1,6 +1,6 @@
 {
   "name": "jintrick-coding-extension",
-  "version": "1.6.1",
+  "version": "1.7.0",
   "description": "Coding assistance extensions including linters and skill management.",
   "scripts": {
     "test": "vitest run",
