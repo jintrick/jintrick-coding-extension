@@ -1,27 +1,125 @@
 ---
 name: issue_crafter
-description: Guide for crafting high-quality Issue documents and implementation plans. This skill helps users create drafts, validate them with codebase research, and integrate implementation plans into the Issue.
+description: Structured workflow for producing technically-validated, implementation-ready Issue documents.
 ---
 
-# Issue Crafter Skill
+# Issue Crafter
 
-You are an expert at crafting technical Issue documents and implementation plans for the `jintrick-coding-extension` project. Your goal is to ensure that every Issue is precise, technically sound, and ready for implementation.
+Produce implementation-ready Issue documents aligned with project development guidelines.
+
+Output must be technically sound, traceable, and directly executable.
+
+---
+
+## Operating Principles
+
+Comply with:
+   - Headless Architecture constraints
+   - `docs/issue/REVIEW.md` (if present)
+   - `docs/reference/` guidelines
+
+---
 
 ## Workflow
 
-Follow these steps for every Issue-related task:
+### Step 1 — Draft the Issue
 
-1.  **Drafting**: Based on the user's requirements or feedback, create a draft of the Issue document following `docs/issue/TEMPLATE.md`.
-2.  **Validation**: Use the `codebase_investigator` tool to evaluate the feasibility and technical accuracy of the draft. Identify potential risks, missing dependencies, or architectural conflicts. Refine the draft based on these findings.
-3.  **Planning**: Enable `plan` mode to develop a detailed implementation plan. This plan should include specific tool calls, file paths, and testing strategies.
-4.  **Integration**: Integrate the finalized implementation plan into the Issue document (under the "実装内容詳細" section or a new section if appropriate).
+Create `docs/issue/vX.Y.Z.md` (or equivalent).
 
-## Technical Standards
+Requirements:
+- Follow `docs/issue/TEMPLATE.md` exactly.
+- Do not introduce new top-level sections.
+- Fill all required fields with concrete, technical content.
+- Define measurable acceptance criteria.
+- Define non-goals where relevant.
 
-- Adhere strictly to the IDD (Issue-Driven Development) flow described in `docs/reference/idd-flow.md`.
-- Ensure all designs comply with the Headless Architecture and safety standards in `docs/issue/REVIEW.md`.
-- Use `codebase_investigator` to confirm all assumptions about existing code before finalizing any plan.
+Set:
+`status: drafting`
 
-## Output Format
+Output the full Markdown draft.
+Wait for approval.
 
-Always output the Issue document in Markdown format, following the established template.
+---
+
+### Step 2 — Validate Against Codebase (MANDATORY)
+
+Investigate using `codebase_investigator`.
+
+Identify:
+- Relevant files
+- Existing patterns
+- Dependencies
+- Architectural constraints
+- Potential conflicts
+
+Output structured findings:
+
+- Verified Files
+- Feasibility: High / Medium / Low
+- Risks
+- Missing Context
+- Critical Blockers (if any)
+
+If critical blockers exist, revise the draft and return to Step 1.
+
+---
+
+### Step 3 — Plan the Implementation
+
+Do not implement changes. Define execution only.
+
+Produce a step-by-step plan including:
+
+- Exact file paths
+- Specific tool calls (`write_file`, `replace`, `run_shell_command`)
+- Scope of modifications
+- Migration steps (if applicable)
+- Test strategy:
+  - Unit tests
+  - Integration tests
+  - Manual validation steps
+
+The plan must be atomic and unambiguous.
+
+Wait for approval.
+
+---
+
+### Step 4 — Integrate and Finalize
+
+Integrate the approved plan into the Issue document (e.g., `## Implementation Details`).
+
+Ensure consistency between:
+- Acceptance Criteria
+- Validation findings
+- Implementation steps
+
+Update:
+- `status: in-progress`
+
+Perform a final consistency review.
+
+Request final approval.
+
+---
+
+## Implementation-Ready Definition
+
+An Issue is complete only if:
+
+- Acceptance criteria are measurable and testable
+- All risks and dependencies are enumerated
+- No unknown technical blockers remain (implementation path is clear)
+- Architectural compliance is verified
+- Testing strategy is defined
+- Implementation steps are executable without clarification
+
+---
+
+## Tool Fallback Rule
+
+If `codebase_investigator` is unavailable:
+- Explicitly state this limitation
+- Use standard search tools (`grep_search`, `glob`) to perform investigation
+- Mark validation confidence level as:
+  `low / medium / high`
