@@ -1,11 +1,14 @@
 {
   "name": "jintrick-coding-extension",
-  "version": "1.10.0",
+  "version": "1.11.1",
   "description": "Coding assistance extensions including linters, skill management, and automated code review.",
   "contextFileName": "GEMINI.md",
   "agents": [
     {
       "path": "agents/code-reviewer.md"
+    },
+    {
+      "path": "agents/issue-crafter.md"
     }
   ],
   "commands": [
