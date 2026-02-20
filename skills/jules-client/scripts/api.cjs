@@ -2,17 +2,12 @@ const https = require('https');
 const { URL } = require('url');
 const { execSync, exec } = require('child_process');
 
-const API_KEY = process.env.JULES_API_KEY;
 const BASE_URL = 'https://jules.googleapis.com/v1alpha';
-
-if (!API_KEY) {
-  console.error('Error: JULES_API_KEY environment variable is not set.');
-  process.exit(1);
-}
 
 // --- API Helpers ---
 
 function request(method, path, body = null) {
+  const API_KEY = process.env.JULES_API_KEY;
   return new Promise((resolve, reject) => {
     const url = new URL(`${BASE_URL}${path}`);
     const options = {
@@ -672,24 +667,41 @@ async function watchSession(args, options) {
         process.exit(1);
     }
     const pathId = extractId(sessionId, 'sessions/');
-    const waitFor = options.waitFor;
+    const normalizedWaitFor = (options.waitFor || '').toLowerCase();
     const timeoutSec = options.timeout;
     const startTime = Date.now();
+    let lastState = null;
 
     console.log(`Watching session ${pathId}...`);
-    if (waitFor) console.log(`Waiting for event: ${waitFor}`);
+    if (normalizedWaitFor) console.log(`Waiting for event: ${normalizedWaitFor}`);
     if (timeoutSec) console.log(`Timeout set to: ${timeoutSec} seconds`);
 
+    // Initialize lastState and seenActivityIds
     const seenActivityIds = new Set();
+    try {
+        const session = await request('GET', `/sessions/${pathId}`);
+        lastState = session.state;
+
+        // Fetch existing activities to populate seenActivityIds
+        const activitiesResp = await request('GET', `/sessions/${pathId}/activities?pageSize=50`);
+        const existingActivities = activitiesResp.activities || [];
+        for (const act of existingActivities) {
+            seenActivityIds.add(act.id);
+        }
+    } catch (e) {
+        console.error(`Error initializing watch: ${e.message}`);
+        process.exit(1);
+    }
+
     const pollInterval = 3000;
 
     const checkCondition = (activity) => {
-        if (!waitFor) return false;
+        if (!normalizedWaitFor) return false;
         
-        if (waitFor === 'plan' && activity.planGenerated) return true;
-        if (waitFor === 'message' && activity.agentMessaged) return true;
-        if (waitFor === 'changes' && activity.artifacts && activity.artifacts.some(a => a.changeSet)) return true;
-        if (waitFor === 'finish') {
+        if (normalizedWaitFor === 'plan' && activity.planGenerated) return true;
+        if (normalizedWaitFor === 'message' && activity.agentMessaged) return true;
+        if (normalizedWaitFor === 'changes' && activity.artifacts && activity.artifacts.some(a => a.changeSet)) return true;
+        if (normalizedWaitFor === 'finish') {
              if (activity.sessionCompleted || activity.sessionFailed) return true;
         }
         return false;
@@ -741,20 +753,32 @@ async function watchSession(args, options) {
                 }
             }
 
-            if (waitFor === 'finish') {
+            if (normalizedWaitFor === 'finish') {
                 const session = await request('GET', `/sessions/${pathId}`);
-                if (session.state === 'COMPLETED' || session.state === 'FAILED' || session.state === 'CANCELLED') {
-                    console.log(`[${new Date().toLocaleTimeString()}] [Status] Session is ${session.state}`);
+                const currentState = session.state;
+                const terminalStates = ['COMPLETED', 'FAILED', 'CANCELLED'];
+
+                const isTransitionToTerminal = !terminalStates.includes(lastState) && terminalStates.includes(currentState);
+
+                if (isTransitionToTerminal) {
+                    console.log(`[${new Date().toLocaleTimeString()}] [Status] Session transitioned to ${currentState}`);
                     conditionMet = true;
                 }
+                lastState = currentState;
             }
 
             if (conditionMet) {
-                console.log(`\nTarget event '${waitFor}' detected. Exiting.`);
+                console.log(`\nTarget event '${normalizedWaitFor}' detected. Exiting.`);
                 process.exit(0);
             }
 
         } catch (error) {
+            // Strict error handling
+            const msg = error.message || '';
+            if (msg.includes('401') || msg.includes('403') || msg.includes('404')) {
+                 console.error(`Unrecoverable error: ${msg}`);
+                 process.exit(1);
+            }
             // Ignore transient errors
         }
 
@@ -926,4 +950,21 @@ function parseAndDispatch() {
   cmdDef.handler(parsedArgs, parsedOptions);
 }
 
-parseAndDispatch();
+function main() {
+  if (!process.env.JULES_API_KEY) {
+    console.error('Error: JULES_API_KEY environment variable is not set.');
+    process.exit(1);
+  }
+  parseAndDispatch();
+}
+
+if (require.main === module) {
+  main();
+}
+
+module.exports = {
+  request,
+  watchSession,
+  COMMANDS,
+  extractId
+};
