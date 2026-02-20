@@ -1,4 +1,4 @@
-description = "現在のブランチを使用してJulesセッションを開始し、計画審査を経て実装させます。PR作成はWeb UIで行います。 '/jules <issue番号>` 例：`jules v0.2.5`'"
+description = "現在のブランチを使用してJulesセッションを開始し、計画審査を経て実装させます。PR作成はJulesが自律的に行います。 '/jules <issue番号>` 例：`jules v0.2.5`'"
 prompt = """AI Agent Julesに実装を依頼する次のプロセスを開始せよ。
 
 1. 現在の変更をコミットし、GitHubへプッシュする
@@ -16,37 +16,38 @@ prompt = """AI Agent Julesに実装を依頼する次のプロセスを開始せ
 2-1. スキルを起動する
 `jules-client` スキルを起動。以下の手順でセッションを開始し、計画が提案されるまで待機する。
 2-1. セッション開始:
-    - コマンド: `api.cjs start "Implement docs/Issue/{{args}}.md" --branch <1-1で確認したブランチ名> --wait-for plan --json`
+    - コマンド: `api.cjs start "Implement docs/Issue/{{args}}.md" --branch <1-1で確認したブランチ名> --auto-pr --json`
     - 出力されたJSONから `id` <session_id> を記録する。
 2-2. ユーザーへの通知:
 - セッションのURLをテキストとしたハイパーリンクをユーザーに提示する。ただしブラウザを開く必要があるかどうかはユーザーが判断する。
 
 
 3. 提案された計画の承認
+3-1. コマンド: `api.cjs watch <session_id> --wait-for plan` を実行し、Julesが計画を作成するまで待機する。
 3-1. コマンド: `api.cjs inspect <session_id>` を実行し、計画の概要を確認する。
-3-2. 計画がIssueの要件を満たしているか判断せよ。
+3-3. 計画がIssueの要件を満たしているか判断せよ。
     - **合格の場合**: `api.cjs approve <session_id>` 及び `api.cjs watch <session_id> --wait-for finish`を実行し、実装を開始させ、実装完了まで待機する。
     - **不合格の場合**: `api.cjs message <session_id> "修正指示"` を実行し、2.に戻る。
 
-4. 成果物への事前介入検証
-4-1. 実装ブランチ名の特定: 
-    - Julesの実装完了（Status: COMPLETED）を確認したら、まず `git ls-remote --heads origin | grep <session_id>` を実行し、出力された参照から、<session_id>を末尾に含んだ正確な実装ブランチ名を特定する。
-4-3. 実装環境をローカルに復元:
-    - `git checkout <特定したブランチ名>` を実行する。
-4-4.**[最重要] 事前レビュー: **
-    - `read_file` ツールを使用して `docs/REVIEW.md` を読み込み、その内容（判定項目、出力形式）を厳格に遵守してレビューを実行する。
+4. 成果物への介入検証
+4-1. PR情報の取得: 
+    - コマンド: `api.cjs pr <session_id>` を実行し、作成されたPR番号を取得する。
+4-2. 実装環境をローカルに復元:
+    - `gh pr checkout <取得したPR番号>` を実行する。
+4-3. 自動レビューの確認:
+    - `gh api "repos/:owner/:repo/pulls/<取得したPR番号>/comments" | ConvertFrom-Json | Where-Object { $_.user.type -eq 'Bot' } | Format-List user, body, path, line` を実行し、Bot（Gemini Code Assist等）からの指摘を確認する。
+    - 指摘がある場合は、内容を精査し、修正が必要ならコードを修正してコミット・プッシュする。
+4-4. 事前レビュー:
+    - `read_file` ツールを使用して `docs/Issue/GUI/REVIEW.md` を読み込み、その内容（判定項目、出力形式）を厳格に遵守してレビューを実行する。
 
 5. レビュー後の分岐
 5-1. 軽微な不備（リント、テスト、定数修正等）の場合:
-    - Geminiが自ら修正を施したのち、git commit -am "fix: minor adjustments by gemini" および git push origin <特定したブランチ名> を実行せよ。
+    - Geminiが自ら修正を施したのち、git commit -am "fix: minor adjustments by gemini" および git push を実行せよ。
 5-2. 重大な不備がある場合: 
     - `api.cjs message <session_id> "修正指示"` を実行し、`api.cjs watch <session_id> --wait-for finish` を実行し、4.に戻る。
 5-3. 合格の場合:
-    - 次の手順（PR発行）へ進む
+    - 次の手順（報告）へ進む。
 
-6. PR発行とクリーンアップ
-6-1. `docs/Issue/v{{args}}.md` からタイトルと成果（[x] の項目）を抽出し、`gh pr create --title "<タイトル>" --body "<抽出した成果>" --base <1-1のブランチ名>` を実行してPRを自律発行する。
-6-2. 発行されたPRの番号を、コマンド出力（URLの末尾）から自律取得する。
-6-3.  `git checkout <1-1で確認したブランチ名>` を実行し、作業前の環境に戻る。
-6-4. 検証用の一時ブランチは削除（`git branch -D <Julesの作業ブランチ名>`）
+6. 報告
+    - ユーザーに報告。「/review <取得したPR番号> を実行のこと。」
 """
