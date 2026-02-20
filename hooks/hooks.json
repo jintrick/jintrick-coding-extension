@@ -22,6 +22,17 @@
             "description": "gemini-cli-expert スキルの起動時にドキュメントの更新を確認します。"
           }
         ]
+      },
+      {
+        "matcher": "run_shell_command",
+        "hooks": [
+          {
+            "name": "command-fixer-hook",
+            "type": "command",
+            "command": "node \"${extensionPath}${/}dist${/}hooks${/}command_fixer_hook.cjs\"",
+            "description": "Windows環境向けにコマンド内の && を ; に自動置換します。"
+          }
+        ]
       }
     ],
     "AfterTool": []
