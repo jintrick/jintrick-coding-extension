@@ -12,8 +12,12 @@ You are developing `jintrick-coding-extension`, a Gemini CLI extension that prov
 
 ## Development Workflow (IDD: Issue-Driven Development)
 本プロジェクトは厳格な Issue-Driven Development に従って開発される。
-具体的な手順については `docs/reference/idd-flow.md` を参照し、そのプロセスを遵守すること。
-承認を得るまで実装コードを書いてはならない。
+具体的な手順については `docs/reference/idd-flow.md` を参照し、そのプロセスを**完全に遵守**すること。
+
+### Strict Compliance
+- **Deviations are Forbidden**: Do not perform any git operations (especially release/tagging) based on general assumptions. Follow the exact steps in `docs/reference/idd-flow.md`.
+- **Release Automation**: Release tags are managed by CI/CD. Do NOT create tags manually.
+- **Reference First**: Always read `docs/reference/idd-flow.md` before starting a task.
 
 ## Documentation
 - **CRITICAL**: Refer to `docs/reference/development-guide.md` for the extension's Build & Release process. This is REQUIRED reading.
