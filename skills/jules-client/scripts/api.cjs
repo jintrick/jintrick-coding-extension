@@ -676,15 +676,23 @@ async function watchSession(args, options) {
     if (normalizedWaitFor) console.log(`Waiting for event: ${normalizedWaitFor}`);
     if (timeoutSec) console.log(`Timeout set to: ${timeoutSec} seconds`);
 
-    // Initialize lastState
+    // Initialize lastState and seenActivityIds
+    const seenActivityIds = new Set();
     try {
         const session = await request('GET', `/sessions/${pathId}`);
         lastState = session.state;
+
+        // Fetch existing activities to populate seenActivityIds
+        const activitiesResp = await request('GET', `/sessions/${pathId}/activities?pageSize=50`);
+        const existingActivities = activitiesResp.activities || [];
+        for (const act of existingActivities) {
+            seenActivityIds.add(act.id);
+        }
     } catch (e) {
-        // Ignore
+        console.error(`Error initializing watch: ${e.message}`);
+        process.exit(1);
     }
 
-    const seenActivityIds = new Set();
     const pollInterval = 3000;
 
     const checkCondition = (activity) => {
@@ -740,10 +748,7 @@ async function watchSession(args, options) {
 
                 console.log(`[${time}] [${type}] ${details}`);
 
-                const activityTime = new Date(act.createTime).getTime();
-                const isNewActivity = activityTime >= startTime;
-
-                if (isNewActivity && checkCondition(act)) {
+                if (checkCondition(act)) {
                     conditionMet = true;
                 }
             }
@@ -768,6 +773,12 @@ async function watchSession(args, options) {
             }
 
         } catch (error) {
+            // Strict error handling
+            const msg = error.message || '';
+            if (msg.includes('401') || msg.includes('403') || msg.includes('404')) {
+                 console.error(`Unrecoverable error: ${msg}`);
+                 process.exit(1);
+            }
             // Ignore transient errors
         }
 

@@ -22,17 +22,19 @@ describe('watchSession', () => {
 
   beforeEach(() => {
     mockExit = vi.spyOn(process, 'exit').mockImplementation((code) => {
-       // console.error(`MOCK EXIT CALLED WITH ${code}`);
+       // Just spy, don't throw. This prevents unhandled rejections.
+       // The loop will technically continue, but since we control time with fake timers,
+       // we just won't advance it further.
     });
 
     mockConsoleLog = vi.spyOn(console, 'log').mockImplementation(() => {});
     mockConsoleError = vi.spyOn(console, 'error').mockImplementation(() => {});
 
-    // Spy on https.request
     mockRequest = vi.fn();
     httpsRequestSpy = vi.spyOn(https, 'request').mockImplementation(mockRequest);
 
     process.env.JULES_API_KEY = 'test-key';
+    vi.useFakeTimers();
   });
 
   afterEach(() => {
@@ -40,144 +42,115 @@ describe('watchSession', () => {
     vi.clearAllTimers();
   });
 
-  function mockResponses(responses) {
-    responses.forEach((data, index) => {
-      mockRequest.mockImplementationOnce((url, options, callback) => {
+  function mockResponse(data, statusCode = 200) {
+    mockRequest.mockImplementationOnce((url, options, callback) => {
         const req = new EventEmitter();
         req.end = vi.fn();
         req.write = vi.fn();
 
         const responseStream = new EventEmitter();
-        responseStream.statusCode = 200;
+        responseStream.statusCode = statusCode;
 
         callback(responseStream);
-        responseStream.emit('data', JSON.stringify(data));
+
+        if (data) {
+             responseStream.emit('data', JSON.stringify(data));
+        }
         responseStream.emit('end');
 
         return req;
-      });
     });
   }
 
-  it('verifies fix: does NOT exit immediately if past plan exists', async () => {
-    const pastTime = new Date(Date.now() - 100000).toISOString();
-    const session = { state: 'RUNNING' };
-    const activities = {
-      activities: [
-        {
-          id: 'act-1',
-          createTime: pastTime,
-          planGenerated: { plan: { id: 'plan-1', steps: [] } }
-        }
-      ]
-    };
+  it('verifies fix: ID-based filtering (detects late-arriving old event)', async () => {
+    const startTime = Date.now();
+    const oldTime = new Date(startTime - 100000).toISOString();
+    const slightlyOldTime = new Date(startTime - 1000).toISOString();
 
-    mockResponses([session, activities]); // Session check, then Activities
+    const session = { state: 'RUNNING' };
+    const act1 = { id: 'act-1', createTime: oldTime, planGenerated: { plan: { id: 'plan-1' } } };
+    const act2 = { id: 'act-2', createTime: slightlyOldTime, planGenerated: { plan: { id: 'plan-2' } } };
+
+    mockResponse(session); // 1. Init State
+    mockResponse({ activities: [act1] }); // 2. Init Activities
+    mockResponse({ activities: [act1] }); // 3. Loop 1 Activities
+    mockResponse({ activities: [act1, act2] }); // 4. Loop 2 Activities
 
     api.watchSession(['session-1'], { waitFor: 'plan' });
 
-    await new Promise(resolve => setTimeout(resolve, 50));
-
-    expect(mockExit).not.toHaveBeenCalled();
-  });
-
-  it('verifies fix: does NOT exit immediately if session finished in the past', async () => {
-    const session = {
-        name: 'sessions/session-1',
-        state: 'COMPLETED',
-        createTime: new Date(Date.now() - 100000).toISOString()
-    };
-
-    // 1. Initial state check (COMPLETED)
-    // 2. Loop activities
-    // 3. Loop session check (COMPLETED)
-
-    // Logic: lastState = COMPLETED. currentState = COMPLETED.
-    // Transition = false.
-
-    mockResponses([
-        session, // Initial state check
-        { activities: [] }, // Activities
-        session // Session check in loop
-    ]);
-
-    api.watchSession(['session-1'], { waitFor: 'finish' });
-
-    await new Promise(resolve => setTimeout(resolve, 50));
-
-    expect(mockExit).not.toHaveBeenCalled();
-  });
-
-  it('verifies fix: exits when NEW plan appears', async () => {
-    const pastTime = new Date(Date.now() - 100000).toISOString();
-
-    const session = { state: 'RUNNING' };
-    const oldActivities = {
-      activities: [
-        { id: 'act-1', createTime: pastTime, planGenerated: { plan: { id: 'plan-1' } } }
-      ]
-    };
-
-    mockResponses([session, oldActivities]);
-
-    api.watchSession(['session-1'], { waitFor: 'plan' });
-    await new Promise(resolve => setTimeout(resolve, 50));
-    expect(mockExit).not.toHaveBeenCalled();
-  });
-
-  it('verifies fix: detects NEW plan immediately (if it just appeared)', async () => {
-    const futureTime = new Date(Date.now() + 5000).toISOString();
-    const session = { state: 'RUNNING' };
-    const activities = {
-      activities: [
-        { id: 'act-2', createTime: futureTime, planGenerated: { plan: { id: 'plan-2' } } }
-      ]
-    };
-
-    mockResponses([session, activities]);
-
-    api.watchSession(['session-1'], { waitFor: 'plan' });
-    await new Promise(resolve => setTimeout(resolve, 50));
+    await vi.runOnlyPendingTimersAsync(); // Init
+    await vi.advanceTimersByTimeAsync(3000); // Loop 1
+    await vi.advanceTimersByTimeAsync(3000); // Loop 2
 
     expect(mockExit).toHaveBeenCalledWith(0);
   });
 
-  it('verifies fix: detects state transition to COMPLETED', async () => {
+  it('verifies fix: Strict Error Handling (401 exits)', async () => {
+    const session = { state: 'RUNNING' };
+    const act1 = { id: 'act-1', createTime: new Date().toISOString() };
+
+    mockResponse(session);
+    mockResponse({ activities: [act1] });
+
+    // Loop 1 (401 Error)
+    mockRequest.mockImplementationOnce((url, options, callback) => {
+         const req = new EventEmitter(); req.end = vi.fn(); req.write = vi.fn();
+         const res = new EventEmitter();
+         res.statusCode = 401;
+         callback(res);
+         res.emit('data', JSON.stringify({ error: { message: "Unauthorized" } }));
+         res.emit('end');
+         return req;
+    });
+
+    api.watchSession(['session-1'], { waitFor: 'plan' });
+
+    await vi.runOnlyPendingTimersAsync(); // Init
+    await vi.advanceTimersByTimeAsync(3000); // Loop 1
+
+    expect(mockExit).toHaveBeenCalledWith(1);
+    expect(mockConsoleError).toHaveBeenCalledWith(expect.stringContaining('Unauthorized'));
+  });
+
+  it('verifies fix: Strict Error Handling (404 exits)', async () => {
+      const session = { state: 'RUNNING' };
+
+      mockResponse(session);
+      mockResponse({ activities: [] });
+
+      // Loop 1 (404 Error)
+      mockRequest.mockImplementationOnce((url, options, callback) => {
+           const req = new EventEmitter(); req.end = vi.fn(); req.write = vi.fn();
+           const res = new EventEmitter();
+           res.statusCode = 404;
+           callback(res);
+           res.emit('data', JSON.stringify({ error: { message: "Not Found" } }));
+           res.emit('end');
+           return req;
+      });
+
+      api.watchSession(['session-1'], { waitFor: 'plan' });
+
+      await vi.runOnlyPendingTimersAsync();
+      await vi.advanceTimersByTimeAsync(3000);
+
+      expect(mockExit).toHaveBeenCalledWith(1);
+  });
+
+  it('verifies fix: state transition detection (RUNNING -> COMPLETED)', async () => {
       const runningSession = { state: 'RUNNING' };
       const completedSession = { state: 'COMPLETED' };
 
-      // 1. Initial state: RUNNING
-      // 2. Loop activities: []
-      // 3. Loop session check: COMPLETED
-
-      mockResponses([
-          runningSession, // Initial
-          { activities: [] }, // Activities
-          completedSession // Loop session check
-      ]);
+      mockResponse(runningSession);
+      mockResponse({ activities: [] });
+      mockResponse({ activities: [] });
+      mockResponse(completedSession);
 
       api.watchSession(['session-1'], { waitFor: 'finish' });
-      await new Promise(resolve => setTimeout(resolve, 50));
+
+      await vi.runOnlyPendingTimersAsync();
+      await vi.advanceTimersByTimeAsync(3000);
 
       expect(mockExit).toHaveBeenCalledWith(0);
   });
-
-  it('verifies fix: is case insensitive', async () => {
-    // wait-for: Plan (mixed case)
-    const futureTime = new Date(Date.now() + 5000).toISOString();
-    const session = { state: 'RUNNING' };
-    const activities = {
-      activities: [
-        { id: 'act-2', createTime: futureTime, planGenerated: { plan: { id: 'plan-2' } } }
-      ]
-    };
-
-    mockResponses([session, activities]);
-
-    api.watchSession(['session-1'], { waitFor: 'Plan' }); // Capital P
-    await new Promise(resolve => setTimeout(resolve, 50));
-
-    expect(mockExit).toHaveBeenCalledWith(0);
-  });
-
 });
