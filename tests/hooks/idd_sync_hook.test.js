@@ -131,6 +131,16 @@ describe('idd_sync_hook', () => {
     expect(notUpdated.version).toBe('1.0.0');
   });
 
+  it('Case 6: Support pre-release versions', async () => {
+    createManifest('package.json', JSON.stringify({ version: '1.0.0' }, null, 2));
+
+    const result = await runMain('git commit -m "v1.15.0-rc.1"');
+
+    expect(result.hookSpecificOutput.tool_input.command).toContain('git add package.json');
+    const updated = JSON.parse(readManifest('package.json'));
+    expect(updated.version).toBe('1.15.0-rc.1');
+  });
+
   it('Preserves JSON indentation', async () => {
       const content = '{\n    "version": "1.0.0"\n}\n'; // 4 spaces indentation
       createManifest('package.json', content);

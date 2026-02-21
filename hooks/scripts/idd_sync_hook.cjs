@@ -35,12 +35,12 @@ async function main(deps = { fs, syncVersions }) {
     return;
   }
 
-  // Check for vX.Y.Z pattern in the command
-  // We look for v<digit>.<digit>.<digit> preceded by a quote or space
-  const versionMatch = command.match(/["'\s](v\d+\.\d+\.\d+)["'\s]/);
+  // Check for vX.Y.Z pattern in the command (including pre-releases like v1.15.0-rc.1)
+  // We look for v<digit>.<digit>.<digit>[-<suffix>] preceded by a quote or space
+  const versionMatch = command.match(/["'\s](v\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?)["'\s]/);
 
   // Also check for case where it might be at the end or start of the message string
-  const versionMatch2 = command.match(/["'](v\d+\.\d+\.\d+)/);
+  const versionMatch2 = command.match(/["'](v\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?)/);
 
   let targetVersionString = null;
   if (versionMatch) {

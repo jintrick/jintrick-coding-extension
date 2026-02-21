@@ -1016,15 +1016,20 @@ var require_sync = __commonJS({
 var fs = require("fs");
 var { syncVersions } = require_sync();
 async function main(deps = { fs, syncVersions }) {
-  let tool_input;
+  let parsedInput;
   try {
     const input = deps.fs.readFileSync(0, "utf8");
     if (!input.trim()) {
       console.log(JSON.stringify({ decision: "allow" }));
       return;
     }
-    tool_input = JSON.parse(input);
+    parsedInput = JSON.parse(input);
   } catch (e) {
+    console.log(JSON.stringify({ decision: "allow" }));
+    return;
+  }
+  const { hook_event_name, tool_name, tool_input } = parsedInput;
+  if (tool_name !== "run_shell_command" || !tool_input) {
     console.log(JSON.stringify({ decision: "allow" }));
     return;
   }
@@ -1033,8 +1038,8 @@ async function main(deps = { fs, syncVersions }) {
     console.log(JSON.stringify({ decision: "allow" }));
     return;
   }
-  const versionMatch = command.match(/["'\s](v\d+\.\d+\.\d+)["'\s]/);
-  const versionMatch2 = command.match(/["'](v\d+\.\d+\.\d+)/);
+  const versionMatch = command.match(/["'\s](v\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?)["'\s]/);
+  const versionMatch2 = command.match(/["'](v\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?)/);
   let targetVersionString = null;
   if (versionMatch) {
     targetVersionString = versionMatch[1];
