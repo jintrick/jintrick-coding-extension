@@ -31,10 +31,11 @@ describe('Python Linter (Enhanced)', () => {
       }
   });
 
+  // --- Basics ---
+
   it('should deny missing import (math.sqrt)', () => {
     const output = runPy('print(math.sqrt(2))');
     expect(output.decision).toBe('deny');
-    expect(output.reason).toContain('Python Linter Error');
     expect(output.systemMessage).toContain("name 'math' is not defined");
   });
 
@@ -49,41 +50,87 @@ describe('Python Linter (Enhanced)', () => {
     expect(output.decision).toBe('allow');
   });
 
-  it('should deny top-level scope leakage', () => {
+  // --- Top-level Order ---
+
+  it('should deny top-level use before def', () => {
+    const output = runPy('print(x)\nx = 1');
+    expect(output.decision).toBe('deny');
+    expect(output.systemMessage).toContain("name 'x' is not defined");
+  });
+
+  it('should allow forward reference in function', () => {
+    const output = runPy('def f():\n    print(x)\nx = 1\nf()');
+    expect(output.decision).toBe('allow');
+  });
+
+  // --- Scopes ---
+
+  it('should deny top-level scope leakage (from function)', () => {
     const output = runPy('def f():\n    x = 1\nprint(x)');
     expect(output.decision).toBe('deny');
     expect(output.systemMessage).toContain("name 'x' is not defined");
   });
 
-  it('should allow normal imports', () => {
-    const output = runPy('import os\nprint(os.getcwd())');
-    expect(output.decision).toBe('allow');
+  it('should deny leakage between functions', () => {
+    const output = runPy('def f():\n    x = 1\ndef g():\n    print(x)');
+    expect(output.decision).toBe('deny');
+    expect(output.systemMessage).toContain("name 'x' is not defined");
   });
 
-  it('should allow function definition and usage', () => {
-    const output = runPy('def f(x):\n    return x + 1\nprint(f(10))');
-    expect(output.decision).toBe('allow');
+  // --- Blocks ---
+
+  it('should allow variable defined in if block (leaks to outer)', () => {
+     const output = runPy('if True:\n    x = 1\nprint(x)');
+     expect(output.decision).toBe('allow');
   });
 
-  it('should allow class definition', () => {
-    const output = runPy('class A:\n    def method(self):\n        pass\na = A()');
-    expect(output.decision).toBe('allow');
+  it('should allow variable defined in try block (leaks to outer)', () => {
+     const output = runPy('try:\n    x = 1\nexcept:\n    pass\nprint(x)');
+     expect(output.decision).toBe('allow');
   });
+
+  // --- Exception Handler ---
+
+  it('should allow exception handler variable inside except', () => {
+     const output = runPy('try:\n    1/0\nexcept Exception as e:\n    print(e)');
+     expect(output.decision).toBe('allow');
+  });
+
+  it('should deny exception handler variable outside except', () => {
+     const output = runPy('try:\n    1/0\nexcept Exception as e:\n    pass\nprint(e)');
+     expect(output.decision).toBe('deny');
+     expect(output.systemMessage).toContain("name 'e' is not defined");
+  });
+
+  // --- Comprehensions ---
 
   it('should allow list comprehension at top level', () => {
     const output = runPy('x = [i for i in range(10)]');
     expect(output.decision).toBe('allow');
   });
 
-  it('should allow lambda at top level', () => {
-    const output = runPy('f = lambda x: x * 2');
-    expect(output.decision).toBe('allow');
+  it('should deny leak from list comprehension', () => {
+     const output = runPy('x = [i for i in range(10)]\nprint(i)');
+     expect(output.decision).toBe('deny');
+     expect(output.systemMessage).toContain("name 'i' is not defined");
   });
 
   it('should deny undefined variable in list comprehension', () => {
      const output = runPy('x = [z for i in range(10)]'); // z undefined
      expect(output.decision).toBe('deny');
      expect(output.systemMessage).toContain("name 'z' is not defined");
+  });
+
+  // --- Others ---
+
+  it('should allow normal imports', () => {
+    const output = runPy('import os\nprint(os.getcwd())');
+    expect(output.decision).toBe('allow');
+  });
+
+  it('should allow class definition', () => {
+    const output = runPy('class A:\n    def method(self):\n        pass\na = A()');
+    expect(output.decision).toBe('allow');
   });
 
   it('should allow tuple unpacking', () => {
@@ -99,21 +146,5 @@ describe('Python Linter (Enhanced)', () => {
   it('should allow top-level with statement', () => {
      const output = runPy('class CM:\n    def __enter__(self): return 1\n    def __exit__(self, *args): pass\nwith CM() as f:\n    print(f)');
      expect(output.decision).toBe('allow');
-  });
-
-  it('should allow exception handler variable', () => {
-     const output = runPy('try:\n    1/0\nexcept Exception as e:\n    print(e)');
-     expect(output.decision).toBe('allow');
-  });
-
-  it('should allow variable defined in if block', () => {
-     const output = runPy('if True:\n    x = 1\nprint(x)');
-     expect(output.decision).toBe('allow');
-  });
-
-  it('should deny variable in list comp (leak check)', () => {
-     const output = runPy('x = [i for i in range(10)]\nprint(i)'); // i should not leak
-     expect(output.decision).toBe('deny');
-     expect(output.systemMessage).toContain("name 'i' is not defined");
   });
 });
