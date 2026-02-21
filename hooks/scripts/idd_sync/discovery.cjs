@@ -80,8 +80,8 @@ function discoverManifests(rootDir) {
         }
 
       } catch (e) {
-        // Ignore files that fail to parse
-        // console.error(`Failed to parse ${filename}:`, e);
+        // Log files that fail to parse to provide feedback on misconfigurations.
+        console.error(`Failed to parse ${filename}:`, e);
       }
     }
   }

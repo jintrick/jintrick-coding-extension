@@ -117,7 +117,7 @@ describe('idd_sync_hook', () => {
     const result = await runMain('git commit -m "v1.1.0"');
 
     const cmd = result.hookSpecificOutput.tool_input.command;
-    expect(cmd).toMatch(/^git add .*? && git commit/);
+    expect(cmd).toMatch(/^git add .*? ; git commit/);
   });
 
   it('Case 5: Skip when version is missing', async () => {

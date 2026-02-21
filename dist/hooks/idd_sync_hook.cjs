@@ -955,6 +955,7 @@ var require_discovery = __commonJS({
               });
             }
           } catch (e) {
+            console.error(`Failed to parse ${filename}:`, e);
           }
         }
       }
@@ -1038,22 +1039,19 @@ async function main(deps = { fs, syncVersions }) {
     console.log(JSON.stringify({ decision: "allow" }));
     return;
   }
-  const versionMatch = command.match(/["'\s](v\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?)["'\s]/);
-  const versionMatch2 = command.match(/["'](v\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?)/);
+  const versionMatch = command.match(/["'\s](v\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?)["'\s]?/);
   let targetVersionString = null;
   if (versionMatch) {
     targetVersionString = versionMatch[1];
-  } else if (versionMatch2) {
-    targetVersionString = versionMatch2[1];
   }
   if (!targetVersionString) {
     console.log(JSON.stringify({ decision: "allow" }));
     return;
   }
-  const targetVersion = targetVersionString.substring(1);
+  const targetVersion = targetVersionString.startsWith("v") ? targetVersionString.substring(1) : targetVersionString;
   const updatedFiles = deps.syncVersions(targetVersion);
   if (updatedFiles.length > 0) {
-    const newCommand = `git add ${updatedFiles.join(" ")} && ${command}`;
+    const newCommand = `git add ${updatedFiles.join(" ")} ; ${command}`;
     console.log(JSON.stringify({
       decision: "allow",
       hookSpecificOutput: {

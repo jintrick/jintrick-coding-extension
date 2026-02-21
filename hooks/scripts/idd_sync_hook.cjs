@@ -37,16 +37,11 @@ async function main(deps = { fs, syncVersions }) {
 
   // Check for vX.Y.Z pattern in the command (including pre-releases like v1.15.0-rc.1)
   // We look for v<digit>.<digit>.<digit>[-<suffix>] preceded by a quote or space
-  const versionMatch = command.match(/["'\s](v\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?)["'\s]/);
-
-  // Also check for case where it might be at the end or start of the message string
-  const versionMatch2 = command.match(/["'](v\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?)/);
+  const versionMatch = command.match(/["'\s](v\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?)["'\s]?/);
 
   let targetVersionString = null;
   if (versionMatch) {
-      targetVersionString = versionMatch[1];
-  } else if (versionMatch2) {
-      targetVersionString = versionMatch2[1];
+    targetVersionString = versionMatch[1];
   }
 
   if (!targetVersionString) {
@@ -54,25 +49,23 @@ async function main(deps = { fs, syncVersions }) {
     return;
   }
 
-  const targetVersion = targetVersionString.substring(1); // Remove 'v'
+  const targetVersion = targetVersionString.startsWith('v') ? targetVersionString.substring(1) : targetVersionString;
 
   // Perform sync
-  // syncVersions is synchronous
-  // We use deps.syncVersions for DI
   const updatedFiles = deps.syncVersions(targetVersion);
 
   if (updatedFiles.length > 0) {
-      // Rewrite command
-      const newCommand = `git add ${updatedFiles.join(' ')} && ${command}`;
-      console.log(JSON.stringify({
-          decision: 'allow',
-          hookSpecificOutput: {
-              tool_input: {
-                  ...tool_input,
-                  command: newCommand
-              }
-          }
-      }));
+    // Rewrite command using ';' for PowerShell compatibility and project compliance
+    const newCommand = `git add ${updatedFiles.join(' ')} ; ${command}`;
+    console.log(JSON.stringify({
+      decision: 'allow',
+      hookSpecificOutput: {
+        tool_input: {
+          ...tool_input,
+          command: newCommand
+        }
+      }
+    }));
   } else {
       console.log(JSON.stringify({ decision: 'allow' }));
   }
