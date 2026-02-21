@@ -31,6 +31,12 @@
             "type": "command",
             "command": "node \"${extensionPath}${/}dist${/}hooks${/}command_fixer_hook.cjs\"",
             "description": "Windows環境向けにコマンド内の && を ; に自動置換します。"
+          },
+          {
+            "name": "idd-sync-hook",
+            "type": "command",
+            "command": "node \"${extensionPath}${/}dist${/}hooks${/}idd_sync_hook.cjs\"",
+            "description": "コミットメッセージ内のバージョン番号に基づいてマニフェストファイルを自動更新・ステージングします。"
           }
         ]
       }
