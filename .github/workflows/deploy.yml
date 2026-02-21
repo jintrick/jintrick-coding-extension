@@ -41,9 +41,11 @@ jobs:
           # 必要なファイルをコピー
           cp -r dist deploy_out/
           cp -r hooks deploy_out/
+          cp -r skills deploy_out/
+          cp -r agents deploy_out/
+          cp -r commands deploy_out/
+
           # hooks 内のソース (scripts) は不要だが、hooks.json は必要。
-          # ホワイトリスト方式なので、まずは全部コピーしてから scripts を消すか、
-          # あるいは個別にコピーする。ここでは確実性をとり、ディレクトリ構造を維持しつつ抽出する。
           rm -rf deploy_out/hooks/scripts
           
           cp gemini-extension.json deploy_out/
