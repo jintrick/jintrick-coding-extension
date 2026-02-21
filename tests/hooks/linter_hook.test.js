@@ -168,4 +168,74 @@ describe('linter_hook', () => {
     // Verify that the preview logic ran by checking stderr
     expect(output._stderr).toContain('[Human Linter] Preview created:');
   });
+
+  // --- TSX Tests ---
+
+  it('should allow valid TSX code', () => {
+    const input = {
+      tool_name: 'write_file',
+      tool_input: {
+        file_path: 'App.tsx',
+        content: 'const App = () => <div>Hello</div>;'
+      }
+    };
+    const output = runHook(input);
+    expect(output).toMatchObject({ decision: 'allow' });
+  });
+
+  it('should deny invalid TSX syntax (unclosed tag)', () => {
+    const input = {
+      tool_name: 'write_file',
+      tool_input: {
+        file_path: 'App.tsx',
+        content: 'const App = () => <div>Hello;' // Unclosed tag
+      }
+    };
+    const output = runHook(input);
+    expect(output.decision).toBe('deny');
+    expect(output.reason).toContain('Syntax Error');
+    expect(output.systemMessage).toContain("JSX element 'div' has no corresponding closing tag");
+  });
+
+  // --- Python Tests ---
+
+  it('should allow valid Python code', () => {
+    const input = {
+      tool_name: 'write_file',
+      tool_input: {
+        file_path: 'script.py',
+        content: 'print("hello")\ndef f():\n    return 1'
+      }
+    };
+    const output = runHook(input);
+    expect(output).toMatchObject({ decision: 'allow' });
+  });
+
+  it('should deny invalid Python syntax', () => {
+    const input = {
+      tool_name: 'write_file',
+      tool_input: {
+        file_path: 'script.py',
+        content: 'print("hello"' // Syntax error
+      }
+    };
+    const output = runHook(input);
+    expect(output.decision).toBe('deny');
+    expect(output.reason).toContain('Python Syntax Error');
+    expect(output.systemMessage).toContain('SyntaxError');
+  });
+
+  it('should deny Python indentation error', () => {
+    const input = {
+      tool_name: 'write_file',
+      tool_input: {
+        file_path: 'script.py',
+        content: 'def f():\nprint(1)' // Indentation error
+      }
+    };
+    const output = runHook(input);
+    expect(output.decision).toBe('deny');
+    expect(output.reason).toContain('Python Syntax Error');
+    expect(output.systemMessage).toContain('IndentationError');
+  });
 });
