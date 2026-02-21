@@ -57,18 +57,25 @@ jobs:
           [ -f LICENSE ] && cp LICENSE deploy_out/ || echo "No LICENSE found"
 
       - name: Deploy to main branch
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          # 親ディレクトリのコミットハッシュを取得
+          PARENT_HASH=$(git rev-parse --short HEAD)
+          
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           
-          # deploy_out ディレクトリを orphan ブランチ（履歴のないブランチ）のルートとして初期化
           cd deploy_out
           git init
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           
+          # リモートを明示的に追加（GITHUB_TOKEN を使用して認証）
+          git remote add origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git"
+          
           git add -A
-          git commit -m "chore: deploy build artifacts from dev $(git rev-parse --short HEAD) [skip ci]"
+          git commit -m "chore: deploy build artifacts from dev ${PARENT_HASH} [skip ci]"
           
           # main ブランチへ強制プッシュ
           git push origin HEAD:main --force
