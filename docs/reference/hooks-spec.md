@@ -1,6 +1,6 @@
-# Gemini Hooks API Reference
+# Gemini Hooks Spec
 
-This document provides the complete API specification for developing Hooks in Gemini CLI extensions.
+This document provides the complete specification for developing Hooks in Gemini CLI extensions.
 Hooks are synchronous scripts executed by the CLI at specific lifecycle events.
 
 ## 1. Configuration (`hooks/hooks.json`)
@@ -17,7 +17,7 @@ Hooks are defined in `hooks/hooks.json` within the extension root.
           {
             "name": "my-hook",
             "type": "command",
-            "command": "node \"${extensionPath}${/}dist${/}hooks${/}my_hook.js\"",
+            "command": "node "${extensionPath}${/}dist${/}hooks${/}my_hook.js"",
             "timeout": 5000  // Optional: Timeout in ms (default: 60000)
           }
         ]
@@ -41,7 +41,7 @@ Use these variables in the `command` string.
 | :--- | :--- |
 | `${extensionPath}` | Absolute path to the extension root. |
 | `${workspacePath}` | Absolute path to the current project root. |
-| `${/}` | OS-specific path separator (`\` or `/`). |
+| `${/}` | OS-specific path separator (`` or `/`). |
 
 ## 2. Runtime Protocol
 

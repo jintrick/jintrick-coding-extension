@@ -1,0 +1,105 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Gemini CLI Extension Manifest",
+  "description": "Schema for gemini-extension.json manifest files.",
+  "type": "object",
+  "required": ["name", "version"],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "The unique name of the extension. Use lowercase, numbers, and dashes.",
+      "pattern": "^[a-z0-9-]+$"
+    },
+    "version": {
+      "type": "string",
+      "description": "The version of the extension (semver).",
+      "pattern": "^\\d+\\.\\d+\\.\\d+(-.+)?$"
+    },
+    "description": {
+      "type": "string",
+      "description": "A short description of the extension."
+    },
+    "mcpServers": {
+      "type": "object",
+      "description": "A map of MCP servers to their configurations.",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["command"],
+        "properties": {
+          "command": {
+            "type": "string",
+            "description": "The command to run the MCP server (e.g., 'node', 'python')."
+          },
+          "args": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Arguments passed to the MCP server command."
+          },
+          "env": {
+            "type": "object",
+            "additionalProperties": { "type": "string" },
+            "description": "Environment variables for the MCP server."
+          }
+        }
+      }
+    },
+    "contextFileName": {
+      "type": "string",
+      "description": "The name of the file that contains the context for the extension. If omitted, the CLI defaults to GEMINI.md.",
+      "default": "GEMINI.md"
+    },
+    "excludeTools": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "description": "Tool names to exclude, or command-specific restrictions like 'run_shell_command(rm -rf)'."
+      },
+      "description": "An array of tool names to block from the model's access."
+    },
+    "settings": {
+      "type": "array",
+      "description": "User-defined settings that the CLI will prompt for upon installation.",
+      "items": {
+        "type": "object",
+        "required": ["name", "envVar"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "User-friendly name for the setting."
+          },
+          "description": {
+            "type": "string",
+            "description": "Description of the setting shown to the user."
+          },
+          "envVar": {
+            "type": "string",
+            "description": "The environment variable name to store the setting value in."
+          },
+          "sensitive": {
+            "type": "boolean",
+            "description": "If true, the value is stored securely and obfuscated in logs.",
+            "default": false
+          },
+          "default": {
+            "type": "string",
+            "description": "Default value for the setting."
+          }
+        }
+      }
+    },
+    "commands": {
+      "type": "array",
+      "description": "Explicitly defined custom commands provided by the extension.",
+      "items": {
+        "type": "object",
+        "required": ["path"],
+        "properties": {
+          "path": {
+            "type": "string",
+            "description": "Path to the .toml command definition file relative to the extension root."
+          }
+        }
+      }
+    }
+  }
+}

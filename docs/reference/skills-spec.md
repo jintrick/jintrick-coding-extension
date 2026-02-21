@@ -1,6 +1,6 @@
-# Gemini Skills API Reference
+# Gemini Skills Spec
 
-This document provides the complete API specification for developing Agent Skills in Gemini CLI extensions.
+This document provides the complete specification for developing Agent Skills in Gemini CLI extensions.
 
 ## 1. Skill Discovery & Structure
 
