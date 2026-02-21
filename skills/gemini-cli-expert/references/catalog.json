@@ -1,0 +1,719 @@
+{
+  "documents": [
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/CONTRIBUTING.md",
+      "path": "CONTRIBUTING.md",
+      "title": "Contributing to Gemini CLI",
+      "summary": "Guidelines for contributing code and documentation to the Gemini CLI project, including development setup, pull request process, and coding conventions."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/GEMINI.md",
+      "path": "GEMINI.md",
+      "title": "Gemini CLI Project Context",
+      "summary": "Technical overview of Gemini CLI, including its purpose, core technologies (Node.js, TypeScript, React/Ink), project architecture, and development workflows."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/README.md",
+      "path": "README.md",
+      "title": "Gemini CLI Overview",
+      "summary": "The main landing page for Gemini CLI, highlighting its features (free tier, powerful models, built-in tools), installation instructions, and authentication options."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/ROADMAP.md",
+      "path": "ROADMAP.md",
+      "title": "Gemini CLI Roadmap",
+      "summary": "Guiding principles and focus areas for the future development of Gemini CLI, including how the roadmap is managed via GitHub Issues."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/SECURITY.md",
+      "path": "SECURITY.md",
+      "title": "Security Policy",
+      "summary": "Instructions for reporting security issues in Gemini CLI."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/.gemini/skills/code-reviewer/SKILL.md",
+      "path": ".gemini/skills/code-reviewer/SKILL.md",
+      "title": "Code Reviewer Skill",
+      "summary": "Instructions for the AI agent to perform code reviews for local changes and remote Pull Requests, focusing on correctness, maintainability, and security."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/.gemini/skills/docs-changelog/SKILL.md",
+      "path": ".gemini/skills/docs-changelog/SKILL.md",
+      "title": "Docs Changelog Skill",
+      "summary": "Procedures for automating the update of changelog files (latest.md, preview.md, index.md) during new releases."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/.gemini/skills/docs-changelog/references/highlights_examples.md",
+      "path": ".gemini/skills/docs-changelog/references/highlights_examples.md",
+      "title": "Changelog Highlights Examples",
+      "summary": "Reference examples of how to write concise and effective release highlights for the changelog."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/.gemini/skills/docs-changelog/references/index_template.md",
+      "path": ".gemini/skills/docs-changelog/references/index_template.md",
+      "title": "Changelog Index Template",
+      "summary": "Markdown template for adding new release announcements to the main changelog index."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/.gemini/skills/docs-changelog/references/latest_template.md",
+      "path": ".gemini/skills/docs-changelog/references/latest_template.md",
+      "title": "Latest Release Template",
+      "summary": "Markdown template for the latest.md changelog page, including sections for highlights and detailed changes."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/.gemini/skills/docs-changelog/references/preview_template.md",
+      "path": ".gemini/skills/docs-changelog/references/preview_template.md",
+      "title": "Preview Release Template",
+      "summary": "Markdown template for the preview.md changelog page, highlighting experimental features and installation via the @preview tag."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/.gemini/skills/docs-writer/SKILL.md",
+      "path": ".gemini/skills/docs-writer/SKILL.md",
+      "title": "Docs Writer Skill",
+      "summary": "Comprehensive instructions for the AI agent to produce accurate, clear, and consistent documentation for Gemini CLI, covering voice, tone, formatting, and structure."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/.gemini/skills/pr-creator/SKILL.md",
+      "path": ".gemini/skills/pr-creator/SKILL.md",
+      "title": "PR Creator Skill",
+      "summary": "Expert guidance for the AI agent to create high-quality Pull Requests that follow repository standards, including branch management, template usage, and preflight checks."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/.github/pull_request_template.md",
+      "path": ".github/pull_request_template.md",
+      "title": "Pull Request Template",
+      "summary": "Standard template for GitHub Pull Requests, ensuring consistent reporting of summaries, details, related issues, validation steps, and pre-merge checklists."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/docs/architecture.md",
+      "path": "docs/architecture.md",
+      "title": "Architecture Overview",
+      "summary": "High-level technical design of Gemini CLI, describing the CLI package (frontend), Core package (backend), and built-in tools, along with their interaction flow."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/docs/CONTRIBUTING.md",
+      "path": "docs/CONTRIBUTING.md",
+      "title": "Contributing Documentation (Redirect)",
+      "summary": "A placeholder or redirect pointing to the main CONTRIBUTING.md file in the root directory."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/docs/faq.md",
+      "path": "docs/faq.md",
+      "title": "Frequently Asked Questions",
+      "summary": "Answers to common questions regarding API errors, installation issues, platform-specific bugs (Windows), and security configurations."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/docs/index.md",
+      "path": "docs/index.md",
+      "title": "Documentation Index",
+      "summary": "The central landing page for all Gemini CLI documentation, providing links to quickstart guides, tutorials, feature references, and technical topics."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/docs/integration-tests.md",
+      "path": "docs/integration-tests.md",
+      "title": "Integration Testing Framework",
+      "summary": "Detailed overview of the integration testing setup for Gemini CLI, including instructions for running, building, and debugging end-to-end tests."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/docs/issue-and-pr-automation.md",
+      "path": "docs/issue-and-pr-automation.md",
+      "title": "Issue and PR Automation",
+      "summary": "Description of the automated workflows (Gemini-based triage, CI checks, PR auditing) used to manage and integrate community contributions efficiently."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/docs/local-development.md",
+      "path": "docs/local-development.md",
+      "title": "Local Development and Tracing",
+      "summary": "Guide for developers on how to set up local development and enable OpenTelemetry-based tracing (dev traces) using Genkit or Jaeger."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/docs/npm.md",
+      "path": "docs/npm.md",
+      "title": "NPM Package and Workspace Overview",
+      "summary": "Technical details about the monorepo's two main packages (@google/gemini-cli and @google/gemini-cli-core) and how NPM Workspaces are used for dependency management."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/docs/quota-and-pricing.md",
+      "path": "docs/quota-and-pricing.md",
+      "title": "Quotas and Pricing Guide",
+      "summary": "Detailed breakdown of the free usage limits and paid tier options for Gemini CLI, based on authentication methods like Google login, API keys, or Vertex AI."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/docs/release-confidence.md",
+      "path": "docs/release-confidence.md",
+      "title": "Release Confidence Strategy",
+      "summary": "Overview of the quality gates and verification steps (automated tests, manual dogfooding, telemetry review) required before promoting a Gemini CLI release to stable."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/docs/releases.md",
+      "path": "docs/releases.md",
+      "title": "Release Process and Lifecycle",
+      "summary": "Detailed explanation of the Gemini CLI release cadence (nightly, preview, stable), environment differences (dev vs prod), and automated promotion workflows."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/docs/tos-privacy.md",
+      "path": "docs/tos-privacy.md",
+      "title": "Terms of Service and Privacy",
+      "summary": "Information regarding the licenses, terms of service, and privacy notices applicable to Gemini CLI and the Google services it accesses."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/docs/troubleshooting.md",
+      "path": "docs/troubleshooting.md",
+      "title": "Troubleshooting and Debugging",
+      "summary": "Solutions for common issues like authentication errors, environment variable misconfigurations, and platform-specific bugs, along with debugging tips for CLI and Core."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/docs/admin/enterprise-controls.md",
+      "path": "docs/admin/enterprise-controls.md",
+      "title": "Enterprise Administrator Controls",
+      "summary": "Documentation for organization admins to manage and enforce security policies (MCP allowlisting, extensions, skills) globally for enterprise users."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/docs/changelogs/index.md",
+      "path": "docs/changelogs/index.md",
+      "title": "Release Notes Index",
+      "summary": "A central archive of major release announcements for Gemini CLI, covering key features and improvements introduced in each version."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/docs/changelogs/latest.md",
+      "path": "docs/changelogs/latest.md",
+      "title": "Latest Stable Release Notes (v0.28.0)",
+      "summary": "Detailed changelog for the latest stable release, highlighting UX enhancements, IDE support, security updates, and a full list of merged pull requests."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/docs/changelogs/preview.md",
+      "path": "docs/changelogs/preview.md",
+      "title": "Preview Release Notes (v0.29.0-preview.0)",
+      "summary": "Highlights of the latest preview release, including Plan Mode enhancements, core agent improvements, and UX updates like autocomplete in the input prompt."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/docs/cli/checkpointing.md",
+      "path": "docs/cli/checkpointing.md",
+      "title": "Project Checkpointing",
+      "summary": "Explanation of the Checkpointing feature which automatically saves project state snapshots before file modifications, allowing for safe rollbacks via the /restore command."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/docs/cli/cli-reference.md",
+      "path": "docs/cli/cli-reference.md",
+      "title": "Gemini CLI Cheatsheet",
+      "summary": "Quick reference for commonly used commands, options, model aliases, and management flags for extensions, MCP servers, and skills."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/docs/cli/commands.md",
+      "path": "docs/cli/commands.md",
+      "title": "CLI Command Reference",
+      "summary": "Comprehensive guide to all built-in slash commands (/), at-commands (@), and shell passthrough commands (!) available in Gemini CLI."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/docs/cli/creating-skills.md",
+      "path": "docs/cli/creating-skills.md",
+      "title": "Creating Agent Skills",
+      "summary": "Guide on how to extend Gemini CLI by creating custom Agent Skills, using either the skill-creator tool or manual directory setup."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/docs/cli/custom-commands.md",
+      "path": "docs/cli/custom-commands.md",
+      "title": "Custom Commands Guide",
+      "summary": "Instructions for creating and managing personalized slash commands using TOML files, including argument handling and shell/file injection."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/docs/cli/enterprise.md",
+      "path": "docs/cli/enterprise.md",
+      "title": "Enterprise Configuration Guide",
+      "summary": "Best practices for deploying Gemini CLI in corporate environments, focusing on centralized system settings, restricted tool access, and sandboxing."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/docs/cli/gemini-ignore.md",
+      "path": "docs/cli/gemini-ignore.md",
+      "title": "Ignoring Files (.geminiignore)",
+      "summary": "Overview of the .geminiignore feature, which follows .gitignore conventions to exclude specific files and directories from AI tool operations."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/docs/cli/gemini-md.md",
+      "path": "docs/cli/gemini-md.md",
+      "title": "Project Context (GEMINI.md)",
+      "summary": "Detailed explanation of how to use GEMINI.md files to provide project-specific instructions and hierarchical context to the Gemini model."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/docs/cli/generation-settings.md",
+      "path": "docs/cli/generation-settings.md",
+      "title": "Advanced Model Configuration",
+      "summary": "Power-user guide for managing generative model hyperparameters (temperature, thinking budget) through aliases and conditional overrides."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/docs/cli/headless.md",
+      "path": "docs/cli/headless.md",
+      "title": "Headless Mode Reference",
+      "summary": "Technical documentation for running Gemini CLI non-interactively, including JSON output formats, streaming events, and exit code standards."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/docs/cli/index.md",
+      "path": "docs/cli/index.md",
+      "title": "CLI Feature Overview",
+      "summary": "Main index for CLI-specific documentation, linking to user guides, slash command references, configuration options, and technical features."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/docs/cli/keyboard-shortcuts.md",
+      "path": "docs/cli/keyboard-shortcuts.md",
+      "title": "Keyboard Shortcuts Reference",
+      "summary": "List of all default keyboard shortcuts for Gemini CLI, covering cursor movement, editing, scrolling, history search, and application controls."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/docs/cli/model-routing.md",
+      "path": "docs/cli/model-routing.md",
+      "title": "Model Routing and Resilience",
+      "summary": "Explanation of the automatic fallback mechanism that switches to a secondary model when the primary model fails or reaches quota limits."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/docs/cli/model.md",
+      "path": "docs/cli/model.md",
+      "title": "Model Selection (/model)",
+      "summary": "Instructions for choosing between Pro, Flash, and Auto model settings using the /model command to balance speed and reasoning capabilities."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/docs/cli/plan-mode.md",
+      "path": "docs/cli/plan-mode.md",
+      "title": "Plan Mode (Experimental)",
+      "summary": "Detailed guide on using Plan Mode for research and design, describing the read-only safety policies, planning workflows, and tool restrictions."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/docs/cli/rewind.md",
+      "path": "docs/cli/rewind.md",
+      "title": "Conversation Rewind (/rewind)",
+      "summary": "Guide on using the /rewind command to navigate back through history, preview interactions, and optionally revert AI-generated code changes."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/docs/cli/sandbox.md",
+      "path": "docs/cli/sandbox.md",
+      "title": "Sandboxing and Security",
+      "summary": "Documentation on isolating tool execution using macOS Seatbelt or container-based (Docker/Podman) sandboxing to protect the host system."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/docs/cli/session-management.md",
+      "path": "docs/cli/session-management.md",
+      "title": "Session Management Guide",
+      "summary": "Overview of how Gemini CLI automatically saves and resumes conversation history, including session retention policies and the interactive Session Browser."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/docs/cli/settings.md",
+      "path": "docs/cli/settings.md",
+      "title": "Settings Reference (/settings)",
+      "summary": "Comprehensive reference for all available configuration settings in Gemini CLI, covering UI, model, context, tools, and experimental features."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/docs/cli/skills.md",
+      "path": "docs/cli/skills.md",
+      "title": "Agent Skills Overview",
+      "summary": "Introduction to Agent Skills, which provide on-demand expertise and repeatable workflows through discoverable capabilities in workspace, user, or extension tiers."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/docs/cli/system-prompt.md",
+      "path": "docs/cli/system-prompt.md",
+      "title": "System Prompt Override",
+      "summary": "Documentation on completely replacing the built-in system prompt using the GEMINI_SYSTEM_MD environment variable for advanced project-specific behavior."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/docs/cli/telemetry.md",
+      "path": "docs/cli/telemetry.md",
+      "title": "Observability and Telemetry",
+      "summary": "Comprehensive guide to the OpenTelemetry-based observability system in Gemini CLI, covering configuration for Google Cloud or local targets, and detailed log/metric schemas."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/docs/cli/themes.md",
+      "path": "docs/cli/themes.md",
+      "title": "Visual Themes",
+      "summary": "Guide on customizing the CLI appearance using pre-defined themes or by defining custom color schemes in settings.json, including support for loading themes from files."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/docs/cli/token-caching.md",
+      "path": "docs/cli/token-caching.md",
+      "title": "Token Caching and Optimization",
+      "summary": "Explanation of how Gemini CLI optimizes API costs by reusing system instructions and context when using API key or Vertex AI authentication."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/docs/cli/trusted-folders.md",
+      "path": "docs/cli/trusted-folders.md",
+      "title": "Trusted Folders Security",
+      "summary": "Details on the Trusted Folders feature, which prevents malicious project-specific configurations from loading without explicit user approval."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/docs/cli/uninstall.md",
+      "path": "docs/cli/uninstall.md",
+      "title": "Uninstalling Gemini CLI",
+      "summary": "Step-by-step instructions for removing Gemini CLI from your system, depending on whether it was installed via npm, npx, Homebrew, or MacPorts."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/docs/cli/tutorials/automation.md",
+      "path": "docs/cli/tutorials/automation.md",
+      "title": "Task Automation Tutorial",
+      "summary": "Tutorial on using headless mode and Unix pipes to automate development tasks, such as generating documentation or creating smart git commit messages."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/docs/cli/tutorials/file-management.md",
+      "path": "docs/cli/tutorials/file-management.md",
+      "title": "File Management Tutorial",
+      "summary": "Guide on providing context to the agent by including files/directories, finding files through exploration, and reviewing proposed code changes."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/docs/cli/tutorials/mcp-setup.md",
+      "path": "docs/cli/tutorials/mcp-setup.md",
+      "title": "MCP Server Setup Tutorial",
+      "summary": "Practical example of setting up a Model Context Protocol (MCP) server for GitHub to extend the agent's capabilities with external data and services."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/docs/cli/tutorials/memory-management.md",
+      "path": "docs/cli/tutorials/memory-management.md",
+      "title": "Context and Memory Management Tutorial",
+      "summary": "Tutorial on controlling the agent's knowledge using GEMINI.md files, hierarchical context loading, and teaching the agent persistent facts through chat."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/docs/cli/tutorials/session-management.md",
+      "path": "docs/cli/tutorials/session-management.md",
+      "title": "Session and History Tutorial",
+      "summary": "Guide on resuming, browsing, and rewinding conversation sessions, including how to fork conversations and manage short-term history."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/docs/cli/tutorials/shell-commands.md",
+      "path": "docs/cli/tutorials/shell-commands.md",
+      "title": "Shell Commands Tutorial",
+      "summary": "Tutorial on executing system commands, automating complex tasks like running tests, and managing background processes safely within Gemini CLI."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/docs/cli/tutorials/skills-getting-started.md",
+      "path": "docs/cli/tutorials/skills-getting-started.md",
+      "title": "Getting Started with Agent Skills",
+      "summary": "Step-by-step guide to creating and using your first Agent Skill, including directory setup, definition files, and bundling custom logic scripts."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/docs/cli/tutorials/task-planning.md",
+      "path": "docs/cli/tutorials/task-planning.md",
+      "title": "Task Planning with Todos",
+      "summary": "Guide on using the built-in task planning system to break down complex jobs into manageable, real-time updated checklists."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/docs/cli/tutorials/web-tools.md",
+      "path": "docs/cli/tutorials/web-tools.md",
+      "title": "Web Search and Fetch Tutorial",
+      "summary": "Tutorial on using the internet to research new technologies, fetch deep context from URLs, and apply web-based knowledge to local code."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/docs/core/concepts.md",
+      "path": "docs/core/concepts.md",
+      "title": "Core Concepts and Terminology",
+      "summary": "Explanation of fundamental terms in the Gemini CLI ecosystem, such as approval modes, context hierarchy, extensions, hooks, and the policy engine."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/docs/core/index.md",
+      "path": "docs/core/index.md",
+      "title": "Core Package Overview",
+      "summary": "Technical introduction to the backend logic of Gemini CLI, responsible for API orchestration, prompt engineering, tool management, and security."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/docs/core/memport.md",
+      "path": "docs/core/memport.md",
+      "title": "Memory Import Processor",
+      "summary": "Documentation for the @file.md import feature, which allows modularizing GEMINI.md files while ensuring safety against circular imports."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/docs/core/policy-engine.md",
+      "path": "docs/core/policy-engine.md",
+      "title": "Policy Engine Reference",
+      "summary": "Detailed guide on the security subsystem that evaluates tool calls against rules to determine if they should be allowed, denied, or require confirmation."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/docs/core/remote-agents.md",
+      "path": "docs/core/remote-agents.md",
+      "title": "Remote Subagents (A2A)",
+      "summary": "Information on connecting Gemini CLI to remote subagents using the Agent-to-Agent (A2A) protocol, including configuration schemas and management commands."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/docs/core/subagents.md",
+      "path": "docs/core/subagents.md",
+      "title": "Sub-agents (Experimental)",
+      "summary": "Overview of specialized sub-agents like codebase_investigator and cli_help, and how to create custom local sub-agents using Markdown definition files."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/docs/core/tools-api.md",
+      "path": "docs/core/tools-api.md",
+      "title": "Core Tools API",
+      "summary": "Technical documentation on the tool system in Gemini CLI, describing how tools are defined, registered, and executed, and how to extend them via discovery commands or MCP servers."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/docs/examples/proxy-script.md",
+      "path": "docs/examples/proxy-script.md",
+      "title": "Example Proxy Script",
+      "summary": "A reference Node.js script for creating a minimal proxy server to control outbound HTTPS traffic from a sandboxed environment."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/docs/extensions/best-practices.md",
+      "path": "docs/extensions/best-practices.md",
+      "title": "Extension Best Practices",
+      "summary": "Strategies for developing robust and secure Gemini CLI extensions, covering structure, input validation, sensitive settings, and release management."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/docs/extensions/index.md",
+      "path": "docs/extensions/index.md",
+      "title": "Extensions Overview",
+      "summary": "Introduction to Gemini CLI extensions as a format for packaging prompts, tools, and skills, with links to writing, reference, and releasing guides."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/docs/extensions/reference.md",
+      "path": "docs/extensions/reference.md",
+      "title": "Extensions Reference",
+      "summary": "Deep dive into the gemini-extension.json manifest format and CLI commands for installing, updating, and configuring extensions."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/docs/extensions/releasing.md",
+      "path": "docs/extensions/releasing.md",
+      "title": "Releasing Extensions",
+      "summary": "Guide on distributing Gemini CLI extensions via Git repositories or GitHub Releases, including channel management and platform-specific archives."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/docs/extensions/writing-extensions.md",
+      "path": "docs/extensions/writing-extensions.md",
+      "title": "Writing Your First Extension",
+      "summary": "Step-by-step tutorial on creating a new extension, adding an MCP server, custom commands, and bundling Agent Skills."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/docs/get-started/authentication.md",
+      "path": "docs/get-started/authentication.md",
+      "title": "Authentication Setup Guide",
+      "summary": "Comprehensive instructions for setting up authentication with Google accounts, Gemini API keys, or Vertex AI, including environment variable persistence."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/docs/get-started/configuration-v1.md",
+      "path": "docs/get-started/configuration-v1.md",
+      "title": "Legacy Configuration Reference (v1)",
+      "summary": "Documentation for the deprecated v1 settings.json format, including information on automatic migration to the new structure."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/docs/get-started/configuration.md",
+      "path": "docs/get-started/configuration.md",
+      "title": "Configuration Guide",
+      "summary": "Detailed guide on configuring Gemini CLI behavior via settings files, environment variables, and command-line arguments, including a full settings reference."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/docs/get-started/examples.md",
+      "path": "docs/get-started/examples.md",
+      "title": "CLI Examples and Use Cases",
+      "summary": "Practical examples of using Gemini CLI for automated file renaming, codebase exploration, data transformation (CSV), and unit test generation."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/docs/get-started/gemini-3.md",
+      "path": "docs/get-started/gemini-3.md",
+      "title": "Gemini 3 Integration Guide",
+      "summary": "Instructions for enabling and using Gemini 3 Pro and Flash models in Gemini CLI, covering usage limits, fallback mechanisms, and administrator setup."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/docs/get-started/index.md",
+      "path": "docs/get-started/index.md",
+      "title": "Getting Started Quickstart",
+      "summary": "Initial steps for installing, authenticating, and configuring Gemini CLI to start enhancing development workflows from the terminal."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/docs/get-started/installation.md",
+      "path": "docs/get-started/installation.md",
+      "title": "Installation and System Requirements",
+      "summary": "Overview of system requirements and recommended specifications, along with global installation methods via npm, Homebrew, MacPorts, and Anaconda."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/docs/hooks/best-practices.md",
+      "path": "docs/hooks/best-practices.md",
+      "title": "Hooks Best Practices",
+      "summary": "Guidelines for developing efficient and secure hooks, covering performance optimization, debugging techniques (stdout vs stderr), and privacy considerations."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/docs/hooks/index.md",
+      "path": "docs/hooks/index.md",
+      "title": "Hooks Overview",
+      "summary": "Introduction to the hooks system, which allows intercepting and customizing CLI behavior at specific lifecycle events like tool execution or model requests."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/docs/hooks/reference.md",
+      "path": "docs/hooks/reference.md",
+      "title": "Hooks Technical Reference",
+      "summary": "Definitive specification for hook events, input/output schemas, exit codes, and global mechanics for synchronous interceptor scripts."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/docs/hooks/writing-hooks.md",
+      "path": "docs/hooks/writing-hooks.md",
+      "title": "Writing Your First Hook",
+      "summary": "Tutorial on creating custom hooks for tasks like logging tool executions, blocking secrets in commits, and dynamic context injection."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/docs/ide-integration/ide-companion-spec.md",
+      "path": "docs/ide-integration/ide-companion-spec.md",
+      "title": "IDE Companion Plugin Specification",
+      "summary": "Technical specification for building companion plugins for other IDEs, defining the communication interface (MCP over HTTP), context sharing, and diffing logic."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/docs/ide-integration/index.md",
+      "path": "docs/ide-integration/index.md",
+      "title": "IDE Integration Overview",
+      "summary": "Guide on connecting Gemini CLI to supported IDEs (VS Code, Antigravity) to enable workspace awareness and native in-editor diffing for code modifications."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/docs/tools/activate-skill.md",
+      "path": "docs/tools/activate-skill.md",
+      "title": "Activate Skill Tool",
+      "summary": "Technical description of the activate_skill tool, used by the agent to load specialized expert procedures and resources dynamically."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/docs/tools/ask-user.md",
+      "path": "docs/tools/ask-user.md",
+      "title": "Ask User Tool",
+      "summary": "Documentation for the ask_user tool, which allows the agent to present interactive dialogs with multiple-choice or text questions to the user."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/docs/tools/file-system.md",
+      "path": "docs/tools/file-system.md",
+      "title": "File System Tools Reference",
+      "summary": "Detailed reference for core file system tools like list_directory, read_file, write_file, glob, grep_search, and replace."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/docs/tools/index.md",
+      "path": "docs/tools/index.md",
+      "title": "Tools Overview",
+      "summary": "Central index for all Gemini CLI tools, categorized into user-triggered, model-triggered, file management, agent coordination, and information gathering."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/docs/tools/internal-docs.md",
+      "path": "docs/tools/internal-docs.md",
+      "title": "Internal Documentation Tool",
+      "summary": "Description of the get_internal_docs tool, which grants the agent access to its own project documentation for improved technical accuracy."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/docs/tools/mcp-server.md",
+      "path": "docs/tools/mcp-server.md",
+      "title": "MCP Server Integration Guide",
+      "summary": "Comprehensive guide on configuring and using Model Context Protocol (MCP) servers, covering transport mechanisms, OAuth support, and tool discovery."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/docs/tools/memory.md",
+      "path": "docs/tools/memory.md",
+      "title": "Memory Tool Reference",
+      "summary": "Technical documentation for the save_memory tool, used by the agent to persist facts and preferences in the user's global GEMINI.md file."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/docs/tools/planning.md",
+      "path": "docs/tools/planning.md",
+      "title": "Planning Tools Reference",
+      "summary": "Overview of tools like enter_plan_mode and exit_plan_mode that manage the lifecycle of the experimental Plan Mode."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/docs/tools/shell.md",
+      "path": "docs/tools/shell.md",
+      "title": "Shell Tool (run_shell_command)",
+      "summary": "Documentation for the primary tool used to execute system commands, including support for interactive PTYS, color output, and command prefix allowlisting."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/docs/tools/todos.md",
+      "path": "docs/tools/todos.md",
+      "title": "Todo Tool (write_todos)",
+      "summary": "Description of the tool used by the agent to manage subtasks and provide real-time progress updates in the CLI footer."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/docs/tools/web-fetch.md",
+      "path": "docs/tools/web-fetch.md",
+      "title": "Web Fetch Tool",
+      "summary": "Technical details for the web_fetch tool, enabling the agent to process content from specific URLs for summarization or data extraction."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/docs/tools/web-search.md",
+      "path": "docs/tools/web-search.md",
+      "title": "Web Search Tool",
+      "summary": "Documentation for the google_web_search tool, which grounds model responses in real-time information from Google Search results."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/evals/README.md",
+      "path": "evals/README.md",
+      "title": "Behavioral Evals Overview",
+      "summary": "Guide on using behavioral evaluations to validate model steering and decision-making, including instructions for running tests and fixing regressions."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/packages/a2a-server/development-extension-rfc.md",
+      "path": "packages/a2a-server/development-extension-rfc.md",
+      "title": "A2A Development-Tool RFC",
+      "summary": "Proposed specification for the development-tool extension to the A2A protocol, standardizing communication between agents and IDEs."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/packages/a2a-server/README.md",
+      "path": "packages/a2a-server/README.md",
+      "title": "A2A Server README",
+      "summary": "Initial technical notes for the experimental Agent-to-Agent server implementation."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/packages/cli/GEMINI.md",
+      "path": "packages/cli/GEMINI.md",
+      "title": "CLI Package Development Context",
+      "summary": "Project-specific instructions for developing the React/Ink-based terminal UI and its associated tests."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/packages/cli/src/commands/extensions/examples/mcp-server/README.md",
+      "path": "packages/cli/src/commands/extensions/examples/mcp-server/README.md",
+      "title": "MCP Server Example Guide",
+      "summary": "Documentation for a boilerplate MCP server extension, demonstrating how to expose tools and prompts to Gemini CLI."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/packages/cli/src/commands/extensions/examples/skills/skills/greeter/SKILL.md",
+      "path": "packages/cli/src/commands/extensions/examples/skills/skills/greeter/SKILL.md",
+      "title": "Greeter Skill Example",
+      "summary": "A simple example skill that provides a friendly greeting to the user."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/packages/cli/src/commands/extensions/examples/themes-example/README.md",
+      "path": "packages/cli/src/commands/extensions/examples/themes-example/README.md"
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/packages/core/src/skills/builtin/skill-creator/SKILL.md",
+      "path": "packages/core/src/skills/builtin/skill-creator/SKILL.md",
+      "title": "Skill Creator Skill",
+      "summary": "Detailed guidance for creating effective Agent Skills, covering core principles like conciseness, progressive disclosure, and the physical anatomy of a skill."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/packages/sdk/README.md",
+      "path": "packages/sdk/README.md",
+      "title": "Gemini CLI SDK Overview",
+      "summary": "Introduction to the programmatic interface for Gemini CLI, with installation instructions and a basic usage example for streaming agent responses."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/packages/sdk/SDK_DESIGN.md",
+      "path": "packages/sdk/SDK_DESIGN.md",
+      "title": "SDK Design Specification",
+      "summary": "Technical design document for the Gemini CLI SDK, outlining the implementation status of core features like the agent loop, custom tools, and system instructions."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/packages/sdk/test-data/skills/pirate-skill/SKILL.md",
+      "path": "packages/sdk/test-data/skills/pirate-skill/SKILL.md",
+      "title": "Pirate Skill Example",
+      "summary": "A fun test-data skill that makes the agent speak like a pirate."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/packages/vscode-ide-companion/development.md",
+      "path": "packages/vscode-ide-companion/development.md",
+      "title": "VS Code Companion Development",
+      "summary": "Instructions for local development of the VS Code companion extension, including watch mode and launching the extension development host."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/packages/vscode-ide-companion/NOTICES.txt",
+      "path": "packages/vscode-ide-companion/NOTICES.txt"
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/packages/vscode-ide-companion/README.md",
+      "path": "packages/vscode-ide-companion/README.md"
+    }
+  ],
+  "metadata": {
+    "source": "github_fetch",
+    "repo_url": "https://github.com/google-gemini/gemini-cli"
+  },
+  "title": "Gemini CLI Technical Documentation",
+  "summary": "Comprehensive technical documentation for Gemini CLI, an open-source AI agent for the terminal. This knowledge base covers core architecture, configuration guides, command references, Agent Skills, extension development, security policies, and automation tutorials.",
+  "src_type": "github",
+  "source_url": "https://github.com/google-gemini/gemini-cli",
+  "unknowns": [
+    {
+      "uri": "https://github.com/google-gemini/gemini-cli"
+    }
+  ]
+}
