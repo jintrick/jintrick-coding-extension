@@ -80,7 +80,7 @@ gemini extensions link .
 
 ### 7. CI/CD と自動リリース (GitHub Actions)
 `dev` ブランチへのプッシュにより、`main` ブランチへの自動デプロイとタグ付けが行われる。
-- **マニフェスト同期**: `node tools/sync-version.cjs` によりバージョンが自動同期される。
+- **マニフェスト同期**: `git commit -m "vX.Y.Z"` 実行時に `IDD Sync Hook` によりバージョンが自動同期・追加ステージングされる。
 - **配布専用ブランチ**: `main` は配布専用であり、ソースコードを含まないクリーンな構成で運用される。
 
 ---

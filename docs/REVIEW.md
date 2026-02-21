@@ -9,7 +9,7 @@
 
 ## IDD (Issue-Driven Development) プロセスの遵守
 - ビルドの明示: dist/ 成果物が npm run build によって更新されており、ソースコードとの整合性が保たれているか。
-- バージョン同期: package.json と gemini-extension.json のバージョンが sync-version.cjs によって同期されているか。
+- バージョン同期: `git commit -m "vX.Y.Z"` 実行時に `IDD Sync Hook` によって package.json と gemini-extension.json のバージョンが自動的に同期されているか。
 
 ## パフォーマンスとトークン効率
 - 低遅延 Hook: ツール実行ごとに呼ばれる Hook は極めて高速である必要がある。不要なディスク I/O や重い処理が含まれていないか。
