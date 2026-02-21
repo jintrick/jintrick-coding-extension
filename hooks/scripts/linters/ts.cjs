@@ -5,12 +5,16 @@ const ts = require('typescript');
 
 module.exports = function(content, filePath, tool_name) {
   try {
+    const isTSX = filePath.toLowerCase().endsWith('.tsx');
+    const scriptKind = isTSX ? ts.ScriptKind.TSX : ts.ScriptKind.TS;
+
     // ソースファイルを作成（パース実行）
     const sourceFile = ts.createSourceFile(
       filePath,
       content,
       ts.ScriptTarget.Latest, // 最新のJS機能を許可
-      true // setParentNodes
+      true, // setParentNodes
+      scriptKind
     );
 
     // 構文エラーのみを取得 (parseDiagnostics)

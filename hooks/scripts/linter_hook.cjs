@@ -38,7 +38,7 @@ function main() {
   const ext = path.extname(filePath).toLowerCase();
   
   // バリデーション対象外の拡張子はスキップ
-  const supportedExtensions = ['.js', '.cjs', '.mjs', '.ts', '.json', '.md'];
+  const supportedExtensions = ['.js', '.cjs', '.mjs', '.ts', '.tsx', '.json', '.md', '.py'];
   if (!supportedExtensions.includes(ext)) {
     allow();
   }

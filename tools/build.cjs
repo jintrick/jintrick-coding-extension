@@ -14,8 +14,10 @@ const linters = [
   'hooks/scripts/linters/cjs.cjs',
   'hooks/scripts/linters/mjs.cjs',
   'hooks/scripts/linters/ts.cjs',
+  'hooks/scripts/linters/tsx.cjs',
   'hooks/scripts/linters/json.cjs',
-  'hooks/scripts/linters/md.cjs'
+  'hooks/scripts/linters/md.cjs',
+  'hooks/scripts/linters/py.cjs'
 ];
 
 async function build() {
