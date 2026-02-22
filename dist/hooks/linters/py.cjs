@@ -1,6 +1,6 @@
-// hooks/scripts/linters/py.cjs
-var { spawnSync } = require("child_process");
-var LINTER_SCRIPT = `
+const { spawnSync } = require('child_process');
+
+const LINTER_SCRIPT = `
 import ast, sys, builtins
 try: tree = ast.parse(sys.stdin.read())
 except SyntaxError as e: print(f"SyntaxError: {e}", file=sys.stderr); sys.exit(1)
@@ -14,9 +14,16 @@ def collect_target(node, scope):
         for elt in node.elts: collect_target(elt, scope)
 
 def collect_defs(node, scope):
+    # Stop recursion at new scopes (Function, Class, Lambda, Comprehensions)
     if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef)):
         scope.add(node.name)
-    elif isinstance(node, (ast.Import, ast.ImportFrom)):
+        return
+
+    if isinstance(node, (ast.Lambda, ast.ListComp, ast.SetComp, ast.DictComp, ast.GeneratorExp)):
+        return
+
+    # Collect definitions in current scope
+    if isinstance(node, (ast.Import, ast.ImportFrom)):
         for alias in node.names:
             scope.add(alias.asname if alias.asname else alias.name.split('.')[0])
     elif isinstance(node, (ast.Assign, ast.AnnAssign)):
@@ -28,13 +35,13 @@ def collect_defs(node, scope):
         for item in node.items:
             if item.optional_vars: collect_target(item.optional_vars, scope)
 
-    if isinstance(node, (ast.If, ast.For, ast.AsyncFor, ast.While, ast.With, ast.AsyncWith, ast.Try)):
-        for field, value in ast.iter_fields(node):
-            if isinstance(value, list):
-                for item in value:
-                    if isinstance(item, ast.AST): collect_defs(item, scope)
-            elif isinstance(value, ast.AST):
-                collect_defs(value, scope)
+    # Generic recursion for all fields (Handles If, Try, ExceptHandler, Match, etc.)
+    for field, value in ast.iter_fields(node):
+        if isinstance(value, list):
+            for item in value:
+                if isinstance(item, ast.AST): collect_defs(item, scope)
+        elif isinstance(value, ast.AST):
+            collect_defs(value, scope)
 
 for node in tree.body:
     collect_defs(node, final_globals)
@@ -43,19 +50,61 @@ for node in tree.body:
 current_globals = set(dir(builtins)) | {'__name__', '__file__', '__doc__', '__package__', '__loader__', '__spec__', '__annotations__', '__builtins__'}
 
 def check_node(node, read_scope, write_scope):
-    if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef)):
+    if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)):
         write_scope.add(node.name)
-        func_scope = set(final_globals) # Start with all globals
-        # Add arguments to local scope
-        args = node.args if hasattr(node, 'args') else None
-        if args:
-            for arg in args.args: func_scope.add(arg.arg)
-            for arg in args.kwonlyargs: func_scope.add(arg.arg)
-            if args.vararg: func_scope.add(args.vararg.arg)
-            if args.kwarg: func_scope.add(args.kwarg.arg)
+
+        # Check decorators, returns, defaults in OUTER scope
+        for decorator in node.decorator_list:
+            check_node(decorator, read_scope, read_scope)
+        if node.returns:
+            check_node(node.returns, read_scope, read_scope)
+
+        args = node.args
+        if args.defaults:
+            for default in args.defaults: check_node(default, read_scope, read_scope)
+        if args.kw_defaults:
+            for default in args.kw_defaults:
+                if default: check_node(default, read_scope, read_scope)
+
+        # Create function scope inheriting from OUTER scope (closure support)
+        func_scope = set(final_globals) | set(read_scope)
+
+        # Add arguments to local scope AND check annotations
+        for arg in args.args:
+            if arg.annotation: check_node(arg.annotation, read_scope, read_scope)
+            func_scope.add(arg.arg)
+        if hasattr(args, 'posonlyargs'): # Python 3.8+
+             for arg in args.posonlyargs:
+                if arg.annotation: check_node(arg.annotation, read_scope, read_scope)
+                func_scope.add(arg.arg)
+        for arg in args.kwonlyargs:
+            if arg.annotation: check_node(arg.annotation, read_scope, read_scope)
+            func_scope.add(arg.arg)
+        if args.vararg:
+            if args.vararg.annotation: check_node(args.vararg.annotation, read_scope, read_scope)
+            func_scope.add(args.vararg.arg)
+        if args.kwarg:
+            if args.kwarg.annotation: check_node(args.kwarg.annotation, read_scope, read_scope)
+            func_scope.add(args.kwarg.arg)
 
         for child in node.body:
              check_node(child, func_scope, func_scope)
+        return
+
+    if isinstance(node, ast.ClassDef):
+        write_scope.add(node.name)
+
+        # Check decorators, bases, keywords in OUTER scope
+        for decorator in node.decorator_list:
+            check_node(decorator, read_scope, read_scope)
+        for base in node.bases:
+            check_node(base, read_scope, read_scope)
+        for keyword in node.keywords:
+            check_node(keyword.value, read_scope, read_scope)
+
+        class_scope = set(final_globals) | set(read_scope)
+        for child in node.body:
+            check_node(child, class_scope, class_scope)
         return
 
     if isinstance(node, (ast.Import, ast.ImportFrom)):
@@ -126,41 +175,47 @@ def check_node(node, read_scope, write_scope):
 for node in tree.body:
     check_node(node, current_globals, current_globals)
 `;
+
 module.exports = function(content, filePath, tool_name) {
   try {
     const runPython = (cmd) => {
-      return spawnSync(cmd, ["-c", LINTER_SCRIPT], {
+      return spawnSync(cmd, ['-c', LINTER_SCRIPT], {
         input: content,
-        encoding: "utf8",
-        timeout: 5e3,
+        encoding: 'utf8',
+        timeout: 5000,
         shell: false
       });
     };
-    let result = runPython("python");
-    if (result.error && result.error.code === "ENOENT") {
-      result = runPython("python3");
+
+    let result = runPython('python');
+
+    if (result.error && result.error.code === 'ENOENT') {
+      result = runPython('python3');
     }
-    if (result.error && result.error.code === "ENOENT") {
-      process.stderr.write(`[Debug] Python not found, skipping validation for ${filePath}
-`);
+
+    if (result.error && result.error.code === 'ENOENT') {
+      process.stderr.write(`[Debug] Python not found, skipping validation for ${filePath}\n`);
       return { valid: true };
     }
+
     if (result.status !== 0) {
-      const isSyntaxError = result.stderr.includes("SyntaxError");
-      const reason = isSyntaxError ? "Python Syntax Error" : "Python Linter Error";
+      const isSyntaxError = result.stderr.includes('SyntaxError');
+      const reason = isSyntaxError ? 'Python Syntax Error' : 'Python Linter Error';
+
       return {
         valid: false,
-        reason,
-        systemMessage: `\u{1F6AB} ${reason}: ${tool_name} \u3067\u66F8\u304D\u8FBC\u3082\u3046\u3068\u3057\u305F ${filePath} \u306B\u30A8\u30E9\u30FC\u304C\u3042\u308A\u307E\u3059\u3002
+        reason: reason,
+        systemMessage: `🚫 ${reason}: ${tool_name} で書き込もうとした ${filePath} にエラーがあります。
 ${result.stderr}`
       };
     }
+
     return { valid: true };
   } catch (e) {
     return {
       valid: false,
       reason: `Linter Error: ${e.message}`,
-      systemMessage: `\u{1F6AB} Python Linter Error: \u4E88\u671F\u305B\u306C\u30A8\u30E9\u30FC\u304C\u767A\u751F\u3057\u307E\u3057\u305F\u3002
+      systemMessage: `🚫 Python Linter Error: 予期せぬエラーが発生しました。
 ${e.message}`
     };
   }
