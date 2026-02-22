@@ -74,7 +74,7 @@ def check_node(node, read_scope, write_scope):
             if arg.annotation: check_node(arg.annotation, read_scope, read_scope)
             func_scope.add(arg.arg)
         if hasattr(args, 'posonlyargs'): # Python 3.8+
-             for arg in args.posonlyargs:
+            for arg in args.posonlyargs:
                 if arg.annotation: check_node(arg.annotation, read_scope, read_scope)
                 func_scope.add(arg.arg)
         for arg in args.kwonlyargs:

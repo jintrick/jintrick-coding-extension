@@ -14,7 +14,7 @@ function runHook(input) {
   try {
     const json = JSON.parse(result.stdout.trim());
     if (result.stderr) {
-       json._stderr = result.stderr;
+      json._stderr = result.stderr;
     }
     return json;
   } catch (e) {

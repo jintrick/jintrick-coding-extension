@@ -1,6 +1,6 @@
-const { spawnSync } = require('child_process');
-
-const LINTER_SCRIPT = `
+// hooks/scripts/linters/py.cjs
+var { spawnSync } = require("child_process");
+var LINTER_SCRIPT = `
 import ast, sys, builtins
 try: tree = ast.parse(sys.stdin.read())
 except SyntaxError as e: print(f"SyntaxError: {e}", file=sys.stderr); sys.exit(1)
@@ -74,7 +74,7 @@ def check_node(node, read_scope, write_scope):
             if arg.annotation: check_node(arg.annotation, read_scope, read_scope)
             func_scope.add(arg.arg)
         if hasattr(args, 'posonlyargs'): # Python 3.8+
-             for arg in args.posonlyargs:
+            for arg in args.posonlyargs:
                 if arg.annotation: check_node(arg.annotation, read_scope, read_scope)
                 func_scope.add(arg.arg)
         for arg in args.kwonlyargs:
@@ -175,47 +175,41 @@ def check_node(node, read_scope, write_scope):
 for node in tree.body:
     check_node(node, current_globals, current_globals)
 `;
-
 module.exports = function(content, filePath, tool_name) {
   try {
     const runPython = (cmd) => {
-      return spawnSync(cmd, ['-c', LINTER_SCRIPT], {
+      return spawnSync(cmd, ["-c", LINTER_SCRIPT], {
         input: content,
-        encoding: 'utf8',
-        timeout: 5000,
+        encoding: "utf8",
+        timeout: 5e3,
         shell: false
       });
     };
-
-    let result = runPython('python');
-
-    if (result.error && result.error.code === 'ENOENT') {
-      result = runPython('python3');
+    let result = runPython("python");
+    if (result.error && result.error.code === "ENOENT") {
+      result = runPython("python3");
     }
-
-    if (result.error && result.error.code === 'ENOENT') {
-      process.stderr.write(`[Debug] Python not found, skipping validation for ${filePath}\n`);
+    if (result.error && result.error.code === "ENOENT") {
+      process.stderr.write(`[Debug] Python not found, skipping validation for ${filePath}
+`);
       return { valid: true };
     }
-
     if (result.status !== 0) {
-      const isSyntaxError = result.stderr.includes('SyntaxError');
-      const reason = isSyntaxError ? 'Python Syntax Error' : 'Python Linter Error';
-
+      const isSyntaxError = result.stderr.includes("SyntaxError");
+      const reason = isSyntaxError ? "Python Syntax Error" : "Python Linter Error";
       return {
         valid: false,
-        reason: reason,
-        systemMessage: `🚫 ${reason}: ${tool_name} で書き込もうとした ${filePath} にエラーがあります。
+        reason,
+        systemMessage: `\u{1F6AB} ${reason}: ${tool_name} \u3067\u66F8\u304D\u8FBC\u3082\u3046\u3068\u3057\u305F ${filePath} \u306B\u30A8\u30E9\u30FC\u304C\u3042\u308A\u307E\u3059\u3002
 ${result.stderr}`
       };
     }
-
     return { valid: true };
   } catch (e) {
     return {
       valid: false,
       reason: `Linter Error: ${e.message}`,
-      systemMessage: `🚫 Python Linter Error: 予期せぬエラーが発生しました。
+      systemMessage: `\u{1F6AB} Python Linter Error: \u4E88\u671F\u305B\u306C\u30A8\u30E9\u30FC\u304C\u767A\u751F\u3057\u307E\u3057\u305F\u3002
 ${e.message}`
     };
   }
