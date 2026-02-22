@@ -19,7 +19,7 @@ tools:
 - **構造の固定**: 対象プロジェクトの `TEMPLATE.md` の構成を正確に再現せよ。空欄を禁止し、不明な項目は「UNKNOWN」と明記せよ。
 
 ### ワークフロー
-以下の手順を、一連েরシーケンスとして実行せよ。
+以下の手順を、一連のシーケンスとして実行せよ。
 
 1. **知識のロード (Knowledge Activation)**:
    - 直ちに `activate_skill(name="prompt_crafter")` を実行せよ。
