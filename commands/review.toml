@@ -1,20 +1,23 @@
-description = "プロジェクト規約に基づき、指定された対象を @code-reviewer にレビューさせる。"
-
+description = "指定されたPRの厳格なガイドライン準拠レビューを行う（/review <PR番号>）"
 prompt = """
-あなたは、このプロジェクトのメインエージェントだ。
-以下の `PROJECT_CONVENTIONS`（規約）を絶対の基準として、`@code-reviewer` サブエージェントにレビューを依頼せよ。
+PR #{{args}} の実装について、厳格かつ批判的なコードレビューを実行せよ。
 
-### PROJECT_CONVENTIONS
-@{REVIEW.md}
+以下の手順を実行し、レビューに必要な情報を収集せよ。
 
-### ユーザーの指示 (Review Target/Extra Instructions)
-{{args}}
+1. **PR情報およびレビューコメントの完全取得**
+   - `gh pr view {{args}} --comments` を実行し、PRの概要を確認する。
+   - **重要**: `gh api repos/:owner/:repo/pulls/{{args}}/comments --jq ".[] | {path: .path, line: .line, body: .body, user: .user.login}"` を実行し、**Gemini Code Assist 等による行ごとの指摘事項（インラインコメント）を全て取得・読解せよ。**
+   - 対応するIssue文書（`docs/Issue/vX.Y.Z.md` 等）を `read_file` で読み込む。
 
-### あなたの任務
-1. `{{args}}` の内容を分析し、ユーザーが何をレビューしたいのかを特定せよ。
-   - ファイルパスが指定されていれば、そのファイルの内容を `read_file` 等で読み取れ。
-   - `git` 関連の指示（--staged等）があれば、適切な git コマンドで差分を取得せよ。
-   - 具体的な指示がなければ、デフォルトとして `git diff HEAD`（現在の変更）を取得せよ。
-2. 取得した「コードの内容」と、上記の `PROJECT_CONVENTIONS` をセットにして、サブエージェント `@code-reviewer` を呼び出し、規約に基づいた客観的レビューを依頼せよ。
-3. サブエージェントからの指摘結果を、要約せずに正確にユーザーに伝えよ。
+2. **コードの取得と整合性確認**
+   - `gh pr checkout {{args}}` を実行し、マージ前のコードをローカルに展開する。
+   - `npm install` を実行し、依存関係を同期する。
+   - **`npm run type-check`** (または `tsc --noEmit`) を実行し、型エラーやインポート解決エラーがないことを確認する。
+   - `npm run lint` を実行し、静的解析の結果を確認する。
+
+3. **変更内容の把握**
+   - `glob` ツールを使用して、今回変更されたファイルを特定し、`read_file` で内容を読み込むこと。
+
+4. **レビューを実施**
+    - プロジェクト固有のレビュー方法（`docs/Issue/REVIEW.md` なければ @docs/REVIEW.md）に従ってレビューを実施せよ。
 """
