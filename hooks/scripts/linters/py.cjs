@@ -2,7 +2,7 @@ const { spawnSync } = require('child_process');
 
 const LINTER_SCRIPT = `
 import ast, sys, builtins
-try: tree = ast.parse(sys.stdin.read())
+try: tree = ast.parse(sys.stdin.buffer.read().decode('utf-8', errors='replace'))
 except SyntaxError as e:
     print(f"SyntaxError: {e.msg} (line {e.lineno}, offset {e.offset})", file=sys.stderr)
     if e.text:
