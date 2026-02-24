@@ -5,8 +5,10 @@ import ast, sys, builtins
 try: tree = ast.parse(sys.stdin.read())
 except SyntaxError as e:
     print(f"SyntaxError: {e.msg} (line {e.lineno}, offset {e.offset})", file=sys.stderr)
-    if e.text: print(f"  {e.text.strip()}", file=sys.stderr)
-    if e.offset: print(f"  {' ' * (e.offset-1)}^", file=sys.stderr)
+    if e.text:
+        print(e.text.rstrip(), file=sys.stderr)
+        if e.offset:
+            print(" " * (e.offset - 1) + "^", file=sys.stderr)
     sys.exit(1)
 
 # Pass 1: Collect ALL global definitions (including future ones)
@@ -199,14 +201,12 @@ module.exports = function(content, filePath, tool_name) {
       return { valid: true };
     }
     if (result.status !== 0) {
-      process.stderr.write(`[Debug] Python Linter Failed: ${result.stderr}
-`);
       const isSyntaxError = result.stderr.includes("SyntaxError");
-      const reason = isSyntaxError ? "Python Syntax Error" : "Python Linter Error";
+      const reason = isSyntaxError ? `Python Syntax Error in ${filePath}: ${result.stderr.trim()}` : `Python Linter Error in ${filePath}: ${result.stderr.trim()}`;
       return {
         valid: false,
         reason,
-        systemMessage: `\u{1F6AB} ${reason}: ${tool_name} \u3067\u66F8\u304D\u8FBC\u3082\u3046\u3068\u3057\u305F ${filePath} \u306B\u30A8\u30E9\u30FC\u304C\u3042\u308A\u307E\u3059\u3002
+        systemMessage: `\u{1F6AB} ${isSyntaxError ? "Python Syntax Error" : "Python Linter Error"}: ${tool_name} \u3067\u66F8\u304D\u8FBC\u3082\u3046\u3068\u3057\u305F ${filePath} \u306B\u30A8\u30E9\u30FC\u304C\u3042\u308A\u307E\u3059\u3002
 ${result.stderr}`
       };
     }
