@@ -3,7 +3,13 @@ const { spawnSync } = require('child_process');
 const LINTER_SCRIPT = `
 import ast, sys, builtins
 try: tree = ast.parse(sys.stdin.read())
-except SyntaxError as e: print(f"SyntaxError: {e}", file=sys.stderr); sys.exit(1)
+except SyntaxError as e:
+    print(f"SyntaxError: {e.msg} (line {e.lineno}, offset {e.offset})", file=sys.stderr)
+    if e.text:
+        print(e.text.rstrip(), file=sys.stderr)
+        if e.offset:
+            print(" " * (e.offset - 1) + "^", file=sys.stderr)
+    sys.exit(1)
 
 # Pass 1: Collect ALL global definitions (including future ones)
 final_globals = set(dir(builtins)) | {'__name__', '__file__', '__doc__', '__package__', '__loader__', '__spec__', '__annotations__', '__builtins__'}
@@ -200,12 +206,14 @@ module.exports = function(content, filePath, tool_name) {
 
     if (result.status !== 0) {
       const isSyntaxError = result.stderr.includes('SyntaxError');
-      const reason = isSyntaxError ? 'Python Syntax Error' : 'Python Linter Error';
+      const reason = isSyntaxError
+        ? `Python Syntax Error in ${filePath}: ${result.stderr.trim()}`
+        : `Python Linter Error in ${filePath}: ${result.stderr.trim()}`;
 
       return {
         valid: false,
         reason: reason,
-        systemMessage: `🚫 ${reason}: ${tool_name} で書き込もうとした ${filePath} にエラーがあります。
+        systemMessage: `🚫 ${isSyntaxError ? 'Python Syntax Error' : 'Python Linter Error'}: ${tool_name} で書き込もうとした ${filePath} にエラーがあります。
 ${result.stderr}`
       };
     }
