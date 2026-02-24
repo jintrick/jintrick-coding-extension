@@ -1,3 +1,8 @@
 {
-  "test": "linter-check",
-  "missing_value": 
+  "hook_event_name": "BeforeTool",
+  "tool_name": "write_file",
+  "tool_input": {
+    "file_path": "tests/exp/broken.py",
+    "content": "def broken_function(:"
+  }
+}
