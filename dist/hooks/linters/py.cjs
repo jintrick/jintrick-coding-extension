@@ -3,7 +3,11 @@ var { spawnSync } = require("child_process");
 var LINTER_SCRIPT = `
 import ast, sys, builtins
 try: tree = ast.parse(sys.stdin.read())
-except SyntaxError as e: print(f"SyntaxError: {e}", file=sys.stderr); sys.exit(1)
+except SyntaxError as e:
+    print(f"SyntaxError: {e.msg} (line {e.lineno}, offset {e.offset})", file=sys.stderr)
+    if e.text: print(f"  {e.text.strip()}", file=sys.stderr)
+    if e.offset: print(f"  {' ' * (e.offset-1)}^", file=sys.stderr)
+    sys.exit(1)
 
 # Pass 1: Collect ALL global definitions (including future ones)
 final_globals = set(dir(builtins)) | {'__name__', '__file__', '__doc__', '__package__', '__loader__', '__spec__', '__annotations__', '__builtins__'}
@@ -195,6 +199,8 @@ module.exports = function(content, filePath, tool_name) {
       return { valid: true };
     }
     if (result.status !== 0) {
+      process.stderr.write(`[Debug] Python Linter Failed: ${result.stderr}
+`);
       const isSyntaxError = result.stderr.includes("SyntaxError");
       const reason = isSyntaxError ? "Python Syntax Error" : "Python Linter Error";
       return {
