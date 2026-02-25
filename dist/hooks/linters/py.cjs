@@ -188,7 +188,12 @@ module.exports = function(content, filePath, tool_name) {
         input: content,
         encoding: "utf8",
         timeout: 5e3,
-        shell: false
+        shell: false,
+        env: {
+          ...process.env,
+          PYTHONUTF8: "1",
+          PYTHONIOENCODING: "utf-8"
+        }
       });
     };
     let result = runPython("python");

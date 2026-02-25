@@ -189,7 +189,12 @@ module.exports = function(content, filePath, tool_name) {
         input: content,
         encoding: 'utf8',
         timeout: 5000,
-        shell: false
+        shell: false,
+        env: {
+          ...process.env,
+          PYTHONUTF8: '1',
+          PYTHONIOENCODING: 'utf-8'
+        }
       });
     };
 
