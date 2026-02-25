@@ -38,9 +38,12 @@ prompt = """AI Agent Julesに実装を依頼する次のプロセスを開始せ
     - `gh api "repos/:owner/:repo/pulls/<取得したPR番号>/comments" | ConvertFrom-Json | Where-Object { $_.user.type -eq 'Bot' } | Format-List user, body, path, line` を実行し、Bot（Gemini Code Assist等）からの指摘を確認する。
     - 指摘がある場合は、内容を精査し、修正が必要ならコードを修正してコミット・プッシュする。
 4-4. 事前レビュー:
+    - gh pr checkout 後のローカル環境でファイルを精査せよ。git diffを使ってはならない。
     - `read_file` ツールを使用して `REVIEW.md` を読み込み、`codebase_investigator`を起動してそのREVIEW.mdに基づいた厳格なレビューを実行させる。
-
+    
 5. レビュー後の分岐
+    - まずはユーザーに報告。今回のissueに関連する問題と、それ以外に新たに発見された問題とに切り分けて報告せよ。
+
 5-1. 軽微な不備（リント、テスト、定数修正等）の場合:
     - Geminiが自ら修正を施したのち、git commit -am "fix: minor adjustments by gemini" および git push を実行せよ。
 5-2. 重大な不備がある場合: 
