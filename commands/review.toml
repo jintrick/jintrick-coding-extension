@@ -1,23 +1,15 @@
 description = "指定されたPRの厳格なガイドライン準拠レビューを行う（/review <PR番号>）"
 prompt = """
-PR #{{args}} の実装について、厳格かつ批判的なコードレビューを実行せよ。
+PR #{{args}} について、`code-reviewer` サブエージェントを起動して厳格かつ批判的なコードレビューを実行せよ。
 
-以下の手順を実行し、レビューに必要な情報を収集せよ。
+## レビューの準備
+1. **情報の収集**
+   - `gh pr view {{args}} --comments` でPR概要を確認。
+   - `gh api repos/:owner/:repo/pulls/{{args}}/comments --jq ".[] | {path: .path, line: .line, body: .body, user: .user.login}"` でインラインコメントをすべて取得。
+   - 関連するIssue文書（`docs/issue/` 配下）を読み込む。
+2. **コードの取得**
+   - `gh pr checkout {{args}}` でPRブランチをローカルにチェックアウト。
 
-1. **PR情報およびレビューコメントの完全取得**
-   - `gh pr view {{args}} --comments` を実行し、PRの概要を確認する。
-   - **重要**: `gh api repos/:owner/:repo/pulls/{{args}}/comments --jq ".[] | {path: .path, line: .line, body: .body, user: .user.login}"` を実行し、**Gemini Code Assist 等による行ごとの指摘事項（インラインコメント）を全て取得・読解せよ。**
-   - 対応するIssue文書（`docs/Issue/vX.Y.Z.md` 等）を `read_file` で読み込む。
-
-2. **コードの取得と整合性確認**
-   - `gh pr checkout {{args}}` を実行し、マージ前のコードをローカルに展開する。
-   - `npm install` を実行し、依存関係を同期する。
-   - **`npm run type-check`** (または `tsc --noEmit`) を実行し、型エラーやインポート解決エラーがないことを確認する。
-   - `npm run lint` を実行し、静的解析の結果を確認する。
-
-3. **変更内容の把握**
-   - `glob` ツールを使用して、今回変更されたファイルを特定し、`read_file` で内容を読み込むこと。
-
-4. **レビューを実施**
-    - プロジェクト固有のレビュー方法（`docs/Issue/REVIEW.md` なければ @docs/REVIEW.md）に従ってレビューを実施せよ。
+## レビューの実行
+プロジェクト規約（`docs/REVIEW.md` または `docs/issue/REVIEW.md`）に従い、`code-reviewer` を用いて、実装の安全性、規約遵守、パフォーマンス、および Auto Discovery への適合性を厳格に評価せよ。
 """
