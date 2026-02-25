@@ -1,6 +1,6 @@
 # IDD (Issue-Driven Development) 開発フロー
 
-本プロジェクトにおける開発は、以下の厳格な手順に従って進行する。
+本プロジェクトにおける開発は、AI エージェント (Jules) を活用した以下の簡素化された手順に従って進行する。
 
 ## ステージ 1: 起草 (Drafting)
 1.  **Issue作成**: `docs/issue/vX.Y.Z.md` を作成する。
@@ -12,38 +12,50 @@
 2.  **待機**: jintrick から明確な承認（「Go」「OK」等）を得るまで、次のステップへ進んではならない。
 
 ## ステージ 3: 確定 (Commit Plan)
-1.  **ブランチ作成**: `dev` ブランチから `issue/vX.Y.Z` という名前の作業ブランチを作成する。
-2.  **ステータス更新**: Issue のステータスを進行中に変更する。
-3.  **計画のコミット**: 承認された Issue 文書と、関連する設定（`hooks.json` の枠組みなど）をコミットする。
+1.  **ステータス更新**: Issue のステータスを進行中 (`in-progress`) に変更する。
+2.  **計画のコミット**: 承認された Issue 文書を `dev` ブランチにコミットする。
+    ```bash
+    git add docs/issue/vX.Y.Z.md
+    git commit -m "docs: start issue vX.Y.Z"
+    ```
 
-## ステージ 4: 実装 (Implementation)
-1.  **ロジック作成**: 確定した Issue に基づき、実際のコードを記述する。
-2.  **ビルド**: 変更後は必ず `npm run build` を実行し、`dist/` 成果物を更新する。
+## ステージ 4: 実装 (Implementation with Jules)
+1.  **Jules への依頼**: `jules-client` スキルを使用し、`dev` ブランチをベースに実装を依頼する。
+    ```bash
+    # コマンド例
+    /jules "Implement docs/issue/vX.Y.Z.md" --branch dev
+    ```
+2.  **PR 作成**: Jules が自動的に PR を作成するのを待つ。
 
 ## ステージ 5: 検証 (Verification)
-1.  **自動テスト**: `npm test` を実行し、全てのテストがパスすることを確認する。
-2.  **実機検証**: リンク済みの環境において、ビルド成果物が正しく動作するか確認する。
+1.  **PR チェックアウト**: 作成された PR をローカルにチェックアウトする。
+2.  **自動テスト**: `npm test` を実行し、全てのテストがパスすることを確認する。
+3.  **実機検証**: ビルド成果物 (`dist/`) が正しく動作するか確認する。
     *   `npm run build` で `dist/` を更新。
-    *   **重要 (Skills/Commands)**: `/extensions restart` で変更を反映可能。
-    *   **重要 (Hooks)**: `/extensions restart` は **Hooks の変更には無効** である。`hooks.json` の定義変更や新規追加を反映させるには、**CLI の完全な再起動（新しいセッションの開始）** が必須となる。
-3.  **修正**: バグが見つかった場合は修正し、再度ビルド・テストを行う。
+    *   `/extensions restart` (Skills/Commands反映) または CLI 再起動 (Hooks反映) を行う。
 
 ## ステージ 6: 事後処理 (Closure Preparation)
-1.  **Issue更新**: ステータスを `closed`（または完了）に変更し、必要なメタデータを記入する。
-2.  **最終コミット**: 実装成果と更新した Issue をコミットする。
+1.  **Issue更新**: ステータスを `completed` に変更し、解決コミット等のメタデータを記入する。
+2.  **最終コミット**: 実装成果と更新した Issue を PR ブランチにコミットする。
 
 ## ステージ 7: リリースと最終完了 (Release & Final Completion)
-1.  **マージ**: 作業ブランチを `dev` ブランチへマージする。**`main` ブランチへ直接マージしてはならない。**
-2.  **リリース準備**: `/done <version>` コマンドを実行する。
-    *   `release-manager` スキルにより `package.json` 等のバージョンが同期される。
-    *   `RELEASE.md` に基づき、コミット等の後続作業を案内されるので、それに従う。
+1.  **リリース準備**: PR ブランチ上で `/done vX.Y.Z` コマンドを実行する。
+    *   `release-manager` スキルによりバージョンが同期される。
+    *   `RELEASE.md` に基づき、コミット等の後続作業を行う。
+2.  **マージ**: PR を `dev` ブランチへマージする。
+    ```bash
+    gh pr merge --merge --delete-branch
+    ```
 3.  **デプロイ**: `dev` ブランチをリモートへプッシュする。これにより GitHub Actions が起動し、自動的に `main` へのデプロイとタグ付けが行われる。
-4.  **ブランチ削除**: 統合が完了したローカルの作業ブランチを削除する。
-5.  **フロー完了**: ここで全ての IDD フローが完了したとみなす。
+    ```bash
+    git checkout dev
+    git pull origin dev
+    git push origin dev
+    ```
+4.  **フロー完了**: ここで全ての IDD フローが完了したとみなす。
 
 ## 禁止事項
 - 承認を得る前のコード実装。
-- `dev` ブランチ上での直接的なデバッグ作業。
 - `main` ブランチへの直接的なコミットまたはマージ。
 - PowerShell 以外（bash等）のコマンド使用。
 - シェルコマンドでの `&&` の使用。
