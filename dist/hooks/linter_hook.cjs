@@ -3,6 +3,9 @@
 // hooks/scripts/linter_hook.cjs
 var fs = require("fs");
 var path = require("path");
+function escapeRegExp(string) {
+  return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
 function main() {
   let input;
   try {
@@ -45,12 +48,17 @@ function main() {
         allow();
       }
       const currentContent = fs.readFileSync(filePath, "utf8");
-      const { old_string, new_string } = tool_input;
+      const { old_string, new_string, expected_replacements } = tool_input;
       if (old_string !== void 0 && new_string !== void 0) {
         const normalizedContent = currentContent.replace(/\r\n/g, "\n");
         const normalizedOld = old_string.replace(/\r\n/g, "\n");
         const normalizedNew = new_string.replace(/\r\n/g, "\n");
-        contentToValidate = normalizedContent.replace(normalizedOld, normalizedNew);
+        if (expected_replacements !== void 0) {
+          const regex = new RegExp(escapeRegExp(normalizedOld), "g");
+          contentToValidate = normalizedContent.replace(regex, () => normalizedNew);
+        } else {
+          contentToValidate = normalizedContent.replace(normalizedOld, () => normalizedNew);
+        }
       } else {
         process.stderr.write(`[Debug] old_string or new_string missing in replace
 `);
