@@ -1,3 +1,9 @@
+---
+name: release-manager
+description: リリース準備作業（バージョンの同期、RELEASE.mdに基づく後続作業の案内）を決定論的に実行する。
+version: 1.0.0
+---
+
 # Release Manager Skill
 
 ## 概要
