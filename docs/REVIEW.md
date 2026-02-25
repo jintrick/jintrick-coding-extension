@@ -9,7 +9,15 @@
 
 ## IDD (Issue-Driven Development) プロセスの遵守
 - ビルドの明示: dist/ 成果物が npm run build によって更新されており、ソースコードとの整合性が保たれているか。
-- バージョン同期: `git commit -m "vX.Y.Z"` 実行時に `IDD Sync Hook` によって package.json と gemini-extension.json のバージョンが自動的に同期されているか。
+- バージョン同期: `git commit -m "vX.Y.Z"` 実行時に `IDD Sync Hook` によって package.json と gemini-extension.json のバージョンが 自動的に同期されているか。
+
+## 拡張機能マニフェストと自動発見 (Manifest & Auto Discovery)
+- **マニフェストの最小化**: `gemini-extension.json` に `commands`, `skills`, `agents`, `hooks` を明示的に列挙してはならない。これらは Auto Discovery によって解決されるべきである。
+- **配置の正当性**: 各コンポーネントが正しいディレクトリ（`commands/*.toml`, `skills/*/SKILL.md`, `agents/*.md`, `hooks/hooks.json`）に配置されているか。
+
+## スキル定義の整合性 (Skill Definitions)
+- **YAML フロントマターの必須**: すべての `SKILL.md` の冒頭に、正しい形式の YAML フロントマター（`---` で囲まれた `name`, `description`, `version`）が含まれているか。これが欠落していると、CLI の Auto Discovery によってスキルが認識されない。
+- **エンコーディング**: `SKILL.md` および設定ファイルが UTF-8 (BOMなし) で保存されており、文字化けが発生していないか。
 
 ## パフォーマンスとトークン効率
 - 低遅延 Hook: ツール実行ごとに呼ばれる Hook は極めて高速である必要がある。不要なディスク I/O や重い処理が含まれていないか。

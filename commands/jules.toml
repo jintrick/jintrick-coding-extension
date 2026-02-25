@@ -49,8 +49,6 @@ prompt = """AI Agent Julesに実装を依頼する次のプロセスを開始せ
 5-2. 重大な不備がある場合: 
     - `api.cjs message <session_id> "修正指示"` を実行し、`api.cjs watch <session_id> --wait-for finish` を実行し、4.に戻る。
 5-3. 合格の場合:
-    - 次の手順（報告）へ進む。
-
-6. 報告
     - ユーザーに報告。「/review <取得したPR番号> を実行のこと。」
+   
 """
