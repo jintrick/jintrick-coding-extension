@@ -2,6 +2,10 @@
 const fs = require('fs');
 const path = require('path');
 
+function escapeRegExp(string) {
+  return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
 /**
  * Linter Hook (Modular Version)
  * 拡張子に応じて linters/ ディレクトリ内の各言語用バリデータ呼び出す
@@ -55,13 +59,15 @@ function main() {
         allow();
       }
       const currentContent = fs.readFileSync(filePath, 'utf8');
-      const { old_string, new_string } = tool_input;
+      const { old_string, new_string, expected_replacements } = tool_input;
 
       if (old_string !== undefined && new_string !== undefined) {
         const normalizedContent = currentContent.replace(/\r\n/g, '\n');
         const normalizedOld = old_string.replace(/\r\n/g, '\n');
         const normalizedNew = new_string.replace(/\r\n/g, '\n');
-        contentToValidate = normalizedContent.replace(normalizedOld, normalizedNew);
+
+        const regex = new RegExp(escapeRegExp(normalizedOld), expected_replacements !== undefined ? 'g' : undefined);
+        contentToValidate = normalizedContent.replace(regex, () => normalizedNew);
       } else {
         process.stderr.write(`[Debug] old_string or new_string missing in replace\n`);
         allow();
