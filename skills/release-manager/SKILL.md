@@ -5,8 +5,10 @@
 
 ## ワークフロー
 
-1.  **バージョンの同期**:
-    - `run_shell_command` で `node skills/release-manager/scripts/update_version.cjs <version>` を実行し、`package.json` および `gemini-extension.json` のバージョンを指定されたバージョンに更新する。
+1.  **バージョンの同期と検証**:
+    - `run_shell_command` で `node skills/release-manager/scripts/update_version.cjs <version>` を実行する。
+    - **検証**: 指定されたバージョンが SemVer 形式（例: `1.0.0`, `v1.2.3`）であるか自動的に検証される。不正な形式の場合はエラーとなり処理は中断される。
+    - **同期**: 検証を通過した場合、プロジェクト内のマニフェストファイル（`package.json`, `pyproject.toml`, `Cargo.toml` 等）を自動検出し、バージョンを更新する。
 
 2.  **リリース手順の確認**:
     - `read_file` で `RELEASE.md` の内容を確認する。

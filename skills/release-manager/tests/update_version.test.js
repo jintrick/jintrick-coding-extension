@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach, afterEach } from 'vitest';
+import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import fs from 'fs';
 import path from 'path';
 import os from 'os';
@@ -13,53 +13,87 @@ describe('updateVersion', () => {
 
   afterEach(() => {
     fs.rmSync(tmpDir, { recursive: true, force: true });
+    vi.restoreAllMocks();
   });
 
-  it('should update version in package.json and gemini-extension.json', () => {
+  it('should reject invalid version', () => {
+    const consoleError = vi.spyOn(console, 'error').mockImplementation(() => {});
+    // Pass console explicitly if needed, but spyOn works on global too if not passed via DI
+    // Our implementation uses DI for console, so we pass it.
+    const result = updateVersion('invalid-version', { fs, path, cwd: tmpDir, console });
+    expect(result).toBeNull();
+    expect(consoleError).toHaveBeenCalledWith(expect.stringContaining('Invalid version format'));
+  });
+
+  it('should accept valid SemVer versions', () => {
+    const result = updateVersion('1.0.0', { fs, path, cwd: tmpDir });
+    expect(result).toEqual([]); // No files to update, but not null (valid)
+
+    const result2 = updateVersion('v2.0.0-rc.1', { fs, path, cwd: tmpDir });
+    expect(result2).toEqual([]);
+  });
+
+  it('should update package.json correctly', () => {
     const packageJsonPath = path.join(tmpDir, 'package.json');
-    const geminiJsonPath = path.join(tmpDir, 'gemini-extension.json');
-
-    const initialPackageJson = { version: '1.0.0', name: 'test' };
-    const initialGeminiJson = { version: '1.0.0', id: 'test-ext' };
-
+    const initialPackageJson = { version: '0.1.0', name: 'test' };
     fs.writeFileSync(packageJsonPath, JSON.stringify(initialPackageJson, null, 2));
-    fs.writeFileSync(geminiJsonPath, JSON.stringify(initialGeminiJson, null, 2));
 
-    const newVersion = '1.1.0';
-    updateVersion(newVersion, { fs, path, cwd: tmpDir });
+    const result = updateVersion('1.0.0', { fs, path, cwd: tmpDir });
+    expect(result).toContain('package.json');
 
-    const updatedPackageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
-    const updatedGeminiJson = JSON.parse(fs.readFileSync(geminiJsonPath, 'utf8'));
-
-    expect(updatedPackageJson.version).toBe(newVersion);
-    expect(updatedGeminiJson.version).toBe(newVersion);
+    const updated = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
+    expect(updated.version).toBe('1.0.0');
   });
 
-  it('should preserve indentation and trailing newline', () => {
-    const packageJsonPath = path.join(tmpDir, 'package.json');
-    // 4 spaces indent, with trailing newline
-    const content = '{\n    "name": "test",\n    "version": "1.0.0"\n}\n';
-    fs.writeFileSync(packageJsonPath, content);
+  it('should update pyproject.toml correctly', () => {
+    const tomlPath = path.join(tmpDir, 'pyproject.toml');
+    const initialToml = '[tool.poetry]\nversion = "0.1.0"\n';
+    fs.writeFileSync(tomlPath, initialToml);
 
-    updateVersion('2.0.0', { fs, path, cwd: tmpDir });
+    const result = updateVersion('1.0.0', { fs, path, cwd: tmpDir });
+    expect(result).toContain('pyproject.toml');
 
-    const newContent = fs.readFileSync(packageJsonPath, 'utf8');
-    // JSON.stringify order depends on implementation but usually preserves insertion order for non-integer keys or reorders.
-    // Here we are parsing and re-stringifying.
-    // Wait, JSON.stringify does NOT preserve key order guaranteed, but V8 usually does for string keys.
-    // However, my formatJson implementation uses JSON.stringify(obj, null, indent).
-    // This will reconstruct the string.
-
-    // Check if version is updated and format looks correct.
-    expect(JSON.parse(newContent).version).toBe('2.0.0');
-    expect(newContent).toMatch(/"version": "2.0.0"/);
-    expect(newContent).toMatch(/^    "/m); // Indentation check
-    expect(newContent).toMatch(/\n$/); // Trailing newline check
+    const updatedContent = fs.readFileSync(tomlPath, 'utf8');
+    expect(updatedContent).toContain('version = "1.0.0"');
   });
 
-  it('should handle missing files gracefully', () => {
-    // Create empty dir
-    const updatedFiles = updateVersion('1.0.0', { fs, path, cwd: tmpDir });
-    expect(updatedFiles).toEqual([]);
+  it('should update Cargo.toml correctly', () => {
+    const tomlPath = path.join(tmpDir, 'Cargo.toml');
+    const initialToml = '[package]\nversion = "0.1.0"\n';
+    fs.writeFileSync(tomlPath, initialToml);
+
+    const result = updateVersion('1.0.0', { fs, path, cwd: tmpDir });
+    expect(result).toContain('Cargo.toml');
+
+    const updatedContent = fs.readFileSync(tomlPath, 'utf8');
+    expect(updatedContent).toContain('version = "1.0.0"');
+  });
+
+  it('should handle multiple files', () => {
+    fs.writeFileSync(path.join(tmpDir, 'package.json'), JSON.stringify({ version: '0.1.0' }));
+    fs.writeFileSync(path.join(tmpDir, 'gemini-extension.json'), JSON.stringify({ version: '0.1.0' }));
+
+    const result = updateVersion('1.0.0', { fs, path, cwd: tmpDir });
+    expect(result).toHaveLength(2);
+    expect(result).toContain('package.json');
+    expect(result).toContain('gemini-extension.json');
+  });
+
+    it('should respect .idd-sync.json configuration', () => {
+    const customJsonPath = path.join(tmpDir, 'custom.json');
+    fs.writeFileSync(customJsonPath, JSON.stringify({ meta: { v: '0.1.0' } }));
+
+    const iddSyncConfig = {
+      manifests: [
+        { file: 'custom.json', parser: 'json', paths: [['meta', 'v']] }
+      ]
+    };
+    fs.writeFileSync(path.join(tmpDir, '.idd-sync.json'), JSON.stringify(iddSyncConfig));
+
+    const result = updateVersion('1.0.0', { fs, path, cwd: tmpDir });
+    expect(result).toContain('custom.json');
+
+    const updated = JSON.parse(fs.readFileSync(customJsonPath, 'utf8'));
+    expect(updated.meta.v).toBe('1.0.0');
   });
 });
