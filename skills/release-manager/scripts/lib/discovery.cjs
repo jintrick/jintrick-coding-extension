@@ -9,15 +9,22 @@ const KNOWN_MANIFESTS = [
   { file: 'Cargo.toml', parser: 'toml', paths: [['package', 'version']] }
 ];
 
-function discoverManifests(rootDir) {
+function discoverManifests(rootDir, deps = {}) {
+  const {
+      fs: fsDeps = fs,
+      path: pathDeps = path,
+      jsonParser: jsonParserDeps = jsonParser,
+      tomlParser: tomlParserDeps = tomlParser
+  } = deps;
+
   const syncList = [];
 
   // Check for .idd-sync.json
   let customManifests = [];
-  const iddSyncPath = path.join(rootDir, '.idd-sync.json');
-  if (fs.existsSync(iddSyncPath)) {
+  const iddSyncPath = pathDeps.join(rootDir, '.idd-sync.json');
+  if (fsDeps.existsSync(iddSyncPath)) {
     try {
-      const config = JSON.parse(fs.readFileSync(iddSyncPath, 'utf8'));
+      const config = JSON.parse(fsDeps.readFileSync(iddSyncPath, 'utf8'));
       if (config.manifests && Array.isArray(config.manifests)) {
         customManifests = config.manifests;
       }
@@ -34,19 +41,19 @@ function discoverManifests(rootDir) {
   customManifests.forEach(m => allManifests.set(m.file, m));
 
   for (const [filename, config] of allManifests) {
-    const filepath = path.join(rootDir, filename);
-    if (fs.existsSync(filepath)) {
+    const filepath = pathDeps.join(rootDir, filename);
+    if (fsDeps.existsSync(filepath)) {
       try {
-        const content = fs.readFileSync(filepath, 'utf8');
+        const content = fsDeps.readFileSync(filepath, 'utf8');
         let parser;
         if (config.parser === 'json') {
-          parser = jsonParser;
+          parser = jsonParserDeps;
         } else if (config.parser === 'toml') {
-          parser = tomlParser;
+          parser = tomlParserDeps;
         } else {
             // infer from extension if not specified in custom config
-            if (filename.endsWith('.json')) parser = jsonParser;
-            else if (filename.endsWith('.toml')) parser = tomlParser;
+            if (filename.endsWith('.json')) parser = jsonParserDeps;
+            else if (filename.endsWith('.toml')) parser = tomlParserDeps;
             else continue;
         }
 

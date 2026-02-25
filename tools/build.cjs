@@ -5,8 +5,7 @@ const fs = require('fs');
 const hooks = [
   'hooks/scripts/linter_hook.cjs',
   'hooks/scripts/expert_docs_hook.cjs',
-  'hooks/scripts/command_fixer_hook.cjs',
-  'hooks/scripts/idd_sync_hook.cjs'
+  'hooks/scripts/command_fixer_hook.cjs'
 ];
 
 const linters = [
