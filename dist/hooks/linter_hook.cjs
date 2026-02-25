@@ -53,12 +53,8 @@ function main() {
         const normalizedContent = currentContent.replace(/\r\n/g, "\n");
         const normalizedOld = old_string.replace(/\r\n/g, "\n");
         const normalizedNew = new_string.replace(/\r\n/g, "\n");
-        if (expected_replacements !== void 0) {
-          const regex = new RegExp(escapeRegExp(normalizedOld), "g");
-          contentToValidate = normalizedContent.replace(regex, () => normalizedNew);
-        } else {
-          contentToValidate = normalizedContent.replace(normalizedOld, () => normalizedNew);
-        }
+        const regex = new RegExp(escapeRegExp(normalizedOld), expected_replacements !== void 0 ? "g" : void 0);
+        contentToValidate = normalizedContent.replace(regex, () => normalizedNew);
       } else {
         process.stderr.write(`[Debug] old_string or new_string missing in replace
 `);

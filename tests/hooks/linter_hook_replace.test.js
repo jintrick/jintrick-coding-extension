@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach, afterEach } from 'vitest';
+import { describe, it, expect, beforeEach, afterEach, afterAll } from 'vitest';
 import { spawnSync } from 'child_process';
 import path from 'path';
 import fs from 'fs';
@@ -41,6 +41,12 @@ describe('linter_hook replace functionality', () => {
       fs.unlinkSync(tempFile);
     }
     // Clean up preview files if possible
+  });
+
+  afterAll(() => {
+    if (fs.existsSync(TEMP_DIR)) {
+      fs.rmSync(TEMP_DIR, { recursive: true, force: true });
+    }
   });
 
   function getPreviewContent(stderr) {
