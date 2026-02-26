@@ -27,9 +27,9 @@ function getConnectionString(dbPath, password) {
 async function main(deps = {}) {
     const {
         adodb = null,
-        args = process.argv.slice(2),
-        console = global.console,
-        process = global.process
+        args = (deps.process || global.process).argv.slice(2),
+        console: _console = global.console,
+        process: _process = global.process
     } = deps;
 
     let ADODB;
@@ -39,11 +39,11 @@ async function main(deps = {}) {
         try {
             ADODB = require('node-adodb');
         } catch (e) {
-            console.error(JSON.stringify({
+            _console.error(JSON.stringify({
                 error: "Dependency 'node-adodb' not found. This is a deployment error.",
                 details: e.message
             }));
-            process.exit(1);
+            _process.exit(1);
             return;
         }
     }
@@ -51,10 +51,10 @@ async function main(deps = {}) {
     const params = parseArgs(args);
 
     if (!params.db || !params.sql) {
-        console.error(JSON.stringify({
+        _console.error(JSON.stringify({
             error: "Missing required arguments. Usage: node db_client.cjs --db <path> --sql <query> [--password <password>]"
         }));
-        process.exit(1);
+        _process.exit(1);
         return;
     }
 
@@ -73,7 +73,7 @@ async function main(deps = {}) {
             result = await connection.query(sql);
         }
 
-        console.log(JSON.stringify(result, null, 2));
+        _console.log(JSON.stringify(result, null, 2));
 
     } catch (error) {
         // node-adodb errors are often wrapped
@@ -87,8 +87,8 @@ async function main(deps = {}) {
             result.suggestion = "Microsoft Access Database Engine might be missing or architecture mismatch (32-bit vs 64-bit).";
         }
 
-        console.error(JSON.stringify(result, null, 2));
-        process.exit(1);
+        _console.error(JSON.stringify(result, null, 2));
+        _process.exit(1);
     }
 }
 
