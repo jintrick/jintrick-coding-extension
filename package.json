@@ -1,6 +1,6 @@
 {
   "name": "jintrick-coding-extension",
-  "version": "1.19.1",
+  "version": "1.20.0",
   "description": "Coding assistance extensions including linters, skill management, and automated code review.",
   "scripts": {
     "test": "vitest run",
@@ -13,6 +13,7 @@
   "private": true,
   "dependencies": {
     "acorn": "^8.15.0",
+    "node-adodb": "^5.0.3",
     "smol-toml": "^1.6.0",
     "typescript": "^5.9.3"
   }
