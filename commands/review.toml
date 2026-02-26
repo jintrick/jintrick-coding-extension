@@ -11,5 +11,5 @@ PR #{{args}} について、`code-reviewer` サブエージェントを起動し
    - `gh pr checkout {{args}}` でPRブランチをローカルにチェックアウト。
 
 ## レビューの実行
-プロジェクト規約（`docs/REVIEW.md` または `docs/issue/REVIEW.md`）に従い、`code-reviewer` を用いて、実装の安全性、規約遵守、パフォーマンス、および Auto Discovery への適合性を厳格に評価せよ。
+`REVIEW.md`の内容に従い、サブエージェント`code-reviewer`にレビューを実行させる。
 """
