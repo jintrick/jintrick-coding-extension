@@ -19,6 +19,23 @@ const linters = [
   'hooks/scripts/linters/py.cjs'
 ];
 
+function copyDir(src, dest) {
+  if (!fs.existsSync(src)) return;
+  fs.mkdirSync(dest, { recursive: true });
+  let entries = fs.readdirSync(src, { withFileTypes: true });
+
+  for (let entry of entries) {
+    let srcPath = path.join(src, entry.name);
+    let destPath = path.join(dest, entry.name);
+
+    if (entry.isDirectory()) {
+      copyDir(srcPath, destPath);
+    } else {
+      fs.copyFileSync(srcPath, destPath);
+    }
+  }
+}
+
 async function build() {
   // hooks をビルド
   for (const hook of hooks) {
@@ -40,6 +57,10 @@ async function build() {
       outfile: path.join('dist', linter.replace('hooks/scripts/', 'hooks/')),
     });
   }
+
+  // skills ディレクトリをコピー
+  console.log('Copying skills...');
+  copyDir('skills', 'dist/skills');
 
   console.log('Build completed successfully!');
 }
