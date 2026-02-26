@@ -1,7 +1,7 @@
 ---
 name: docs-writer
 description:
-  Always use this skill when the task involves writing, reviewing, or editing
+  Always use this skill when the task involves writing, reviewing, or editing 
   files in the `/docs` directory or any `.md` files in the repository.
 ---
 
@@ -24,7 +24,7 @@ approach.
 
 - **Perspective and tense:** Address the reader as "you." Use active voice and
   present tense (e.g., "The API returns...").
-- **Tone:** Professional, friendly, and direct.
+- **Tone:** Professional, friendly, and direct. 
 - **Clarity:** Use simple vocabulary. Avoid jargon, slang, and marketing hype.
 - **Global Audience:** Write in standard US English. Avoid idioms and cultural
   references.
@@ -63,7 +63,7 @@ accessible.
   interaction.
 - **Links:** Use descriptive anchor text; avoid "click here." Ensure the link
   makes sense out of context.
-- **Accessibility:** Use semantic HTML elements correctly (headings, lists,
+- **Accessibility:** Use semantic HTML elements correctly (headings, lists, 
   tables).
 - **Media:** Use lowercase hyphenated filenames. Provide descriptive alt text
   for all images.
@@ -74,14 +74,14 @@ accessible.
 add the following note immediately after the introductory paragraph:
   `> **Note:** This is a preview feature currently under active development.`
 - **Headings:** Use hierarchical headings to support the user journey.
-- **Procedures:**
+- **Procedures:** 
   - Introduce lists of steps with a complete sentence.
   - Start each step with an imperative verb.
   - Number sequential steps; use bullets for non-sequential lists.
   - Put conditions before instructions (e.g., "On the Settings page, click...").
   - Provide clear context for where the action takes place.
   - Indicate optional steps clearly (e.g., "Optional: ...").
-- **Elements:** Use bullet lists, tables, notes (`> **Note:**`), and warnings
+- **Elements:** Use bullet lists, tables, notes (`> **Note:**`), and warnings 
   (`> **Warning:**`).
 - **Avoid using a table of contents:** If a table of contents is present, remove
   it.
@@ -89,7 +89,7 @@ add the following note immediately after the introductory paragraph:
 
 ## Phase 2: Preparation
 Before modifying any documentation, thoroughly investigate the request and the
-surrounding context.
+surrounding context. 
 
 1.  **Clarify:** Understand the core request. Differentiate between writing new
     content and editing existing content. If the request is ambiguous (e.g.,
@@ -112,7 +112,7 @@ documentation.
 
 - **Gaps:** Identify areas where the documentation is incomplete or no longer
   reflects existing code.
-- **Structure:** Apply "Structure (New Docs)" rules (BLUF, headings, etc.) when
+- **Structure:** Apply "Structure (New Docs)" rules (BLUF, headings, etc.) when 
   adding new sections to existing pages.
 - **Tone:** Ensure the tone is active and engaging. Use "you" and contractions.
 - **Clarity:** Correct awkward wording, spelling, and grammar. Rephrase

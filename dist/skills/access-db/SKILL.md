@@ -1,6 +1,7 @@
 ---
 name: access-db
 description: Execute SQL queries on MS Access databases (.accdb, .mdb).
+version: 1.0.0
 ---
 
 # Access Database Skill
@@ -9,15 +10,9 @@ This skill allows you to run SQL queries against local Microsoft Access database
 
 ## Dependencies
 
-This skill requires `node-adodb` and the Microsoft Access Database Engine (ACE OLEDB Provider).
+This skill requires the Microsoft Access Database Engine (ACE OLEDB Provider) installed on the host system.
 
-1.  **node-adodb**: This Node.js package must be installed.
-    ```bash
-    npm install -g node-adodb
-    ```
-    Or install it in your project's `node_modules`.
-
-2.  **Microsoft Access Database Engine**:
+1.  **Microsoft Access Database Engine**:
     - You must have the "Microsoft Access Database Engine 2010 Redistributable" or newer installed.
     - **Important**: The architecture (32-bit vs 64-bit) of your Node.js installation must match the installed Access Database Engine.
     - If you encounter "Provider cannot be found" errors, try installing the version that matches your Node.js architecture.
@@ -36,12 +31,12 @@ Use the `db_client.cjs` script to execute SQL commands.
 
 #### Select Data
 ```bash
-node skills/access-db/scripts/db_client.cjs --db "C:\Data\mydb.accdb" --sql "SELECT * FROM Users"
+node dist/skills/access-db/scripts/db_client.cjs --db "C:\Data\mydb.accdb" --sql "SELECT * FROM Users"
 ```
 
 #### Insert Data
 ```bash
-node skills/access-db/scripts/db_client.cjs --db "C:\Data\mydb.accdb" --sql "INSERT INTO Users (Name, Email) VALUES ('John Doe', 'john@example.com')"
+node dist/skills/access-db/scripts/db_client.cjs --db "C:\Data\mydb.accdb" --sql "INSERT INTO Users (Name, Email) VALUES ('John Doe', 'john@example.com')"
 ```
 
 ## Troubleshooting

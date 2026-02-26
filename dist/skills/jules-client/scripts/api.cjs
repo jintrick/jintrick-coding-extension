@@ -97,9 +97,9 @@ async function resolveSource(input) {
   const sources = response.sources || [];
 
   if (owner && repo) {
-    const found = sources.find(s =>
-      s.githubRepo &&
-      s.githubRepo.owner.toLowerCase() === owner.toLowerCase() &&
+    const found = sources.find(s => 
+      s.githubRepo && 
+      s.githubRepo.owner.toLowerCase() === owner.toLowerCase() && 
       s.githubRepo.repo.toLowerCase() === repo.toLowerCase()
     );
     if (found) return found.name;
@@ -165,7 +165,7 @@ async function listSessions(args, options) {
         if (options.pageToken) path += `&pageToken=${encodeURIComponent(options.pageToken)}`;
 
         const response = await request('GET', path);
-
+        
         // Remove bulky fields to prevent CLI freezing
         if (response.sessions) {
             response.sessions.forEach(session => {
@@ -203,10 +203,10 @@ async function getSession(args, options) {
         process.exit(1);
     }
     const pathId = extractId(sessionId, 'sessions/');
-
+    
     try {
         const session = await request('GET', `/sessions/${pathId}`);
-
+        
         if (session.outputs) {
             session.outputs.forEach(output => {
                 if (output.pullRequest) {
@@ -227,7 +227,7 @@ async function getSession(args, options) {
         console.log(`Prompt: ${session.prompt}`);
         console.log(`Created: ${session.createTime}`);
         console.log(`Updated: ${session.updateTime}`);
-
+        
         if (session.outputs && session.outputs.length > 0) {
             console.log(`\nOutputs:`);
             session.outputs.forEach(output => {
@@ -254,7 +254,7 @@ async function getBranch(args, options) {
         process.exit(1);
     }
     const pathId = extractId(sessionId, 'sessions/');
-
+    
     try {
         const session = await request('GET', `/sessions/${pathId}`);
         let branch = null;
@@ -338,7 +338,7 @@ async function startSession(args, options) {
 
   try {
     const resolvedSourceName = await resolveSource(sourceInput);
-
+    
     if (!options.json) {
         console.log(`\nStarting Session...`);
         console.log(`Source: ${sourceInput}`);
@@ -364,7 +364,7 @@ async function startSession(args, options) {
         console.log(JSON.stringify(session, null, 2));
     } else {
         console.log('Session Started Successfully');
-        console.log(`Session ID: ${session.name}`);
+        console.log(`Session ID: ${session.name}`); 
         console.log(`Status: ${session.state}`);
         console.log(`URL: ${session.url}`);
     }
@@ -393,7 +393,7 @@ async function getActivity(args, options) {
         console.log(JSON.stringify(activity, null, 2));
         return;
     }
-
+    
     console.log(`Activity Details: ${activity.description}`);
     console.log(`ID: ${activity.id} | Created: ${activity.createTime}`);
   } catch (error) {
@@ -416,7 +416,7 @@ async function listActivities(args, options) {
 
   try {
     const response = await request('GET', path);
-
+    
     if (response.activities) {
         response.activities.forEach(act => {
             if (act.artifacts) {
@@ -437,7 +437,7 @@ async function listActivities(args, options) {
       console.log('No activities found.');
       return;
     }
-
+    
     console.log(`Activities for Session ${pathId} (Limit: ${limit}, Large patches omitted):`);
     response.activities.forEach(act => {
       console.log(`[${act.createTime}] ${act.description || 'No description'} (ID: ${act.id})`);
@@ -504,7 +504,7 @@ async function openSession(args, options) {
         process.exit(1);
     }
     const pathId = extractId(sessionId, 'sessions/');
-
+    
     try {
         const session = await request('GET', `/sessions/${pathId}`);
         if (session.url) {
@@ -531,7 +531,7 @@ async function getPr(args, options) {
         process.exit(1);
     }
     const pathId = extractId(sessionId, 'sessions/');
-
+    
     try {
         const session = await request('GET', `/sessions/${pathId}`);
         let prFound = false;
@@ -541,10 +541,10 @@ async function getPr(args, options) {
                 if (output.pullRequest) {
                     const prNumber = extractPrNumber(output.pullRequest.url);
                     if (options.json) {
-                        console.log(JSON.stringify({
-                          prNumber: prNumber,
+                        console.log(JSON.stringify({ 
+                          prNumber: prNumber, 
                           url: output.pullRequest.url,
-                          title: output.pullRequest.title
+                          title: output.pullRequest.title 
                         }, null, 2));
                     } else {
                         console.log(prNumber || output.pullRequest.url);
@@ -635,7 +635,7 @@ async function diffSession(args, options) {
     try {
         const response = await request('GET', `/sessions/${pathId}/activities?pageSize=100`);
         const activities = response.activities || [];
-
+        
         let latestPatch = null;
         for (const act of activities) {
             if (act.artifacts) {
@@ -697,7 +697,7 @@ async function watchSession(args, options) {
 
     const checkCondition = (activity) => {
         if (!normalizedWaitFor) return false;
-
+        
         if (normalizedWaitFor === 'plan' && activity.planGenerated) return true;
         if (normalizedWaitFor === 'message' && activity.agentMessaged) return true;
         if (normalizedWaitFor === 'changes' && activity.artifacts && activity.artifacts.some(a => a.changeSet)) return true;
@@ -717,7 +717,7 @@ async function watchSession(args, options) {
             let path = `/sessions/${pathId}/activities?pageSize=50`;
             const response = await request('GET', path);
             const activities = response.activities || [];
-
+            
             activities.sort((a, b) => new Date(a.createTime) - new Date(b.createTime));
 
             let conditionMet = false;
@@ -804,7 +804,7 @@ async function messageSession(args, options) {
 
     try {
         const response = await request('POST', `/sessions/${pathId}:sendMessage`, body);
-
+        
         if (options.json) {
             console.log(JSON.stringify(response, null, 2));
         } else {
@@ -878,11 +878,11 @@ const COMMANDS = {
   start: {
     handler: startSession,
     args: ['[source]', 'prompt'],
-    flags: {
-        branch: 'string',
-        title: 'string',
-        autoPr: 'boolean',
-        noApproval: 'boolean',
+    flags: { 
+        branch: 'string', 
+        title: 'string', 
+        autoPr: 'boolean', 
+        noApproval: 'boolean', 
         json: 'boolean'
     }
   },
@@ -924,7 +924,7 @@ function parseAndDispatch() {
     if (arg.startsWith('--')) {
         // camelCase conversion: --auto-pr -> autoPr
         const flagName = arg.slice(2).replace(/-([a-z])/g, (g) => g[1].toUpperCase());
-
+        
         if (!cmdDef.flags.hasOwnProperty(flagName)) {
             console.error(`Error: Unknown flag '${arg}' for command '${commandName}'.`);
             console.error(`Allowed flags: ${Object.keys(cmdDef.flags).map(f => '--' + f.replace(/[A-Z]/g, m => '-' + m.toLowerCase())).join(', ')}`);

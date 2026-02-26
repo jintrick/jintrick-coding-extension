@@ -36,7 +36,7 @@ function extract(skillFile, targetDir) {
     const tempZip = skillFile.replace(/\.skill$/, '.zip');
     if (fs.existsSync(tempZip)) fs.unlinkSync(tempZip);
     fs.copyFileSync(skillFile, tempZip);
-
+    
     try {
       const psCommand = `Expand-Archive -Path '${tempZip}' -DestinationPath '${targetDir}' -Force`;
       run(`powershell.exe -NoProfile -Command "${psCommand}"`);
@@ -83,11 +83,11 @@ if (command === 'package') {
   const skillFile = path.resolve(skillDir);
   const skillName = path.basename(skillFile, '.skill');
   const scope = process.argv[4] || 'user';
-
-  const targetBase = scope === 'user'
+  
+  const targetBase = scope === 'user' 
     ? path.join(process.env.USERPROFILE || process.env.HOME, '.gemini', 'skills')
     : path.join(process.cwd(), '.gemini', 'skills');
-
+  
   const targetDir = path.join(targetBase, skillName);
 
   console.log(`Installing ${skillName} to ${targetDir} (${scope} scope)...`);
@@ -108,11 +108,11 @@ if (command === 'package') {
 } else if (command === 'uninstall') {
   const skillName = skillDir; // In this case, it's the name, not a path
   const scope = process.argv[4] || 'user';
-
-  const targetBase = scope === 'user'
+  
+  const targetBase = scope === 'user' 
     ? path.join(process.env.USERPROFILE || process.env.HOME, '.gemini', 'skills')
     : path.join(process.cwd(), '.gemini', 'skills');
-
+  
   const targetDir = path.join(targetBase, skillName);
 
   if (fs.existsSync(targetDir)) {

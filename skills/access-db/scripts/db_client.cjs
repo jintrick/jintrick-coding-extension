@@ -40,7 +40,7 @@ async function main(deps = {}) {
             ADODB = require('node-adodb');
         } catch (e) {
             console.error(JSON.stringify({
-                error: "Dependency 'node-adodb' not found. Please install it: npm install -g node-adodb",
+                error: "Dependency 'node-adodb' not found. This is a deployment error.",
                 details: e.message
             }));
             process.exit(1);
@@ -63,16 +63,14 @@ async function main(deps = {}) {
     try {
         const connection = ADODB.open(connectionString);
         const sql = params.sql.trim();
-        // Simple check for SELECT statement to decide whether to use query or execute
-        // This might need to be more robust for complex queries (e.g. EXECUTE procedure)
-        // but for basic usage it should suffice.
-        const isSelect = /^\s*SELECT\b/i.test(sql);
+        // Check for modification queries to decide whether to use execute or query
+        const isModificationQuery = /^\s*(INSERT|UPDATE|DELETE|CREATE|DROP|ALTER)\b/i.test(sql);
 
         let result;
-        if (isSelect) {
-            result = await connection.query(sql);
-        } else {
+        if (isModificationQuery) {
             result = await connection.execute(sql);
+        } else {
+            result = await connection.query(sql);
         }
 
         console.log(JSON.stringify(result, null, 2));
@@ -86,7 +84,7 @@ async function main(deps = {}) {
         };
 
         if (errorMsg && errorMsg.includes('Provider cannot be found')) {
-             result.suggestion = "Microsoft Access Database Engine might be missing or architecture mismatch (32-bit vs 64-bit).";
+            result.suggestion = "Microsoft Access Database Engine might be missing or architecture mismatch (32-bit vs 64-bit).";
         }
 
         console.error(JSON.stringify(result, null, 2));

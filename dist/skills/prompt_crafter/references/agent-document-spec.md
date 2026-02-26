@@ -20,7 +20,7 @@
 
 すべて検証可能な行為に変換する。
 
-- × Maintain traceability
+- × Maintain traceability  
 - ○ 各Acceptance CriteriaにRequirement IDを明記する
 
 ---
