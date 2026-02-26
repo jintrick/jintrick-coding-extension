@@ -1,0 +1,40 @@
+{
+  "hooks": {
+    "BeforeTool": [
+      {
+        "matcher": "write_file|replace",
+        "hooks": [
+          {
+            "name": "linter-hook",
+            "type": "command",
+            "command": "node \"${extensionPath}${/}dist${/}hooks${/}linter_hook.cjs\"",
+            "description": "ファイルの書き込み・置換前に構文エラー（JS/TS/JSON等）をチェックします。"
+          }
+        ]
+      },
+      {
+        "matcher": "activate_skill",
+        "hooks": [
+          {
+            "name": "expert-docs-hook",
+            "type": "command",
+            "command": "node \"${extensionPath}${/}dist${/}hooks${/}expert_docs_hook.cjs\"",
+            "description": "gemini-cli-expert スキルの起動時にドキュメントの更新を確認します。"
+          }
+        ]
+      },
+      {
+        "matcher": "run_shell_command",
+        "hooks": [
+          {
+            "name": "command-fixer-hook",
+            "type": "command",
+            "command": "node \"${extensionPath}${/}dist${/}hooks${/}command_fixer_hook.cjs\"",
+            "description": "Windows環境向けにコマンド内の && を ; に自動置換します。"
+          }
+        ]
+      }
+    ],
+    "AfterTool": []
+  }
+}
