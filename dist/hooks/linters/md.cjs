@@ -9,7 +9,7 @@ module.exports = function(content, filePath, tool_name) {
     const fileName = path.basename(filePath);
     const tempFilePath = path.join(tempDir, `preview_${Date.now()}_${fileName}`);
     fs.writeFileSync(tempFilePath, content, "utf8");
-    const editor = process.env.GEMINI_EDITOR || process.env.VISUAL || process.env.EDITOR || "antigravity";
+    const editor = process.env.EDITOR || "notepad";
     const child = spawn(editor, [tempFilePath], {
       detached: true,
       stdio: "ignore",
