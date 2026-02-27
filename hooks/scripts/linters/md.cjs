@@ -18,8 +18,8 @@ module.exports = function(content, filePath, tool_name) {
 
     fs.writeFileSync(tempFilePath, content, 'utf8');
 
-    // エディタコマンドの決定 (優先順位: GEMINI_EDITOR > VISUAL > EDITOR > antigravity)
-    const editor = process.env.GEMINI_EDITOR || process.env.VISUAL || process.env.EDITOR || 'antigravity';
+    // エディタコマンドの決定 (優先順位: EDITOR > notepad)
+    const editor = process.env.EDITOR || 'notepad';
 
     // エディタで一時ファイルを開く (spawn detached)
     // Windows/Unix 共通で shell: true を使用
