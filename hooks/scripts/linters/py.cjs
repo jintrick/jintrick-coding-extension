@@ -184,9 +184,16 @@ for node in tree.body:
 
 module.exports = function(content, filePath, tool_name) {
   try {
+    // Physicalize escapes to simulate the final file image.
+    // This ensures that strings with \n become physical newlines, 
+    // catching SyntaxErrors in single-quoted strings.
+    const processedContent = content
+      .replace(/\\n/g, '\n')
+      .replace(/\\r/g, '\r');
+
     const runPython = (cmd) => {
       return spawnSync(cmd, ['-c', LINTER_SCRIPT], {
-        input: content,
+        input: processedContent,
         encoding: 'utf8',
         timeout: 5000,
         shell: false,
