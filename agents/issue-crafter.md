@@ -1,6 +1,7 @@
 ---
 name: issue-crafter
 description: 技術設計を行い、実装エージェントが即座に実行可能な Issue 文書を生成する。prompt_crafter スキルの知識を活用する。
+max_turns: 40
 tools:
   - activate_skill
   - read_file
