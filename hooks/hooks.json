@@ -38,10 +38,15 @@
     "AfterTool": [],
     "SessionStart": [
       {
-        "name": "tech-stack-discovery-hook",
-        "type": "command",
-        "command": "node \"${extensionPath}${/}dist${/}hooks${/}tech_stack_discovery_hook.cjs\"",
-        "description": "セッション開始時にプロジェクトの技術スタックを検知し、初期コンテキストとして注入します。"
+        "matcher": "*",
+        "hooks": [
+          {
+            "name": "tech-stack-discovery-hook",
+            "type": "command",
+            "command": "node \"${extensionPath}${/}dist${/}hooks${/}tech_stack_discovery_hook.cjs\"",
+            "description": "セッション開始時にプロジェクトの技術スタックを検知し、初期コンテキストとして注入します。"
+          }
+        ]
       }
     ]
   }
