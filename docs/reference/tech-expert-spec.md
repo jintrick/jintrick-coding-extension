@@ -17,12 +17,12 @@
 ---
 
 ## 3. プラグアンドプレイ・モジュールの仕様
-新しい技術の知識を追加する際は、`skills/tech-expert/` 配下にディレクトリを作成し、以下の 3 つの要素を配置する。**コードの修正は一切不要である。**
+新しい技術の知識を追加する際は、`skills/` 配下に `tech-expert-` というプレフィックスを持つディレクトリを作成し、以下の 3 つの要素を配置する。**コードの修正は一切不要である。**
 
 ### ディレクトリ構造例
 ```text
-skills/tech-expert/
-├── react/
+skills/
+├── tech-expert-react/
 │   ├── manifest.json  (必須: 検知条件とメタデータ)
 │   ├── SKILL.md       (必須: エージェントへの個別指示)
 │   └── references/    (任意: RAGとして読み込ませるドキュメント群)
@@ -33,14 +33,14 @@ skills/tech-expert/
 
 ```json
 {
-  "id": "react",
+  "id": "tech-expert-react",
   "name": "React v19 Expert",
   "description": "React のコンポーネント設計、Hooks の仕様に関する専門知識。",
   "detectors": [
     {
       "type": "file_contains",
       "file": "package.json",
-      "pattern": ""react""
+      "pattern": "\"react\""
     },
     {
       "type": "file_exists",
@@ -49,6 +49,7 @@ skills/tech-expert/
   ]
 }
 ```
+- `id`: スキルディレクトリ名と完全に一致させる。
 - `detectors`: このモジュールをアクティブにするための条件リスト（OR条件）。
 
 ---
@@ -57,7 +58,7 @@ skills/tech-expert/
 プロジェクト開始時（または `/clear` 時）に一度だけ実行され、環境をスキャンしてエージェントに利用可能な専門家を教え込む。
 
 ### ワークフロー
-1. `skills/tech-expert/*/manifest.json` を全走査する。
+1. `skills/tech-expert-*/manifest.json` を全走査する。
 2. カレントディレクトリ（プロジェクトルート）のファイルと `detectors` の条件を照合する。
 3. マッチした技術スタックのリストを抽出する（例：`["react", "mui"]`）。
 4. **コンテキスト注入**: `hookSpecificOutput.additionalContext` を介して、以下の「命令」をセッション履歴の先頭ターンに書き込む。
