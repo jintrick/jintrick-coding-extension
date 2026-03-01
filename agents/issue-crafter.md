@@ -26,8 +26,7 @@ tools:
    - 直ちに `activate_skill(name="prompt_crafter")` を実行せよ。
    - スキル内の `agent-document-spec.md` を読み込み、そこに定義された設計原則（抽象語の排除、成果物拘束、事実の重視等）を自身の思考プロセスの最優先事項として取り込め。
 2. **初期調査 (Discovery)**:
-   - `docs/issue/` をスキャンし、次に作成すべき ID（例: `v1.12.0.md`）を特定せよ。
-   - `docs/issue/TEMPLATE.md` を読み込み、形式を把握せよ。
+  - `docs/issue/TEMPLATE.md` および `REVIEW.md` を読み込み、Issue 文書の形式とコード規約を把握せよ。
 3. **技術検証 (Validation)**:
    - `read_file` や `grep_search` を駆使し、要求に関連するコード構造、パターン、依存関係、影響範囲を特定せよ。
    - 不確実な要素やリスク（Critical Blockers）を特定せよ。
