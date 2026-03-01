@@ -1,0 +1,20 @@
+{
+  "id": "tech-expert-react",
+  "name": "React v19 Expert",
+  "description": "React のコンポーネント設計、Hooks の仕様に関する専門知識。",
+  "detectors": [
+    {
+      "type": "file_contains",
+      "file": "package.json",
+      "pattern": "\"react\""
+    },
+    {
+      "type": "file_exists",
+      "file": "next.config.js"
+    },
+    {
+      "type": "file_exists",
+      "file": "vite.config.ts"
+    }
+  ]
+}
