@@ -1,40 +1,48 @@
-const { spawn } = require('child_process');
+const { execSync, spawn } = require('child_process');
 const fs = require('fs');
 const path = require('path');
 const os = require('os');
 
 /**
- * Markdown "Human Linter" Module (v1.17.0 - Non-blocking Safe Spawn)
- * 書き込み予定の内容を一時ファイルに出力し、エディタで開いて目視確認を促す。
- * エージェントをブロックせず、Windows での cmd.exe 暴走を防ぐため、
- * start コマンドではなく spawn(editor, { shell: true }) を使用する。
+ * Markdown "Human Linter" Module (v1.26.0 - Truly Independent via VBS)
+ * Windows 環境でエディタを完全にデタッチして起動し、Gemini CLI をブロックしないようにする。
  */
 module.exports = function(content, filePath, tool_name) {
   try {
-    // 一時ファイルのパスを作成
     const tempDir = os.tmpdir();
     const fileName = path.basename(filePath);
-    const tempFilePath = path.join(tempDir, `preview_${Date.now()}_${fileName}`);
+    const tempFilePath = path.normalize(path.join(tempDir, `preview_${Date.now()}_${fileName}`));
 
     fs.writeFileSync(tempFilePath, content, 'utf8');
 
-    // エディタコマンドの決定 (優先順位: EDITOR > notepad)
-    const editor = process.env.EDITOR || 'notepad';
+    const isWin = os.platform() === 'win32';
+    const editor = process.env.EDITOR || (isWin ? 'notepad' : 'vi');
 
-    // エディタで一時ファイルを開く (spawn detached)
-    // Windows/Unix 共通で shell: true を使用
-    const child = spawn(editor, [tempFilePath], {
-      detached: true,
-      stdio: 'ignore',
-      shell: true
-    });
-    child.unref();
-
-    process.stderr.write(`[Human Linter] Preview created: ${tempFilePath} (Editor: ${editor})\n`);
+    if (isWin) {
+      // Windows: VBScript を一時的に作成して、WScript.Shell.Run で完全にデタッチして起動
+      // 第2引数 0 (ウィンドウ非表示だが、start コマンドが実際のウィンドウを表示する)、第3引数 False (待機しない)
+      const vbsPath = path.join(tempDir, `launcher_${Date.now()}.vbs`);
+      const vbsContent = `Set WshShell = CreateObject("WScript.Shell")\nWshShell.Run "cmd /c start """" ""${editor}"" ""${tempFilePath}""", 0, False`;
+      
+      fs.writeFileSync(vbsPath, vbsContent, 'utf16le');
+      
+      try {
+        execSync(`wscript.exe //B "${vbsPath}"`, { stdio: 'ignore' });
+      } catch (e) {
+        // フォールバック: 直接の execSync
+        execSync(`start "" "${editor}" "${tempFilePath}"`, { stdio: 'ignore' });
+      }
+    } else {
+      const child = spawn(editor, [tempFilePath], {
+        detached: true,
+        stdio: 'ignore',
+        shell: true
+      });
+      child.unref();
+    }
   } catch (error) {
-    process.stderr.write(`[MD Linter] Failed: ${error.message}\n`);
+    process.stderr.write(`[MD Linter] Fatal Error: ${error.message}\n`);
   }
 
-  // 常に valid: true を返して、処理自体は継続させる
   return { valid: true };
 };
