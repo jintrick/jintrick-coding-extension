@@ -2,6 +2,8 @@ const esbuild = require('esbuild');
 const path = require('path');
 const fs = require('fs');
 
+const CURRENT_DATE = new Date().toISOString().split('T')[0];
+
 const hooks = [
   'hooks/scripts/linter_hook.cjs',
   'hooks/scripts/expert_docs_hook.cjs',
@@ -93,7 +95,7 @@ function promoteKnowledge() {
       id: `tech-expert-${stack}`,
       name: `${stack.charAt(0).toUpperCase() + stack.slice(1)} Expert`,
       description: `${stack} に関する技術的な専門知識を提供します。`,
-      version: "1.0.0",
+      version: CURRENT_DATE,
       detectors: detectors
     };
     fs.writeFileSync(path.join(targetDir, 'manifest.json'), JSON.stringify(manifest, null, 2));
@@ -103,7 +105,7 @@ function promoteKnowledge() {
     if (fs.existsSync(skillMdPath)) {
       const content = fs.readFileSync(skillMdPath, 'utf8');
       if (content.startsWith('---') && !content.includes('version:')) {
-        const updated = content.replace('---', `---\nversion: 1.0.0`);
+        const updated = content.replace('---', `---\nversion: ${CURRENT_DATE}`);
         fs.writeFileSync(path.join(targetDir, 'SKILL.md'), updated);
       } else {
         fs.copyFileSync(skillMdPath, path.join(targetDir, 'SKILL.md'));
@@ -112,7 +114,7 @@ function promoteKnowledge() {
       const defaultSkillMd = `---
 name: tech-expert-${stack}
 description: ${stack} に関する技術的な専門知識を提供します。
-version: 1.0.0
+version: ${CURRENT_DATE}
 ---
 # ${stack} Expert Skill
 あなたは ${stack} のスペシャリストです。\`references/\` 内のドキュメントに基づき、専門的な助言を行います。
