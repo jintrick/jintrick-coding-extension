@@ -37,6 +37,102 @@ function copyDir(src, dest) {
   }
 }
 
+function promoteKnowledge() {
+  const knowledgeDir = 'knowledge';
+  if (!fs.existsSync(knowledgeDir)) return;
+
+  const stacks = fs.readdirSync(knowledgeDir, { withFileTypes: true })
+    .filter(dirent => dirent.isDirectory())
+    .map(dirent => dirent.name);
+
+  for (const stack of stacks) {
+    const targetDir = path.join('dist/skills', `tech-expert-${stack}`);
+    fs.mkdirSync(targetDir, { recursive: true });
+
+    const stackDir = path.join(knowledgeDir, stack);
+
+    // 1. Generate manifest.json
+    let detectors = [];
+
+    // Scan all files in the stack knowledge directory
+    const stackFiles = fs.readdirSync(stackDir);
+
+    // Common detector inference rules
+    if (stackFiles.includes('package.json')) {
+      const packageJsonPath = path.join(stackDir, 'package.json');
+      try {
+        const pkg = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
+        const name = pkg.name || stack;
+        detectors.push({ type: "file_contains", file: "package.json", pattern: `"${name}"` });
+      } catch (e) {
+        detectors.push({ type: "file_contains", file: "package.json", pattern: `"${stack}"` });
+      }
+    }
+
+    if (stackFiles.includes('requirements.txt')) {
+      detectors.push({ type: "file_exists", file: "requirements.txt" });
+    }
+    if (stackFiles.includes('pyproject.toml')) {
+      detectors.push({ type: "file_exists", file: "pyproject.toml" });
+    }
+
+    // Config file inference: any file ending with .config.js or .config.ts or vite.config.*, next.config.*
+    for (const file of stackFiles) {
+      if (file.endsWith('.config.js') || file.endsWith('.config.ts')) {
+        detectors.push({ type: "file_exists", file: file });
+      }
+    }
+
+    // Fallback if no detectors found
+    if (detectors.length === 0) {
+      detectors.push({ type: "file_exists", file: `${stack}.config.js` });
+    }
+
+    const manifest = {
+      id: `tech-expert-${stack}`,
+      name: `${stack.charAt(0).toUpperCase() + stack.slice(1)} Expert`,
+      description: `${stack} に関する技術的な専門知識を提供します。`,
+      detectors: detectors
+    };
+    fs.writeFileSync(path.join(targetDir, 'manifest.json'), JSON.stringify(manifest, null, 2));
+
+    // 2. Generate SKILL.md
+    const skillMdPath = path.join(stackDir, 'SKILL.md');
+    if (fs.existsSync(skillMdPath)) {
+      fs.copyFileSync(skillMdPath, path.join(targetDir, 'SKILL.md'));
+    } else {
+      const defaultSkillMd = `---
+name: tech-expert-${stack}
+description: ${stack} に関する技術的な専門知識を提供します。
+---
+# ${stack} Expert Skill
+あなたは ${stack} のスペシャリストです。\`references/\` 内のドキュメントに基づき、専門的な助言を行います。
+`;
+      fs.writeFileSync(path.join(targetDir, 'SKILL.md'), defaultSkillMd);
+    }
+
+    // 3. Copy contents to references/
+    const targetRefsDir = path.join(targetDir, 'references');
+    fs.mkdirSync(targetRefsDir, { recursive: true });
+
+    const entries = fs.readdirSync(stackDir, { withFileTypes: true });
+    const ignoreFiles = ['package.json', 'requirements.txt', 'pyproject.toml', 'SKILL.md'];
+
+    for (const entry of entries) {
+      if (ignoreFiles.includes(entry.name)) continue;
+
+      const srcPath = path.join(stackDir, entry.name);
+      const destPath = path.join(targetRefsDir, entry.name);
+
+      if (entry.isDirectory()) {
+        copyDir(srcPath, destPath);
+      } else {
+        fs.copyFileSync(srcPath, destPath);
+      }
+    }
+  }
+}
+
 async function build() {
   // hooks をビルド
   for (const hook of hooks) {
@@ -62,6 +158,10 @@ async function build() {
   // skills ディレクトリをコピー
   console.log('Copying skills...');
   copyDir('skills', 'dist/skills');
+
+  // knowledge を昇格
+  console.log('Promoting knowledge to skills...');
+  promoteKnowledge();
 
   console.log('Build completed successfully!');
 }
