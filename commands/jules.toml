@@ -37,18 +37,18 @@ prompt = """AI Agent Julesに実装を依頼する次のプロセスを開始せ
 4-3. 自動レビューの確認:
     - `gh api "repos/:owner/:repo/pulls/<取得したPR番号>/comments" | ConvertFrom-Json | Where-Object { $_.user.type -eq 'Bot' } | Format-List user, body, path, line` を実行し、Bot（Gemini Code Assist等）からの指摘を確認する。
     - 指摘がある場合は、内容を精査し、修正が必要ならコードを修正してコミット・プッシュする。
-4-4. 事前レビュー:
+4-4. 事前の簡易レビュー:
     - gh pr checkout 後のローカル環境でファイルを精査せよ。git diffを使ってはならない。
-    - `read_file` ツールを使用して `REVIEW.md` を読み込み、`codebase_investigator`を起動してそのREVIEW.mdに基づいた厳格なレビューを実行させる。
+    - issue文書の要件を満たしているか、簡単にチェック。
     
 5. レビュー後の分岐
     - まずはユーザーに報告。今回のissueに関連する問題と、それ以外に新たに発見された問題とに切り分けて報告せよ。
 
-5-1. 軽微な不備（リント、テスト、定数修正等）の場合:
+5-1. 簡易レビューに軽微な不備（リント、テスト、定数修正等）の場合:
     - Geminiが自ら修正を施したのち、git commit -am "fix: minor adjustments by gemini" および git push を実行せよ。
-5-2. 重大な不備がある場合: 
+5-2. 簡易レビューに重大な不備がある場合: 
     - `api.cjs message <session_id> "修正指示"` を実行し、`api.cjs watch <session_id> --wait-for finish` を実行し、4.に戻る。
-5-3. 合格の場合:
-    - ユーザーに報告。「/review <取得したPR番号> を実行のこと。」
+5-3. 簡易レビューが合格の場合:
+    - 詳細レビューに移行するため、ユーザーに報告。「/review <取得したPR番号> を実行のこと。」
    
 """
