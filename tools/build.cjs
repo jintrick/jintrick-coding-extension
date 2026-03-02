@@ -92,6 +92,7 @@ function promoteKnowledge() {
       id: `tech-expert-${stack}`,
       name: `${stack.charAt(0).toUpperCase() + stack.slice(1)} Expert`,
       description: `${stack} に関する技術的な専門知識を提供します。`,
+      version: "1.0.0",
       detectors: detectors
     };
     fs.writeFileSync(path.join(targetDir, 'manifest.json'), JSON.stringify(manifest, null, 2));
@@ -99,11 +100,18 @@ function promoteKnowledge() {
     // 2. Generate SKILL.md
     const skillMdPath = path.join(stackDir, 'SKILL.md');
     if (fs.existsSync(skillMdPath)) {
-      fs.copyFileSync(skillMdPath, path.join(targetDir, 'SKILL.md'));
+      const content = fs.readFileSync(skillMdPath, 'utf8');
+      if (content.startsWith('---') && !content.includes('version:')) {
+        const updated = content.replace('---', `---\nversion: 1.0.0`);
+        fs.writeFileSync(path.join(targetDir, 'SKILL.md'), updated);
+      } else {
+        fs.copyFileSync(skillMdPath, path.join(targetDir, 'SKILL.md'));
+      }
     } else {
       const defaultSkillMd = `---
 name: tech-expert-${stack}
 description: ${stack} に関する技術的な専門知識を提供します。
+version: 1.0.0
 ---
 # ${stack} Expert Skill
 あなたは ${stack} のスペシャリストです。\`references/\` 内のドキュメントに基づき、専門的な助言を行います。
