@@ -33,6 +33,7 @@ async function main() {
       try {
         dirEntries = fs.readdirSync(currentDir, { withFileTypes: true });
       } catch (e) {
+        console.error(`[tech-stack-discovery] Failed to scan ${currentDir}: ${e.message}`);
         return;
       }
 
@@ -96,7 +97,7 @@ async function main() {
             }
           }
         } catch (e) {
-          // Ignore
+          console.error(`[tech-stack-discovery] Error parsing ${manifestPath}: ${e.message}`);
         }
       }
     }
@@ -119,5 +120,6 @@ async function main() {
 }
 
 main().catch(err => {
+  console.error(`[tech-stack-discovery] Fatal error: ${err.stack}`);
   process.stdout.write(JSON.stringify({ decision: "allow" }));
 });
