@@ -65,6 +65,7 @@ function promoteKnowledge() {
         const name = pkg.name || stack;
         detectors.push({ type: "file_contains", file: "package.json", pattern: `"${name}"` });
       } catch (e) {
+        console.warn(`[build] Failed to parse ${packageJsonPath}, falling back to directory name. Error: ${e.message}`);
         detectors.push({ type: "file_contains", file: "package.json", pattern: `"${stack}"` });
       }
     }
@@ -78,7 +79,7 @@ function promoteKnowledge() {
 
     // Config file inference: any file ending with .config.js or .config.ts or vite.config.*, next.config.*
     for (const file of stackFiles) {
-      if (file.endsWith('.config.js') || file.endsWith('.config.ts')) {
+      if (file.endsWith('.config.js') || file.endsWith('.config.ts') || file.startsWith('vite.config.') || file.startsWith('next.config.')) {
         detectors.push({ type: "file_exists", file: file });
       }
     }

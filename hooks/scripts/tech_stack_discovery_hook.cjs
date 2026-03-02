@@ -14,8 +14,9 @@ async function main() {
 
   // Find manifests
   const extensionRoot = path.resolve(__dirname, '../../');
-  const skillsDir = fs.existsSync(path.join(extensionRoot, 'dist/skills'))
-    ? path.join(extensionRoot, 'dist/skills')
+  const distSkillsDir = path.join(extensionRoot, 'dist/skills');
+  const skillsDir = fs.existsSync(distSkillsDir)
+    ? distSkillsDir
     : path.join(extensionRoot, 'skills');
   
   if (!fs.existsSync(skillsDir)) {
