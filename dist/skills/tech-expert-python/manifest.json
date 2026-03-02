@@ -1,0 +1,15 @@
+{
+  "id": "tech-expert-python",
+  "name": "Python Expert",
+  "description": "Python の専門知識。",
+  "detectors": [
+    {
+      "type": "file_exists",
+      "file": "requirements.txt"
+    },
+    {
+      "type": "file_exists",
+      "file": "pyproject.toml"
+    }
+  ]
+}

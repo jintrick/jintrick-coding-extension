@@ -21,6 +21,38 @@ async function main() {
     return;
   }
 
+  const IGNORE_DIRS = ['node_modules', '.git', 'dist', 'build', 'out', 'coverage', '.next', '.nuxt', 'venv', '.venv'];
+  const MAX_DEPTH = 3;
+
+  function getDirectoriesToScan(baseDir) {
+    const dirs = [baseDir];
+
+    function scan(currentDir, depth) {
+      if (depth >= MAX_DEPTH) return;
+      let dirEntries = [];
+      try {
+        dirEntries = fs.readdirSync(currentDir, { withFileTypes: true });
+      } catch (e) {
+        console.error(`[tech-stack-discovery] Failed to scan ${currentDir}: ${e.message}`);
+        return;
+      }
+
+      for (const dirent of dirEntries) {
+        if (dirent.isDirectory()) {
+          if (IGNORE_DIRS.includes(dirent.name)) {
+            continue;
+          }
+          const fullPath = path.join(currentDir, dirent.name);
+          dirs.push(fullPath);
+          scan(fullPath, depth + 1);
+        }
+      }
+    }
+
+    scan(baseDir, 0);
+    return dirs;
+  }
+
   const detectedStacks = [];
   let entries = [];
   try {
@@ -30,6 +62,8 @@ async function main() {
     return;
   }
 
+  const directoriesToScan = getDirectoriesToScan(cwd);
+
   for (const entry of entries) {
     if (entry.isDirectory() && entry.name.startsWith('tech-expert-')) {
       const manifestPath = path.join(skillsDir, entry.name, 'manifest.json');
@@ -38,19 +72,22 @@ async function main() {
           const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
           if (manifest.detectors && Array.isArray(manifest.detectors)) {
             let matched = false;
-            for (const detector of manifest.detectors) {
-              if (detector.type === 'file_exists') {
-                if (fs.existsSync(path.join(cwd, detector.file))) {
-                  matched = true;
-                  break;
-                }
-              } else if (detector.type === 'file_contains') {
-                const targetFile = path.join(cwd, detector.file);
-                if (fs.existsSync(targetFile)) {
-                  const content = fs.readFileSync(targetFile, 'utf8');
-                  if (content.includes(detector.pattern)) {
+            for (const scanDir of directoriesToScan) {
+              if (matched) break;
+              for (const detector of manifest.detectors) {
+                if (detector.type === 'file_exists') {
+                  if (fs.existsSync(path.join(scanDir, detector.file))) {
                     matched = true;
                     break;
+                  }
+                } else if (detector.type === 'file_contains') {
+                  const targetFile = path.join(scanDir, detector.file);
+                  if (fs.existsSync(targetFile)) {
+                    const content = fs.readFileSync(targetFile, 'utf8');
+                    if (content.includes(detector.pattern)) {
+                      matched = true;
+                      break;
+                    }
                   }
                 }
               }
@@ -60,7 +97,7 @@ async function main() {
             }
           }
         } catch (e) {
-          // Ignore
+          console.error(`[tech-stack-discovery] Error parsing ${manifestPath}: ${e.message}`);
         }
       }
     }
@@ -83,5 +120,6 @@ async function main() {
 }
 
 main().catch(err => {
+  console.error(`[tech-stack-discovery] Fatal error: ${err.stack}`);
   process.stdout.write(JSON.stringify({ decision: "allow" }));
 });
