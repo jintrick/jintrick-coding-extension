@@ -1,6 +1,7 @@
 ---
 name: tech-expert-react
 description: React のコンポーネント設計、Hooks の仕様に関する専門知識を提供する。
+version: 1.25.0
 ---
 
 # React Expert Skill

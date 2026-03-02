@@ -11,7 +11,8 @@ async function main() {
     return;
   }
   const extensionRoot = path.resolve(__dirname, "../../");
-  const skillsDir = path.join(extensionRoot, "skills");
+  const distSkillsDir = path.join(extensionRoot, "dist/skills");
+  const skillsDir = fs.existsSync(distSkillsDir) ? distSkillsDir : path.join(extensionRoot, "skills");
   if (!fs.existsSync(skillsDir)) {
     process.stdout.write(JSON.stringify({ decision: "allow" }));
     return;
