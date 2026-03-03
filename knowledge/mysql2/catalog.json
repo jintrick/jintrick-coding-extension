@@ -1,0 +1,293 @@
+{
+  "documents": [
+    {
+      "url": "https://github.com/sidorares/node-mysql2/blob/master/Changelog.md",
+      "path": "Changelog.md",
+      "title": "Changelog",
+      "summary": "node-mysql2 の変更履歴。バグ修正、機能追加、パフォーマンス改善などの履歴が含まれます。"
+    },
+    {
+      "url": "https://github.com/sidorares/node-mysql2/blob/master/README.md",
+      "path": "README.md",
+      "title": "MySQL2 README",
+      "summary": "node-mysql2 のメインドキュメント。インストール方法、基本的なクエリ、プリペアドステートメント、コネクションプールの使用例が含まれます。"
+    },
+    {
+      "url": "https://github.com/sidorares/node-mysql2/blob/master/lib/auth_plugins/caching_sha2_password.md",
+      "path": "lib/auth_plugins/caching_sha2_password.md",
+      "title": "Caching SHA2 Password Plugin",
+      "summary": "MySQL の caching_sha2_password 認証プラグインの詳細と、node-mysql2 での動作について。"
+    },
+    {
+      "url": "https://github.com/sidorares/node-mysql2/blob/master/website/docs/acknowledgements.mdx",
+      "path": "website/docs/acknowledgements.mdx",
+      "title": "Acknowledgements",
+      "summary": "プロジェクトへの貢献者や謝辞。"
+    },
+    {
+      "url": "https://github.com/sidorares/node-mysql2/blob/master/website/docs/api-and-configurations.mdx",
+      "path": "website/docs/api-and-configurations.mdx",
+      "title": "API and Configurations",
+      "summary": "node-mysql2 の詳細な API リファレンスと設定オプション（接続オプション、SSL、文字セットなど）。"
+    },
+    {
+      "url": "https://github.com/sidorares/node-mysql2/blob/master/website/docs/history-and-why-mysq2.mdx",
+      "path": "website/docs/history-and-why-mysq2.mdx",
+      "title": "History and Why MySQL2",
+      "summary": "node-mysql2 が作成された背景と、node-mysql との比較、パフォーマンスへのこだわりについて。"
+    },
+    {
+      "url": "https://github.com/sidorares/node-mysql2/blob/master/website/docs/index.mdx",
+      "path": "website/docs/index.mdx",
+      "title": "Documentation Index",
+      "summary": "ドキュメントのトップページ。主要なトピックへのリンクを提供します。"
+    },
+    {
+      "url": "https://github.com/sidorares/node-mysql2/blob/master/website/docs/stability-badges.mdx",
+      "path": "website/docs/stability-badges.mdx",
+      "title": "Stability Badges",
+      "summary": "ドキュメント内の機能の安定性を示すバッジ（Experimental, Legacy など）の説明。"
+    },
+    {
+      "url": "https://github.com/sidorares/node-mysql2/blob/master/website/docs/documentation/00-index.mdx",
+      "path": "website/docs/documentation/00-index.mdx",
+      "title": "Documentation Introduction",
+      "summary": "ドキュメントの導入部。node-mysql との互換性や追加機能の概要。"
+    },
+    {
+      "url": "https://github.com/sidorares/node-mysql2/blob/master/website/docs/documentation/authentication-switch.mdx",
+      "path": "website/docs/documentation/authentication-switch.mdx",
+      "title": "Authentication Switch Request",
+      "summary": "サーバーからの認証切り替え要求の処理方法、多要素認証（MFA）への対応について。"
+    },
+    {
+      "url": "https://github.com/sidorares/node-mysql2/blob/master/website/docs/documentation/connect-on-cloudflare.mdx",
+      "path": "website/docs/documentation/connect-on-cloudflare.mdx",
+      "title": "Connect on Cloudflare Workers",
+      "summary": "Cloudflare Workers から MySQL に接続する方法。disableEval オプションの設定と注意点について。"
+    },
+    {
+      "url": "https://github.com/sidorares/node-mysql2/blob/master/website/docs/documentation/extras.mdx",
+      "path": "website/docs/documentation/extras.mdx",
+      "title": "Extra Features",
+      "summary": "名前付きプレースホルダー、rowsAsArray、LOAD DATA LOCAL INFILE、カスタムストリームなどの追加機能。"
+    },
+    {
+      "url": "https://github.com/sidorares/node-mysql2/blob/master/website/docs/documentation/mysql-server.mdx",
+      "path": "website/docs/documentation/mysql-server.mdx",
+      "title": "MySQL Server API",
+      "summary": "node-mysql2 を使用して MySQL 互換サーバーを構築するための API。"
+    },
+    {
+      "url": "https://github.com/sidorares/node-mysql2/blob/master/website/docs/documentation/prepared-statements.mdx",
+      "path": "website/docs/documentation/prepared-statements.mdx",
+      "title": "Prepared Statements",
+      "summary": "プリペアドステートメントの使用方法と、SQL インジェクション対策やパフォーマンス向上へのメリット。"
+    },
+    {
+      "url": "https://github.com/sidorares/node-mysql2/blob/master/website/docs/documentation/promise-wrapper.mdx",
+      "path": "website/docs/documentation/promise-wrapper.mdx",
+      "title": "Promise Wrapper",
+      "summary": "async/await と組み合わせて使用できる Promise ベースの API の使い方。"
+    },
+    {
+      "url": "https://github.com/sidorares/node-mysql2/blob/master/website/docs/documentation/ssl.mdx",
+      "path": "website/docs/documentation/ssl.mdx",
+      "title": "SSL Configuration",
+      "summary": "SSL を使用したセキュアな接続設定。カスタム証明書や Amazon RDS での利用方法。"
+    },
+    {
+      "url": "https://github.com/sidorares/node-mysql2/blob/master/website/docs/documentation/typescript-examples.mdx",
+      "path": "website/docs/documentation/typescript-examples.mdx",
+      "title": "TypeScript Guide",
+      "summary": "TypeScript で node-mysql2 を使用するための包括的なガイドと型定義、実装例。"
+    },
+    {
+      "url": "https://github.com/sidorares/node-mysql2/blob/master/website/docs/examples/00-index.mdx",
+      "path": "website/docs/examples/00-index.mdx",
+      "title": "Usage Examples Index",
+      "summary": "node-mysql2 の様々な使用例と、関連プロジェクトの紹介。"
+    },
+    {
+      "url": "https://github.com/sidorares/node-mysql2/blob/master/website/docs/examples/binlog-watcher.mdx",
+      "path": "website/docs/examples/binlog-watcher.mdx",
+      "title": "Binlog Watcher Example",
+      "summary": "バイナリログプロトコルを使用して、データベースの変更をリアルタイムで監視する例。"
+    },
+    {
+      "url": "https://github.com/sidorares/node-mysql2/blob/master/website/docs/examples/connections/create-connection.mdx",
+      "path": "website/docs/examples/connections/create-connection.mdx",
+      "title": "Connection Creation Examples",
+      "summary": "接続文字列 (URI)、詳細設定、SSL、プロキシ経由など、様々な接続作成パターン。"
+    },
+    {
+      "url": "https://github.com/sidorares/node-mysql2/blob/master/website/docs/examples/connections/create-pool.mdx",
+      "path": "website/docs/examples/connections/create-pool.mdx",
+      "title": "Create Connection Pool",
+      "summary": "コネクションプールの作成と管理。リソースの自動解放 (await using) や各種設定方法。"
+    },
+    {
+      "url": "https://github.com/sidorares/node-mysql2/blob/master/website/docs/examples/connections/createPoolCluster.mdx",
+      "path": "website/docs/examples/connections/createPoolCluster.mdx",
+      "title": "Create Pool Cluster",
+      "summary": "複数の接続プールを管理する PoolCluster の使用例。ロードバランシングや冗長化の設定。"
+    },
+    {
+      "url": "https://github.com/sidorares/node-mysql2/blob/master/website/docs/examples/promise-wrapper/co-await.mdx",
+      "path": "website/docs/examples/promise-wrapper/co-await.mdx",
+      "title": "Async/Await and co Examples",
+      "summary": "Promise ラッパーを使用した非同期処理の例。async/await と co ライブラリの比較。"
+    },
+    {
+      "url": "https://github.com/sidorares/node-mysql2/blob/master/website/docs/examples/queries/prepared-statements/delete.mdx",
+      "path": "website/docs/examples/queries/prepared-statements/delete.mdx",
+      "title": "Prepared DELETE Query",
+      "summary": "プリペアドステートメントを使用した DELETE クエリの実行例。"
+    },
+    {
+      "url": "https://github.com/sidorares/node-mysql2/blob/master/website/docs/examples/queries/prepared-statements/index.mdx",
+      "path": "website/docs/examples/queries/prepared-statements/index.mdx",
+      "title": "Prepared Statements Index",
+      "summary": "プリペアドステートメントによる CRUD 操作の例の一覧。"
+    },
+    {
+      "url": "https://github.com/sidorares/node-mysql2/blob/master/website/docs/examples/queries/prepared-statements/insert.mdx",
+      "path": "website/docs/examples/queries/prepared-statements/insert.mdx",
+      "title": "Prepared INSERT Query",
+      "summary": "プリペアドステートメントを使用した INSERT クエリの実行例。複数行の挿入も含む。"
+    },
+    {
+      "url": "https://github.com/sidorares/node-mysql2/blob/master/website/docs/examples/queries/prepared-statements/select.mdx",
+      "path": "website/docs/examples/queries/prepared-statements/select.mdx",
+      "title": "Prepared SELECT Query",
+      "summary": "プリペアドステートメントを使用した SELECT クエリの実行例。パラメータのバインド方法。"
+    },
+    {
+      "url": "https://github.com/sidorares/node-mysql2/blob/master/website/docs/examples/queries/prepared-statements/update.mdx",
+      "path": "website/docs/examples/queries/prepared-statements/update.mdx",
+      "title": "Prepared UPDATE Query",
+      "summary": "プリペアドステートメントを使用した UPDATE クエリの実行例。"
+    },
+    {
+      "url": "https://github.com/sidorares/node-mysql2/blob/master/website/docs/examples/queries/simple-queries/delete.mdx",
+      "path": "website/docs/examples/queries/simple-queries/delete.mdx",
+      "title": "Simple DELETE Query",
+      "summary": "プレースホルダーを使用しない単純な DELETE クエリの実行例。"
+    },
+    {
+      "url": "https://github.com/sidorares/node-mysql2/blob/master/website/docs/examples/queries/simple-queries/index.mdx",
+      "path": "website/docs/examples/queries/simple-queries/index.mdx",
+      "title": "Simple Queries Index",
+      "summary": "単純なクエリによる CRUD 操作の例の一覧。"
+    },
+    {
+      "url": "https://github.com/sidorares/node-mysql2/blob/master/website/docs/examples/queries/simple-queries/insert.mdx",
+      "path": "website/docs/examples/queries/simple-queries/insert.mdx",
+      "title": "Simple INSERT Query",
+      "summary": "query() メソッドを使用した単純な INSERT クエリの実行例。"
+    },
+    {
+      "url": "https://github.com/sidorares/node-mysql2/blob/master/website/docs/examples/queries/simple-queries/select.mdx",
+      "path": "website/docs/examples/queries/simple-queries/select.mdx",
+      "title": "Simple SELECT Query",
+      "summary": "query() メソッドを使用した単純な SELECT クエリの実行例。rowsAsArray オプションの使用方法も含む。"
+    },
+    {
+      "url": "https://github.com/sidorares/node-mysql2/blob/master/website/docs/examples/queries/simple-queries/update.mdx",
+      "path": "website/docs/examples/queries/simple-queries/update.mdx",
+      "title": "Simple UPDATE Query",
+      "summary": "query() メソッドを使用した単純な UPDATE クエリの実行例。"
+    },
+    {
+      "url": "https://github.com/sidorares/node-mysql2/blob/master/website/docs/examples/typescript/basic-custom-class.mdx",
+      "path": "website/docs/examples/typescript/basic-custom-class.mdx",
+      "title": "Custom Class with TypeScript",
+      "summary": "TypeScript で node-mysql2 の Pool をラップするカスタムクラスを作成する例。"
+    },
+    {
+      "url": "https://github.com/sidorares/node-mysql2/blob/master/website/docs/examples/typescript/procedure-call/00-index.mdx",
+      "path": "website/docs/examples/typescript/procedure-call/00-index.mdx",
+      "title": "Stored Procedure Call in TS",
+      "summary": "TypeScript でストアドプロシージャを呼び出し、ProcedureCallPacket を処理する方法。"
+    },
+    {
+      "url": "https://github.com/sidorares/node-mysql2/blob/master/website/docs/examples/typescript/procedure-call/01-row-as-array.mdx",
+      "path": "website/docs/examples/typescript/procedure-call/01-row-as-array.mdx",
+      "title": "Stored Procedure with rowsAsArray",
+      "summary": "TypeScript で rowsAsArray オプションを使用してストアドプロシージャを呼び出す例。"
+    },
+    {
+      "url": "https://github.com/sidorares/node-mysql2/blob/master/website/docs/examples/typescript/row-data/00-index.mdx",
+      "path": "website/docs/examples/typescript/row-data/00-index.mdx",
+      "title": "Type-Safe Row Data",
+      "summary": "RowDataPacket インターフェースを拡張して、クエリ結果に型を適用する方法。"
+    },
+    {
+      "url": "https://github.com/sidorares/node-mysql2/blob/master/website/docs/examples/typescript/row-data/01-row-as-array.mdx",
+      "path": "website/docs/examples/typescript/row-data/01-row-as-array.mdx",
+      "title": "Type-Safe Row Data as Array",
+      "summary": "rowsAsArray を使用する場合に、クエリ結果に型を適用する方法。"
+    },
+    {
+      "url": "https://github.com/sidorares/node-mysql2/blob/master/website/docs/examples/typescript/row-data/02-multi-statements.mdx",
+      "path": "website/docs/examples/typescript/row-data/02-multi-statements.mdx",
+      "title": "Multi-Statements Row Data",
+      "summary": "複数のステートメントを実行する場合のクエリ結果の型定義方法。"
+    },
+    {
+      "url": "https://github.com/sidorares/node-mysql2/blob/master/website/docs/examples/typescript/row-data/03-row-as-array-multi-statements.mdx",
+      "path": "website/docs/examples/typescript/row-data/03-row-as-array-multi-statements.mdx",
+      "title": "Multi-Statements with rowsAsArray",
+      "summary": "複数ステートメントと rowsAsArray を組み合わせた場合の型定義方法。"
+    },
+    {
+      "url": "https://github.com/sidorares/node-mysql2/blob/master/website/docs/faq/00-index.mdx",
+      "path": "website/docs/faq/00-index.mdx",
+      "title": "FAQ Index",
+      "summary": "node-mysql2 に関するよくある質問 (FAQ) のインデックス。"
+    },
+    {
+      "url": "https://github.com/sidorares/node-mysql2/blob/master/website/docs/faq/how-to-handle-errors.mdx",
+      "path": "website/docs/faq/how-to-handle-errors.mdx",
+      "title": "Error Handling Guide",
+      "summary": "コールバックおよび Promise を使用した接続エラーやクエリエラーの適切な処理方法。"
+    },
+    {
+      "url": "https://github.com/sidorares/node-mysql2/blob/master/benchmarks/index.html",
+      "path": "benchmarks/index.md",
+      "title": "Benchmarks Index",
+      "summary": "node-mysql2 のパフォーマンスベンチマーク。他のライブラリとの比較結果など。"
+    },
+    {
+      "url": "https://github.com/sidorares/node-mysql2/blob/master/website/docs/examples/tests/mysql-proxy.mdx",
+      "path": "website/docs/examples/tests/mysql-proxy.mdx",
+      "title": "MySQL Proxy Example",
+      "summary": "node-mysql2 を使用して MySQL プロキシサーバーを構築する高度な実装例。クエリのインターセプトと転送。"
+    },
+    {
+      "url": "https://github.com/sidorares/node-mysql2/blob/master/website/docs/examples/tests/pool.mdx",
+      "path": "website/docs/examples/tests/pool.mdx",
+      "title": "Connection Pool Usage Example",
+      "summary": "コネクションプールの基本的な使用方法と、クエリ実行時の自動接続解放の例。"
+    },
+    {
+      "url": "https://github.com/sidorares/node-mysql2/blob/master/website/docs/examples/tests/server.mdx",
+      "path": "website/docs/examples/tests/server.mdx",
+      "title": "MySQL Server Implementation",
+      "summary": "node-mysql2 を使用してカスタム MySQL 互換サーバーを構築する例。認証プロセスやカスタム応答の実装。"
+    }
+  ],
+  "metadata": {
+    "source": "github_fetch",
+    "repo_url": "https://github.com/sidorares/node-mysql2"
+  },
+  "title": "node-mysql2 Documentation",
+  "summary": "node-mysql2 は Node.js 用の高速で高度な機能を備えた MySQL クライアントです。基本的な CRUD 操作から、MySQL プロキシやサーバーの構築、TypeScript での高度な型定義、パフォーマンスベンチマークまでを網羅した包括的なナレッジベースを提供します。",
+  "src_type": "github",
+  "source_url": "https://github.com/sidorares/node-mysql2",
+  "unknowns": [
+    {
+      "uri": "https://github.com/sidorares/node-mysql2"
+    }
+  ]
+}
