@@ -1,0 +1,1696 @@
+{
+  "documents": [
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/CHANGELOG.md",
+      "path": "cache/CHANGELOG.md",
+      "title": "変更履歴",
+      "summary": "プロジェクト全体のバージョンごとの変更点、新機能、バグ修正、破壊的変更の履歴を記録しています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/CODE_OF_CONDUCT.md",
+      "path": "cache/CODE_OF_CONDUCT.md",
+      "title": "行動規範 (Code of Conduct)",
+      "summary": "コミュニティにおける行動規範です。すべての参加者がハラスメントのない経験をできるよう、推奨される振る舞いや禁止事項、違反時の報告・対応プロセスが定められています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/CONTRIBUTING.md",
+      "path": "cache/CONTRIBUTING.md",
+      "title": "貢献ガイドライン",
+      "summary": "typescript-eslintプロジェクトへの貢献方法（バグレポート、機能提案、プルリクエストの作成など）に関する指示をまとめています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/DEVELOPMENT.md",
+      "path": "cache/DEVELOPMENT.md",
+      "title": "開発者用ドキュメント",
+      "summary": "リポジトリのローカル開発環境の構築方法や、ビルド、テスト、Nxツールの使用方法などについて解説しています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/README.md",
+      "path": "cache/README.md",
+      "title": "typescript-eslint メインドキュメント",
+      "summary": "JavaScriptおよびTypeScript向けの強力な静的解析ツール「typescript-eslint」のモノリポジトリのメインドキュメントです。プロジェクトの概要、ライセンス、貢献者情報が記載されています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/.github/ISSUE_TEMPLATE.md",
+      "path": "cache/.github/ISSUE_TEMPLATE.md",
+      "title": "Issue作成時の注意",
+      "summary": "Issueを作成する際は必ず専用のテンプレートを使用するよう案内しています。テンプレートを使用しないIssueは対応されずにクローズされる場合があります。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/.github/pull_request_template.md",
+      "path": "cache/.github/pull_request_template.md",
+      "title": "プルリクエスト・テンプレート",
+      "summary": "プルリクエストを作成する際の標準的なチェックリストです。関連Issueの明示や貢献ガイドラインの遵守、変更の概要を記載する項目が含まれています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/.github/SECURITY.md",
+      "path": "cache/.github/SECURITY.md",
+      "title": "セキュリティ・ポリシー",
+      "summary": "セキュリティ脆弱性を発見した際の報告方法を規定しています。専用メールアドレスへの連絡やTideliftのセキュリティプロセスへの準拠について記載されています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/.github/SPONSORSHIPS.md",
+      "path": "cache/.github/SPONSORSHIPS.md",
+      "title": "スポンサーシップのご案内",
+      "summary": "プロジェクトへの寄付を通じた支援方法についての解説です。スポンサーになることのメリット、企業のロゴ掲載基準、プロジェクトの方向性に対するスポンサーの影響力制限などが記されています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/.github/ISSUE_TEMPLATE/README.md",
+      "path": "cache/.github/ISSUE_TEMPLATE/README.md",
+      "title": "メンテナー向け：Issueテンプレートの管理",
+      "summary": "GitHubのIssueフォームの構文や、テンプレート選択画面での表示順序を管理するためのガイドです。ファイル名の命名規則によるソート制御について説明しています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/.github/PULL_REQUEST_TEMPLATE/typescript_version_upgrade.md",
+      "path": "cache/.github/PULL_REQUEST_TEMPLATE/typescript_version_upgrade.md",
+      "title": "PRテンプレート：TypeScriptバージョンアップ対応",
+      "summary": "TypeScriptの新しいバージョンをサポートする際、PR作成者が確認すべき項目のチェックリストです。パッケージ構成やパーサー内部の対応範囲の更新が含まれます。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/docs/Contributing.mdx",
+      "path": "cache/docs/Contributing.mdx",
+      "title": "貢献ガイド (Contributing)",
+      "summary": "プロジェクトへの貢献を検討している方向けの総合案内です。Issueの探し方、ローカル開発環境の構築、プルリクエストの作成手順など、貢献を開始するための基本的なステップが紹介されています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/docs/Developers.mdx",
+      "path": "cache/docs/Developers.mdx",
+      "title": "開発者向けガイド (Developers)",
+      "summary": "typescript-eslintのツールセットを活用して外部ツールや拡張機能を構築したいサードパーティ開発者向けの導入ガイドです。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/docs/Maintenance.mdx",
+      "path": "cache/docs/Maintenance.mdx",
+      "title": "メンテナー・ガイド (Maintenance)",
+      "summary": "プロジェクトのメンテナーやトリアージ担当者向けの運用マニュアルです。ガバナンスモデル、意思決定プロセス、コミュニティからのフィードバック対応方法などが記されています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/docs/Packages.mdx",
+      "path": "cache/docs/Packages.mdx",
+      "title": "パッケージ構成の概要",
+      "summary": "typescript-eslintモノリポジトリ内の各パッケージ（parser, eslint-plugin, utils, scope-manager等）の役割と関係性について説明しています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/docs/contributing/AI_Contribution_Policy.mdx",
+      "path": "cache/docs/contributing/AI_Contribution_Policy.mdx",
+      "title": "AI利用に関する貢献ポリシー",
+      "summary": "プルリクエストやIssue作成におけるAI（LLM）の利用指針です。メンテナーの負担を軽減するため、AI生成内容の精査責任や、無責任な自動生成コンテンツの制限について定めています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/docs/contributing/Discussions.mdx",
+      "path": "cache/docs/contributing/Discussions.mdx",
+      "title": "ディスカッションの利用ガイド",
+      "summary": "GitHub Discussionsの用途と使い分けについてのガイドです。コミュニティへの相談、大きな変更案（RFC）、技術的な深い議論など、Issueよりもオープンで深い対話が必要な場合に活用されます。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/docs/contributing/Issues.mdx",
+      "path": "cache/docs/contributing/Issues.mdx",
+      "title": "Issueの作成と作法",
+      "summary": "バグレポートや機能提案を正しく行うためのガイドラインです。重複の確認、適切なテンプレートの使用、コメント時のマナー、Issueのステータス判断基準などが詳しく説明されています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/docs/contributing/Local_Development.mdx",
+      "path": "cache/docs/contributing/Local_Development.mdx",
+      "title": "ローカル開発環境のセットアップ",
+      "summary": "リポジトリをフォークして開発を開始するための技術的な手順です。pnpmによるパッケージ管理、ビルド実行、PrettierやESLint、テストによるコードの検証方法をカバーしています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/docs/contributing/Pull_Requests.mdx",
+      "path": "cache/docs/contributing/Pull_Requests.mdx",
+      "title": "プルリクエストの手順と規約",
+      "summary": "修正や新機能を提案する際のプルリクエスト（PR）の作成からマージまでの流れです。タイトルの命名規約、カバレッジの要件、レビューへの対応、AI利用時の注意点などがまとめられています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/docs/contributing/local-development/Local_Linking.mdx",
+      "path": "cache/docs/contributing/local-development/Local_Linking.mdx",
+      "title": "ローカルパッケージのリンク手順 (Local Linking)",
+      "summary": "開発中のtypescript-eslintを別のローカルプロジェクトでテストするための手順です。npm/pnpm/Yarn各ツールでのリンク方法や、依存関係に起因するトラブルシューティングを解説しています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/docs/developers/Custom_Rules.mdx",
+      "path": "cache/docs/developers/Custom_Rules.mdx",
+      "title": "カスタムルールの作成ガイド",
+      "summary": "typescript-eslintを使用して独自のESLintルールを開発するための技術ガイドです。ユーティリティパッケージの活用、TypeScript固有のASTノード操作、型情報の利用、テスト方法を網羅しています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/docs/developers/ESLint_Plugins.mdx",
+      "path": "cache/docs/developers/ESLint_Plugins.mdx",
+      "title": "ESLintプラグインの開発",
+      "summary": "TypeScriptをサポートするESLintプラグインを作成するためのガイドです。パッケージの依存関係の定義や、型チェックが必要なルールを含む共有設定の提供方法など、プラグイン固有の設計事項を解説しています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/docs/getting-started/Legacy_ESLint_Setup.mdx",
+      "path": "cache/docs/getting-started/Legacy_ESLint_Setup.mdx",
+      "title": "旧形式（Legacy Config）のセットアップ",
+      "summary": "ESLintの従来の設定形式（.eslintrc）を使用しているプロジェクト向けのセットアップガイドです。パッケージのインストールから、基本的な設定ファイルの記述方法までを解説しています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/docs/getting-started/Quickstart.mdx",
+      "path": "cache/docs/getting-started/Quickstart.mdx",
+      "title": "クイックスタートガイド",
+      "summary": "ESLintの新しい「Flat Config」形式を使用して、TypeScriptプロジェクトにtypescript-eslintを迅速に導入するためのガイドです。インストール、設定、実行手順を解説しています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/docs/getting-started/Typed_Linting.mdx",
+      "path": "cache/docs/getting-started/Typed_Linting.mdx",
+      "title": "型情報を用いたリンティング設定",
+      "summary": "TypeScriptの型チェックAPIを利用して、より深い洞察を得るための高度なルール設定ガイドです。パフォーマンス上の注意点やトラブルシューティングも含まれます。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/docs/maintenance/Branding.mdx",
+      "path": "cache/docs/maintenance/Branding.mdx",
+      "title": "ブランディング・ガイドライン",
+      "summary": "プロジェクトの名称、スローガン、ロゴ、イメージカラーなどの取り扱い規定です。公式な呼称や視覚的アイデンティティを維持するための指針がまとめられています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/docs/maintenance/Contributor_Tiers.mdx",
+      "path": "cache/docs/maintenance/Contributor_Tiers.mdx",
+      "title": "貢献者の階層と報酬体系",
+      "summary": "貢献者、コミッター、メンテナーの各役割における要件と期待される活動内容、および活動に応じた報酬（Reimbursement）の仕組みについての詳細な規定です。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/docs/maintenance/Governance.mdx",
+      "path": "cache/docs/maintenance/Governance.mdx",
+      "title": "ガバナンス（統治）モデル",
+      "summary": "プロジェクトの運営体制と意思決定プロセスに関する規定です。役割ごとの責任、プロセスの透明性の確保、規約変更時のコミュニティとの合意形成手順などが定義されています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/docs/maintenance/Issues.mdx",
+      "path": "cache/docs/maintenance/Issues.mdx",
+      "title": "Issueトリアージの手引き",
+      "summary": "メンテナー向けのIssue管理ガイドです。ユーザーへの親切な対応、ラベル付けの自動化フロー、バグの再現性確認、機能要望の採用基準など、トリアージ作業の具体的な手順が示されています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/docs/maintenance/Pull_Requests.mdx",
+      "path": "cache/docs/maintenance/Pull_Requests.mdx",
+      "title": "PRレビューのガイドライン",
+      "summary": "メンテナー向けのコードレビュー手順です。建設的でポジティブなフィードバックの送り方、ASTや型情報の正確性チェック、テスト網羅性の確認、マージの承認プロセスについて解説しています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/docs/maintenance/Releases.mdx",
+      "path": "cache/docs/maintenance/Releases.mdx",
+      "title": "リリース作業手順 (Maintenance)",
+      "summary": "プロジェクトのリリースプロセスに関する詳細ドキュメントです。メジャーリリースに向けたマイルストーン管理、破壊的変更の告知、コミュニティでのベータテスト、リリース後の広報手順を網羅しています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/docs/maintenance/Team.mdx",
+      "path": "cache/docs/maintenance/Team.mdx",
+      "title": "チーム紹介と参加方法",
+      "summary": "typescript-eslintを支える主要メンバー（メンテナーおよびコミッター）の紹介と、チームへの参加方法についての案内です。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/docs/maintenance/issues/Rule_Deprecations_And_Deletions.mdx",
+      "path": "cache/docs/maintenance/issues/Rule_Deprecations_And_Deletions.mdx",
+      "title": "メンテナー向け：ルールの非推奨化と削除",
+      "summary": "ルールの非推奨化、名称変更、および将来的な削除を行う際の手順とタイムラインを定義したガイドラインです。ユーザーへの影響を最小限に抑えるためのフローが示されています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/docs/maintenance/pull-requests/Dependency_Version_Upgrades.mdx",
+      "path": "cache/docs/maintenance/pull-requests/Dependency_Version_Upgrades.mdx",
+      "title": "メンテナー向け：依存関係の更新手順",
+      "summary": "Renovateによる自動更新の運用方法や、ESLint/Node/TypeScriptのサポートバージョンを手動で更新する際の内部コード修正手順をまとめた技術ドキュメントです。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/docs/packages/ESLint_Plugin.mdx",
+      "path": "cache/docs/packages/ESLint_Plugin.mdx",
+      "title": "パッケージ：eslint-plugin",
+      "summary": "TypeScript向けのESLintルールセットと共有設定を提供するプラグインの概要です。最新のFlat Configでの取り扱いについても触れています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/docs/packages/ESLint_Plugin_TSLint.mdx",
+      "path": "cache/docs/packages/ESLint_Plugin_TSLint.mdx",
+      "title": "パッケージ：eslint-plugin-tslint (非推奨)",
+      "summary": "TSLintルールをESLint上で実行するための移行支援プラグインの概要です。現在はTSLintからの完全な脱却が推奨されており、最小限の情報のみが記載されています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/docs/packages/Parser.mdx",
+      "path": "cache/docs/packages/Parser.mdx",
+      "title": "パッケージ：parser",
+      "summary": "TypeScriptコードをESLintが処理可能なASTに変換するためのパーサーです。型チェックの有効化、キャッシュ管理、JSXサポートなどの詳細な設定オプション（parserOptions）を解説しています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/docs/packages/Project_Service.mdx",
+      "path": "cache/docs/packages/Project_Service.mdx",
+      "title": "パッケージ：project-service",
+      "summary": "TypeScriptのProject Service APIを活用して、効率的な型情報の取得と解析を行うためのコンポーネントです。エディタと同等の高度な解析環境をプログラムから利用可能にします。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/docs/packages/RuleSchemaToTypeScriptTypes.mdx",
+      "path": "cache/docs/packages/RuleSchemaToTypeScriptTypes.mdx",
+      "title": "パッケージ：rule-schema-to-typescript-types",
+      "summary": "ESLintルールのメタデータ（JSON Schema）からTypeScriptの型定義を自動生成するためのツールです。設定オプションの型安全性を高めるために使用されます。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/docs/packages/Rule_Tester.mdx",
+      "path": "cache/docs/packages/Rule_Tester.mdx",
+      "title": "パッケージ：rule-tester",
+      "summary": "ESLintルールの動作検証用ツールです。TypeScript特有の型情報を用いたルールのテストや、複数バージョンの依存関係を考慮したテスト実行をサポートしています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/docs/packages/Scope_Manager.mdx",
+      "path": "cache/docs/packages/Scope_Manager.mdx",
+      "title": "パッケージ：scope-manager",
+      "summary": "コード内の変数や型のスコープを解析するライブラリです。eslint-scopeをベースに、TypeScript固有の構文をサポートするよう拡張されています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/docs/packages/TSConfig_Utils.mdx",
+      "path": "cache/docs/packages/TSConfig_Utils.mdx",
+      "title": "パッケージ：tsconfig-utils",
+      "summary": "リンティングのコンテキストでTSConfigファイルを収集・操作するためのユーティリティです。主に内部的なツールチェーンで使用されます。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/docs/packages/TypeScript_ESLint.mdx",
+      "path": "cache/docs/packages/TypeScript_ESLint.mdx",
+      "title": "パッケージ：typescript-eslint",
+      "summary": "プロジェクトのメインパッケージ「typescript-eslint」の利用ガイドです。インストール、最新のFlat Configでの基本設定、提供されているユーティリティや型定義について説明しています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/docs/packages/TypeScript_ESTree.mdx",
+      "path": "cache/docs/packages/TypeScript_ESTree.mdx",
+      "title": "パッケージ：typescript-estree",
+      "summary": "TypeScriptのASTをESLintが扱えるESTree形式に変換するコアエンジンです。パース処理の詳細設定（ParseOptions）や、TypeScriptの型情報サービスとの連携方法について解説しています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/docs/packages/Type_Utils.mdx",
+      "path": "cache/docs/packages/Type_Utils.mdx",
+      "title": "パッケージ：type-utils",
+      "summary": "TypeScriptの型情報を扱うためのESLint特化型ユーティリティ集です。eslint-plugin内の各ルールで型判定や型操作を行うために活用されています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/docs/packages/Utils.mdx",
+      "path": "cache/docs/packages/Utils.mdx",
+      "title": "パッケージ：utils",
+      "summary": "カスタムルールやプラグインを開発するためのユーティリティ集です。TypeScript版ESTreeの型定義や、ルール作成を支援するESLintUtilsなどが含まれています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/docs/packages/type-utils/TypeOrValueSpecifier.mdx",
+      "path": "cache/docs/packages/type-utils/TypeOrValueSpecifier.mdx",
+      "title": "共通フォーマット：TypeOrValueSpecifier",
+      "summary": "ルールの設定オプションで特定の型や値を指定するための、一貫した記述フォーマット（TypeOrValueSpecifier）の仕様と具体的な使用例を解説しています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/docs/packages/typescript-estree/AST_Spec.mdx",
+      "path": "cache/docs/packages/typescript-estree/AST_Spec.mdx",
+      "title": "ドキュメント：AST 仕様 (AST Specification)",
+      "summary": "typescript-estreeが生成する抽象構文木（AST）の構造を詳述した、自動生成ドキュメントのインデックスページです。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/docs/troubleshooting/faqs/ESLint.mdx",
+      "path": "cache/docs/troubleshooting/faqs/ESLint.mdx",
+      "title": "FAQ：ESLintとの連携",
+      "summary": "ESLintコアルールをTypeScript向けに拡張した「拡張ルール」の紹介、no-undefルールの取り扱い、グローバル変数宣言時の競合、キャッシュ機能の制限など、ESLint本体に関連する疑問に答えます。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/docs/troubleshooting/faqs/Frameworks.mdx",
+      "path": "cache/docs/troubleshooting/faqs/Frameworks.mdx",
+      "title": "FAQ：フレームワーク（Vue等）",
+      "summary": "Vueなどの独自拡張子を持つフレームワークでTypeScriptを扱う際の設定ガイドです。追加のファイル拡張子の許可設定や、各フレームワーク専用パーサーとの併用方法について解説しています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/docs/troubleshooting/faqs/General.mdx",
+      "path": "cache/docs/troubleshooting/faqs/General.mdx",
+      "title": "FAQ：全般的な質問",
+      "summary": "ルールの設定方法、特定構文の制限（no-restricted-syntax）、バージョン競合の解消、IDEの再起動による反映、Biome/Deno/oxlintといった他ツールとの併用など、幅広い疑問に答えるFAQ集です。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/docs/troubleshooting/faqs/JavaScript.mdx",
+      "path": "cache/docs/troubleshooting/faqs/JavaScript.mdx",
+      "title": "FAQ：JavaScriptの扱い",
+      "summary": "プロジェクト内の純粋なJavaScriptファイルに対するルールの適用制御や、ビルド後の出力ファイル（トランスパイル済みコード）をリンティング対象から外すべき理由を説明しています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/docs/troubleshooting/faqs/TypeScript.mdx",
+      "path": "cache/docs/troubleshooting/faqs/TypeScript.mdx",
+      "title": "FAQ：TypeScript本体との関係",
+      "summary": "TypeScriptのインストール方法、TSエラーがESLintに表示されない理由、バージョンの同期、@ts-ignoreコメントの影響、verbatimModuleSyntax等のコンパイラオプションとの競合解決策をまとめています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/docs/troubleshooting/typed-linting/index.mdx",
+      "path": "cache/docs/troubleshooting/typed-linting/index.mdx",
+      "title": "型情報を用いたリンティングのトラブルシューティング",
+      "summary": "Typed Linting特有の問題（IDEの反映遅延、ファイルごとの無効化、型情報の誤認）や、Project Service使用時のエラー対応、パフォーマンス低下の防ぎ方などを網羅したトラブルシューティングガイドです。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/docs/troubleshooting/typed-linting/Monorepos.mdx",
+      "path": "cache/docs/troubleshooting/typed-linting/Monorepos.mdx",
+      "title": "モノリポジトリでの設定",
+      "summary": "モノリポジトリ構成において型情報を用いたリンティングを正しく行うための設定ガイドです。v8のProject Serviceによる自動化や、従来のprojectオプションでのTSConfig連携、大規模環境での注意点を解説しています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/docs/troubleshooting/typed-linting/Performance.mdx",
+      "path": "cache/docs/troubleshooting/typed-linting/Performance.mdx",
+      "title": "パフォーマンスの改善",
+      "summary": "リンティング速度が遅い場合の診断と改善方法をまとめています。ルールの実行時間プロファイリング、TypeScript側の最適化、メモリ管理、他プラグイン（prettier, import等）によるオーバーヘッドの削減手法を紹介しています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/docs/users/Dependency_Versions.mdx",
+      "path": "cache/docs/users/Dependency_Versions.mdx",
+      "title": "サポート対象の依存バージョン",
+      "summary": "ESLint、Node.js、TypeScriptの各サポートバージョンと、その決定基準についてのガイドラインです。最新の安定版への追従方針や、サポート外バージョンでの警告についても説明しています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/docs/users/index.mdx",
+      "path": "cache/docs/users/index.mdx",
+      "title": "ユーザーガイド・トップ",
+      "summary": "typescript-eslintを導入・利用するユーザー向けのドキュメントポータルです。各種ガイドや設定方法への入り口となっています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/docs/users/Releases.mdx",
+      "path": "cache/docs/users/Releases.mdx",
+      "title": "リリースの仕組みと頻度",
+      "summary": "定期的な最新版リリース（Latest）、開発中のカナリア版（Canary）、メジャーアップデートのサイクルについての解説です。インストール方法や旧バージョンのサポート、リリースノートの確認方法も含まれます。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/docs/users/Shared_Configurations.mdx",
+      "path": "cache/docs/users/Shared_Configurations.mdx",
+      "title": "共有設定ガイド (Shared Configs)",
+      "summary": "typescript-eslintが提供する推奨設定（recommended, strict, stylistic等）の解説です。プロジェクトの習熟度や型チェックの有無に応じた最適な設定の選び方と、Flat Configでの記述方法を案内しています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/docs/users/Versioning.mdx",
+      "path": "cache/docs/users/Versioning.mdx",
+      "title": "バージョニング・ポリシー",
+      "summary": "セマンティックバージョニング（SemVer）の適用基準をパッケージごとに定義しています。何が破壊的変更とみなされるか、ASTやプラグイン、パーサーそれぞれの変更基準を明示し、開発の透明性を確保しています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/docs/users/What_About_Formatting.mdx",
+      "path": "cache/docs/users/What_About_Formatting.mdx",
+      "title": "コードフォーマットの扱い",
+      "summary": "ESLintによるフォーマット（空白やセミコロン等）の是非についての解説です。Prettier等の専用フォーマッタの併用を推奨する理由や、ESLint側でフォーマットルールを無効化する方法を案内しています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/docs/users/What_About_TSLint.mdx",
+      "path": "cache/docs/users/What_About_TSLint.mdx",
+      "title": "TSLintからの移行",
+      "summary": "非推奨となったTSLintからtypescript-eslintへの移行ガイドです。移行の背景、推奨される移行ツール、移行期間中に両者を併用する方法などをまとめています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/ast-spec/CHANGELOG.md",
+      "path": "cache/packages/ast-spec/CHANGELOG.md",
+      "title": "変更履歴：ast-spec",
+      "summary": "ast-specパッケージのバージョンごとの変更履歴です。ASTノードの型定義の変更や、TypeScript新機能への追従状況が記録されています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/ast-spec/README.md",
+      "path": "cache/packages/ast-spec/README.md",
+      "title": "パッケージ：ast-spec",
+      "summary": "TypeScript-ESTree ASTの完全な仕様定義と、変換ロジックを含む内部向けパッケージです。直接利用するのではなく、パーサーの動作原理を理解するための参照用として存在します。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/ast-spec/src/declaration/ClassDeclaration/fixtures/extends-literal/README.md",
+      "path": "cache/packages/ast-spec/src/declaration/ClassDeclaration/fixtures/extends-literal/README.md",
+      "title": "テスト資料：ClassDeclaration extends literal",
+      "summary": "ASTスペックの検証用フィクスチャに関するメモです。文法的に有効な特殊ケースが、いかにESTreeスペックに準拠しているかを記述しています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/CHANGELOG.md",
+      "path": "cache/packages/eslint-plugin/CHANGELOG.md",
+      "title": "変更履歴：eslint-plugin",
+      "summary": "eslint-plugin パッケージのバージョンごとの更新内容（新ルール、バグ修正、改善点）を記録したドキュメントです。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/README.md",
+      "path": "cache/packages/eslint-plugin/README.md",
+      "title": "パッケージ：eslint-plugin (README)",
+      "summary": "TypeScriptコード向けのESLintルールを提供するプラグインの基本情報です。詳細な設定方法は公式ドキュメントサイトを参照するよう案内しています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/ROADMAP.md",
+      "path": "cache/packages/eslint-plugin/ROADMAP.md",
+      "title": "ロードマップ（アーカイブ）",
+      "summary": "以前のロードマップページです。現在は TSLint ルール代替表への移行が案内されています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/TSLINT_RULE_ALTERNATIVES.md",
+      "path": "cache/packages/eslint-plugin/TSLINT_RULE_ALTERNATIVES.md",
+      "title": "TSLint ルール代替一覧",
+      "summary": "TSLint の各ルールに対応する ESLint/typescript-eslint の推奨ルールをまとめた対照表です。移行作業の際の主要なリファレンスとなります。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/adjacent-overload-signatures.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/adjacent-overload-signatures.mdx",
+      "title": "ルール：adjacent-overload-signatures",
+      "summary": "関数のオーバーロード署名が連続して配置されるように制限するルールです。型定義内での可読性を高め、署名の見落としを防ぎます。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/array-type.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/array-type.mdx",
+      "title": "ルール：array-type",
+      "summary": "配列の型定義を T[] 形式か Array<T> 形式のどちらかに統一するルールです。読みやすさの好みに応じて、プロジェクト全体で一貫したスタイルを保てます。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/await-thenable.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/await-thenable.mdx",
+      "title": "ルール：await-thenable",
+      "summary": "Promiseではない値に対する不要な await を禁止するルールです。実行効率の低下や、非同期処理に関するプログラミングミスを検出するのに役立ちます。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/ban-ts-comment.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/ban-ts-comment.mdx",
+      "title": "ルール：ban-ts-comment",
+      "summary": "@ts-ignore などの TypeScript 指示コメントの使用を制限・管理するルールです。安易なエラー抑制を抑止し、必要な場合は理由の記載を強制できます。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/ban-tslint-comment.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/ban-tslint-comment.mdx",
+      "title": "ルール：ban-tslint-comment",
+      "summary": "古い TSLint 用の設定コメントを禁止するルールです。ESLint への移行後に残った不要なコメントをクリーンアップする際に便利です。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/ban-types.md",
+      "path": "cache/packages/eslint-plugin/docs/rules/ban-types.md",
+      "title": "ルール：ban-types (非推奨)",
+      "summary": "特定の型（Function, Object等）の使用を禁止していた古いルールです。v8以降はより細分化された個別のルール（no-restricted-types等）に移行されました。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/block-spacing.md",
+      "path": "cache/packages/eslint-plugin/docs/rules/block-spacing.md",
+      "title": "ルール：block-spacing (非推奨)",
+      "summary": "ブロック内のスペースを制御するスタイルルールです。現在はeslint.styleプロジェクトに移管されています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/brace-style.md",
+      "path": "cache/packages/eslint-plugin/docs/rules/brace-style.md",
+      "title": "ルール：brace-style (非推奨)",
+      "summary": "波括弧（中括弧）の配置スタイルを定義するルールです。現在はeslint.styleプロジェクトに移管されています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/camelcase.md",
+      "path": "cache/packages/eslint-plugin/docs/rules/camelcase.md",
+      "title": "ルール：camelcase (非推奨)",
+      "summary": "命名にキャメルケースを強制するルールです。現在はより多機能な naming-convention ルールの使用が推奨されています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/class-literal-property-style.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/class-literal-property-style.mdx",
+      "title": "ルール：class-literal-property-style",
+      "summary": "クラス内のリテラル定数を、読み取り専用フィールドとして定義するか、ゲッターとして定義するかを統一するルールです。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/class-methods-use-this.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/class-methods-use-this.mdx",
+      "title": "ルール：class-methods-use-this",
+      "summary": "クラスメソッドが内部で this を使用しているかをチェックするルールです。TypeScript固有の override キーワードやインターフェースの実装状況を考慮した除外設定が可能です。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/comma-dangle.md",
+      "path": "cache/packages/eslint-plugin/docs/rules/comma-dangle.md",
+      "title": "ルール：comma-dangle (非推奨)",
+      "summary": "末尾のカンマのスタイルを制御するルールです。現在はeslint.styleプロジェクトに移管されています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/comma-spacing.md",
+      "path": "cache/packages/eslint-plugin/docs/rules/comma-spacing.md",
+      "title": "ルール：comma-spacing (非推奨)",
+      "summary": "カンマ前後のスペースを制御するルールです。現在はeslint.styleプロジェクトに移管されています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/consistent-generic-constructors.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/consistent-generic-constructors.mdx",
+      "title": "ルール：consistent-generic-constructors",
+      "summary": "ジェネリッククラスの型引数を、変数宣言側（型注釈）かコンストラクタ呼び出し側のどちらに一貫して記述するかを強制するルールです。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/consistent-indexed-object-style.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/consistent-indexed-object-style.mdx",
+      "title": "ルール：consistent-indexed-object-style",
+      "summary": "インデックス付きオブジェクトの定義において、Record型かインデックスシグネチャ形式のどちらか一方を一貫して使用するように制限するルールです。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/consistent-return.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/consistent-return.mdx",
+      "title": "ルール：consistent-return",
+      "summary": "関数内の return 文において、値を返す場合と返さない場合が混在しないように制限するルールです。基本的には TypeScript の noImplicitReturns オプションでの対応が推奨されています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/consistent-type-assertions.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/consistent-type-assertions.mdx",
+      "title": "ルール：consistent-type-assertions",
+      "summary": "型アサーションの記述スタイル（as 形式かアングルブラケット形式か）を一貫させるルールです。JSX との相性から、一般的に as 形式の使用が好まれます。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/consistent-type-definitions.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/consistent-type-definitions.mdx",
+      "title": "ルール：consistent-type-definitions",
+      "summary": "オブジェクト型の定義に interface または type のどちらを使用するかを統一するルールです。一貫性を保つことで可読性を向上させます。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/consistent-type-exports.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/consistent-type-exports.mdx",
+      "title": "ルール：consistent-type-exports",
+      "summary": "型情報をエクスポートする際、export type 構文の使用を一貫させるルールです。実行時のコードに影響を与えない型のみのエクスポートを明示的に示せます。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/consistent-type-imports.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/consistent-type-imports.mdx",
+      "title": "ルール：consistent-type-imports",
+      "summary": "型情報をインポートする際、import type 構文の使用を一貫させるルールです。トランスパイル時の型の消去を確実にし、不要なモジュールの読み込み（副作用）を防ぎます。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/default-param-last.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/default-param-last.mdx",
+      "title": "ルール：default-param-last",
+      "summary": "デフォルト値を持つ引数や省略可能な引数を、引数リストの最後に配置することを強制するルールです。関数呼び出し時の一貫性を高めます。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/dot-notation.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/dot-notation.mdx",
+      "title": "ルール：dot-notation",
+      "summary": "可能な限りドット記法（obj.prop）を使用するように制限するルールです。TypeScript 固有のアクセス制御やインデックスシグネチャに対する詳細な例外設定もサポートしています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/explicit-function-return-type.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/explicit-function-return-type.mdx",
+      "title": "ルール：explicit-function-return-type",
+      "summary": "すべての関数に戻り値の型注釈を明示することを要求するルールです。コードの可読性を高め、予期せぬ型推論によるバグを防止します。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/explicit-member-accessibility.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/explicit-member-accessibility.mdx",
+      "title": "ルール：explicit-member-accessibility",
+      "summary": "クラスのメンバー（プロパティやメソッド）に public などのアクセス修飾子を明示することを要求するルールです。メンバーの公開範囲を視覚的に明確にします。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/explicit-module-boundary-types.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/explicit-module-boundary-types.mdx",
+      "title": "ルール：explicit-module-boundary-types",
+      "summary": "エクスポートされる関数やメソッドの境界（引数と戻り値）に対して、型注釈を必須とするルールです。外部に公開される API の型安全性を担保します。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/func-call-spacing.md",
+      "path": "cache/packages/eslint-plugin/docs/rules/func-call-spacing.md",
+      "title": "ルール：func-call-spacing (非推奨)",
+      "summary": "関数呼び出し時のスペースのスタイルを制御するルールです。現在はeslint.styleプロジェクトに移管されています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/indent.md",
+      "path": "cache/packages/eslint-plugin/docs/rules/indent.md",
+      "title": "ルール：indent (非推奨)",
+      "summary": "コードのインデントスタイルを強制するルールです。現在はeslint.styleプロジェクトに移管されています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/init-declarations.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/init-declarations.mdx",
+      "title": "ルール：init-declarations",
+      "summary": "変数の宣言と同時に初期値を割り当てるかどうかを一貫させるルールです。TypeScript の declare 構文などの特殊な宣言もサポートしています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/key-spacing.md",
+      "path": "cache/packages/eslint-plugin/docs/rules/key-spacing.md",
+      "title": "ルール：key-spacing (非推奨)",
+      "summary": "オブジェクトのキーと値の間の余白を制御するルールです。現在はeslint.styleプロジェクトに移管されています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/keyword-spacing.md",
+      "path": "cache/packages/eslint-plugin/docs/rules/keyword-spacing.md",
+      "title": "ルール：keyword-spacing (非推奨)",
+      "summary": "予約語（if, return 等）の周囲のスペースを制御するルールです。現在はeslint.styleプロジェクトに移管されています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/lines-around-comment.md",
+      "path": "cache/packages/eslint-plugin/docs/rules/lines-around-comment.md",
+      "title": "ルール：lines-around-comment (非推奨)",
+      "summary": "コメントの周囲に空行を挿入するかどうかを制御するルールです。現在はeslint.styleプロジェクトに移管されています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/lines-between-class-members.md",
+      "path": "cache/packages/eslint-plugin/docs/rules/lines-between-class-members.md",
+      "title": "ルール：lines-between-class-members (非推奨)",
+      "summary": "クラスのメンバー間に空行を必須とするスタイルルールです。現在はeslint.styleプロジェクトに移管されています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/max-params.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/max-params.mdx",
+      "title": "ルール：max-params",
+      "summary": "関数の引数の最大数を制限するルールです。TypeScript 固有の this パラメータを個数に含めないなどの柔軟なカウント設定が可能です。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/member-delimiter-style.md",
+      "path": "cache/packages/eslint-plugin/docs/rules/member-delimiter-style.md",
+      "title": "ルール：member-delimiter-style (非推奨)",
+      "summary": "インターフェースや型の区切り文字（; や ,）のスタイルを制御するルールです。現在はeslint.styleプロジェクトに移管されています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/member-ordering.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/member-ordering.mdx",
+      "title": "ルール：member-ordering",
+      "summary": "クラスやインターフェース内のメンバー（プロパティ、メソッド、コンストラクタなど）の記述順序を一貫させるルールです。アクセス修飾子や静的/インスタンスなどの属性に基づいた詳細なソート設定が可能です。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/method-signature-style.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/method-signature-style.mdx",
+      "title": "ルール：method-signature-style",
+      "summary": "メソッドの宣言スタイル（短縮形かプロパティ形か）を一貫させるルールです。プロパティ形を使用することで、TypeScript の厳格な関数型チェックをより効果的に活用できます。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/naming-convention.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/naming-convention.mdx",
+      "title": "ルール：naming-convention",
+      "summary": "変数や関数、型などのあらゆる識別子に対して詳細な命名規則（形式、接頭辞、接尾辞など）を適用するルールです。プロジェクト固有のスタイルガイドを厳格に自動適用できます。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-array-constructor.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/no-array-constructor.mdx",
+      "title": "ルール：no-array-constructor",
+      "summary": "Array コンストラクタの使用を禁止または制限するルールです。TypeScript におけるジェネリック型指定を伴うコンストラクタ呼び出しなどの特殊なケースを考慮しています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-array-delete.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/no-array-delete.mdx",
+      "title": "ルール：no-array-delete",
+      "summary": "配列の要素を delete 演算子で削除することを禁止するルールです。配列の整合性を保つため、Array.prototype.splice 等のより安全な代替手段の使用を促します。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-base-to-string.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/no-base-to-string.mdx",
+      "title": "ルール：no-base-to-string",
+      "summary": "適切な toString 実装を持たないオブジェクトを文字列として扱う（連結や補間を行う）ことを防ぐルールです。意図しない [object Object] の出力を回避できます。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-confusing-non-null-assertion.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/no-confusing-non-null-assertion.mdx",
+      "title": "ルール：no-confusing-non-null-assertion",
+      "summary": "比較演算子や in/instanceof 演算子の直前での非空アサーション（!）の使用を禁止するルールです。不等号（!==）などとの誤認による混乱を避けるために役立ちます。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-confusing-void-expression.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/no-confusing-void-expression.mdx",
+      "title": "ルール：no-confusing-void-expression",
+      "summary": "void 型を返す式の値を、代入や戻り値として利用することを制限するルールです。戻り値のない関数の結果を誤って利用するプログラミングミスを防止します。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-deprecated.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/no-deprecated.mdx",
+      "title": "ルール：no-deprecated",
+      "summary": "@deprecated タグが付けられた非推奨の関数やプロパティの使用を検出し、警告するルールです。型情報を活用して、古い API からの安全な移行を支援します。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-dupe-class-members.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/no-dupe-class-members.mdx",
+      "title": "ルール：no-dupe-class-members",
+      "summary": "クラス内で同じ名前のメンバーを重複定義することを禁止するルールです。TypeScript のメソッドオーバーロード構文を適切に解釈し、誤検知を防いでいます。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-duplicate-enum-values.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/no-duplicate-enum-values.mdx",
+      "title": "ルール：no-duplicate-enum-values",
+      "summary": "列挙型（enum）の中で、複数のメンバーに同じ値を割り当てることを禁止するルールです。意図しない値の重複によるバグを未然に防ぎます。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-duplicate-imports.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/no-duplicate-imports.mdx",
+      "title": "ルール：no-duplicate-imports (非推奨)",
+      "summary": "同一モジュールからの重複したインポートを禁止するルールです。現在は eslint-plugin-import の no-duplicates ルールの使用が推奨されています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-duplicate-type-constituents.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/no-duplicate-type-constituents.mdx",
+      "title": "ルール：no-duplicate-type-constituents",
+      "summary": "ユニオン型やインターセクション型において、重複する型の指定を禁止するルールです。型の定義を簡潔にし、可読性を向上させます。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-dynamic-delete.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/no-dynamic-delete.mdx",
+      "title": "ルール：no-dynamic-delete",
+      "summary": "動的な計算結果に基づくプロパティの delete を制限するルールです。安全性の確保と、必要に応じた Map/Set への移行を促します。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-empty-function.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/no-empty-function.mdx",
+      "title": "ルール：no-empty-function",
+      "summary": "処理内容が空の関数を禁止するルールです。TypeScript 特有のコンストラクタの挙動やアクセス修飾子を考慮した除外設定が可能です。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-empty-interface.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/no-empty-interface.mdx",
+      "title": "ルール：no-empty-interface (非推奨)",
+      "summary": "意味を持たない空のインターフェース定義を禁止するルールです。現在は no-empty-object-type ルールへの移行が推奨されています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-empty-object-type.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/no-empty-object-type.mdx",
+      "title": "ルール：no-empty-object-type",
+      "summary": "TypeScript において誤解を招きやすい「空のオブジェクト型 ({})」の使用を制限するルールです。意図に応じて object や unknown などのより適切な型への置き換えを推奨します。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-explicit-any.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/no-explicit-any.mdx",
+      "title": "ルール：no-explicit-any",
+      "summary": "明示的な any 型の宣言を禁止するルールです。型システムの「逃げ道」である any の使用を最小限に抑え、型安全性の向上を促します。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-extra-non-null-assertion.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/no-extra-non-null-assertion.mdx",
+      "title": "ルール：no-extra-non-null-assertion",
+      "summary": "!! のように重複して使用されている非空アサーションを禁止するルールです。コードの冗長性を排除します。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-extra-parens.md",
+      "path": "cache/packages/eslint-plugin/docs/rules/no-extra-parens.md",
+      "title": "ルール：no-extra-parens (非推奨)",
+      "summary": "不要な括弧を制限するルールです。現在はeslint.styleプロジェクトに移管されています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-extra-semi.md",
+      "path": "cache/packages/eslint-plugin/docs/rules/no-extra-semi.md",
+      "title": "ルール：no-extra-semi (非推奨)",
+      "summary": "不要なセミコロンを制限するルールです。現在はeslint.styleプロジェクトに移管されています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-extraneous-class.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/no-extraneous-class.mdx",
+      "title": "ルール：no-extraneous-class",
+      "summary": "実質的に名前空間として使われている静的メンバーのみのクラスや、意味のない空のクラスを禁止するルールです。ESモジュールの機能を活用したクリーンな設計を促します。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-floating-promises.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/no-floating-promises.mdx",
+      "title": "ルール：no-floating-promises",
+      "summary": "戻り値の Promise が await やエラーハンドリングなどで適切に処理されていない場合に警告するルールです。非同期処理のバグ（レースコンディションや未キャッチ例外）を防ぐための極めて重要なルールです。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-for-in-array.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/no-for-in-array.mdx",
+      "title": "ルール：no-for-in-array",
+      "summary": "配列の反復処理に for-in 文を使用することを禁止するルールです。予期せぬプロパティの列挙や型エラーを避けるため、for-of や Array メソッドの使用を推奨します。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-implied-eval.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/no-implied-eval.mdx",
+      "title": "ルール：no-implied-eval",
+      "summary": "setTimeout 等の引数に文字列を渡すことで、暗黙的に eval が実行されるコードを禁止するルールです。セキュリティリスクの低減とコードの健全性を保ちます。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-import-type-side-effects.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/no-import-type-side-effects.mdx",
+      "title": "ルール：no-import-type-side-effects",
+      "summary": "型のみのインポートを一括で import type に統一することを強制するルールです。トランスパイル後に不要なサイドエフェクト（モジュールの実行）が残るのを防ぎます。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-inferrable-types.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/no-inferrable-types.mdx",
+      "title": "ルール：no-inferrable-types",
+      "summary": "初期値から型が容易に推論できる場合に、明示的な型注釈（: number 等）を禁止するルールです。コードを簡潔にし、型推論を最大限活用することを促します。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-invalid-this.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/no-invalid-this.mdx",
+      "title": "ルール：no-invalid-this",
+      "summary": "不正な文脈（クラス外など）での this の使用を制限するルールです。TypeScript の this パラメータ構文を考慮した高度なチェックを行います。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-invalid-void-type.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/no-invalid-void-type.mdx",
+      "title": "ルール：no-invalid-void-type",
+      "summary": "戻り値や型引数以外での void 型の使用を禁止するルールです。値として意味を持たない void と、明示的な欠落を示す undefined を適切に使い分けるよう導きます。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-loop-func.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/no-loop-func.mdx",
+      "title": "ルール：no-loop-func",
+      "summary": "ループ内での関数宣言および、ループ変数への安全でない参照を禁止するルールです。クロージャに関連する典型的なバグを防止します。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-loss-of-precision.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/no-loss-of-precision.mdx",
+      "title": "ルール：no-loss-of-precision (非推奨)",
+      "summary": "数値リテラルにおいて精度が失われる大きな値を禁止するルールです。現在は ESLint コア側の同名ルールで十分なため、非推奨となっています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-magic-numbers.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/no-magic-numbers.mdx",
+      "title": "ルール：no-magic-numbers",
+      "summary": "意味の不明な数値リテラル（マジックナンバー）の使用を制限するルールです。TypeScript の enum や型定義、読み取り専用プロパティにおける数値を適切に除外する設定を備えています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-meaningless-void-operator.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/no-meaningless-void-operator.mdx",
+      "title": "ルール：no-meaningless-void-operator",
+      "summary": "既に void や undefined を返す式に対して、さらに void 演算子を適用することを禁止するルールです。冗長な記述を排除し、意図的な値の破棄のみを明確にします。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-misused-new.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/no-misused-new.mdx",
+      "title": "ルール：no-misused-new",
+      "summary": "クラスのコンストラクタやインターフェースの new 署名を正しく定義することを強制するルールです。JavaScript と TypeScript の構文の混同による定義ミスを防ぎます。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-misused-promises.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/no-misused-promises.mdx",
+      "title": "ルール：no-misused-promises",
+      "summary": "条件式や同期的な戻り値が期待される場所など、Promise が適切に処理されない文脈での使用を禁止するルールです。非同期処理の考慮漏れを未然に防ぎます。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-misused-spread.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/no-misused-spread.mdx",
+      "title": "ルール：no-misused-spread",
+      "summary": "Promise や関数、クラスインスタンスなど、スプレッド演算子を使用すると予期せぬ結果を招く可能性のある型に対して、スプレッド操作を制限するルールです。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-mixed-enums.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/no-mixed-enums.mdx",
+      "title": "ルール：no-mixed-enums",
+      "summary": "一つの列挙型（enum）の中で数値と文字列のメンバーを混在させることを禁止するルールです。列挙型を反復処理する際の予期せぬ挙動（逆引きエントリの混入）を防止します。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-namespace.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/no-namespace.mdx",
+      "title": "ルール：no-namespace",
+      "summary": "TypeScript 独自の namespace や module 構文の使用を制限するルールです。ESモジュールの使用を推奨し、コードの構造をモダンな JavaScript の標準に合わせます。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-non-null-asserted-nullish-coalescing.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/no-non-null-asserted-nullish-coalescing.mdx",
+      "title": "ルール：no-non-null-asserted-nullish-coalescing",
+      "summary": "Null 合体演算子（??）の左辺での非空アサーション（!）を禁止するルールです。値が null/undefined である可能性を考慮する演算子と、それを否定するアサーションの矛盾を解消します。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-non-null-asserted-optional-chain.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/no-non-null-asserted-optional-chain.mdx",
+      "title": "ルール：no-non-null-asserted-optional-chain",
+      "summary": "オプショナルチェーン（?.）の結果に対して非空アサーション（!）を行うことを禁止するルールです。型安全性を損なう不適切なアサーションを検出します。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-non-null-assertion.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/no-non-null-assertion.mdx",
+      "title": "ルール：no-non-null-assertion",
+      "summary": "非空アサーション演算子（!）の使用を制限するルールです。アサーションに頼らず、適切な型ガードやロジック構成によって安全性を確保することを促します。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-parameter-properties.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/no-parameter-properties.mdx",
+      "title": "ルール：no-parameter-properties (非推奨)",
+      "summary": "コンストラクタ引数でのプロパティ宣言（パラメータプロパティ）を禁止するルールです。現在は parameter-properties ルールへの移行が推奨されています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-redeclare.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/no-redeclare.mdx",
+      "title": "ルール：no-redeclare",
+      "summary": "変数の再宣言を制限するルールです。TypeScript の関数オーバーロードや、インターフェースとクラスの同名定義（宣言の結合）を適切に許可するオプションを備えています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-redundant-type-constituents.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/no-redundant-type-constituents.mdx",
+      "title": "ルール：no-redundant-type-constituents",
+      "summary": "ユニオン型やインターセクション型において、論理的に不要な型（例：any とのユニオンにおける他の型）を排除するルールです。型定義をクリーンに保ちます。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-require-imports.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/no-require-imports.mdx",
+      "title": "ルール：no-require-imports",
+      "summary": "CommonJS 形式の require() によるインポートを禁止し、ESモジュール構文の使用を促すルールです。TypeScript 特有のインポート形式に対する例外設定も可能です。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-restricted-imports.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/no-restricted-imports.mdx",
+      "title": "ルール：no-restricted-imports",
+      "summary": "特定のモジュールやパスからのインポートを制限するルールです。TypeScript の型専用インポート（import type）については制限から除外するなどの詳細な設定が可能です。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-restricted-types.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/no-restricted-types.mdx",
+      "title": "ルール：no-restricted-types",
+      "summary": "特定の型名やジェネリック型の使用をプロジェクト全域で禁止・制限するルールです。カスタムメッセージや代替型への自動修正、エディタでのヒント表示を設定できます。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-shadow.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/no-shadow.mdx",
+      "title": "ルール：no-shadow",
+      "summary": "外側のスコープの変数名を内側で再利用（シャドウイング）することを制限するルールです。TypeScript の型名や enum メンバーが関わる特殊なケースも適切に処理します。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-this-alias.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/no-this-alias.mdx",
+      "title": "ルール：no-this-alias",
+      "summary": "this を別の変数に代入する古いプラクティスを禁止するルールです。スコープの問題を解決するためにアロー関数を使用することを促します。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-type-alias.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/no-type-alias.mdx",
+      "title": "ルール：no-type-alias (非推奨)",
+      "summary": "型エイリアスの使用を包括的に制限するルールです。現在は一貫性の観点から consistent-type-definitions ルールの使用が推奨されています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-unnecessary-boolean-literal-compare.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/no-unnecessary-boolean-literal-compare.mdx",
+      "title": "ルール：no-unnecessary-boolean-literal-compare",
+      "summary": "真偽値と true/false リテラルの冗長な比較を禁止するルールです。! 演算子や値そのものを用いた、より簡潔な論理式の記述を強制します。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-unnecessary-condition.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/no-unnecessary-condition.mdx",
+      "title": "ルール：no-unnecessary-condition",
+      "summary": "型情報に基づき、常に真または偽となる不要な条件分岐を禁止するルールです。論理的な冗長性を排除し、バグの温床となるコードをクリーンアップします。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-unnecessary-parameter-property-assignment.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/no-unnecessary-parameter-property-assignment.mdx",
+      "title": "ルール：no-unnecessary-parameter-property-assignment",
+      "summary": "TypeScript のパラメータプロパティ機能を使用している際に、コンストラクタ内で行われる重複した代入操作を禁止するルールです。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-unnecessary-qualifier.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/no-unnecessary-qualifier.mdx",
+      "title": "ルール：no-unnecessary-qualifier",
+      "summary": "Enum や名前空間の内部からメンバーを参照する際の、冗長な名前空間修飾子を禁止するルールです。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-unnecessary-template-expression.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/no-unnecessary-template-expression.mdx",
+      "title": "ルール：no-unnecessary-template-expression",
+      "summary": "テンプレートリテラル内での不必要な式展開（文字列リテラルの埋め込みなど）を制限し、より簡潔な記述を促すルールです。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-unnecessary-type-arguments.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/no-unnecessary-type-arguments.mdx",
+      "title": "ルール：no-unnecessary-type-arguments",
+      "summary": "型パラメータのデフォルト値と同じ型引数を明示的に渡す冗長な記述を禁止するルールです。型推論を活用した簡潔なコードを維持します。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-unnecessary-type-assertion.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/no-unnecessary-type-assertion.mdx",
+      "title": "ルール：no-unnecessary-type-assertion",
+      "summary": "型を変更しない冗長な型アサーション（as や !）を禁止するルールです。コードのノイズを減らし、クリーンな状態を保ちます。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-unnecessary-type-constraint.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/no-unnecessary-type-constraint.mdx",
+      "title": "ルール：no-unnecessary-type-constraint",
+      "summary": "ジェネリック型パラメータにおいて、デフォルト（any や unknown）と同じ制約を明示的に指定することを禁止するルールです。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-unnecessary-type-conversion.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/no-unnecessary-type-conversion.mdx",
+      "title": "ルール：no-unnecessary-type-conversion",
+      "summary": "既に目的の型である値に対して行われる、不必要な型変換操作（String() への文字列の受け渡しなど）を制限するルールです。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-unnecessary-type-parameters.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/no-unnecessary-type-parameters.mdx",
+      "title": "ルール：no-unnecessary-type-parameters",
+      "summary": "関数やクラスで、他の型との関連付けに使われていない（1回しか登場しない）不要な型パラメータを禁止するルールです。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-unsafe-argument.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/no-unsafe-argument.mdx",
+      "title": "ルール：no-unsafe-argument",
+      "summary": "関数の引数に any 型の値を渡すことを禁止するルールです。型安全性の欠如が関数の外から中に伝播するのを防ぎます。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-unsafe-assignment.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/no-unsafe-assignment.mdx",
+      "title": "ルール：no-unsafe-assignment",
+      "summary": "変数やプロパティに対して any 型の値を代入することを禁止するルールです。型の「汚染」を最小限に食い止めます。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-unsafe-call.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/no-unsafe-call.mdx",
+      "title": "ルール：no-unsafe-call",
+      "summary": "any 型の値を関数やコンストラクタとして呼び出すことを禁止するルールです。実行時の型エラーリスクを排除します。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-unsafe-declaration-merging.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/no-unsafe-declaration-merging.mdx",
+      "title": "ルール：no-unsafe-declaration-merging",
+      "summary": "クラスとインターフェースを同名で定義して結合させる操作を禁止するルールです。初期化されていないプロパティへのアクセスによるエラーを防止します。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-unsafe-enum-comparison.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/no-unsafe-enum-comparison.mdx",
+      "title": "ルール：no-unsafe-enum-comparison",
+      "summary": "列挙型（enum）の値を、名前付きのメンバー以外（生のリテラル等）と比較することを禁止するルールです。Enum のカプセル化を守ります。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-unsafe-function-type.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/no-unsafe-function-type.mdx",
+      "title": "ルール：no-unsafe-function-type",
+      "summary": "組み込みの Function 型の使用を禁止するルールです。安全性の高い具体的な関数シグネチャの定義を推奨します。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-unsafe-member-access.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/no-unsafe-member-access.mdx",
+      "title": "ルール：no-unsafe-member-access",
+      "summary": "any 型の値に対するプロパティ参照やメソッド呼び出しを制限するルールです。実行時の TypeError を防ぎ、型安全な開発を徹底させます。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-unsafe-return.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/no-unsafe-return.mdx",
+      "title": "ルール：no-unsafe-return",
+      "summary": "関数の戻り値として any 型の値を返すことを禁止するルールです。戻り値の型安全性を確保し、呼び出し側への型の不確実性の伝播を防ぎます。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-unsafe-type-assertion.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/no-unsafe-type-assertion.mdx",
+      "title": "ルール：no-unsafe-type-assertion",
+      "summary": "型を狭める（narrow）方向の安全でない型アサーションを制限するルールです。無理な型変換によるランタイムエラーを防ぎ、タイプガードの使用を推奨します。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-unsafe-unary-minus.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/no-unsafe-unary-minus.mdx",
+      "title": "ルール：no-unsafe-unary-minus",
+      "summary": "数値や bigint 以外の値に対して単項マイナス（-）を適用することを制限するルールです。不正な演算による NaN の発生を防止します。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-unused-expressions.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/no-unused-expressions.mdx",
+      "title": "ルール：no-unused-expressions",
+      "summary": "値が利用されていない式の記述を禁止するルールです。TypeScript の型アサーションや non-null アサーションのみの式なども適切に検出します。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-unused-private-class-members.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/no-unused-private-class-members.mdx",
+      "title": "ルール：no-unused-private-class-members",
+      "summary": "クラス内で一度も使用されていない private なプロパティやメソッドを検出し、削除を促すルールです。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-unused-vars.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/no-unused-vars.mdx",
+      "title": "ルール：no-unused-vars",
+      "summary": "宣言されたものの使用されていない変数を制限するルールです。型定義やデコレータ、JSDoc 内での参照など、TypeScript 特有の複雑な使用パターンを考慮した高度な解析を行います。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-use-before-define.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/no-use-before-define.mdx",
+      "title": "ルール：no-use-before-define",
+      "summary": "定義前の変数の使用を禁止するルールです。ESLint コアを拡張し、TypeScript の型、インターフェース、列挙型もチェック対象に含めます。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-useless-constructor.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/no-useless-constructor.mdx",
+      "title": "ルール：no-useless-constructor",
+      "summary": "実質的な処理を行わない不要なコンストラクタを禁止するルールです。TypeScript のアクセス修飾子やパラメータプロパティによる暗黙の初期化も考慮されます。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-useless-default-assignment.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/no-useless-default-assignment.mdx",
+      "title": "ルール：no-useless-default-assignment",
+      "summary": "型定義から undefined になることがあり得ない変数に対して、冗長なデフォルト値を割り当てることを制限するルールです。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-useless-empty-export.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/no-useless-empty-export.mdx",
+      "title": "ルール：no-useless-empty-export",
+      "summary": "既にモジュールとして成立しているファイルにおいて、何の効果も持たない空の export {} 記述を禁止するルールです。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-useless-template-literals.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/no-useless-template-literals.mdx",
+      "title": "ルール：no-useless-template-literals (名称変更)",
+      "summary": "テンプレートリテラルの不要な使用を制限するルールです。現在は no-unnecessary-template-expression に改名されています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-var-requires.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/no-var-requires.mdx",
+      "title": "ルール：no-var-requires (非推奨)",
+      "summary": "require 構文によるモジュールの読み込みを禁止し、ESモジュールの import 構文の使用を促すルールです。現在は no-require-imports が推奨されています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-wrapper-object-types.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/no-wrapper-object-types.mdx",
+      "title": "ルール：no-wrapper-object-types",
+      "summary": "プリミティブ型のラッパーオブジェクト（String, Number 等）の型指定を禁止し、小文字のプリミティブ型（string, number 等）の使用を強制するルールです。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/non-nullable-type-assertion-style.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/non-nullable-type-assertion-style.mdx",
+      "title": "ルール：non-nullable-type-assertion-style",
+      "summary": "型アサーション（as T）を使って null/undefined を除外する代わりに、より簡潔な非空アサーション（!）の使用を推奨するルールです。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/object-curly-spacing.md",
+      "path": "cache/packages/eslint-plugin/docs/rules/object-curly-spacing.md",
+      "title": "ルール：object-curly-spacing (移動済み)",
+      "summary": "オブジェクトの括弧内のスペースを制御するルールです。現在は ESLint Stylistic プラグインへ移行されました。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/only-throw-error.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/only-throw-error.mdx",
+      "title": "ルール：only-throw-error",
+      "summary": "Error オブジェクト（またはその派生）以外の値を throw することを禁止するルールです。以前の no-throw-literal から改名されました。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/padding-line-between-statements.md",
+      "path": "cache/packages/eslint-plugin/docs/rules/padding-line-between-statements.md",
+      "title": "ルール：padding-line-between-statements (移動済み)",
+      "summary": "文の間の空行ルールを制御するルールです。現在は ESLint Stylistic プラグインへ移行されました。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/parameter-properties.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/parameter-properties.mdx",
+      "title": "ルール：parameter-properties",
+      "summary": "クラスコンストラクタの引数で直接プロパティを宣言・初期化する「パラメータプロパティ」の使用を制御するルールです。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/prefer-as-const.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/prefer-as-const.mdx",
+      "title": "ルール：prefer-as-const",
+      "summary": "リテラル値をリテラル型として扱う際、明示的な型指定（as 'value'）よりも簡潔で推論に任せる as const の使用を推奨するルールです。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/prefer-destructuring.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/prefer-destructuring.mdx",
+      "title": "ルール：prefer-destructuring",
+      "summary": "配列やオブジェクトからの値取得に分割代入の使用を促すルールです。TypeScript の型注釈がある場合も適切に処理します。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/prefer-enum-initializers.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/prefer-enum-initializers.mdx",
+      "title": "ルール：prefer-enum-initializers",
+      "summary": "Enum（列挙型）のすべてのメンバーに対して明示的な値の初期化を求めるルールです。暗黙的な数値割り当てによる混乱を防ぎます。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/prefer-find.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/prefer-find.mdx",
+      "title": "ルール：prefer-find",
+      "summary": "配列から特定の 1 要素を取得する際、.filter()[0] よりも効率的で意図が明確な .find() の使用を推奨するルールです。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/prefer-for-of.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/prefer-for-of.mdx",
+      "title": "ルール：prefer-for-of",
+      "summary": "配列の反復処理において、インデックス変数を他で使わない場合は、標準の for ループよりも for-of ループの使用を推奨するルールです。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/prefer-function-type.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/prefer-function-type.mdx",
+      "title": "ルール：prefer-function-type",
+      "summary": "単一の呼び出しシグネチャのみを持つインターフェースの代わりに、より簡潔な関数型の記述を推奨するルールです。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/prefer-includes.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/prefer-includes.mdx",
+      "title": "ルール：prefer-includes",
+      "summary": "文字列や配列の中に特定の値が含まれているかの判定に、.indexOf よりも可読性の高い .includes の使用を推奨するルールです。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/prefer-literal-enum-member.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/prefer-literal-enum-member.mdx",
+      "title": "ルール：prefer-literal-enum-member",
+      "summary": "Enum のメンバーの値にリテラル（固定値）以外を使用することを禁止するルールです。実行時の予期せぬ参照解決トラブルを回避します。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/prefer-namespace-keyword.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/prefer-namespace-keyword.mdx",
+      "title": "ルール：prefer-namespace-keyword",
+      "summary": "古い module キーワードの代わりに、TypeScript 推奨の namespace キーワードの使用を促すルールです。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/prefer-nullish-coalescing.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/prefer-nullish-coalescing.mdx",
+      "title": "ルール：prefer-nullish-coalescing",
+      "summary": "論理和演算子（||）よりも安全な Null 合体演算子（??）の使用を推奨するルールです。0 や空文字などの意図しない falsy 値によるフォールバックを防ぎます。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/prefer-optional-chain.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/prefer-optional-chain.mdx",
+      "title": "ルール：prefer-optional-chain",
+      "summary": "深いネストのプロパティ参照における冗長な && チェックを、簡潔で安全なオプショナルチェーン（?.）に置き換えることを推奨するルールです。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/prefer-promise-reject-errors.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/prefer-promise-reject-errors.mdx",
+      "title": "ルール：prefer-promise-reject-errors",
+      "summary": "Promise の拒否（reject）時に、スタックトレース等の情報を保持できる Error オブジェクトの使用を強制するルールです。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/prefer-readonly-parameter-types.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/prefer-readonly-parameter-types.mdx",
+      "title": "ルール：prefer-readonly-parameter-types",
+      "summary": "関数の引数が不変（readonly）であることを要求し、関数内部での意図しない引数の書き換えを防止する厳格なルールです。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/prefer-readonly.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/prefer-readonly.mdx",
+      "title": "ルール：prefer-readonly",
+      "summary": "クラスの private メンバーがコンストラクタ外で再代入されていない場合、readonly 修飾子を付与することを推奨するルールです。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/prefer-reduce-type-parameter.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/prefer-reduce-type-parameter.mdx",
+      "title": "ルール：prefer-reduce-type-parameter",
+      "summary": "Array#reduce の初期値に型アサーション（as）を使う代わりに、型パラメータを指定することで、より安全に型推論させることを推奨するルールです。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/prefer-regexp-exec.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/prefer-regexp-exec.mdx",
+      "title": "ルール：prefer-regexp-exec",
+      "summary": "グローバルフラグがない正規表現の照合において、String#match よりも効率的な RegExp#exec の使用を推奨するルールです。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/prefer-return-this-type.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/prefer-return-this-type.mdx",
+      "title": "ルール：prefer-return-this-type",
+      "summary": "自身のインスタンスを返すメソッドにおいて、戻り値の型として具体的なクラス名ではなく this 型を使用することを推奨し、継承時の整合性を保つルールです。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/prefer-string-starts-ends-with.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/prefer-string-starts-ends-with.mdx",
+      "title": "ルール：prefer-string-starts-ends-with",
+      "summary": "文字列の開始・終了位置の確認に、indexOf や slice ではなく、意図が明確な startsWith/endsWith メソッドの使用を推奨するルールです。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/prefer-ts-expect-error.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/prefer-ts-expect-error.mdx",
+      "title": "ルール：prefer-ts-expect-error (非推奨)",
+      "summary": "@ts-ignore よりも安全な @ts-expect-error の使用を推奨するルールです。現在は ban-ts-comment ルールに統合されています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/promise-function-async.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/promise-function-async.mdx",
+      "title": "ルール：promise-function-async",
+      "summary": "Promise を返す関数に async 修飾子を強制し、エラーハンドリングの一貫性を保つルールです。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/quotes.md",
+      "path": "cache/packages/eslint-plugin/docs/rules/quotes.md",
+      "title": "ルール：quotes (移動済み)",
+      "summary": "引用符のスタイルを制御するルールです。現在は ESLint Stylistic プラグインへ移行されました。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/README.md",
+      "path": "cache/packages/eslint-plugin/docs/rules/README.md",
+      "title": "ドキュメント：ルール一覧 概要",
+      "summary": "eslint-plugin が提供する全ルールのリストと、カテゴリ（自動修正可能、型情報が必要など）や拡張ルールの仕組みについての解説です。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/related-getter-setter-pairs.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/related-getter-setter-pairs.mdx",
+      "title": "ルール：related-getter-setter-pairs",
+      "summary": "同一プロパティの getter と setter において、型の整合性（取得した値をそのまま設定できるか）をチェックするルールです。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/require-array-sort-compare.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/require-array-sort-compare.mdx",
+      "title": "ルール：require-array-sort-compare",
+      "summary": "Array#sort 呼び出し時に比較関数の指定を必須とするルールです。数値配列などがデフォルトの辞書順でソートされるミスを防ぎます。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/require-await.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/require-await.mdx",
+      "title": "ルール：require-await",
+      "summary": "await 式を持たない async 関数を制限するルールです。非同期である必要がない関数を特定し、パフォーマンスと明快さを向上させます。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/restrict-plus-operands.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/restrict-plus-operands.mdx",
+      "title": "ルール：restrict-plus-operands",
+      "summary": "加算（+）の対象が同じ型（数値のみ、または文字列のみ）であることを要求し、意図しない型混在によるバグを防止するルールです。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/restrict-template-expressions.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/restrict-template-expressions.mdx",
+      "title": "ルール：restrict-template-expressions",
+      "summary": "テンプレートリテラル内での変数の展開を、文字列や数値などの安全な型に限定するルールです。不適切な文字列化（[object Object] など）を避けます。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/return-await.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/return-await.mdx",
+      "title": "ルール：return-await",
+      "summary": "async 関数での Promise 返却時に await を付けるかどうかのスタイルを統一するルールです。エラー捕捉のための try-catch 内での挙動などを制御します。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/semi.md",
+      "path": "cache/packages/eslint-plugin/docs/rules/semi.md",
+      "title": "ルール：semi (移動済み)",
+      "summary": "セミコロンの使用スタイルを制御するルールです。現在は ESLint Stylistic プラグインへ移行されました。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/sort-type-constituents.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/sort-type-constituents.mdx",
+      "title": "ルール：sort-type-constituents",
+      "summary": "ユニオン型やインターセクション型の構成要素をアルファベット順に並べることを推奨するルールです。現在は Perfectionist プラグインの使用が推奨されています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/sort-type-union-intersection-members.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/sort-type-union-intersection-members.mdx",
+      "title": "ルール：sort-type-union-intersection-members (名称変更)",
+      "summary": "型の構成要素をソートするルールです。現在は sort-type-constituents に改名されています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/space-before-blocks.md",
+      "path": "cache/packages/eslint-plugin/docs/rules/space-before-blocks.md",
+      "title": "ルール：space-before-blocks (移動済み)",
+      "summary": "ブロック前のスペースを制御するルールです。現在は ESLint Stylistic プラグインへ移行されました。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/space-before-function-paren.md",
+      "path": "cache/packages/eslint-plugin/docs/rules/space-before-function-paren.md",
+      "title": "ルール：space-before-function-paren (移動済み)",
+      "summary": "関数の括弧前のスペースを制御するルールです。現在は ESLint Stylistic プラグインへ移行されました。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/space-infix-ops.md",
+      "path": "cache/packages/eslint-plugin/docs/rules/space-infix-ops.md",
+      "title": "ルール：space-infix-ops (移動済み)",
+      "summary": "演算子の前後のスペースを制御するルールです。現在は ESLint Stylistic プラグインへ移行されました。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/strict-boolean-expressions.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/strict-boolean-expressions.mdx",
+      "title": "ルール：strict-boolean-expressions",
+      "summary": "条件式において boolean 以外の型（数値や nullable など）を使用することを制限する厳格なルールです。暗黙の型変換による予期せぬ挙動を防ぎます。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/strict-void-return.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/strict-void-return.mdx",
+      "title": "ルール：strict-void-return",
+      "summary": "void 戻り値を期待する場所で、値を返す関数や Promise を返す非同期関数を渡すことを禁止するルールです。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/switch-exhaustiveness-check.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/switch-exhaustiveness-check.mdx",
+      "title": "ルール：switch-exhaustiveness-check",
+      "summary": "ユニオン型や Enum を使った switch 文において、すべての可能性が網羅されているかをチェックするルールです。修正漏れを確実に防ぎます。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/TEMPLATE.md",
+      "path": "cache/packages/eslint-plugin/docs/rules/TEMPLATE.md",
+      "title": "ドキュメント：ルール作成用テンプレート",
+      "summary": "新規ルールを追加する際のドキュメント記述用テンプレートファイルです。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/triple-slash-reference.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/triple-slash-reference.mdx",
+      "title": "ルール：triple-slash-reference",
+      "summary": "古い /// <reference /> ディレクティブの使用を制限し、モダンな import 構文への置き換えを推奨するルールです。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/type-annotation-spacing.md",
+      "path": "cache/packages/eslint-plugin/docs/rules/type-annotation-spacing.md",
+      "title": "ルール：type-annotation-spacing (移動済み)",
+      "summary": "型注釈周りのスペーシングを制御するルールです。現在は ESLint Stylistic プラグインへ移行されました。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/typedef.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/typedef.mdx",
+      "title": "ルール：typedef (非推奨)",
+      "summary": "あらゆる場所に型注釈を必須とする古いルールです。現在は TypeScript の型推論を活かし、コンパイラオプションで型安全性を担保することが推奨されています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/unbound-method.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/unbound-method.mdx",
+      "title": "ルール：unbound-method",
+      "summary": "クラスメソッドを単独の関数として扱う際、this のコンテキストが消失してバグが発生するのを防ぐためのルールです。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/unified-signatures.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/unified-signatures.mdx",
+      "title": "ルール：unified-signatures",
+      "summary": "類似した複数の関数オーバーロードを整理し、ユニオン型などを用いて一つの簡潔なシグネチャに統合することを推奨するルールです。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/use-unknown-in-catch-callback-variable.mdx",
+      "path": "cache/packages/eslint-plugin/docs/rules/use-unknown-in-catch-callback-variable.mdx",
+      "title": "ルール：use-unknown-in-catch-callback-variable",
+      "summary": "Promise の拒否ハンドラにおけるエラー引数の型を unknown に強制し、安全なエラーハンドリングを促すルールです。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin-internal/README.md",
+      "path": "cache/packages/eslint-plugin-internal/README.md",
+      "title": "パッケージ：eslint-plugin-internal",
+      "summary": "typescript-eslint プロジェクト自身のコード品質を維持するために内部で使用されている専用のリンタープラグインです。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/integration-tests/README.md",
+      "path": "cache/packages/integration-tests/README.md",
+      "title": "ドキュメント：統合テスト ガイド",
+      "summary": "プロジェクトの統合テストの構成と、新しいテストケース（フィクスチャ）を追加してエコシステムへの影響を確認するための手順書です。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/integration-tests/fixtures/markdown/Doc.md",
+      "path": "cache/packages/integration-tests/fixtures/markdown/Doc.md",
+      "title": "テスト資料：Markdown プラグイン検証",
+      "summary": "Markdown ファイル内に埋め込まれたコードブロックが正しくパースされ、リントエラーが検出されるかを確認するためのテスト用ドキュメントです。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/parser/CHANGELOG.md",
+      "path": "cache/packages/parser/CHANGELOG.md",
+      "title": "変更履歴：parser",
+      "summary": "parser パッケージの更新履歴です。解析可能な TypeScript バージョンの更新や、パーサーオプションの変更内容が詳しく記載されています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/parser/README.md",
+      "path": "cache/packages/parser/README.md",
+      "title": "パッケージ：parser (README)",
+      "summary": "ESLintでTypeScriptを解析するためのパーサーパッケージの基本情報です。TypeScript ESTreeを利用した変換の役割について述べています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/project-service/CHANGELOG.md",
+      "path": "cache/packages/project-service/CHANGELOG.md",
+      "title": "変更履歴：project-service",
+      "summary": "project-service パッケージの更新履歴です。TypeScript の Project Service API を用いた解析基盤の改善内容が記録されています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/project-service/README.md",
+      "path": "cache/packages/project-service/README.md",
+      "title": "パッケージ：project-service (README)",
+      "summary": "型情報に基づいたリンティングを実現するProject Serviceの単体パッケージ情報です。v8以降の型チェックの核となるコンポーネントです。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/rule-schema-to-typescript-types/CHANGELOG.md",
+      "path": "cache/packages/rule-schema-to-typescript-types/CHANGELOG.md",
+      "title": "変更履歴：rule-schema-to-typescript-types",
+      "summary": "ルールのオプションスキーマを TypeScript 型に変換する内部ツールの更新履歴です。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/rule-schema-to-typescript-types/README.md",
+      "path": "cache/packages/rule-schema-to-typescript-types/README.md",
+      "title": "パッケージ：rule-schema-to-typescript-types",
+      "summary": "ESLint ルールの設定スキーマから自動的に TypeScript の型定義を生成するための内部向けユーティリティの概要です。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/rule-tester/CHANGELOG.md",
+      "path": "cache/packages/rule-tester/CHANGELOG.md",
+      "title": "変更履歴：rule-tester",
+      "summary": "TypeScript 向けのルールテスト環境を提供する rule-tester パッケージの更新履歴です。最新の ESLint 仕様への追従状況が確認できます。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/rule-tester/README.md",
+      "path": "cache/packages/rule-tester/README.md",
+      "title": "パッケージ：rule-tester (README)",
+      "summary": "ESLintルールをテストするためのユーティリティの基本情報です。TypeScriptルール特有の検証をサポートします。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/scope-manager/CHANGELOG.md",
+      "path": "cache/packages/scope-manager/CHANGELOG.md",
+      "title": "変更履歴：scope-manager",
+      "summary": "TypeScript の複雑なスコープ構造を解析する scope-manager の更新履歴です。変数参照の解決精度の向上などが記録されています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/scope-manager/README.md",
+      "path": "cache/packages/scope-manager/README.md",
+      "title": "パッケージ：scope-manager (README)",
+      "summary": "TypeScript対応のスコープ解析エンジンの基本情報です。コード内のシンボルの生存範囲を追跡する役割を担います。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/scope-manager/tests/eslint-scope/README.md",
+      "path": "cache/packages/scope-manager/tests/eslint-scope/README.md",
+      "title": "テスト資料：eslint-scope 互換テスト",
+      "summary": "eslint-scope から移植されたテストセットの概要です。標準の ESLint スコープ解析との互換性を保証するための取り組みについて記載されています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/tsconfig-utils/CHANGELOG.md",
+      "path": "cache/packages/tsconfig-utils/CHANGELOG.md",
+      "title": "変更履歴：tsconfig-utils",
+      "summary": "tsconfig.json の解析やパス解決を補助する tsconfig-utils パッケージの更新履歴です。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/tsconfig-utils/README.md",
+      "path": "cache/packages/tsconfig-utils/README.md",
+      "title": "パッケージ：tsconfig-utils (README)",
+      "summary": "リンティング環境でTSConfigを適切に収集・管理するためのユーティリティパッケージの基本情報です。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/tseslint.com/CHANGELOG.md",
+      "path": "cache/packages/tseslint.com/CHANGELOG.md",
+      "title": "変更履歴：tseslint.com 関連",
+      "summary": "公式サイト tseslint.com 向けのリダイレクト管理や静的アセットに関連するパッケージの更新履歴です。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/type-utils/CHANGELOG.md",
+      "path": "cache/packages/type-utils/CHANGELOG.md",
+      "title": "変更履歴：type-utils",
+      "summary": "型に基づいた高度な静的解析を支える型ユーティリティ群の更新履歴です。不変性チェックや型マッチングの改善が含まれます。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/type-utils/README.md",
+      "path": "cache/packages/type-utils/README.md",
+      "title": "パッケージ：type-utils (README)",
+      "summary": "ESLintルール開発において、TypeScriptの型情報を安全かつ効率的に扱うための型ユーティリティの基本情報です。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/types/CHANGELOG.md",
+      "path": "cache/packages/types/CHANGELOG.md",
+      "title": "変更履歴：types",
+      "summary": "プロジェクト全体で共有される型定義（AST やパーサーオプションなど）の変更履歴です。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/types/README.md",
+      "path": "cache/packages/types/README.md",
+      "title": "パッケージ：types (README)",
+      "summary": "AST仕様に関連する型定義をまとめた内部向けパッケージです。依存関係の循環を避け、ランタイムの軽量化を図るために独立しています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/typescript-eslint/CHANGELOG.md",
+      "path": "cache/packages/typescript-eslint/CHANGELOG.md",
+      "title": "変更履歴：typescript-eslint (主要パッケージ)",
+      "summary": "モノレポの窓口となる主要パッケージの更新履歴です。全体のリリースサイクルや共有設定の変更点がまとめられています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/typescript-eslint/README.md",
+      "path": "cache/packages/typescript-eslint/README.md",
+      "title": "パッケージ：typescript-eslint",
+      "summary": "TypeScript と ESLint を連携させるための基盤パッケージの概要と、公式ドキュメントへのリンクを提供しています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/typescript-estree/CHANGELOG.md",
+      "path": "cache/packages/typescript-estree/CHANGELOG.md",
+      "title": "変更履歴：typescript-estree",
+      "summary": "TypeScript のコードを AST に変換するコアエンジンの更新履歴です。最新の TypeScript 構文への対応状況などが確認できます。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/typescript-estree/README.md",
+      "path": "cache/packages/typescript-estree/README.md",
+      "title": "パッケージ：typescript-estree (README)",
+      "summary": "TypeScriptコードをESTree形式のASTに変換するコアパーサーの基本情報です。ESLintやPrettierの基盤として機能します。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/utils/CHANGELOG.md",
+      "path": "cache/packages/utils/CHANGELOG.md",
+      "title": "変更履歴：utils",
+      "summary": "カスタムルールの作成や AST 操作を補助する共有ユーティリティパッケージの変更履歴です。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/utils/README.md",
+      "path": "cache/packages/utils/README.md",
+      "title": "パッケージ：utils (README)",
+      "summary": "カスタムルールやプラグインを作成する際に標準的に使用される公開ユーティリティ群の基本情報です。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/visitor-keys/CHANGELOG.md",
+      "path": "cache/packages/visitor-keys/CHANGELOG.md",
+      "title": "変更履歴：visitor-keys",
+      "summary": "AST トラバーサルに必要なビジターキー定義の更新履歴です。新しいノード型の追加に伴う更新が記録されています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/visitor-keys/README.md",
+      "path": "cache/packages/visitor-keys/README.md",
+      "title": "パッケージ：visitor-keys",
+      "summary": "TypeScript-ESTree の AST 構造を巡回（走査）するために必要な情報を定義した、内部利用向けのパッケージ概要です。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/website/README.md",
+      "path": "cache/packages/website/README.md",
+      "title": "ドキュメント：公式サイトの開発・運用",
+      "summary": "Docusaurus を使用した公式ドキュメントサイトのローカル開発、ビルド、および Netlify を使ったデプロイ手順についてのガイドです。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/website/blog/2022-09-18-automated-rule-docs-with-docusaurus-and-remark.md",
+      "path": "cache/packages/website/blog/2022-09-18-automated-rule-docs-with-docusaurus-and-remark.md",
+      "title": "ブログ：ドキュメント生成の自動化",
+      "summary": "DocusaurusとRemarkプラグインを活用し、ESLintルールのドキュメントをソースコードから自動生成する仕組みの解説です。メンテナンスコストの削減と正確性の維持を両立する方法を紹介しています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/website/blog/2022-12-05-asts-and-typescript-eslint.md",
+      "path": "cache/packages/website/blog/2022-12-05-asts-and-typescript-eslint.md",
+      "title": "ブログ：ASTとtypescript-eslint",
+      "summary": "AST（抽象構文木）の概念と、ESLintおよびTypeScriptにおける役割を初心者向けに解説した記事です。両者のAST形式の違いを吸収するTSESTreeの仕組みについても触れています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/website/blog/2023-02-24-consistent-type-exports-and-imports-why-and-how.md",
+      "path": "cache/packages/website/blog/2023-02-24-consistent-type-exports-and-imports-why-and-how.md",
+      "title": "ブログ：一貫した型インポート・エクスポート",
+      "summary": "TypeScriptの型専用インポート（import type）を使用するメリットと、それを強制するためのESLintルールについて解説しています。ビルドパフォーマンスや副作用の観点からの利点を詳しく述べています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/website/blog/2023-03-13-announcing-typescript-eslint-v6-beta.md",
+      "path": "cache/packages/website/blog/2023-03-13-announcing-typescript-eslint-v6-beta.md",
+      "title": "ブログ：v6ベータ版のリリース告知",
+      "summary": "typescript-eslint v6のベータ版公開時のアナウンスです。推奨設定の名称変更や、古いNode.jsバージョンのサポート終了予定など、大きな変更のプレビューを提供しています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/website/blog/2023-07-09-announcing-typescript-eslint-v6.md",
+      "path": "cache/packages/website/blog/2023-07-09-announcing-typescript-eslint-v6.md",
+      "title": "ブログ：v6安定版のリリース告知",
+      "summary": "typescript-eslint v6の正式リリースに伴う総合的な解説記事です。推奨設定の刷新、破壊的変更の一覧、新規導入されたrule-testerパッケージの詳細など、アップグレードに必要な情報が網羅されています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/website/blog/2023-09-18-parser-options-project-true.md",
+      "path": "cache/packages/website/blog/2023-09-18-parser-options-project-true.md",
+      "title": "ブログ：TSConfigの自動探索機能",
+      "summary": "parserOptions.projectにtrueを指定することで、各ファイルに最適なtsconfig.jsonを自動で見つける新機能の解説です。手動でのパス指定が不要になり、モノリポジトリ等の複雑な構成が容易になります。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/website/blog/2023-12-25-deprecating-formatting-rules.md",
+      "path": "cache/packages/website/blog/2023-12-25-deprecating-formatting-rules.md",
+      "title": "ブログ：フォーマットルールの非推奨化",
+      "summary": "ESLint本体の方針転換に合わせ、typescript-eslintでもフォーマット（見た目）に関するルールを非推奨とした背景の解説です。Prettierやeslint.styleといった専用ツールへの移行を促しています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/website/blog/2024-02-12-announcing-typescript-eslint-v7.md",
+      "path": "cache/packages/website/blog/2024-02-12-announcing-typescript-eslint-v7.md",
+      "title": "ブログ：v7リリース告知",
+      "summary": "typescript-eslint v7の正式リリース案内です。ESLintのFlat Configへの対応、内部構造の刷新によるパフォーマンス向上、開発者向けAPIの変更点などがまとめられています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/website/blog/2024-03-25-changes-to-consistent-type-imports-with-decorators.md",
+      "path": "cache/packages/website/blog/2024-03-25-changes-to-consistent-type-imports-with-decorators.md",
+      "title": "ブログ：デコレータと型インポートの挙動変更",
+      "summary": "TypeScriptのデコレータ構文の進化に伴い、型インポートルールの判定を修正したことに関する詳細です。デコレータが型を参照する場合の誤判定を防ぐための変更を解説しています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/website/blog/2024-05-27-announcing-typescript-eslint-v8-beta.mdx",
+      "path": "cache/packages/website/blog/2024-05-27-announcing-typescript-eslint-v8-beta.mdx",
+      "title": "ブログ：v8ベータ版リリース告知",
+      "summary": "v8の主要機能のプレビューです。ESLint v9への正式対応、Project Serviceによる型チェック設定の自動化、議論の多かったban-typesルールの刷新など、次世代のスタンダードを紹介しています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/website/blog/2024-07-31-announcing-typescript-eslint-v8.md",
+      "path": "cache/packages/website/blog/2024-07-31-announcing-typescript-eslint-v8.md",
+      "title": "ブログ：v8安定版リリース告知",
+      "summary": "typescript-eslint v8の正式リリース案内です。ESLint v9への完全対応や、型チェック設定を劇的に簡略化するProject Serviceの導入など、最新の標準設定について詳しく解説しています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/website/blog/2024-09-30-typed-linting.md",
+      "path": "cache/packages/website/blog/2024-09-30-typed-linting.md",
+      "title": "ブログ：型情報を用いたリンティングの威力",
+      "summary": "なぜ型情報を用いたリンティング（Typed Linting）が強力なのかを解説した記事です。ファイル単体の解析では見抜けない、バグの温床となる高度なパターンを検出する具体例を紹介しています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/website/blog/2025-01-21-avoiding-anys.mdx",
+      "path": "cache/packages/website/blog/2025-01-21-avoiding-anys.mdx",
+      "title": "ブログ：any型を徹底的に排除する",
+      "summary": "TypeScriptで最も安全性の低いany型を、ESLintルールを活用して効果的に制限・排除する方法についてのガイドです。implicitなanyの防止から、既存のanyを安全なunknownへ移行させる手法までをカバーしています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/website/blog/2025-05-29-project-service.mdx",
+      "path": "cache/packages/website/blog/2025-05-29-project-service.mdx",
+      "title": "ブログ：Project Serviceによる設定の効率化",
+      "summary": "v8で安定化したProject Serviceの技術的な詳細とメリットの紹介です。TSConfigの自動検知、モノリポジトリでのパフォーマンス向上、エディタとの動作同期など、開発体験を向上させる仕組みを解説しています。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/website/blog/2026-01-05-revamping-the-ban-types-rule.mdx",
+      "path": "cache/packages/website/blog/2026-01-05-revamping-the-ban-types-rule.mdx",
+      "title": "ブログ：ban-typesルールの再構成",
+      "summary": "物議を醸すことが多かったban-typesルールを廃止し、より具体的で使いやすい4つの個別ルールに分割した理由と、それぞれのルールの役割、移行方法についての詳細な解説です。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/website-eslint/README.md",
+      "path": "cache/packages/website-eslint/README.md",
+      "title": "パッケージ：website-eslint",
+      "summary": "ブラウザ上のプレイグラウンドで動作させるために、ESLint と関連プラグインを 1 つにまとめた特別版バンドルの作成手順と構成の解説です。"
+    },
+    {
+      "url": "https://github.com/typescript-eslint/typescript-eslint/blob/main/tools/dummypkg/README.md",
+      "path": "cache/tools/dummypkg/README.md",
+      "title": "ツール：dummy-pkg",
+      "summary": "リポジトリ内で一部の外部パッケージをシミュレート（スタブ化）するために使用されている、開発補助用のダミーパッケージです。"
+    }
+  ],
+  "metadata": {
+    "generator": "ragmaker-install-kb",
+    "sources": [
+      "C:\\Synology Drive\\2way-sync\\rag\\typescript-eslint"
+    ]
+  }
+}

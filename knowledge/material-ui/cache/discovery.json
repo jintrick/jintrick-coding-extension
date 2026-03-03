@@ -1,0 +1,1879 @@
+{
+  "documents": [
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/AGENTS.md",
+      "path": "AGENTS.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/CHANGELOG.md",
+      "path": "CHANGELOG.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/CHANGELOG.old.md",
+      "path": "CHANGELOG.old.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/CLAUDE.md",
+      "path": "CLAUDE.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/CONTRIBUTING.md",
+      "path": "CONTRIBUTING.md",
+      "title": "Contributing Guide for MUI Core Projects",
+      "summary": "Guidelines for contributing to Material UI, MUI System, and Joy UI. Covers code of conduct, pull request process, local development environment, and coding styles."
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/README.md",
+      "path": "README.md",
+      "title": "Material UI - Comprehensive React component library",
+      "summary": "Introduction to Material UI, a comprehensive React component library implementing Google's Material Design. Includes links to documentation, sponsors, and examples."
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/SECURITY.md",
+      "path": "SECURITY.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/TYPESCRIPT_CONVENTION.md",
+      "path": "TYPESCRIPT_CONVENTION.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/.github/PULL_REQUEST_TEMPLATE.md",
+      "path": ".github/PULL_REQUEST_TEMPLATE.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/README.md",
+      "path": "docs/README.md",
+      "title": "MUI Documentation Site Development",
+      "summary": "Instructions on how to start the MUI documentation site in development mode using pnpm, and how to contribute demos or improvements."
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/joy/components/accordion/accordion.md",
+      "path": "docs/data/joy/components/accordion/accordion.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/joy/components/alert/alert.md",
+      "path": "docs/data/joy/components/alert/alert.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/joy/components/aspect-ratio/aspect-ratio.md",
+      "path": "docs/data/joy/components/aspect-ratio/aspect-ratio.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/joy/components/autocomplete/autocomplete.md",
+      "path": "docs/data/joy/components/autocomplete/autocomplete.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/joy/components/avatar/avatar.md",
+      "path": "docs/data/joy/components/avatar/avatar.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/joy/components/badge/badge.md",
+      "path": "docs/data/joy/components/badge/badge.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/joy/components/box/box.md",
+      "path": "docs/data/joy/components/box/box.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/joy/components/breadcrumbs/breadcrumbs.md",
+      "path": "docs/data/joy/components/breadcrumbs/breadcrumbs.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/joy/components/button/button.md",
+      "path": "docs/data/joy/components/button/button.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/joy/components/button-group/button-group.md",
+      "path": "docs/data/joy/components/button-group/button-group.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/joy/components/card/card.md",
+      "path": "docs/data/joy/components/card/card.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/joy/components/checkbox/checkbox.md",
+      "path": "docs/data/joy/components/checkbox/checkbox.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/joy/components/chip/chip.md",
+      "path": "docs/data/joy/components/chip/chip.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/joy/components/circular-progress/circular-progress.md",
+      "path": "docs/data/joy/components/circular-progress/circular-progress.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/joy/components/css-baseline/css-baseline.md",
+      "path": "docs/data/joy/components/css-baseline/css-baseline.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/joy/components/divider/divider.md",
+      "path": "docs/data/joy/components/divider/divider.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/joy/components/drawer/drawer.md",
+      "path": "docs/data/joy/components/drawer/drawer.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/joy/components/grid/grid.md",
+      "path": "docs/data/joy/components/grid/grid.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/joy/components/input/input.md",
+      "path": "docs/data/joy/components/input/input.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/joy/components/linear-progress/linear-progress.md",
+      "path": "docs/data/joy/components/linear-progress/linear-progress.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/joy/components/link/link.md",
+      "path": "docs/data/joy/components/link/link.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/joy/components/list/list.md",
+      "path": "docs/data/joy/components/list/list.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/joy/components/menu/menu.md",
+      "path": "docs/data/joy/components/menu/menu.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/joy/components/modal/modal.md",
+      "path": "docs/data/joy/components/modal/modal.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/joy/components/radio-button/radio-button.md",
+      "path": "docs/data/joy/components/radio-button/radio-button.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/joy/components/select/select.md",
+      "path": "docs/data/joy/components/select/select.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/joy/components/sheet/sheet.md",
+      "path": "docs/data/joy/components/sheet/sheet.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/joy/components/skeleton/skeleton.md",
+      "path": "docs/data/joy/components/skeleton/skeleton.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/joy/components/slider/slider.md",
+      "path": "docs/data/joy/components/slider/slider.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/joy/components/snackbar/snackbar.md",
+      "path": "docs/data/joy/components/snackbar/snackbar.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/joy/components/stack/stack.md",
+      "path": "docs/data/joy/components/stack/stack.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/joy/components/stepper/stepper.md",
+      "path": "docs/data/joy/components/stepper/stepper.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/joy/components/switch/switch.md",
+      "path": "docs/data/joy/components/switch/switch.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/joy/components/table/table.md",
+      "path": "docs/data/joy/components/table/table.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/joy/components/tabs/tabs.md",
+      "path": "docs/data/joy/components/tabs/tabs.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/joy/components/text-field/text-field.md",
+      "path": "docs/data/joy/components/text-field/text-field.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/joy/components/textarea/textarea.md",
+      "path": "docs/data/joy/components/textarea/textarea.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/joy/components/toggle-button-group/toggle-button-group.md",
+      "path": "docs/data/joy/components/toggle-button-group/toggle-button-group.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/joy/components/tooltip/tooltip.md",
+      "path": "docs/data/joy/components/tooltip/tooltip.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/joy/components/typography/typography.md",
+      "path": "docs/data/joy/components/typography/typography.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/joy/customization/approaches/approaches.md",
+      "path": "docs/data/joy/customization/approaches/approaches.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/joy/customization/creating-themed-components/creating-themed-components.md",
+      "path": "docs/data/joy/customization/creating-themed-components/creating-themed-components.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/joy/customization/dark-mode/dark-mode.md",
+      "path": "docs/data/joy/customization/dark-mode/dark-mode.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/joy/customization/default-theme-viewer/default-theme-viewer.md",
+      "path": "docs/data/joy/customization/default-theme-viewer/default-theme-viewer.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/joy/customization/overriding-component-structure/overriding-component-structure.md",
+      "path": "docs/data/joy/customization/overriding-component-structure/overriding-component-structure.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/joy/customization/right-to-left/right-to-left.md",
+      "path": "docs/data/joy/customization/right-to-left/right-to-left.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/joy/customization/theme-builder/theme-builder.md",
+      "path": "docs/data/joy/customization/theme-builder/theme-builder.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/joy/customization/theme-colors/theme-colors.md",
+      "path": "docs/data/joy/customization/theme-colors/theme-colors.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/joy/customization/theme-shadow/theme-shadow.md",
+      "path": "docs/data/joy/customization/theme-shadow/theme-shadow.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/joy/customization/theme-typography/theme-typography.md",
+      "path": "docs/data/joy/customization/theme-typography/theme-typography.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/joy/customization/themed-components/themed-components.md",
+      "path": "docs/data/joy/customization/themed-components/themed-components.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/joy/customization/using-css-variables/using-css-variables.md",
+      "path": "docs/data/joy/customization/using-css-variables/using-css-variables.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/joy/getting-started/installation/installation.md",
+      "path": "docs/data/joy/getting-started/installation/installation.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/joy/getting-started/overview/overview.md",
+      "path": "docs/data/joy/getting-started/overview/overview.md",
+      "title": "Joy UI Overview - Lightly opinionated design principles",
+      "summary": "Introduction to Joy UI, an experimental React component library implementing MUI's own Joy Design. Explains its beta status, customization capabilities, and developer experience focus."
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/joy/getting-started/roadmap/roadmap.md",
+      "path": "docs/data/joy/getting-started/roadmap/roadmap.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/joy/getting-started/support/support.md",
+      "path": "docs/data/joy/getting-started/support/support.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/joy/getting-started/templates/index.md",
+      "path": "docs/data/joy/getting-started/templates/index.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/joy/getting-started/tutorial/tutorial.md",
+      "path": "docs/data/joy/getting-started/tutorial/tutorial.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/joy/getting-started/usage/usage.md",
+      "path": "docs/data/joy/getting-started/usage/usage.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/joy/integrations/icon-libraries/icon-libraries.md",
+      "path": "docs/data/joy/integrations/icon-libraries/icon-libraries.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/joy/integrations/material-ui/material-ui.md",
+      "path": "docs/data/joy/integrations/material-ui/material-ui.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/joy/integrations/next-js-app-router/next-js-app-router.md",
+      "path": "docs/data/joy/integrations/next-js-app-router/next-js-app-router.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/joy/main-features/automatic-adjustment/automatic-adjustment.md",
+      "path": "docs/data/joy/main-features/automatic-adjustment/automatic-adjustment.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/joy/main-features/color-inversion/color-inversion.md",
+      "path": "docs/data/joy/main-features/color-inversion/color-inversion.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/joy/main-features/dark-mode-optimization/dark-mode-optimization.md",
+      "path": "docs/data/joy/main-features/dark-mode-optimization/dark-mode-optimization.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/joy/main-features/global-variants/global-variants.md",
+      "path": "docs/data/joy/main-features/global-variants/global-variants.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/joy/migration/migrating-default-theme.md",
+      "path": "docs/data/joy/migration/migrating-default-theme.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/all-components/all-components.md",
+      "path": "docs/data/material/all-components/all-components.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/components/about-the-lab/about-the-lab.md",
+      "path": "docs/data/material/components/about-the-lab/about-the-lab.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/components/accordion/accordion.md",
+      "path": "docs/data/material/components/accordion/accordion.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/components/alert/alert.md",
+      "path": "docs/data/material/components/alert/alert.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/components/app-bar/app-bar.md",
+      "path": "docs/data/material/components/app-bar/app-bar.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/components/autocomplete/autocomplete.md",
+      "path": "docs/data/material/components/autocomplete/autocomplete.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/components/avatars/avatars.md",
+      "path": "docs/data/material/components/avatars/avatars.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/components/backdrop/backdrop.md",
+      "path": "docs/data/material/components/backdrop/backdrop.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/components/badges/badges.md",
+      "path": "docs/data/material/components/badges/badges.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/components/bottom-navigation/bottom-navigation.md",
+      "path": "docs/data/material/components/bottom-navigation/bottom-navigation.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/components/box/box.md",
+      "path": "docs/data/material/components/box/box.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/components/breadcrumbs/breadcrumbs.md",
+      "path": "docs/data/material/components/breadcrumbs/breadcrumbs.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/components/button-group/button-group.md",
+      "path": "docs/data/material/components/button-group/button-group.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/components/buttons/buttons.md",
+      "path": "docs/data/material/components/buttons/buttons.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/components/cards/cards.md",
+      "path": "docs/data/material/components/cards/cards.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/components/checkboxes/checkboxes.md",
+      "path": "docs/data/material/components/checkboxes/checkboxes.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/components/chips/chips.md",
+      "path": "docs/data/material/components/chips/chips.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/components/click-away-listener/click-away-listener.md",
+      "path": "docs/data/material/components/click-away-listener/click-away-listener.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/components/container/container.md",
+      "path": "docs/data/material/components/container/container.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/components/css-baseline/css-baseline.md",
+      "path": "docs/data/material/components/css-baseline/css-baseline.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/components/dialogs/dialogs.md",
+      "path": "docs/data/material/components/dialogs/dialogs.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/components/dividers/dividers.md",
+      "path": "docs/data/material/components/dividers/dividers.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/components/drawers/drawers.md",
+      "path": "docs/data/material/components/drawers/drawers.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/components/floating-action-button/floating-action-button.md",
+      "path": "docs/data/material/components/floating-action-button/floating-action-button.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/components/grid/grid.md",
+      "path": "docs/data/material/components/grid/grid.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/components/grid-legacy/grid-legacy.md",
+      "path": "docs/data/material/components/grid-legacy/grid-legacy.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/components/icons/icons.md",
+      "path": "docs/data/material/components/icons/icons.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/components/image-list/image-list.md",
+      "path": "docs/data/material/components/image-list/image-list.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/components/init-color-scheme-script/init-color-scheme-script.md",
+      "path": "docs/data/material/components/init-color-scheme-script/init-color-scheme-script.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/components/links/links.md",
+      "path": "docs/data/material/components/links/links.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/components/lists/lists.md",
+      "path": "docs/data/material/components/lists/lists.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/components/masonry/masonry.md",
+      "path": "docs/data/material/components/masonry/masonry.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/components/material-icons/material-icons.md",
+      "path": "docs/data/material/components/material-icons/material-icons.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/components/menus/menus.md",
+      "path": "docs/data/material/components/menus/menus.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/components/modal/modal.md",
+      "path": "docs/data/material/components/modal/modal.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/components/no-ssr/no-ssr.md",
+      "path": "docs/data/material/components/no-ssr/no-ssr.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/components/number-field/number-field.md",
+      "path": "docs/data/material/components/number-field/number-field.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/components/pagination/pagination.md",
+      "path": "docs/data/material/components/pagination/pagination.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/components/paper/paper.md",
+      "path": "docs/data/material/components/paper/paper.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/components/popover/popover.md",
+      "path": "docs/data/material/components/popover/popover.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/components/popper/popper.md",
+      "path": "docs/data/material/components/popper/popper.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/components/portal/portal.md",
+      "path": "docs/data/material/components/portal/portal.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/components/progress/progress.md",
+      "path": "docs/data/material/components/progress/progress.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/components/radio-buttons/radio-buttons.md",
+      "path": "docs/data/material/components/radio-buttons/radio-buttons.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/components/rating/rating.md",
+      "path": "docs/data/material/components/rating/rating.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/components/selects/selects.md",
+      "path": "docs/data/material/components/selects/selects.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/components/skeleton/skeleton.md",
+      "path": "docs/data/material/components/skeleton/skeleton.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/components/slider/slider.md",
+      "path": "docs/data/material/components/slider/slider.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/components/snackbars/snackbars.md",
+      "path": "docs/data/material/components/snackbars/snackbars.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/components/speed-dial/speed-dial.md",
+      "path": "docs/data/material/components/speed-dial/speed-dial.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/components/stack/stack.md",
+      "path": "docs/data/material/components/stack/stack.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/components/steppers/steppers.md",
+      "path": "docs/data/material/components/steppers/steppers.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/components/switches/switches.md",
+      "path": "docs/data/material/components/switches/switches.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/components/table/table.md",
+      "path": "docs/data/material/components/table/table.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/components/tabs/tabs.md",
+      "path": "docs/data/material/components/tabs/tabs.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/components/text-fields/text-fields.md",
+      "path": "docs/data/material/components/text-fields/text-fields.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/components/textarea-autosize/textarea-autosize.md",
+      "path": "docs/data/material/components/textarea-autosize/textarea-autosize.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/components/timeline/timeline.md",
+      "path": "docs/data/material/components/timeline/timeline.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/components/toggle-button/toggle-button.md",
+      "path": "docs/data/material/components/toggle-button/toggle-button.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/components/tooltips/tooltips.md",
+      "path": "docs/data/material/components/tooltips/tooltips.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/components/transfer-list/transfer-list.md",
+      "path": "docs/data/material/components/transfer-list/transfer-list.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/components/transitions/transitions.md",
+      "path": "docs/data/material/components/transitions/transitions.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/components/typography/typography.md",
+      "path": "docs/data/material/components/typography/typography.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/components/use-media-query/use-media-query.md",
+      "path": "docs/data/material/components/use-media-query/use-media-query.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/customization/breakpoints/breakpoints.md",
+      "path": "docs/data/material/customization/breakpoints/breakpoints.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/customization/color/color.md",
+      "path": "docs/data/material/customization/color/color.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/customization/container-queries/container-queries.md",
+      "path": "docs/data/material/customization/container-queries/container-queries.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/customization/creating-themed-components/creating-themed-components.md",
+      "path": "docs/data/material/customization/creating-themed-components/creating-themed-components.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/customization/css-layers/css-layers.md",
+      "path": "docs/data/material/customization/css-layers/css-layers.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/customization/css-theme-variables/configuration.md",
+      "path": "docs/data/material/customization/css-theme-variables/configuration.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/customization/css-theme-variables/native-color.md",
+      "path": "docs/data/material/customization/css-theme-variables/native-color.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/customization/css-theme-variables/overview.md",
+      "path": "docs/data/material/customization/css-theme-variables/overview.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/customization/css-theme-variables/usage.md",
+      "path": "docs/data/material/customization/css-theme-variables/usage.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/customization/dark-mode/dark-mode.md",
+      "path": "docs/data/material/customization/dark-mode/dark-mode.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/customization/default-theme/default-theme.md",
+      "path": "docs/data/material/customization/default-theme/default-theme.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/customization/density/density.md",
+      "path": "docs/data/material/customization/density/density.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/customization/how-to-customize/how-to-customize.md",
+      "path": "docs/data/material/customization/how-to-customize/how-to-customize.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/customization/overriding-component-structure/overriding-component-structure.md",
+      "path": "docs/data/material/customization/overriding-component-structure/overriding-component-structure.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/customization/palette/palette.md",
+      "path": "docs/data/material/customization/palette/palette.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/customization/right-to-left/right-to-left.md",
+      "path": "docs/data/material/customization/right-to-left/right-to-left.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/customization/shadow-dom/shadow-dom.md",
+      "path": "docs/data/material/customization/shadow-dom/shadow-dom.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/customization/shape/shape.md",
+      "path": "docs/data/material/customization/shape/shape.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/customization/spacing/spacing.md",
+      "path": "docs/data/material/customization/spacing/spacing.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/customization/theme-components/theme-components.md",
+      "path": "docs/data/material/customization/theme-components/theme-components.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/customization/theming/theming.md",
+      "path": "docs/data/material/customization/theming/theming.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/customization/transitions/transitions.md",
+      "path": "docs/data/material/customization/transitions/transitions.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/customization/typography/typography.md",
+      "path": "docs/data/material/customization/typography/typography.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/customization/z-index/z-index.md",
+      "path": "docs/data/material/customization/z-index/z-index.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/design-resources/material-ui-for-figma/material-ui-for-figma.md",
+      "path": "docs/data/material/design-resources/material-ui-for-figma/material-ui-for-figma.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/design-resources/material-ui-sync/material-ui-sync.md",
+      "path": "docs/data/material/design-resources/material-ui-sync/material-ui-sync.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/discover-more/backers/backers.md",
+      "path": "docs/data/material/discover-more/backers/backers.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/discover-more/changelog/changelog.md",
+      "path": "docs/data/material/discover-more/changelog/changelog.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/discover-more/related-projects/related-projects.md",
+      "path": "docs/data/material/discover-more/related-projects/related-projects.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/discover-more/roadmap/roadmap.md",
+      "path": "docs/data/material/discover-more/roadmap/roadmap.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/discover-more/showcase/showcase.md",
+      "path": "docs/data/material/discover-more/showcase/showcase.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/discover-more/vision/vision.md",
+      "path": "docs/data/material/discover-more/vision/vision.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/experimental-api/classname-generator/classname-generator.md",
+      "path": "docs/data/material/experimental-api/classname-generator/classname-generator.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/experimental-api/pigment-css/pigment-css.md",
+      "path": "docs/data/material/experimental-api/pigment-css/pigment-css.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/getting-started/design-resources/design-resources.md",
+      "path": "docs/data/material/getting-started/design-resources/design-resources.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/getting-started/example-projects/example-projects.md",
+      "path": "docs/data/material/getting-started/example-projects/example-projects.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/getting-started/faq/faq.md",
+      "path": "docs/data/material/getting-started/faq/faq.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/getting-started/installation/installation.md",
+      "path": "docs/data/material/getting-started/installation/installation.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/getting-started/learn/learn.md",
+      "path": "docs/data/material/getting-started/learn/learn.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/getting-started/mcp/mcp.md",
+      "path": "docs/data/material/getting-started/mcp/mcp.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/getting-started/overview/overview.md",
+      "path": "docs/data/material/getting-started/overview/overview.md",
+      "title": "Material UI Overview and Key Features",
+      "summary": "A deep dive into Material UI's implementation of Material Design 2, its advantages (shipping faster, customizability, cross-team collaboration), and how to get started."
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/getting-started/support/support.md",
+      "path": "docs/data/material/getting-started/support/support.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/getting-started/supported-components/supported-components.md",
+      "path": "docs/data/material/getting-started/supported-components/supported-components.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/getting-started/supported-platforms/supported-platforms.md",
+      "path": "docs/data/material/getting-started/supported-platforms/supported-platforms.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/getting-started/templates/templates.md",
+      "path": "docs/data/material/getting-started/templates/templates.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/getting-started/templates/blog/README.md",
+      "path": "docs/data/material/getting-started/templates/blog/README.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/getting-started/templates/checkout/README.md",
+      "path": "docs/data/material/getting-started/templates/checkout/README.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/getting-started/templates/crud-dashboard/README.md",
+      "path": "docs/data/material/getting-started/templates/crud-dashboard/README.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/getting-started/templates/dashboard/README.md",
+      "path": "docs/data/material/getting-started/templates/dashboard/README.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/getting-started/templates/marketing-page/README.md",
+      "path": "docs/data/material/getting-started/templates/marketing-page/README.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/getting-started/templates/sign-in/README.md",
+      "path": "docs/data/material/getting-started/templates/sign-in/README.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/getting-started/templates/sign-in-side/README.md",
+      "path": "docs/data/material/getting-started/templates/sign-in-side/README.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/getting-started/templates/sign-up/README.md",
+      "path": "docs/data/material/getting-started/templates/sign-up/README.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/getting-started/usage/usage.md",
+      "path": "docs/data/material/getting-started/usage/usage.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/guides/api/api.md",
+      "path": "docs/data/material/guides/api/api.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/guides/building-extensible-themes/building-extensible-themes.md",
+      "path": "docs/data/material/guides/building-extensible-themes/building-extensible-themes.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/guides/composition/composition.md",
+      "path": "docs/data/material/guides/composition/composition.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/guides/content-security-policy/content-security-policy.md",
+      "path": "docs/data/material/guides/content-security-policy/content-security-policy.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/guides/localization/localization.md",
+      "path": "docs/data/material/guides/localization/localization.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/guides/minimizing-bundle-size/minimizing-bundle-size.md",
+      "path": "docs/data/material/guides/minimizing-bundle-size/minimizing-bundle-size.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/guides/responsive-ui/responsive-ui.md",
+      "path": "docs/data/material/guides/responsive-ui/responsive-ui.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/guides/server-rendering/server-rendering.md",
+      "path": "docs/data/material/guides/server-rendering/server-rendering.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/guides/testing/testing.md",
+      "path": "docs/data/material/guides/testing/testing.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/guides/typescript/typescript.md",
+      "path": "docs/data/material/guides/typescript/typescript.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/integrations/interoperability/interoperability.md",
+      "path": "docs/data/material/integrations/interoperability/interoperability.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/integrations/nextjs/nextjs.md",
+      "path": "docs/data/material/integrations/nextjs/nextjs.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/integrations/routing/routing.md",
+      "path": "docs/data/material/integrations/routing/routing.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/integrations/styled-components/styled-components.md",
+      "path": "docs/data/material/integrations/styled-components/styled-components.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/integrations/tailwindcss/tailwindcss-v4.md",
+      "path": "docs/data/material/integrations/tailwindcss/tailwindcss-v4.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/integrations/theme-scoping/theme-scoping.md",
+      "path": "docs/data/material/integrations/theme-scoping/theme-scoping.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/migration/migrating-from-deprecated-apis/migrating-from-deprecated-apis.md",
+      "path": "docs/data/material/migration/migrating-from-deprecated-apis/migrating-from-deprecated-apis.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/migration/migration-v0x/migration-v0x.md",
+      "path": "docs/data/material/migration/migration-v0x/migration-v0x.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/migration/migration-v3/migration-v3.md",
+      "path": "docs/data/material/migration/migration-v3/migration-v3.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/migration/migration-v4/migrating-from-jss.md",
+      "path": "docs/data/material/migration/migration-v4/migrating-from-jss.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/migration/migration-v4/migration-v4.md",
+      "path": "docs/data/material/migration/migration-v4/migration-v4.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/migration/migration-v4/troubleshooting.md",
+      "path": "docs/data/material/migration/migration-v4/troubleshooting.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/migration/migration-v4/v5-component-changes.md",
+      "path": "docs/data/material/migration/migration-v4/v5-component-changes.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/migration/migration-v4/v5-style-changes.md",
+      "path": "docs/data/material/migration/migration-v4/v5-style-changes.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/migration/pickers-migration/pickers-migration.md",
+      "path": "docs/data/material/migration/pickers-migration/pickers-migration.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/migration/upgrade-to-grid-v2/upgrade-to-grid-v2.md",
+      "path": "docs/data/material/migration/upgrade-to-grid-v2/upgrade-to-grid-v2.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/migration/upgrade-to-v6/migrating-to-pigment-css.md",
+      "path": "docs/data/material/migration/upgrade-to-v6/migrating-to-pigment-css.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/migration/upgrade-to-v6/upgrade-to-v6.md",
+      "path": "docs/data/material/migration/upgrade-to-v6/upgrade-to-v6.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/migration/upgrade-to-v7/upgrade-to-native-color.md",
+      "path": "docs/data/material/migration/upgrade-to-v7/upgrade-to-native-color.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/material/migration/upgrade-to-v7/upgrade-to-v7.md",
+      "path": "docs/data/material/migration/upgrade-to-v7/upgrade-to-v7.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/system/borders/borders.md",
+      "path": "docs/data/system/borders/borders.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/system/components/box/box.md",
+      "path": "docs/data/system/components/box/box.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/system/components/container/container.md",
+      "path": "docs/data/system/components/container/container.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/system/components/grid/grid.md",
+      "path": "docs/data/system/components/grid/grid.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/system/components/stack/stack.md",
+      "path": "docs/data/system/components/stack/stack.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/system/display/display.md",
+      "path": "docs/data/system/display/display.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/system/experimental-api/configure-the-sx-prop/configure-the-sx-prop.md",
+      "path": "docs/data/system/experimental-api/configure-the-sx-prop/configure-the-sx-prop.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/system/experimental-api/css-theme-variables/css-theme-variables.md",
+      "path": "docs/data/system/experimental-api/css-theme-variables/css-theme-variables.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/system/flexbox/flexbox.md",
+      "path": "docs/data/system/flexbox/flexbox.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/system/getting-started/custom-components/custom-components.md",
+      "path": "docs/data/system/getting-started/custom-components/custom-components.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/system/getting-started/installation/installation.md",
+      "path": "docs/data/system/getting-started/installation/installation.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/system/getting-started/overview/overview.md",
+      "path": "docs/data/system/getting-started/overview/overview.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/system/getting-started/support/support.md",
+      "path": "docs/data/system/getting-started/support/support.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/system/getting-started/the-sx-prop/the-sx-prop.md",
+      "path": "docs/data/system/getting-started/the-sx-prop/the-sx-prop.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/system/getting-started/usage/usage.md",
+      "path": "docs/data/system/getting-started/usage/usage.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/system/grid/grid.md",
+      "path": "docs/data/system/grid/grid.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/system/migration/migrating-to-v6/migrating-to-v6.md",
+      "path": "docs/data/system/migration/migrating-to-v6/migrating-to-v6.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/system/migration/upgrade-to-v7/upgrade-to-v7.md",
+      "path": "docs/data/system/migration/upgrade-to-v7/upgrade-to-v7.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/system/palette/palette.md",
+      "path": "docs/data/system/palette/palette.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/system/positions/positions.md",
+      "path": "docs/data/system/positions/positions.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/system/properties/properties.md",
+      "path": "docs/data/system/properties/properties.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/system/screen-readers/screen-readers.md",
+      "path": "docs/data/system/screen-readers/screen-readers.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/system/shadows/shadows.md",
+      "path": "docs/data/system/shadows/shadows.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/system/sizing/sizing.md",
+      "path": "docs/data/system/sizing/sizing.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/system/spacing/spacing.md",
+      "path": "docs/data/system/spacing/spacing.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/system/styled/styled.md",
+      "path": "docs/data/system/styled/styled.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/data/system/typography/typography.md",
+      "path": "docs/data/system/typography/typography.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/blog/2019-developer-survey-results.md",
+      "path": "docs/pages/blog/2019-developer-survey-results.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/blog/2019.md",
+      "path": "docs/pages/blog/2019.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/blog/2020-developer-survey-results.md",
+      "path": "docs/pages/blog/2020-developer-survey-results.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/blog/2020-introducing-sketch.md",
+      "path": "docs/pages/blog/2020-introducing-sketch.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/blog/2020-q1-update.md",
+      "path": "docs/pages/blog/2020-q1-update.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/blog/2020-q2-update.md",
+      "path": "docs/pages/blog/2020-q2-update.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/blog/2020-q3-update.md",
+      "path": "docs/pages/blog/2020-q3-update.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/blog/2020.md",
+      "path": "docs/pages/blog/2020.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/blog/2021-developer-survey-results.md",
+      "path": "docs/pages/blog/2021-developer-survey-results.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/blog/2021-q1-update.md",
+      "path": "docs/pages/blog/2021-q1-update.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/blog/2021-q2-update.md",
+      "path": "docs/pages/blog/2021-q2-update.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/blog/2021-q3-update.md",
+      "path": "docs/pages/blog/2021-q3-update.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/blog/2021.md",
+      "path": "docs/pages/blog/2021.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/blog/2022-tenerife-retreat.md",
+      "path": "docs/pages/blog/2022-tenerife-retreat.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/blog/2023-chamonix-retreat.md",
+      "path": "docs/pages/blog/2023-chamonix-retreat.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/blog/2023-material-ui-v6-and-beyond.md",
+      "path": "docs/pages/blog/2023-material-ui-v6-and-beyond.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/blog/2023-mui-values.md",
+      "path": "docs/pages/blog/2023-mui-values.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/blog/2023-phuket-retreat.md",
+      "path": "docs/pages/blog/2023-phuket-retreat.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/blog/2023-toolpad-beta-announcement.md",
+      "path": "docs/pages/blog/2023-toolpad-beta-announcement.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/blog/2025-punta-cana-retreat.md",
+      "path": "docs/pages/blog/2025-punta-cana-retreat.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/blog/2026-and-beyond.md",
+      "path": "docs/pages/blog/2026-and-beyond.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/blog/aggregation-functions.md",
+      "path": "docs/pages/blog/aggregation-functions.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/blog/april-2019-update.md",
+      "path": "docs/pages/blog/april-2019-update.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/blog/august-2019-update.md",
+      "path": "docs/pages/blog/august-2019-update.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/blog/base-ui-2024-plans.md",
+      "path": "docs/pages/blog/base-ui-2024-plans.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/blog/benny-joo-joining.md",
+      "path": "docs/pages/blog/benny-joo-joining.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/blog/bringing-consistency-to-material-ui-customization-apis.md",
+      "path": "docs/pages/blog/bringing-consistency-to-material-ui-customization-apis.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/blog/build-layouts-faster-with-grid-v2.md",
+      "path": "docs/pages/blog/build-layouts-faster-with-grid-v2.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/blog/callback-support-in-style-overrides.md",
+      "path": "docs/pages/blog/callback-support-in-style-overrides.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/blog/danail-hadjiatanasov-joining.md",
+      "path": "docs/pages/blog/danail-hadjiatanasov-joining.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/blog/danilo-leal-joining.md",
+      "path": "docs/pages/blog/danilo-leal-joining.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/blog/date-pickers-stable-v5.md",
+      "path": "docs/pages/blog/date-pickers-stable-v5.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/blog/december-2019-update.md",
+      "path": "docs/pages/blog/december-2019-update.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/blog/discord-announcement.md",
+      "path": "docs/pages/blog/discord-announcement.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/blog/docs-restructure-2022.md",
+      "path": "docs/pages/blog/docs-restructure-2022.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/blog/first-look-at-joy.md",
+      "path": "docs/pages/blog/first-look-at-joy.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/blog/introducing-base-ui.md",
+      "path": "docs/pages/blog/introducing-base-ui.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/blog/introducing-pigment-css.md",
+      "path": "docs/pages/blog/introducing-pigment-css.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/blog/introducing-sync-plugin.md",
+      "path": "docs/pages/blog/introducing-sync-plugin.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/blog/introducing-the-row-grouping-feature.md",
+      "path": "docs/pages/blog/introducing-the-row-grouping-feature.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/blog/july-2019-update.md",
+      "path": "docs/pages/blog/july-2019-update.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/blog/june-2019-update.md",
+      "path": "docs/pages/blog/june-2019-update.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/blog/lab-date-pickers-to-mui-x.md",
+      "path": "docs/pages/blog/lab-date-pickers-to-mui-x.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/blog/lab-tree-view-to-mui-x.md",
+      "path": "docs/pages/blog/lab-tree-view-to-mui-x.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/blog/making-customizable-components.md",
+      "path": "docs/pages/blog/making-customizable-components.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/blog/march-2019-update.md",
+      "path": "docs/pages/blog/march-2019-update.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/blog/marija-najdova-joining.md",
+      "path": "docs/pages/blog/marija-najdova-joining.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/blog/material-ui-2024-updates.md",
+      "path": "docs/pages/blog/material-ui-2024-updates.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/blog/material-ui-is-now-mui.md",
+      "path": "docs/pages/blog/material-ui-is-now-mui.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/blog/material-ui-v1-is-out.md",
+      "path": "docs/pages/blog/material-ui-v1-is-out.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/blog/material-ui-v4-is-out.md",
+      "path": "docs/pages/blog/material-ui-v4-is-out.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/blog/material-ui-v6-is-out.md",
+      "path": "docs/pages/blog/material-ui-v6-is-out.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/blog/material-ui-v7-is-here.md",
+      "path": "docs/pages/blog/material-ui-v7-is-here.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/blog/matheus-wichman-joining.md",
+      "path": "docs/pages/blog/matheus-wichman-joining.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/blog/may-2019-update.md",
+      "path": "docs/pages/blog/may-2019-update.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/blog/michal-dudak-joining.md",
+      "path": "docs/pages/blog/michal-dudak-joining.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/blog/mui-core-v5-migration-update.md",
+      "path": "docs/pages/blog/mui-core-v5-migration-update.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/blog/mui-core-v5.md",
+      "path": "docs/pages/blog/mui-core-v5.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/blog/mui-next-js-app-router.md",
+      "path": "docs/pages/blog/mui-next-js-app-router.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/blog/mui-product-comparison.md",
+      "path": "docs/pages/blog/mui-product-comparison.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/blog/mui-x-end-v6-features.md",
+      "path": "docs/pages/blog/mui-x-end-v6-features.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/blog/mui-x-end-v8.md",
+      "path": "docs/pages/blog/mui-x-end-v8.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/blog/mui-x-mid-v6-features.md",
+      "path": "docs/pages/blog/mui-x-mid-v6-features.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/blog/mui-x-sep-2024-price-update.md",
+      "path": "docs/pages/blog/mui-x-sep-2024-price-update.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/blog/mui-x-v5.md",
+      "path": "docs/pages/blog/mui-x-v5.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/blog/mui-x-v6-alpha-zero.md",
+      "path": "docs/pages/blog/mui-x-v6-alpha-zero.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/blog/mui-x-v6.md",
+      "path": "docs/pages/blog/mui-x-v6.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/blog/mui-x-v7-beta.md",
+      "path": "docs/pages/blog/mui-x-v7-beta.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/blog/mui-x-v7.md",
+      "path": "docs/pages/blog/mui-x-v7.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/blog/mui-x-v8-alpha-zero.md",
+      "path": "docs/pages/blog/mui-x-v8-alpha-zero.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/blog/mui-x-v8.md",
+      "path": "docs/pages/blog/mui-x-v8.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/blog/november-2019-update.md",
+      "path": "docs/pages/blog/november-2019-update.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/blog/october-2019-update.md",
+      "path": "docs/pages/blog/october-2019-update.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/blog/premium-plan-release.md",
+      "path": "docs/pages/blog/premium-plan-release.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/blog/react-19-update.md",
+      "path": "docs/pages/blog/react-19-update.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/blog/remote-award-win-2024.md",
+      "path": "docs/pages/blog/remote-award-win-2024.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/blog/september-2019-update.md",
+      "path": "docs/pages/blog/september-2019-update.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/blog/siriwat-kunaporn-joining.md",
+      "path": "docs/pages/blog/siriwat-kunaporn-joining.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/blog/spotlight-damien-tassone.md",
+      "path": "docs/pages/blog/spotlight-damien-tassone.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/blog/toolpad-use-cases.md",
+      "path": "docs/pages/blog/toolpad-use-cases.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/blog/v6-beta-pickers.md",
+      "path": "docs/pages/blog/v6-beta-pickers.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/careers/accessibility-engineer.md",
+      "path": "docs/pages/careers/accessibility-engineer.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/careers/account-executive.md",
+      "path": "docs/pages/careers/account-executive.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/careers/account-manager.md",
+      "path": "docs/pages/careers/account-manager.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/careers/code-infra-engineer.md",
+      "path": "docs/pages/careers/code-infra-engineer.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/careers/design-engineer-x-grid.md",
+      "path": "docs/pages/careers/design-engineer-x-grid.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/careers/design-engineer.md",
+      "path": "docs/pages/careers/design-engineer.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/careers/designer.md",
+      "path": "docs/pages/careers/designer.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/careers/developer-advocate.md",
+      "path": "docs/pages/careers/developer-advocate.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/careers/developer-experience-engineer.md",
+      "path": "docs/pages/careers/developer-experience-engineer.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/careers/engineering-manager.md",
+      "path": "docs/pages/careers/engineering-manager.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/careers/full-stack-engineer.md",
+      "path": "docs/pages/careers/full-stack-engineer.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/careers/head-of-operations.md",
+      "path": "docs/pages/careers/head-of-operations.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/careers/people-operation-manager.md",
+      "path": "docs/pages/careers/people-operation-manager.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/careers/product-engineer-store.md",
+      "path": "docs/pages/careers/product-engineer-store.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/careers/product-manager.md",
+      "path": "docs/pages/careers/product-manager.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/careers/product-marketing-manager.md",
+      "path": "docs/pages/careers/product-marketing-manager.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/careers/react-community-engineer.md",
+      "path": "docs/pages/careers/react-community-engineer.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/careers/react-engineer-core.md",
+      "path": "docs/pages/careers/react-engineer-core.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/careers/react-engineer-docs-infra.md",
+      "path": "docs/pages/careers/react-engineer-docs-infra.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/careers/react-engineer-explore.md",
+      "path": "docs/pages/careers/react-engineer-explore.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/careers/react-engineer-material-ui-maintainer.md",
+      "path": "docs/pages/careers/react-engineer-material-ui-maintainer.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/careers/react-engineer-x-charts.md",
+      "path": "docs/pages/careers/react-engineer-x-charts.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/careers/react-engineer-x-grid.md",
+      "path": "docs/pages/careers/react-engineer-x-grid.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/careers/react-engineer-x.md",
+      "path": "docs/pages/careers/react-engineer-x.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/careers/react-tech-lead-core.md",
+      "path": "docs/pages/careers/react-tech-lead-core.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/careers/react-tech-lead-x-grid.md",
+      "path": "docs/pages/careers/react-tech-lead-x-grid.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/careers/ROLE_TEMPLATE.md",
+      "path": "docs/pages/careers/ROLE_TEMPLATE.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/careers/senior-designer.md",
+      "path": "docs/pages/careers/senior-designer.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/careers/staff-engineer-pigment-css.md",
+      "path": "docs/pages/careers/staff-engineer-pigment-css.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/careers/staff-ui-engineer-base-ui.md",
+      "path": "docs/pages/careers/staff-ui-engineer-base-ui.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/careers/support-agent.md",
+      "path": "docs/pages/careers/support-agent.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/careers/technical-product-manager.md",
+      "path": "docs/pages/careers/technical-product-manager.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/careers/technical-recruiter.md",
+      "path": "docs/pages/careers/technical-recruiter.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/customers/athena.md",
+      "path": "docs/pages/customers/athena.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/customers/att.md",
+      "path": "docs/pages/customers/att.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/customers/cgi.md",
+      "path": "docs/pages/customers/cgi.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/customers/coupa.md",
+      "path": "docs/pages/customers/coupa.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/customers/delivery-hero.md",
+      "path": "docs/pages/customers/delivery-hero.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/customers/john-deere.md",
+      "path": "docs/pages/customers/john-deere.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/customers/moz.md",
+      "path": "docs/pages/customers/moz.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/customers/oregon.md",
+      "path": "docs/pages/customers/oregon.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/customers/qdrant.md",
+      "path": "docs/pages/customers/qdrant.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/customers/tebra.md",
+      "path": "docs/pages/customers/tebra.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/experiments/blog/blog-custom-card.md",
+      "path": "docs/pages/experiments/blog/blog-custom-card.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/experiments/blog/blog.md",
+      "path": "docs/pages/experiments/blog/blog.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/experiments/docs/callouts.md",
+      "path": "docs/pages/experiments/docs/callouts.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/experiments/docs/codeblock.md",
+      "path": "docs/pages/experiments/docs/codeblock.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/experiments/docs/custom-components.md",
+      "path": "docs/pages/experiments/docs/custom-components.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/experiments/docs/demos.md",
+      "path": "docs/pages/experiments/docs/demos.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/experiments/docs/headers.md",
+      "path": "docs/pages/experiments/docs/headers.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/experiments/docs/markdown.md",
+      "path": "docs/pages/experiments/docs/markdown.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/experiments/docs/og-card.md",
+      "path": "docs/pages/experiments/docs/og-card.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/pages/experiments/docs/pro-feature.md",
+      "path": "docs/pages/experiments/docs/pro-feature.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/public/robots.txt",
+      "path": "docs/public/robots.txt"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/src/pages/company/contact/contact.md",
+      "path": "docs/src/pages/company/contact/contact.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/src/pages/premium-themes/onepirate/modules/views/privacy.md",
+      "path": "docs/src/pages/premium-themes/onepirate/modules/views/privacy.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/src/pages/premium-themes/onepirate/modules/views/terms.md",
+      "path": "docs/src/pages/premium-themes/onepirate/modules/views/terms.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/src/pages/production-error/index.md",
+      "path": "docs/src/pages/production-error/index.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/docs/src/pages/versions/versions.md",
+      "path": "docs/src/pages/versions/versions.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/examples/joy-ui-cra-ts/README.md",
+      "path": "examples/joy-ui-cra-ts/README.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/examples/joy-ui-cra-ts/public/index.html",
+      "path": "examples/joy-ui-cra-ts/public/index.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/examples/joy-ui-nextjs-ts/README.md",
+      "path": "examples/joy-ui-nextjs-ts/README.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/examples/joy-ui-vite-ts/index.html",
+      "path": "examples/joy-ui-vite-ts/index.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/examples/joy-ui-vite-ts/README.md",
+      "path": "examples/joy-ui-vite-ts/README.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/examples/material-ui-express-ssr/README.md",
+      "path": "examples/material-ui-express-ssr/README.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/examples/material-ui-gatsby/README.md",
+      "path": "examples/material-ui-gatsby/README.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/examples/material-ui-nextjs/README.md",
+      "path": "examples/material-ui-nextjs/README.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/examples/material-ui-nextjs-pages-router/README.md",
+      "path": "examples/material-ui-nextjs-pages-router/README.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/examples/material-ui-nextjs-pages-router-ts/README.md",
+      "path": "examples/material-ui-nextjs-pages-router-ts/README.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/examples/material-ui-nextjs-ts/README.md",
+      "path": "examples/material-ui-nextjs-ts/README.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/examples/material-ui-nextjs-ts-v4-v5-migration/README.md",
+      "path": "examples/material-ui-nextjs-ts-v4-v5-migration/README.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/examples/material-ui-pigment-css-nextjs-ts/README.md",
+      "path": "examples/material-ui-pigment-css-nextjs-ts/README.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/examples/material-ui-pigment-css-vite-ts/index.html",
+      "path": "examples/material-ui-pigment-css-vite-ts/index.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/examples/material-ui-pigment-css-vite-ts/README.md",
+      "path": "examples/material-ui-pigment-css-vite-ts/README.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/examples/material-ui-preact/README.md",
+      "path": "examples/material-ui-preact/README.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/examples/material-ui-preact/public/index.html",
+      "path": "examples/material-ui-preact/public/index.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/examples/material-ui-react-router-ts/README.md",
+      "path": "examples/material-ui-react-router-ts/README.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/examples/material-ui-remix-ts/README.md",
+      "path": "examples/material-ui-remix-ts/README.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/examples/material-ui-via-cdn/index.html",
+      "path": "examples/material-ui-via-cdn/index.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/examples/material-ui-via-cdn/react-18-example.html",
+      "path": "examples/material-ui-via-cdn/react-18-example.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/examples/material-ui-via-cdn/README.md",
+      "path": "examples/material-ui-via-cdn/README.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/examples/material-ui-vite/index.html",
+      "path": "examples/material-ui-vite/index.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/examples/material-ui-vite/README.md",
+      "path": "examples/material-ui-vite/README.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/examples/material-ui-vite-tailwind-ts/index.html",
+      "path": "examples/material-ui-vite-tailwind-ts/index.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/examples/material-ui-vite-tailwind-ts/README.md",
+      "path": "examples/material-ui-vite-tailwind-ts/README.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/examples/material-ui-vite-ts/index.html",
+      "path": "examples/material-ui-vite-ts/index.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/examples/material-ui-vite-ts/README.md",
+      "path": "examples/material-ui-vite-ts/README.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/packages/markdown/CHANGELOG.md",
+      "path": "packages/markdown/CHANGELOG.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/packages/markdown/README.md",
+      "path": "packages/markdown/README.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/packages/mui-codemod/CONTRIBUTING.md",
+      "path": "packages/mui-codemod/CONTRIBUTING.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/packages/mui-codemod/README.md",
+      "path": "packages/mui-codemod/README.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/packages/mui-core-downloads-tracker/README.md",
+      "path": "packages/mui-core-downloads-tracker/README.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/packages/mui-docs/README.md",
+      "path": "packages/mui-docs/README.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/packages/mui-envinfo/README.md",
+      "path": "packages/mui-envinfo/README.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/packages/mui-icons-material/builder.md",
+      "path": "packages/mui-icons-material/builder.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/packages/mui-icons-material/README.md",
+      "path": "packages/mui-icons-material/README.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/packages/mui-icons-material/fixtures/game-icons/README.md",
+      "path": "packages/mui-icons-material/fixtures/game-icons/README.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/packages/mui-joy/README.md",
+      "path": "packages/mui-joy/README.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/packages/mui-lab/README.md",
+      "path": "packages/mui-lab/README.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/packages/mui-material/README.md",
+      "path": "packages/mui-material/README.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/packages/mui-material/src/internal/svg-icons/README.md",
+      "path": "packages/mui-material/src/internal/svg-icons/README.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/packages/mui-material-nextjs/README.md",
+      "path": "packages/mui-material-nextjs/README.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/packages/mui-material-pigment-css/README.md",
+      "path": "packages/mui-material-pigment-css/README.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/packages/mui-private-theming/README.md",
+      "path": "packages/mui-private-theming/README.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/packages/mui-styled-engine/README.md",
+      "path": "packages/mui-styled-engine/README.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/packages/mui-styled-engine-sc/README.md",
+      "path": "packages/mui-styled-engine-sc/README.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/packages/mui-stylis-plugin-rtl/README.md",
+      "path": "packages/mui-stylis-plugin-rtl/README.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/packages/mui-system/README.md",
+      "path": "packages/mui-system/README.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/packages/mui-types/README.md",
+      "path": "packages/mui-types/README.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/packages/mui-utils/README.md",
+      "path": "packages/mui-utils/README.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/packages/pigment-css-react/README.md",
+      "path": "packages/pigment-css-react/README.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/packages/pigment-react/README.md",
+      "path": "packages/pigment-react/README.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/packages/waterfall/README.md",
+      "path": "packages/waterfall/README.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/packages-internal/docs-utils/CHANGELOG.md",
+      "path": "packages-internal/docs-utils/CHANGELOG.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/packages-internal/docs-utils/README.md",
+      "path": "packages-internal/docs-utils/README.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/packages-internal/scripts/CHANGELOG.md",
+      "path": "packages-internal/scripts/CHANGELOG.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/packages-internal/scripts/README.md",
+      "path": "packages-internal/scripts/README.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/packages-internal/scripts/typescript-to-proptypes/CHANGELOG.old.md",
+      "path": "packages-internal/scripts/typescript-to-proptypes/CHANGELOG.old.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/scripts/README.md",
+      "path": "scripts/README.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/test/README.md",
+      "path": "test/README.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/test/bundling/README.md",
+      "path": "test/bundling/README.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/test/bundling/fixtures/esbuild/index.html",
+      "path": "test/bundling/fixtures/esbuild/index.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/test/bundling/fixtures/snowpack/public/index.html",
+      "path": "test/bundling/fixtures/snowpack/public/index.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/test/bundling/fixtures/vite/index.html",
+      "path": "test/bundling/fixtures/vite/index.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/test/e2e/README.md",
+      "path": "test/e2e/README.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/test/e2e/template.html",
+      "path": "test/e2e/template.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/test/e2e-website/README.md",
+      "path": "test/e2e-website/README.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/test/regressions/index.html",
+      "path": "test/regressions/index.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/test/regressions/README.md",
+      "path": "test/regressions/README.md"
+    },
+    {
+      "url": "https://github.com/mui/material-ui/blob/master/test/regressions/manual/README.md",
+      "path": "test/regressions/manual/README.md"
+    }
+  ],
+  "metadata": {
+    "source": "github_fetch",
+    "repo_url": "https://github.com/mui/material-ui"
+  },
+  "title": "MUI Material UI Knowledge Base",
+  "summary": "A comprehensive knowledge base for Material UI, MUI System, and Joy UI. Includes documentation, guides, and contributing instructions for building React applications with Material Design and Joy Design.",
+  "src_type": "github",
+  "source_url": "https://github.com/mui/material-ui",
+  "unknowns": [
+    {
+      "uri": "https://github.com/mui/material-ui"
+    }
+  ]
+}

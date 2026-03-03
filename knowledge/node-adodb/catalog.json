@@ -1,0 +1,28 @@
+{
+  "documents": [
+    {
+      "url": "https://github.com/nuintun/node-adodb/blob/master/CHANGELOG.md",
+      "path": "cache/CHANGELOG.md",
+      "title": "Node-ADODB 更新履歴",
+      "summary": "node-adodbライブラリのバージョンごとの変更点を記録したファイルです。主要な機能追加、バグ修正、依存関係の更新履歴が2014年の初期バージョンから記載されています。"
+    },
+    {
+      "url": "https://github.com/nuintun/node-adodb/blob/master/README-EN.md",
+      "path": "cache/README-EN.md",
+      "title": "Node-ADODB English Documentation",
+      "summary": "English documentation for the \"node-adodb\" library, a Node.js client implementing the ADODB protocol on Windows. It covers installation, ES6/ES7 usage examples, API reference, debugging, and Electron integration."
+    },
+    {
+      "url": "https://github.com/nuintun/node-adodb/blob/master/README.md",
+      "path": "cache/README.md",
+      "title": "Node-ADODB 簡体中国語ドキュメント",
+      "summary": "Node.jsでWindowsのADODBプロトコルを実装するためのライブラリ「node-adodb」の中国語による解説ドキュメントです。インストール方法、ES6/ES7での使用例、APIリファレンス、Electronでの利用方法などが記載されています。"
+    }
+  ],
+  "metadata": {
+    "generator": "ragmaker-install-kb",
+    "sources": [
+      "C:\\Synology Drive\\2way-sync\\rag\\node-adodb"
+    ]
+  }
+}

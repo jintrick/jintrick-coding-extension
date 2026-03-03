@@ -107,8 +107,8 @@ async function main() {
   }
 
   if (detectedStacks.length > 0) {
-    const mandate = `[SYSTEM] このプロジェクトでは以下の技術が検出されました: ${detectedStacks.join(', ')}\nこれらに関するアーキテクチャ、実装、エラー解決の質問は、必ず \`tech-expert\` サブエージェントに委ねよ。`;
-    const sysMsg = `[tech-expert] Detected tech stacks: ${detectedStacks.join(', ')}. Expert agent is available.`;
+    const mandate = `[SYSTEM] このプロジェクトでは以下の技術スタックが検出されました: ${detectedStacks.join(', ')}\nこれらに関する公式仕様、ベストプラクティス、既知のエラーパターン、またはアーキテクチャの標準的な実装方法について調査が必要な場合は、\`tech-expert\` サブエージェントを利用して正確な情報を取得せよ。論理的なバグ修正やプロジェクト固有の実装に関する推論は、引き続きメインエージェントが担当せよ。`;
+    const sysMsg = `[tech-expert] Available experts: ${detectedStacks.join(', ')}. Use for tech-specific knowledge retrieval.`;
     
     process.stdout.write(JSON.stringify({
       decision: "allow",

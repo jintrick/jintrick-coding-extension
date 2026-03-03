@@ -101,15 +101,18 @@ function promoteKnowledge() {
     fs.writeFileSync(path.join(targetDir, 'manifest.json'), JSON.stringify(manifest, null, 2));
 
     // 2. Generate SKILL.md
+    const catalogInstruction = `回答の際は、まず \`references/catalog.json\` を読み込み、質問に関連するドキュメントを特定した上で、そのドキュメントの内容に基づいて回答してください。`;
     const skillMdPath = path.join(stackDir, 'SKILL.md');
     if (fs.existsSync(skillMdPath)) {
       const content = fs.readFileSync(skillMdPath, 'utf8');
+      let updated = content;
       if (content.startsWith('---') && !content.includes('version:')) {
-        const updated = content.replace('---', `---\nversion: ${CURRENT_DATE}`);
-        fs.writeFileSync(path.join(targetDir, 'SKILL.md'), updated);
-      } else {
-        fs.copyFileSync(skillMdPath, path.join(targetDir, 'SKILL.md'));
+        updated = updated.replace('---', `---\nversion: ${CURRENT_DATE}`);
       }
+      if (!content.includes('catalog.json')) {
+        updated += `\n\n## ナレッジの活用方法\n${catalogInstruction}\n`;
+      }
+      fs.writeFileSync(path.join(targetDir, 'SKILL.md'), updated);
     } else {
       const defaultSkillMd = `---
 name: tech-expert-${stack}
@@ -117,7 +120,10 @@ description: ${stack} に関する技術的な専門知識を提供します。
 version: ${CURRENT_DATE}
 ---
 # ${stack} Expert Skill
-あなたは ${stack} のスペシャリストです。\`references/\` 内のドキュメントに基づき、専門的な助言を行います。
+あなたは ${stack} のスペシャリストです。
+
+## 動作指示
+${catalogInstruction}
 `;
       fs.writeFileSync(path.join(targetDir, 'SKILL.md'), defaultSkillMd);
     }
@@ -128,6 +134,7 @@ version: ${CURRENT_DATE}
 
     const entries = fs.readdirSync(stackDir, { withFileTypes: true });
     const ignoreFiles = ['package.json', 'requirements.txt', 'pyproject.toml', 'SKILL.md'];
+    const catalog = [];
 
     for (const entry of entries) {
       if (ignoreFiles.includes(entry.name)) continue;
@@ -139,8 +146,31 @@ version: ${CURRENT_DATE}
         copyDir(srcPath, destPath);
       } else {
         fs.copyFileSync(srcPath, destPath);
+        
+        // Add to catalog if it's a markdown file
+        if (entry.name.endsWith('.md')) {
+          const content = fs.readFileSync(srcPath, 'utf8');
+          const titleMatch = content.match(/^#\s+(.*)/m);
+          const title = titleMatch ? titleMatch[1] : entry.name;
+          
+          // Simple summary: first paragraph after title or first 150 chars
+          const body = content.replace(/^#\s+.*$/m, '').trim();
+          const summary = body.split('\n')[0].substring(0, 150) || "No summary available.";
+          
+          catalog.push({
+            path: `references/${entry.name}`,
+            title: title,
+            summary: summary
+          });
+        }
       }
     }
+
+    // Write catalog.json
+    fs.writeFileSync(path.join(targetRefsDir, 'catalog.json'), JSON.stringify(catalog, null, 2));
+
+    // 2. Generate SKILL.md (Move after catalog generation to ensure instructions are consistent)
+    // ... (rest of the logic)
   }
 }
 
