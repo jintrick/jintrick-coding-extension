@@ -48,7 +48,7 @@ function promoteKnowledge() {
     .map(dirent => dirent.name);
 
   for (const stack of stacks) {
-    const targetDir = path.join('dist/skills', `tech-expert-${stack}`);
+    const targetDir = path.join('skills', `tech-expert-${stack}`);
     fs.mkdirSync(targetDir, { recursive: true });
 
     const stackDir = path.join(knowledgeDir, stack);
@@ -228,9 +228,10 @@ async function build() {
     });
   }
 
-  // skills ディレクトリをコピー
-  console.log('Copying skills...');
-  copyDir('skills', 'dist/skills');
+  // 古い dist/skills をクリーンアップ
+  if (fs.existsSync('dist/skills')) {
+    fs.rmSync('dist/skills', { recursive: true, force: true });
+  }
 
   // knowledge を昇格
   console.log('Promoting knowledge to skills...');

@@ -1,0 +1,79 @@
+{
+  "documents": [
+    {
+      "url": "https://github.com/bvaughn/react-resizable-panels/blob/main/CHANGELOG.md",
+      "path": "CHANGELOG.md",
+      "title": "更新履歴",
+      "summary": "react-resizable-panelsのリリースノートと変更履歴。"
+    },
+    {
+      "url": "https://github.com/bvaughn/react-resizable-panels/blob/main/CONTRIBUTING.md",
+      "path": "CONTRIBUTING.md",
+      "title": "貢献ガイド",
+      "summary": "プロジェクトへの貢献方法に関する情報。"
+    },
+    {
+      "url": "https://github.com/bvaughn/react-resizable-panels/blob/main/index.html",
+      "path": "index.md",
+      "title": "デモページ",
+      "summary": "プロジェクトのデモまたはドキュメントのメインエントリページ。"
+    },
+    {
+      "url": "https://github.com/bvaughn/react-resizable-panels/blob/main/LICENSE.md",
+      "path": "LICENSE.md",
+      "title": "ライセンス",
+      "summary": "react-resizable-panelsのMITライセンス。"
+    },
+    {
+      "url": "https://github.com/bvaughn/react-resizable-panels/blob/main/README.md",
+      "path": "README.md",
+      "title": "はじめに",
+      "summary": "インストール方法や基本的な使い方を含む、react-resizable-panelsのメインドキュメント。"
+    },
+    {
+      "url": "https://github.com/bvaughn/react-resizable-panels/blob/main/integrations/next/README.md",
+      "path": "integrations/next/README.md",
+      "title": "Next.js統合",
+      "summary": "react-resizable-panelsをNext.jsで使用する方法のガイド。"
+    },
+    {
+      "url": "https://github.com/bvaughn/react-resizable-panels/blob/main/integrations/vike/README.md",
+      "path": "integrations/vike/README.md",
+      "title": "Vike統合",
+      "summary": "react-resizable-panelsをVikeで使用する方法のガイド。"
+    },
+    {
+      "url": "https://github.com/bvaughn/react-resizable-panels/blob/main/integrations/vite/index.html",
+      "path": "integrations/vite/index.md",
+      "title": "Viteデモ",
+      "summary": "Vite統合のデモページ。"
+    },
+    {
+      "url": "https://github.com/bvaughn/react-resizable-panels/blob/main/integrations/vite/README.md",
+      "path": "integrations/vite/README.md",
+      "title": "Vite統合",
+      "summary": "react-resizable-panelsをViteで使用する方法のガイド。"
+    },
+    {
+      "url": "https://github.com/bvaughn/react-resizable-panels/blob/main/public/robots.txt",
+      "path": "public/robots.txt",
+      "title": "robots.txt",
+      "summary": "プロジェクトデモサイトのrobots.txtファイル。"
+    }
+  ],
+  "metadata": {
+    "source": "github_fetch",
+    "repo_url": "https://github.com/bvaughn/react-resizable-panels",
+    "path_in_repo": ".",
+    "branch": "main"
+  },
+  "title": "react-resizable-panels ドキュメント",
+  "summary": "resizable panel groups/layoutsを提供するReactライブラリ「react-resizable-panels」の包括的なドキュメントとサンプル集。",
+  "src_type": "github",
+  "source_url": "https://github.com/bvaughn/react-resizable-panels",
+  "unknowns": [
+    {
+      "uri": "https://github.com/bvaughn/react-resizable-panels"
+    }
+  ]
+}
