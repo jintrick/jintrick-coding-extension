@@ -7,6 +7,10 @@ This document provides the complete specification for developing Agent Skills in
 Skills are directories located in `skills/` within the extension root.
 They are automatically discovered and loaded by the CLI.
 
+> [!CAUTION]
+> **`dist/skills/` is NOT a valid location for skills.**
+> The Gemini CLI `activate_skill` tool only scans the `skills/` directory at the extension root. Placing skills within the build output directory (`dist/`) will result in them being ignored by the CLI.
+
 ### Directory Layout
 ```text
 my-extension/
@@ -85,3 +89,9 @@ Skills can utilize standard tools (`run_shell_command`, `read_file`) and extensi
 - **Self-Contained**: Bundle all necessary scripts and docs within the skill directory.
 - **Stateless**: Skills should not rely on persistent state outside of the project files.
 - **Dependencies**: Use `esbuild` to bundle dependencies if scripts use non-standard node modules.
+
+## 6. Critical Warnings (Avoid the v1.28.0 Pitfall)
+
+- **Location Restriction**: Always place skills in the root `skills/` directory. Unlike Linter Hooks, skills do not have a path redirection mechanism (like `hooks.json`).
+- **Discovery Mechanism**: There is no way to load skills from arbitrary paths. The CLI relies strictly on the standard Auto Discovery from the extension's root `skills/` folder.
+- **Git Inclusion**: While `dist/` is typically ignored, the `skills/` directory must be included in version control as part of the extension's functional distribution.
