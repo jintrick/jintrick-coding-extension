@@ -117,9 +117,9 @@ function promoteKnowledge() {
         }
       }
 
-      // Final fallback
+      // Final check: throw error if no detectors could be generated
       if (detectors.length === 0) {
-        detectors.push({ type: "file_exists", file: `${stack}.config.js` });
+        throw new Error(`[build] No detector rules could be generated for knowledge base '${stack}'. Please provide a valid 'detector.json' file.`);
       }
     }
 

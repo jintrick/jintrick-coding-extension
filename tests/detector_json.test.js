@@ -90,4 +90,20 @@ describe('build.cjs detector.json logic', () => {
       file: 'requirements.txt'
     });
   });
+
+  it('should throw an error and stop the build if no detectors can be generated', () => {
+    // Empty directory, no detector.json, no package.json, no config files
+    let errorThrown = false;
+    let errorMessage = '';
+
+    try {
+      execSync('node tools/build.cjs', { stdio: 'pipe' });
+    } catch (e) {
+      errorThrown = true;
+      errorMessage = e.stderr ? e.stderr.toString() : e.message;
+    }
+
+    expect(errorThrown).toBe(true);
+    expect(errorMessage).toContain("No detector rules could be generated for knowledge base 'test-detector'");
+  });
 });
