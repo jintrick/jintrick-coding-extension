@@ -55,40 +55,72 @@ function promoteKnowledge() {
 
     // 1. Generate manifest.json
     let detectors = [];
-
-    // Scan all files in the stack knowledge directory
     const stackFiles = fs.readdirSync(stackDir);
 
-    // Common detector inference rules
-    if (stackFiles.includes('package.json')) {
-      const packageJsonPath = path.join(stackDir, 'package.json');
+    // 1.1 Priority: detector.json (Issue v1.27.0 implementation)
+    if (stackFiles.includes('detector.json')) {
+      const detectorPath = path.join(stackDir, 'detector.json');
       try {
-        const pkg = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
-        const name = pkg.name || stack;
-        detectors.push({ type: "file_contains", file: "package.json", pattern: `"${name}"` });
+        const data = JSON.parse(fs.readFileSync(detectorPath, 'utf8'));
+        
+        // Convert npm -> file_contains (package.json)
+        if (data.npm && typeof data.npm === 'string') {
+          detectors.push({ type: "file_contains", file: "package.json", pattern: `"${data.npm}"` });
+        }
+        
+        // Convert files -> file_exists
+        if (Array.isArray(data.files)) {
+          data.files.forEach(file => {
+            if (typeof file === 'string') {
+              detectors.push({ type: "file_exists", file: file });
+            }
+          });
+        }
+        
+        // Convert patterns -> specific rules
+        if (Array.isArray(data.patterns)) {
+          data.patterns.forEach(p => {
+            if (p.file && p.pattern) {
+              detectors.push({ type: "file_contains", file: p.file, pattern: p.pattern });
+            }
+          });
+        }
       } catch (e) {
-        console.warn(`[build] Failed to parse ${packageJsonPath}, falling back to directory name. Error: ${e.message}`);
-        detectors.push({ type: "file_contains", file: "package.json", pattern: `"${stack}"` });
+        console.warn(`[build] Failed to parse ${detectorPath}, falling back to inference. Error: ${e.message}`);
       }
     }
 
-    if (stackFiles.includes('requirements.txt')) {
-      detectors.push({ type: "file_exists", file: "requirements.txt" });
-    }
-    if (stackFiles.includes('pyproject.toml')) {
-      detectors.push({ type: "file_exists", file: "pyproject.toml" });
-    }
-
-    // Config file inference: any file ending with .config.js or .config.ts or vite.config.*, next.config.*
-    for (const file of stackFiles) {
-      if (file.endsWith('.config.js') || file.endsWith('.config.ts') || file.startsWith('vite.config.') || file.startsWith('next.config.')) {
-        detectors.push({ type: "file_exists", file: file });
-      }
-    }
-
-    // Fallback if no detectors found
+    // 1.2 Fallback: Inference rules (only if no valid detectors from detector.json)
     if (detectors.length === 0) {
-      detectors.push({ type: "file_exists", file: `${stack}.config.js` });
+      if (stackFiles.includes('package.json')) {
+        const packageJsonPath = path.join(stackDir, 'package.json');
+        try {
+          const pkg = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
+          const name = pkg.name || stack;
+          detectors.push({ type: "file_contains", file: "package.json", pattern: `"${name}"` });
+        } catch (e) {
+          console.warn(`[build] Failed to parse ${packageJsonPath}, falling back to directory name. Error: ${e.message}`);
+          detectors.push({ type: "file_contains", file: "package.json", pattern: `"${stack}"` });
+        }
+      }
+
+      if (stackFiles.includes('requirements.txt')) {
+        detectors.push({ type: "file_exists", file: "requirements.txt" });
+      }
+      if (stackFiles.includes('pyproject.toml')) {
+        detectors.push({ type: "file_exists", file: "pyproject.toml" });
+      }
+
+      for (const file of stackFiles) {
+        if (file.endsWith('.config.js') || file.endsWith('.config.ts') || file.startsWith('vite.config.') || file.startsWith('next.config.')) {
+          detectors.push({ type: "file_exists", file: file });
+        }
+      }
+
+      // Final fallback
+      if (detectors.length === 0) {
+        detectors.push({ type: "file_exists", file: `${stack}.config.js` });
+      }
     }
 
     const manifest = {

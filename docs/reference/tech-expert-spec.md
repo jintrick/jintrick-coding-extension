@@ -23,14 +23,33 @@
 ```text
 knowledge/
 ├── react/
+│   ├── detector.json  (推奨: 検知ルールを定義。例: { "npm": "react" })
 │   ├── SKILL.md       (任意: エージェントへの個別指示。ない場合は自動生成される)
 │   └── architecture.md (任意: RAGとして読み込ませるドキュメント群)
 ```
 
 ビルド時 (`npm run build`) に `tools/build.cjs` がスキャンを行い、`dist/skills/tech-expert-<stack>` を自動生成する。
 
-#### 自動推論ルール (Detector Inference Rules)
-ビルドシステムは以下の優先順位で検知ルール (`detectors`) を自動生成する：
+#### 検知ルールの定義 (`detector.json`)
+ナレッジを特定のプロジェクトで自動検知させるには、`knowledge/<stack>/detector.json` を配置することが**推奨される**。
+
+- **`npm`**: `package.json` の `dependencies` や `devDependencies` に含まれるパッケージ名を指定する。
+- **`files`**: プロジェクトルートに存在する特定のファイルを検知条件とする。
+- **`patterns`**: 特定のファイル内に、特定の文字列が含まれていることを検知条件とする。
+
+**例 (`detector.json`):**
+```json
+{
+  "npm": "@mui/material",
+  "files": ["mui.config.js"],
+  "patterns": [
+    { "file": "package.json", "pattern": "\"@mui/material\"" }
+  ]
+}
+```
+
+#### 自動推論ルール (Fallback Inference Rules)
+`detector.json` が存在しない、または破損している場合、ビルドシステムは後方互換性のため、以下の優先順位で検知ルール (`detectors`) を自動生成する：
 1. **Node.js**: `package.json` が存在する場合、その `name` フィールド（なければディレクトリ名）を `file_contains` ルールとして登録する。
 2. **Python**: `requirements.txt` または `pyproject.toml` が存在する場合、それらの `file_exists` ルールを登録する。
 3. **設定ファイル**: `vite.config.*`, `next.config.*`, または `*.config.js/ts` が存在する場合、それらを `file_exists` ルールとして登録する。
