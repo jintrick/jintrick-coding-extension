@@ -19,13 +19,9 @@
     git commit -m "docs: start issue vX.Y.Z"
     ```
 
-## ステージ 4: 実装 (Implementation with Jules)
-1.  **Jules への依頼**: `jules-client` スキルを使用し、`dev` ブランチをベースに実装を依頼する。
-    ```bash
-    # コマンド例
-    /jules "Implement docs/issue/vX.Y.Z.md" --branch dev
-    ```
-2.  **PR 作成**: Jules が自動的に PR を作成するのを待つ。
+## ステージ 4: 実装 (Implementation)
+Antigravityはそのまま実装を開始。
+Gemini CLIはユーザーの指示に従うこと。
 
 ## ステージ 5: 検証 (Verification)
 1.  **PR チェックアウト**: 作成された PR をローカルにチェックアウトする。
