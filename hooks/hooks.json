@@ -36,6 +36,32 @@
       }
     ],
     "AfterTool": [],
+    "BeforeModel": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "name": "toast-notification-start",
+            "type": "command",
+            "command": "node \"${extensionPath}${/}dist${/}hooks${/}toast_notification_hook.cjs\"",
+            "description": "タスクの開始時刻をロックファイルに記録します。"
+          }
+        ]
+      }
+    ],
+    "AfterAgent": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "name": "toast-notification-end",
+            "type": "command",
+            "command": "node \"${extensionPath}${/}dist${/}hooks${/}toast_notification_hook.cjs\"",
+            "description": "タスクの完了を検知し、時間がかかった場合はトースト通知を表示します。"
+          }
+        ]
+      }
+    ],
     "SessionStart": [
       {
         "matcher": "*",
