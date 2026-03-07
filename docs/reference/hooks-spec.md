@@ -162,9 +162,12 @@ Activates an agent skill.
 }
 ```
 
-## 5. Environment Variables
-The hook process inherits the CLI's environment, plus:
+## 6. Development Workflow (Building Hooks)
 
-- `GEMINI_PROJECT_DIR`: Path to the current workspace.
-- `GEMINI_SESSION_ID`: Current session ID.
-- Extension Settings (defined in `gemini-extension.json`) are injected as env vars (e.g. `MY_API_KEY`).
+This project uses a build step to bundle dependencies. When adding a NEW hook script in `hooks/scripts/`:
+
+1.  **Register in Build Script**: Add the new script path to the `hooks` array in `tools/build.cjs`.
+2.  **Build**: Run `npm run build` to generate the bundled output in `dist/hooks/`.
+3.  **Configure**: Reference the `dist/` path in `hooks/hooks.json` (e.g. `${extensionPath}${/}dist${/}hooks${/}my_hook.cjs`).
+
+Failure to register the script in `tools/build.cjs` will result in `MODULE_NOT_FOUND` errors at runtime.

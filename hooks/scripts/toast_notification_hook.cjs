@@ -1,94 +1,88 @@
 const fs = require('fs');
 const path = require('path');
-const { spawn } = require('child_process');
+const { spawnSync } = require('child_process');
 
-function sendAllow(reason) {
+const cacheDir = path.resolve(__dirname, '..', '..', 'hooks', 'cache');
+
+function sendAllow() {
     process.stdout.write(JSON.stringify({ decision: 'allow' }) + '\n');
 }
 
 function processEvent(inputData) {
     const { hook_event_name, session_id, cwd } = inputData;
+    
     if (!session_id || !cwd) {
         return sendAllow();
     }
 
-    const cacheDir = path.join(__dirname, '..', '..', 'hooks', 'cache');
     if (!fs.existsSync(cacheDir)) {
         try {
             fs.mkdirSync(cacheDir, { recursive: true });
-        } catch (e) {
-            console.error(`Failed to create cache dir: ${e.message}`);
-        }
+        } catch (e) {}
     }
 
     const lockFile = path.join(cacheDir, `${session_id}.lock`);
 
-    if (hook_event_name === 'BeforeModel') {
+    if (hook_event_name === 'BeforeAgent') {
         try {
-            // Create empty file exclusively. If it exists, this throws EEXIST, which is expected.
-            const fd = fs.openSync(lockFile, 'wx');
+            // BeforeAgent はユーザー入力ごとに1回だけ発火するため、wx モードで確実に新規作成
+            const fd = fs.openSync(lockFile, 'w'); // 上書きして時間をリセット
             fs.closeSync(fd);
-        } catch (e) {
-            if (e.code !== 'EEXIST') {
-                console.error(`Failed to create lock file: ${e.message}`);
-            }
-        }
+        } catch (e) {}
     } else if (hook_event_name === 'AfterAgent') {
         if (fs.existsSync(lockFile)) {
             try {
                 const stats = fs.statSync(lockFile);
                 const durationMs = Date.now() - stats.mtimeMs;
-                fs.unlinkSync(lockFile); // Cleanup
+                
+                fs.unlinkSync(lockFile);
 
-                // 10,000ms 以上のタスクに対してトースト通知
+                // 10,000ms (10秒) 以上のタスクに対して通知
                 if (durationMs >= 10000) {
                     showToast(cwd, durationMs);
                 }
-            } catch (e) {
-                console.error(`Failed to process lock file: ${e.message}`);
-            }
+            } catch (e) {}
         }
     }
 
-    // Hook 完了。メインプロセスをブロックしないために即座に allow を返す
     sendAllow();
 }
 
 function showToast(cwd, durationMs) {
     const projectName = path.basename(cwd);
     const durationSec = (durationMs / 1000).toFixed(1);
-
-    // XML のエスケープ
     const title = `Gemini CLI: ${projectName}`.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
     const body = `タスク完了: 実行時間 ${durationSec}s`.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
-    const psScript = `
-[Windows.UI.Notifications.ToastNotificationManager, Windows.UI.Notifications, ContentType = WindowsRuntime] | Out-Null
-[Windows.Data.Xml.Dom.XmlDocument, Windows.Data.Xml.Dom.XmlDocument, ContentType = WindowsRuntime] | Out-Null
-$xml = New-Object Windows.Data.Xml.Dom.XmlDocument
-$xml.LoadXml('<toast><visual><binding template="ToastGeneric"><text>${title}</text><text>${body}</text></binding></visual></toast>')
-$toast = [Windows.UI.Notifications.ToastNotification]::new($xml)
-[Windows.UI.Notifications.ToastNotificationManager]::CreateToastNotifier('Gemini.CLI').Show($toast)
-  `;
+    const psScript = `\uFEFF
+$ErrorActionPreference = 'SilentlyContinue'
+try {
+    [Windows.UI.Notifications.ToastNotificationManager, Windows.UI.Notifications, ContentType = WindowsRuntime] | Out-Null
+    [Windows.Data.Xml.Dom.XmlDocument, Windows.Data.Xml.Dom.XmlDocument, ContentType = WindowsRuntime] | Out-Null
+    $xml = New-Object Windows.Data.Xml.Dom.XmlDocument
+    $xml.LoadXml('<toast><visual><binding template="ToastGeneric"><text>${title}</text><text>${body}</text></binding></visual></toast>')
+    $appId = '{1AC14E77-02E7-4E5D-B744-2EB1AE5198B7}\\WindowsPowerShell\\v1.0\\powershell.exe'
+    $toast = [Windows.UI.Notifications.ToastNotification]::new($xml)
+    [Windows.UI.Notifications.ToastNotificationManager]::CreateToastNotifier($appId).Show($toast)
+} catch {}
+`;
 
-    // PowerShell コマンドを Base64 エンコードしてエスケープ問題を回避
-    const encodedCommand = Buffer.from(psScript, 'utf16le').toString('base64');
-
+    const tmpFile = path.join(cacheDir, 'toast_runner.ps1');
     try {
-        const child = spawn('powershell.exe', ['-NoProfile', '-NonInteractive', '-WindowStyle', 'Hidden', '-EncodedCommand', encodedCommand], {
-            detached: true,
-            stdio: 'ignore', // 完全に切り離す
+        fs.writeFileSync(tmpFile, psScript, 'utf8');
+
+        // 非同期だと親が死ぬ際に子も死ぬ可能性があるため、spawnSync で確実に実行
+        spawnSync('powershell.exe', [
+            '-NoProfile',
+            '-ExecutionPolicy', 'Bypass',
+            '-File', tmpFile
+        ], {
             windowsHide: true,
+            timeout: 5000 // 5秒以上かかることはまずないのでタイムアウト設定
         });
-        child.unref(); // メインプロセスが子プロセスを待たないようにする
-    } catch (e) {
-        console.error(`Failed to spawn powershell: ${e.message}`);
-    }
+    } catch (e) {}
 }
 
-// ---------------------------------------------------------
-// CLI本体からの JSON（標準入力）の読み込み
-// ---------------------------------------------------------
 let chunks = '';
 process.stdin.setEncoding('utf8');
 process.stdin.on('data', chunk => {
@@ -97,10 +91,10 @@ process.stdin.on('data', chunk => {
 
 process.stdin.on('end', () => {
     try {
+        if (!chunks) return sendAllow();
         const inputData = JSON.parse(chunks);
         processEvent(inputData);
     } catch (e) {
-        console.error(`JSON Parse Error: ${e.message}`);
         sendAllow();
     }
 });

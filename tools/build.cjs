@@ -8,7 +8,8 @@ const hooks = [
   'hooks/scripts/linter_hook.cjs',
   'hooks/scripts/expert_docs_hook.cjs',
   'hooks/scripts/command_fixer_hook.cjs',
-  'hooks/scripts/tech_stack_discovery_hook.cjs'
+  'hooks/scripts/tech_stack_discovery_hook.cjs',
+  'hooks/scripts/toast_notification_hook.cjs'
 ];
 
 const linters = [
