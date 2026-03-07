@@ -2,7 +2,8 @@ const esbuild = require('esbuild');
 const path = require('path');
 const fs = require('fs');
 
-const CURRENT_DATE = new Date().toISOString().split('T')[0];
+const pkgJson = JSON.parse(fs.readFileSync('package.json', 'utf8'));
+const EXTENSION_VERSION = pkgJson.version;
 
 const hooks = [
   'hooks/scripts/linter_hook.cjs',
@@ -50,6 +51,9 @@ function promoteKnowledge() {
 
   for (const stack of stacks) {
     const targetDir = path.join('skills', `tech-expert-${stack}`);
+    if (fs.existsSync(targetDir)) {
+      fs.rmSync(targetDir, { recursive: true, force: true });
+    }
     fs.mkdirSync(targetDir, { recursive: true });
 
     const stackDir = path.join(knowledgeDir, stack);
@@ -63,12 +67,12 @@ function promoteKnowledge() {
       const detectorPath = path.join(stackDir, 'detector.json');
       try {
         const data = JSON.parse(fs.readFileSync(detectorPath, 'utf8'));
-        
+
         // Convert npm -> file_contains (package.json)
         if (data.npm && typeof data.npm === 'string') {
           detectors.push({ type: "file_contains", file: "package.json", pattern: `"${data.npm}"` });
         }
-        
+
         // Convert files -> file_exists
         if (Array.isArray(data.files)) {
           data.files.forEach(file => {
@@ -77,7 +81,7 @@ function promoteKnowledge() {
             }
           });
         }
-        
+
         // Convert patterns -> specific rules
         if (Array.isArray(data.patterns)) {
           data.patterns.forEach(p => {
@@ -128,7 +132,7 @@ function promoteKnowledge() {
       id: `tech-expert-${stack}`,
       name: `${stack.charAt(0).toUpperCase() + stack.slice(1)} Expert`,
       description: `${stack} に関する技術的な専門知識を提供します。`,
-      version: CURRENT_DATE,
+      version: EXTENSION_VERSION,
       detectors: detectors
     };
     fs.writeFileSync(path.join(targetDir, 'manifest.json'), JSON.stringify(manifest, null, 2));
@@ -140,7 +144,9 @@ function promoteKnowledge() {
       const content = fs.readFileSync(skillMdPath, 'utf8');
       let updated = content;
       if (content.startsWith('---') && !content.includes('version:')) {
-        updated = updated.replace('---', `---\nversion: ${CURRENT_DATE}`);
+        updated = updated.replace('---', `---\nversion: ${EXTENSION_VERSION}`);
+      } else if (content.startsWith('---') && content.includes('version:')) {
+        updated = updated.replace(/version: .*/, `version: ${EXTENSION_VERSION}`);
       }
       if (!content.includes('catalog.json')) {
         updated += `\n\n## ナレッジの活用方法\n${catalogInstruction}\n`;
@@ -150,7 +156,7 @@ function promoteKnowledge() {
       const defaultSkillMd = `---
 name: tech-expert-${stack}
 description: ${stack} に関する技術的な専門知識を提供します。
-version: ${CURRENT_DATE}
+version: ${EXTENSION_VERSION}
 ---
 # ${stack} Expert Skill
 あなたは ${stack} のスペシャリストです。
@@ -179,17 +185,17 @@ ${catalogInstruction}
         copyDir(srcPath, destPath);
       } else {
         fs.copyFileSync(srcPath, destPath);
-        
+
         // Add to catalog if it's a markdown file
         if (entry.name.endsWith('.md')) {
           const content = fs.readFileSync(srcPath, 'utf8');
           const titleMatch = content.match(/^#\s+(.*)/m);
           const title = titleMatch ? titleMatch[1] : entry.name;
-          
+
           // Simple summary: first paragraph after title or first 150 chars
           const body = content.replace(/^#\s+.*$/m, '').trim();
           const summary = body.split('\n')[0].substring(0, 150) || "No summary available.";
-          
+
           catalog.push({
             path: `references/${entry.name}`,
             title: title,
@@ -201,44 +207,54 @@ ${catalogInstruction}
 
     // Write catalog.json
     fs.writeFileSync(path.join(targetRefsDir, 'catalog.json'), JSON.stringify(catalog, null, 2));
-
-    // 2. Generate SKILL.md (Move after catalog generation to ensure instructions are consistent)
-    // ... (rest of the logic)
   }
 }
 
 async function build() {
-  // hooks をビルド
-  for (const hook of hooks) {
-    await esbuild.build({
-      entryPoints: [hook],
-      bundle: true,
-      platform: 'node',
-      outfile: path.join('dist', hook.replace('hooks/scripts/', 'hooks/')),
-      external: ['./linters/*'], // リンターの動的requireは外部参照として残す
-    });
+  console.log('[build] Cleaning up dist/hooks...');
+  if (fs.existsSync('dist/hooks')) {
+    fs.rmSync('dist/hooks', { recursive: true, force: true });
   }
 
-  // linters をビルド
-  for (const linter of linters) {
-    await esbuild.build({
-      entryPoints: [linter],
-      bundle: true,
-      platform: 'node',
-      outfile: path.join('dist', linter.replace('hooks/scripts/', 'hooks/')),
-    });
+  try {
+    // Wave 1: hooks をビルド
+    const hookTasks = [];
+    for (const hook of hooks) {
+      console.log(`[build:esbuild] Starting: ${hook}`);
+      const p = esbuild.build({
+        entryPoints: [hook],
+        bundle: true,
+        platform: 'node',
+        outfile: path.join('dist', hook.replace('hooks/scripts/', 'hooks/')),
+        external: ['./linters/*'], // リンターの動的requireは外部参照として残す
+      }).then(() => console.log(`[build:esbuild] Finished: ${hook}`));
+      hookTasks.push(p);
+    }
+    await Promise.all(hookTasks);
+
+    // Wave 2: linters をビルド
+    const linterTasks = [];
+    for (const linter of linters) {
+      console.log(`[build:esbuild] Starting: ${linter}`);
+      const p = esbuild.build({
+        entryPoints: [linter],
+        bundle: true,
+        platform: 'node',
+        outfile: path.join('dist', linter.replace('hooks/scripts/', 'hooks/')),
+      }).then(() => console.log(`[build:esbuild] Finished: ${linter}`));
+      linterTasks.push(p);
+    }
+    await Promise.all(linterTasks);
+
+    // Wave 3: knowledge を昇格
+    console.log('Promoting knowledge to skills...');
+    promoteKnowledge();
+
+    console.log('Build completed successfully!');
+  } catch (err) {
+    console.error('[build] One or more tasks failed:', err);
+    process.exit(1);
   }
-
-  // 古い dist/skills をクリーンアップ
-  if (fs.existsSync('dist/skills')) {
-    fs.rmSync('dist/skills', { recursive: true, force: true });
-  }
-
-  // knowledge を昇格
-  console.log('Promoting knowledge to skills...');
-  promoteKnowledge();
-
-  console.log('Build completed successfully!');
 }
 
 build().catch(err => {
