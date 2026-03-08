@@ -1,11 +1,12 @@
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import fs from 'fs';
 import path from 'path';
-import { execSync } from 'child_process';
+import { promoteKnowledge } from '../tools/build.cjs';
 
 describe('build.cjs detector.json logic', () => {
-  const tmpKnowledgeDir = path.join(process.cwd(), 'knowledge', 'test-detector');
-  const distSkillDir = path.join(process.cwd(), 'dist', 'skills', 'tech-expert-test-detector');
+  const tmpKnowledgeDir = path.join(process.cwd(), 'tests', 'tmp', 'detector', 'knowledge', 'test-detector');
+  const distSkillDir = path.join(process.cwd(), 'tests', 'tmp', 'detector', 'skills', 'tech-expert-test-detector');
+  const extensionVersion = "1.0.0"; // mock
 
   beforeEach(() => {
     if (!fs.existsSync(tmpKnowledgeDir)) {
@@ -14,11 +15,9 @@ describe('build.cjs detector.json logic', () => {
   });
 
   afterEach(() => {
-    if (fs.existsSync(tmpKnowledgeDir)) {
-      fs.rmSync(tmpKnowledgeDir, { recursive: true, force: true });
-    }
-    if (fs.existsSync(distSkillDir)) {
-      fs.rmSync(distSkillDir, { recursive: true, force: true });
+    const tmpDir = path.join(process.cwd(), 'tests', 'tmp', 'detector');
+    if (fs.existsSync(tmpDir)) {
+      fs.rmSync(tmpDir, { recursive: true, force: true });
     }
   });
 
@@ -35,14 +34,19 @@ describe('build.cjs detector.json logic', () => {
     // Also place a package.json to ensure detector.json takes priority and doesn't mix them
     fs.writeFileSync(path.join(tmpKnowledgeDir, 'package.json'), JSON.stringify({ name: "wrong-package" }));
 
-    execSync('node tools/build.cjs');
+    promoteKnowledge({
+      knowledgeDir: path.join(process.cwd(), 'tests', 'tmp', 'detector', 'knowledge'),
+      skillsDir: path.join(process.cwd(), 'tests', 'tmp', 'detector', 'skills'),
+      extensionVersion,
+      clean: true
+    });
 
     const manifestPath = path.join(distSkillDir, 'manifest.json');
     expect(fs.existsSync(manifestPath)).toBe(true);
 
     const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
     expect(manifest.detectors).toHaveLength(3);
-    
+
     // Check npm -> file_contains
     expect(manifest.detectors).toContainEqual({
       type: 'file_contains',
@@ -71,39 +75,32 @@ describe('build.cjs detector.json logic', () => {
     });
   });
 
-  it('should fallback to inference rules if detector.json is corrupted', () => {
+  it('should throw Error if detector.json is corrupted', () => {
     // Write corrupted JSON
     fs.writeFileSync(path.join(tmpKnowledgeDir, 'detector.json'), '{ "npm": "test-package", missing_quote }');
     // Write fallback trigger
     fs.writeFileSync(path.join(tmpKnowledgeDir, 'requirements.txt'), 'flask');
 
-    // Should not throw error and crash
-    execSync('node tools/build.cjs', { stdio: 'pipe' });
-
-    const manifestPath = path.join(distSkillDir, 'manifest.json');
-    const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
-    
-    // Should fallback to requirements.txt
-    expect(manifest.detectors).toHaveLength(1);
-    expect(manifest.detectors[0]).toEqual({
-      type: 'file_exists',
-      file: 'requirements.txt'
-    });
+    // Should throw error
+    expect(() => {
+      promoteKnowledge({
+        knowledgeDir: path.join(process.cwd(), 'tests', 'tmp', 'detector', 'knowledge'),
+        skillsDir: path.join(process.cwd(), 'tests', 'tmp', 'detector', 'skills'),
+        extensionVersion,
+        clean: true
+      });
+    }).toThrow(/Failed to parse/);
   });
 
-  it('should throw an error and stop the build if no detectors can be generated', () => {
+  it('should throw and skip if no detectors can be generated', () => {
     // Empty directory, no detector.json, no package.json, no config files
-    let errorThrown = false;
-    let errorMessage = '';
-
-    try {
-      execSync('node tools/build.cjs', { stdio: 'pipe' });
-    } catch (e) {
-      errorThrown = true;
-      errorMessage = e.stderr ? e.stderr.toString() : e.message;
-    }
-
-    expect(errorThrown).toBe(true);
-    expect(errorMessage).toContain("No detector rules could be generated for knowledge base 'test-detector'");
+    expect(() => {
+      promoteKnowledge({
+        knowledgeDir: path.join(process.cwd(), 'tests', 'tmp', 'detector', 'knowledge'),
+        skillsDir: path.join(process.cwd(), 'tests', 'tmp', 'detector', 'skills'),
+        extensionVersion,
+        clean: true
+      });
+    }).toThrow(/No detector rules could be generated/);
   });
 });

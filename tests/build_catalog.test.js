@@ -1,11 +1,12 @@
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import fs from 'fs';
 import path from 'path';
-import { execSync } from 'child_process';
+import { promoteKnowledge } from '../tools/build.cjs';
 
 describe('build.cjs catalog generation', () => {
-  const tmpKnowledgeDir = path.join(process.cwd(), 'knowledge', 'test-stack');
-  const distSkillDir = path.join(process.cwd(), 'dist', 'skills', 'tech-expert-test-stack');
+  const tmpKnowledgeDir = path.join(process.cwd(), 'tests', 'tmp', 'catalog', 'knowledge', 'test-stack');
+  const distSkillDir = path.join(process.cwd(), 'tests', 'tmp', 'catalog', 'skills', 'tech-expert-test-stack');
+  const extensionVersion = "1.0.0"; // mock
 
   beforeEach(() => {
     if (!fs.existsSync(tmpKnowledgeDir)) {
@@ -13,19 +14,23 @@ describe('build.cjs catalog generation', () => {
     }
     fs.writeFileSync(path.join(tmpKnowledgeDir, 'doc1.md'), '# Test Title 1\nThis is a summary for doc1.');
     fs.writeFileSync(path.join(tmpKnowledgeDir, 'doc2.md'), '# Test Title 2\nThis is a summary for doc2.');
+    fs.writeFileSync(path.join(tmpKnowledgeDir, 'package.json'), JSON.stringify({ name: "test-stack" }));
   });
 
   afterEach(() => {
-    if (fs.existsSync(tmpKnowledgeDir)) {
-      fs.rmSync(tmpKnowledgeDir, { recursive: true, force: true });
-    }
-    if (fs.existsSync(distSkillDir)) {
-      fs.rmSync(distSkillDir, { recursive: true, force: true });
+    const tmpDir = path.join(process.cwd(), 'tests', 'tmp', 'catalog');
+    if (fs.existsSync(tmpDir)) {
+      fs.rmSync(tmpDir, { recursive: true, force: true });
     }
   });
 
-  it('should generate catalog.json in dist/skills/tech-expert-test-stack/references/', () => {
-    execSync('node tools/build.cjs');
+  it('should generate catalog.json in target dir', () => {
+    promoteKnowledge({
+      knowledgeDir: path.join(process.cwd(), 'tests', 'tmp', 'catalog', 'knowledge'),
+      skillsDir: path.join(process.cwd(), 'tests', 'tmp', 'catalog', 'skills'),
+      extensionVersion,
+      clean: true
+    });
 
     const catalogPath = path.join(distSkillDir, 'references', 'catalog.json');
     expect(fs.existsSync(catalogPath)).toBe(true);
@@ -36,23 +41,33 @@ describe('build.cjs catalog generation', () => {
   });
 
   it('should include catalog.json instructions in SKILL.md', () => {
-    execSync('node tools/build.cjs');
+    promoteKnowledge({
+      knowledgeDir: path.join(process.cwd(), 'tests', 'tmp', 'catalog', 'knowledge'),
+      skillsDir: path.join(process.cwd(), 'tests', 'tmp', 'catalog', 'skills'),
+      extensionVersion,
+      clean: true
+    });
 
     const skillMdPath = path.join(distSkillDir, 'SKILL.md');
     const content = fs.readFileSync(skillMdPath, 'utf8');
-    
+
     expect(content).toContain('catalog.json');
     expect(content).toContain('特定した上で');
   });
 
   it('should update existing SKILL.md without catalog instruction', () => {
     fs.writeFileSync(path.join(tmpKnowledgeDir, 'SKILL.md'), '---\nname: test\n---\n# Existing Skill');
-    
-    execSync('node tools/build.cjs');
+
+    promoteKnowledge({
+      knowledgeDir: path.join(process.cwd(), 'tests', 'tmp', 'catalog', 'knowledge'),
+      skillsDir: path.join(process.cwd(), 'tests', 'tmp', 'catalog', 'skills'),
+      extensionVersion,
+      clean: true
+    });
 
     const skillMdPath = path.join(distSkillDir, 'SKILL.md');
     const content = fs.readFileSync(skillMdPath, 'utf8');
-    
+
     expect(content).toContain('ナレッジの活用方法');
     expect(content).toContain('catalog.json');
   });

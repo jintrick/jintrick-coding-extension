@@ -2,9 +2,6 @@ const esbuild = require('esbuild');
 const path = require('path');
 const fs = require('fs');
 
-const pkgJson = JSON.parse(fs.readFileSync('package.json', 'utf8'));
-const EXTENSION_VERSION = pkgJson.version;
-
 const hooks = [
   'hooks/scripts/linter_hook.cjs',
   'hooks/scripts/expert_docs_hook.cjs',
@@ -41,8 +38,7 @@ function copyDir(src, dest) {
   }
 }
 
-function promoteKnowledge() {
-  const knowledgeDir = 'knowledge';
+function promoteKnowledge({ knowledgeDir, skillsDir, extensionVersion, clean = true }) {
   if (!fs.existsSync(knowledgeDir)) return;
 
   const stacks = fs.readdirSync(knowledgeDir, { withFileTypes: true })
@@ -50,11 +46,13 @@ function promoteKnowledge() {
     .map(dirent => dirent.name);
 
   for (const stack of stacks) {
-    const targetDir = path.join('skills', `tech-expert-${stack}`);
-    if (fs.existsSync(targetDir)) {
+    const targetDir = path.join(skillsDir, `tech-expert-${stack}`);
+    if (clean && fs.existsSync(targetDir)) {
       fs.rmSync(targetDir, { recursive: true, force: true });
     }
-    fs.mkdirSync(targetDir, { recursive: true });
+    if (!fs.existsSync(targetDir)) {
+        fs.mkdirSync(targetDir, { recursive: true });
+    }
 
     const stackDir = path.join(knowledgeDir, stack);
 
@@ -62,7 +60,7 @@ function promoteKnowledge() {
     let detectors = [];
     const stackFiles = fs.readdirSync(stackDir);
 
-    // 1.1 Priority: detector.json (Issue v1.27.0 implementation)
+    // 1.1 Priority: detector.json
     if (stackFiles.includes('detector.json')) {
       const detectorPath = path.join(stackDir, 'detector.json');
       try {
@@ -91,7 +89,7 @@ function promoteKnowledge() {
           });
         }
       } catch (e) {
-        console.warn(`[build] Failed to parse ${detectorPath}, falling back to inference. Error: ${e.message}`);
+        throw new Error(`[build] Failed to parse ${detectorPath}, falling back to inference. Error: ${e.message}`);
       }
     }
 
@@ -104,8 +102,7 @@ function promoteKnowledge() {
           const name = pkg.name || stack;
           detectors.push({ type: "file_contains", file: "package.json", pattern: `"${name}"` });
         } catch (e) {
-          console.warn(`[build] Failed to parse ${packageJsonPath}, falling back to directory name. Error: ${e.message}`);
-          detectors.push({ type: "file_contains", file: "package.json", pattern: `"${stack}"` });
+          throw new Error(`[build] Failed to parse ${packageJsonPath}, falling back to directory name. Error: ${e.message}`);
         }
       }
 
@@ -122,9 +119,9 @@ function promoteKnowledge() {
         }
       }
 
-      // Final check: throw error if no detectors could be generated
+      // Final check: throw if no detectors could be generated
       if (detectors.length === 0) {
-        throw new Error(`[build] No detector rules could be generated for knowledge base '${stack}'. Please provide a valid 'detector.json' file.`);
+        throw new Error(`[build] No detector rules could be generated for knowledge base '${stack}'. Skipping...`);
       }
     }
 
@@ -132,7 +129,7 @@ function promoteKnowledge() {
       id: `tech-expert-${stack}`,
       name: `${stack.charAt(0).toUpperCase() + stack.slice(1)} Expert`,
       description: `${stack} に関する技術的な専門知識を提供します。`,
-      version: EXTENSION_VERSION,
+      version: extensionVersion,
       detectors: detectors
     };
     fs.writeFileSync(path.join(targetDir, 'manifest.json'), JSON.stringify(manifest, null, 2));
@@ -144,9 +141,9 @@ function promoteKnowledge() {
       const content = fs.readFileSync(skillMdPath, 'utf8');
       let updated = content;
       if (content.startsWith('---') && !content.includes('version:')) {
-        updated = updated.replace('---', `---\nversion: ${EXTENSION_VERSION}`);
+        updated = updated.replace('---', `---\nversion: ${extensionVersion}`);
       } else if (content.startsWith('---') && content.includes('version:')) {
-        updated = updated.replace(/version: .*/, `version: ${EXTENSION_VERSION}`);
+        updated = updated.replace(/version: .*/, `version: ${extensionVersion}`);
       }
       if (!content.includes('catalog.json')) {
         updated += `\n\n## ナレッジの活用方法\n${catalogInstruction}\n`;
@@ -156,7 +153,7 @@ function promoteKnowledge() {
       const defaultSkillMd = `---
 name: tech-expert-${stack}
 description: ${stack} に関する技術的な専門知識を提供します。
-version: ${EXTENSION_VERSION}
+version: ${extensionVersion}
 ---
 # ${stack} Expert Skill
 あなたは ${stack} のスペシャリストです。
@@ -210,11 +207,18 @@ ${catalogInstruction}
   }
 }
 
-async function build() {
-  console.log('[build] Cleaning up dist/hooks...');
-  if (fs.existsSync('dist/hooks')) {
-    fs.rmSync('dist/hooks', { recursive: true, force: true });
+async function build({ distDir, knowledgeDir, skillsDir, clean = true }) {
+  if (clean) {
+    console.log(`[build] Cleaning up ${path.join(distDir, 'hooks')}...`);
+    if (fs.existsSync(path.join(distDir, 'hooks'))) {
+      fs.rmSync(path.join(distDir, 'hooks'), { recursive: true, force: true });
+    }
+  } else {
+    console.log(`[build] Skipping ${path.join(distDir, 'hooks')} cleanup...`);
   }
+
+  const pkgJson = JSON.parse(fs.readFileSync('package.json', 'utf8'));
+  const extensionVersion = pkgJson.version;
 
   try {
     // Wave 1: hooks をビルド
@@ -225,7 +229,7 @@ async function build() {
         entryPoints: [hook],
         bundle: true,
         platform: 'node',
-        outfile: path.join('dist', hook.replace('hooks/scripts/', 'hooks/')),
+        outfile: path.join(distDir, hook.replace('hooks/scripts/', 'hooks/')),
         external: ['./linters/*'], // リンターの動的requireは外部参照として残す
       }).then(() => console.log(`[build:esbuild] Finished: ${hook}`));
       hookTasks.push(p);
@@ -240,7 +244,7 @@ async function build() {
         entryPoints: [linter],
         bundle: true,
         platform: 'node',
-        outfile: path.join('dist', linter.replace('hooks/scripts/', 'hooks/')),
+        outfile: path.join(distDir, linter.replace('hooks/scripts/', 'hooks/')),
       }).then(() => console.log(`[build:esbuild] Finished: ${linter}`));
       linterTasks.push(p);
     }
@@ -248,16 +252,28 @@ async function build() {
 
     // Wave 3: knowledge を昇格
     console.log('Promoting knowledge to skills...');
-    promoteKnowledge();
+    promoteKnowledge({ knowledgeDir, skillsDir, extensionVersion, clean });
 
     console.log('Build completed successfully!');
   } catch (err) {
     console.error('[build] One or more tasks failed:', err);
-    process.exit(1);
+    throw err;
   }
 }
 
-build().catch(err => {
-  console.error(err);
-  process.exit(1);
-});
+module.exports = {
+  build,
+  promoteKnowledge
+};
+
+if (require.main === module) {
+  build({
+    distDir: 'dist',
+    knowledgeDir: 'knowledge',
+    skillsDir: 'skills',
+    clean: !process.env.SKIP_CLEANUP
+  }).catch(err => {
+    console.error(err);
+    process.exit(1);
+  });
+}
