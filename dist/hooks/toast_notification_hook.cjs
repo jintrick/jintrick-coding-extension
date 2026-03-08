@@ -20,17 +20,19 @@ function processEvent(inputData) {
   const lockFile = path.join(cacheDir, `${session_id}.lock`);
   if (hook_event_name === "BeforeAgent") {
     try {
-      const fd = fs.openSync(lockFile, "w");
-      fs.closeSync(fd);
+      fs.writeFileSync(lockFile, Date.now().toString(), "utf8");
     } catch (e) {
     }
   } else if (hook_event_name === "AfterAgent") {
     if (fs.existsSync(lockFile)) {
       try {
-        const stats = fs.statSync(lockFile);
-        const durationMs = Date.now() - stats.mtimeMs;
+        const startTimeStr = fs.readFileSync(lockFile, "utf8");
+        const startTimeMs = parseInt(startTimeStr, 10);
+        const now = Date.now();
+        const durationMs = now - startTimeMs;
         fs.unlinkSync(lockFile);
-        if (durationMs >= 1e4) {
+        const thresholdMs = parseInt(process.env.JINTRICK_TOAST_THRESHOLD_MS || "30000", 10);
+        if (durationMs >= thresholdMs) {
           showToast(cwd, durationMs);
         }
       } catch (e) {
@@ -68,7 +70,6 @@ try {
     ], {
       windowsHide: true,
       timeout: 5e3
-      // 5秒以上かかることはまずないのでタイムアウト設定
     });
   } catch (e) {
   }

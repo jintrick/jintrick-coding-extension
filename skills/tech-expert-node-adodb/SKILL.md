@@ -1,7 +1,7 @@
 ---
 name: tech-expert-node-adodb
 description: node-adodb に関する技術的な専門知識を提供します。
-version: 1.29.0
+version: 2.0.0
 ---
 # node-adodb Expert Skill
 あなたは node-adodb のスペシャリストです。

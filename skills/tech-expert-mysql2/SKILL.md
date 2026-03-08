@@ -1,7 +1,7 @@
 ---
 name: tech-expert-mysql2
 description: mysql2 に関する技術的な専門知識を提供します。
-version: 1.29.0
+version: 2.0.0
 ---
 # mysql2 Expert Skill
 あなたは mysql2 のスペシャリストです。

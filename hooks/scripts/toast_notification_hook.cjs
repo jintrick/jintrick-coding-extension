@@ -25,20 +25,23 @@ function processEvent(inputData) {
 
     if (hook_event_name === 'BeforeAgent') {
         try {
-            // BeforeAgent はユーザー入力ごとに1回だけ発火するため、wx モードで確実に新規作成
-            const fd = fs.openSync(lockFile, 'w'); // 上書きして時間をリセット
-            fs.closeSync(fd);
+            // Write current time into file content to be more robust than mtime
+            fs.writeFileSync(lockFile, Date.now().toString(), 'utf8');
         } catch (e) {}
     } else if (hook_event_name === 'AfterAgent') {
         if (fs.existsSync(lockFile)) {
             try {
-                const stats = fs.statSync(lockFile);
-                const durationMs = Date.now() - stats.mtimeMs;
-                
+                const startTimeStr = fs.readFileSync(lockFile, 'utf8');
+                const startTimeMs = parseInt(startTimeStr, 10);
+                const now = Date.now();
+                const durationMs = now - startTimeMs;
+
                 fs.unlinkSync(lockFile);
 
-                // 10,000ms (10秒) 以上のタスクに対して通知
-                if (durationMs >= 10000) {
+                // Threshold from setting (envVar defined in manifest) or default 30s
+                const thresholdMs = parseInt(process.env.JINTRICK_TOAST_THRESHOLD_MS || '30000', 10);
+
+                if (durationMs >= thresholdMs) {
                     showToast(cwd, durationMs);
                 }
             } catch (e) {}
@@ -71,14 +74,13 @@ try {
     try {
         fs.writeFileSync(tmpFile, psScript, 'utf8');
 
-        // 非同期だと親が死ぬ際に子も死ぬ可能性があるため、spawnSync で確実に実行
         spawnSync('powershell.exe', [
             '-NoProfile',
             '-ExecutionPolicy', 'Bypass',
             '-File', tmpFile
         ], {
             windowsHide: true,
-            timeout: 5000 // 5秒以上かかることはまずないのでタイムアウト設定
+            timeout: 5000
         });
     } catch (e) {}
 }

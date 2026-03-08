@@ -3,5 +3,13 @@
   "name": "jintrick-coding-extension",
   "version": "2.0.0",
   "description": "Coding assistance extensions including linters, skill management, and automated code review.",
-  "contextFileName": "README.md"
+  "contextFileName": "README.md",
+  "settings": [
+    {
+      "name": "Toast Threshold (ms)",
+      "description": "Threshold in milliseconds to show a toast notification after a task.",
+      "envVar": "JINTRICK_TOAST_THRESHOLD_MS",
+      "default": "30000"
+    }
+  ]
 }
