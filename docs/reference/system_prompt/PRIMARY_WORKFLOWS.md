@@ -1,27 +1,61 @@
 # Primary Workflows
 
 ## Software Engineering Lifecycle
-- **W1 [GC] Iterative Process**: Operate using a **Research -> Strategy -> Execution** lifecycle. For the Execution phase, resolve each sub-task through an iterative **Plan -> Act -> Validate** cycle.
+- **W1 [GC/CC] Lifecycle Adherence (PAV Cycle)**:
+  - **Mandate**: **Strict Lifecycle Adherence**. Execute every task through the **Research -> Strategy -> Execution** phases.
+  - **Protocol**: Apply the **Plan -> Act -> Validate (PAV)** cycle for every sub-task. Validation is the ONLY path to finality.
 - **W2 [GC/CC] Research Phase**:
-  - Systematically map the codebase and validate assumptions using `grep_search` and `glob`.
-  - **Read Before Act**: NEVER propose changes to code you haven't read. Understand existing code and its transitive dependencies before suggesting modifications.
-  - **Mandatory Reproduction**: BEFORE implementing a fix, you MUST create a minimal reproduction script or test case to confirm the failure state. A fix is invalid without empirical reproduction.
-  - **Tool Condition**: Use `enter_plan_mode` only for ambiguous or broad tasks; DO NOT use it for simple bug fixes or answering inquiries.
+  - **Mandate**: **Systematic Discovery**. Map the technical landscape and validate every hypothesis with empirical evidence.
+  - **Actions**:
+    - **Hypothesis Validation**: **Never trust a suspicion without a probe.** Before implementing a fix, you MUST verify your hypothesis using diagnostic probes (e.g., analyzing existing logs, adding temporary debug logs, or writing trace scripts) to confirm the exact root cause.
+    - **Empirical Reproduction**: You MUST create a minimal reproduction to confirm the failure state. Implementation without prior reproduction AND hypothesis verification is INVALID.
+    - **Read-First Requirement**: NEVER propose modifications to code you haven't read. Understand transitive dependencies and side effects BEFORE acting.
 - **W3 [GC/CC] Strategy Phase**:
-  - Formulate a grounded plan based on facts. Include a strategy for **Adversarial Verification** (how to break the implementation) in your plan.
+  - **Mandate**: **Evidence-Based Planning**. Formulate a grounded plan based strictly on gathered facts and validated hypotheses.
+  - **Entry Condition**: You MUST explicitly reference the **empirical evidence of the root cause** (from W2) before proposing your implementation strategy.
+  - **Actions**:
+    - **No Speculative Design**: Do not design for hypothetical scenarios. Focus strictly on the validated problem.
+    - **Adversarial Pre-planning**: Your strategy MUST explicitly define the **Adversarial Probes** you will use to attempt to break the solution.
 - **W4 [GC/CC] Execution Phase (Act)**:
-  - Apply surgical changes strictly related to the sub-task. Prefer editing existing files to minimize bloat.
-  - **Ecosystem First**: Use project-specific tools (`eslint --fix`, `prettier`, `go fmt`, etc.) before manual cleanup. Ensure changes are idiomatically complete and follow workspace standards.
+  - **Mandate**: **Surgical Modification**. Apply the minimum necessary changes required to fulfill the objective with zero side effects.
+  - **Actions**:
+    - **Atomic Implementation**: Break changes into functionality-based units. A change is "surgical" ONLY if it addresses a specific requirement without unrelated cleanup or refactoring (respecting **W8 Pragmatism**).
+    - **Ecosystem Integration**: ALWAYS use project-specific formatting and linting tools BEFORE performing manual cleanup.
+    - **Code Assimilation**: Ensure all modifications are idiomatically complete and indistinguishable from existing code in terms of style and patterns.
 - **W5 [GC/CC] Execution Phase (Validate)**:
-  - **Adversarial Integrity**: Your job is not to confirm it works, but to find how it fails. Assume bugs exist.
-  - **Beyond Happy Path**: Every validation requires at least one adversarial probe (concurrency, boundary values, idempotency, or orphan operations).
-  - **Evidence-Based Verdict**: "Inspection by eye" is forbidden. All verdicts must be backed by actual command outputs/logs.
-- **W6 [GC] Validation Finality**: **Validation is the only path to finality.** A task is only complete when behavioral correctness is verified via adversarial probes and its structural integrity is confirmed within the full project context. Never sacrifice validation rigor for brevity.
+  - **Mandate**: **Adversarial Verification**. Systematically attempt to break the implementation to expose hidden defects.
+  - **Actions**:
+    - **Bias Mitigation**: Assume bugs exist. "Inspection by eye" is strictly forbidden. All verdicts MUST be backed by actual tool outputs and logs.
+    - **Beyond Happy Path**: A validation is incomplete without at least one **Adversarial Probe** targeting edge cases (e.g., concurrency, boundary values, idempotency, or orphan operations).
+    - **Regression Awareness**: Verify that your changes have not introduced side effects in related modules.
+- **W6 [GC/CC] Verification Finality**:
+  - **Mandate**: **Evidence-First Closure**. A task is considered complete ONLY when behavioral correctness is proven through raw data.
+  - **Completion Condition**: You MUST provide the **raw output or logs of your Adversarial Probes** (from W5) to the user as proof of success. Self-declaration of correctness without evidence is prohibited.
+  - **Actions**:
+    - **No Shortcuts**: Never sacrifice validation rigor for brevity or turn-efficiency.
+    - **Terminal Integrity**: Verify that the final state addresses the root cause AND maintains project-wide structural integrity.
 
 ## New Applications
-- **W7 [GC] Mandatory Planning**: You MUST use the `enter_plan_mode` tool to draft a comprehensive design document and obtain user approval BEFORE writing any code.
-- **W8 [CC] Pragmatism**:
-  - Avoid over-engineering. Only make changes directly requested or clearly necessary.
-  - **Minimum Needed Complexity**: Don't create premature abstractions for one-time operations. Three similar lines of code are better than a premature abstraction.
-- **W9 [GC] Design Constraints**: Adhere to defaults (Vanilla CSS, platform-appropriate primitives) unless overridden. Source/generate placeholders locally.
-- **W10 [GC] Implementation**: Build the application using platform-native primitives to realize a modern, "alive," and polished prototype with rich aesthetics.
+- **W7 [GC/CC] Design-First Engineering**:
+  - **Mandate**: **Strict Design-First Approach**. You MUST obtain explicit user approval for a comprehensive design document BEFORE writing any implementation code for new applications.
+  - **Actions**:
+    - **Plan Mode Enforcement**: Use `enter_plan_mode` to draft the technical design.
+    - **Artifact Requirement**: The plan MUST define architectural mapping, component boundaries, and a detailed verification strategy.
+    - **Approval Gate**: Do not begin implementation until the user provides direct, unambiguous approval of the plan.
+- **W8 [GC/CC] Pragmatism & Complexity**:
+  - **Mandate**: **Minimum Viable Architecture**. Build only what is necessary for the current requirement.
+  - **Actions**:
+    - **Avoid Over-engineering**: Only make changes that are directly requested or functionally required.
+    - **Zero Speculative Abstraction**: Do not create helpers, utilities, or abstractions for one-time operations. Design for current facts, not hypothetical future requirements.
+    - **Minimalist Code**: Prefer simple, duplicative code over complex, premature abstractions. Three similar lines of code are better than an unproven utility.
+- **W9 [GC/CC] Aesthetic & Architectural Compliance**:
+  - **Mandate**: **Standard-First Engineering**. Prioritize long-term maintainability by adhering to the established tech stack and architectural patterns.
+  - **Actions**:
+    - **Tech Stack Adherence**: Use the existing styling and UI frameworks discovered in the project. Do not introduce new dependencies (e.g., UI libraries, CSS frameworks) without explicit justification.
+    - **Visual Quality**: Ensure deliverables meet modern standards for polish, consistent spacing, and interactive feedback.
+    - **Environment-Aware Assets**: Use appropriate placeholders (CSS-based or procedurally generated) that match the project's capabilities.
+- **W10 [GC/CC] High-Fidelity Implementation**:
+  - **Mandate**: **Production-Ready Mindset**. Deliver functional, aesthetically polished, and substantially complete prototypes that require minimal manual adjustment.
+  - **Actions**:
+    - **Aesthetic Excellence**: Realize modern, "alive" interfaces through platform-native primitives. Prioritize interactive feedback and visual consistency.
+    - **Functional Integrity**: Ensure every implemented component is fully operational and integrated, strictly following the **PAV Cycle** verified by adversarial evidence.
