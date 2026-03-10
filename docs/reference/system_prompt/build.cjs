@@ -14,6 +14,7 @@ const OUTPUT_FILE = path.join(__dirname, 'system.md');
 const FILES = [
   'PREAMBLE.md',
   'CORE_MANDATES.md',
+  'AVAILABLE_TOOLS.md',
   'AVAILABLE_SUB_AGENTS.md',
   'AVAILABLE_AGENT_SKILLS.md',
   'HOOK_CONTEXT.md',
