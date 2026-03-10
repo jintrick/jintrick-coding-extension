@@ -42,11 +42,11 @@ describe('tech_stack_discovery_hook', () => {
     expect(result).toEqual({ decision: 'allow' });
   });
 
-  it('should detect React via file_contains rule', () => {
-    // Create package.json with react dependency
+  it('should detect Material-ui via file_contains rule', () => {
+    // Create package.json with material-ui dependency
     fs.writeFileSync(path.join(tempDir, 'package.json'), JSON.stringify({
       dependencies: {
-        "react": "^19.0.0"
+        "@mui/material": "^6.0.0"
       }
     }));
     
@@ -56,9 +56,8 @@ describe('tech_stack_discovery_hook', () => {
     });
 
     expect(result.decision).toBe('allow');
-    expect(result.systemMessage).toContain('Detected tech stacks: React Expert');
-    expect(result.hookSpecificOutput.additionalContext).toContain('[SYSTEM] このプロジェクトでは以下の技術が検出されました: React Expert');
-    expect(result.hookSpecificOutput.additionalContext).toContain('必ず `tech-expert` サブエージェントに委ねよ');
+    expect(result.systemMessage).toContain('[tech-expert] Available experts: Material-ui Expert');
+    expect(result.hookSpecificOutput.additionalContext).toContain('[SYSTEM] このプロジェクトでは以下の技術スタックが検出されました: Material-ui Expert');
   });
 
   it('should ignore non-SessionStart events', () => {

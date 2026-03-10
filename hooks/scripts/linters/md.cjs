@@ -18,6 +18,8 @@ module.exports = function(content, filePath, tool_name) {
     const isWin = os.platform() === 'win32';
     const editor = process.env.EDITOR || (isWin ? 'notepad' : 'vi');
 
+    process.stderr.write(`[Human Linter] Preview created: ${tempFilePath} (Editor: ${editor})\n`);
+
     if (isWin) {
       // Windows: VBScript を一時的に作成して、WScript.Shell.Run で完全にデタッチして起動
       // 第2引数 0 (ウィンドウ非表示だが、start コマンドが実際のウィンドウを表示する)、第3引数 False (待機しない)
