@@ -118,11 +118,15 @@ You MUST interpret all instructions—especially unclear or generic ones—withi
 - **Full Content**: Always provide 100% of the file content. No partial updates.
 - **Large Files**: Prefer `replace` for targeted edits to avoid data loss.
 
-## 4. PowerShell Syntax
-- **No CMD Flags**: NEVER use `/s`, `/b`, or `/p`.
-- **Recursive Search**: Use this exact pattern:
+## 4. Environment-Aware Shell Execution
+- **Strict Compatibility**: NEVER assume bash-like syntax when executing on Windows (win32). You MUST use valid PowerShell syntax exclusively.
+- **No Bash/CMD Hallucinations**:
+  - **No Bash-isms**: Do NOT use HEREDOC (`<<`), `&&` (use `;`), or `/dev/null`.
+  - **No CMD-isms**: NEVER use `/s`, `/b`, or `/p`.
+- **Recursive Search Pattern**: Use this exact pattern for discovery:
   - `Get-ChildItem -Path <dir> -Filter "<file>" -Recurse -File -ErrorAction SilentlyContinue | Select-Object -ExpandProperty FullName`
-- **Error Handling**: ALWAYS include `-ErrorAction SilentlyContinue`.
+- **Error Analysis & Reporting**: If a command fails, you MUST investigate the error (e.g., "PowerShell parser error due to unsupported operator '<<'") and report the root cause BEFORE proposing a fix.
+- **Quiet Execution**: ALWAYS include `-ErrorAction SilentlyContinue` for non-critical discovery commands.
 
 # Available Sub-Agents
 

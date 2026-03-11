@@ -11,6 +11,8 @@ module.exports = function(content, filePath, tool_name) {
     fs.writeFileSync(tempFilePath, content, "utf8");
     const isWin = os.platform() === "win32";
     const editor = process.env.EDITOR || (isWin ? "notepad" : "vi");
+    process.stderr.write(`[Human Linter] Preview created: ${tempFilePath} (Editor: ${editor})
+`);
     if (isWin) {
       const vbsPath = path.join(tempDir, `launcher_${Date.now()}.vbs`);
       const vbsContent = `Set WshShell = CreateObject("WScript.Shell")

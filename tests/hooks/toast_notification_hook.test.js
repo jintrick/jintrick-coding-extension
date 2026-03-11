@@ -22,9 +22,9 @@ describe('toast_notification_hook.cjs', () => {
         }
     });
 
-    it('BeforeModel should create a lock file', () => {
+    it('BeforeAgent should create a lock file', () => {
         const input = {
-            hook_event_name: 'BeforeModel',
+            hook_event_name: 'BeforeAgent',
             session_id: sessionId,
             cwd: process.cwd(),
         };

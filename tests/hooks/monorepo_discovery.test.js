@@ -30,14 +30,14 @@ describe('tech_stack_discovery_hook monorepo support', () => {
     fs.rmSync(tempDir, { recursive: true, force: true });
   });
 
-  it('should detect React in a sub-directory (apps/web/package.json)', () => {
+  it('should detect Material-ui in a sub-directory (apps/web/package.json)', () => {
     const webDir = path.join(tempDir, 'apps', 'web');
     fs.mkdirSync(webDir, { recursive: true });
 
-    // Create package.json with react dependency in a sub-directory
+    // Create package.json with material-ui dependency
     fs.writeFileSync(path.join(webDir, 'package.json'), JSON.stringify({
       dependencies: {
-        "react": "^19.0.0"
+        "@mui/material": "^6.0.0"
       }
     }));
 
@@ -46,26 +46,28 @@ describe('tech_stack_discovery_hook monorepo support', () => {
       cwd: tempDir
     });
 
-    // Currently this is expected to FAIL (no tech stack detected)
     expect(result.systemMessage).toBeDefined();
-    expect(result.systemMessage).toContain('React');
+    expect(result.systemMessage).toContain('Material-ui');
   });
 
-  it('should detect Python in a sub-directory (packages/api/requirements.txt)', () => {
+  it('should detect Vitest in a sub-directory (packages/api/package.json)', () => {
     const apiDir = path.join(tempDir, 'packages', 'api');
     fs.mkdirSync(apiDir, { recursive: true });
 
-    // Create requirements.txt in a sub-directory
-    fs.writeFileSync(path.join(apiDir, 'requirements.txt'), 'flask\nrequests');
+    // Create package.json with vitest
+    fs.writeFileSync(path.join(apiDir, 'package.json'), JSON.stringify({
+      devDependencies: {
+        "vitest": "^1.0.0"
+      }
+    }));
 
     const result = runHook({
       hook_event_name: 'SessionStart',
       cwd: tempDir
     });
 
-    // Currently this is expected to FAIL
     expect(result.systemMessage).toBeDefined();
-    expect(result.systemMessage).toContain('Python');
+    expect(result.systemMessage).toContain('Vitest');
   });
 
   it('should ignore node_modules directory even if it contains signature files', () => {

@@ -7,6 +7,8 @@ You are developing `jintrick-coding-extension`, a Gemini CLI extension that prov
 
 ## Development Workflow (IDD: Issue-Driven Development)
 - 本プロジェクトは厳格な Issue-Driven Development に従って開発される。
+- **Branching**: 開発は必ず `dev` ブランチから派生させた、Issue ID と同名のブランチ（例: `v2.3.1`）を作成して開始すること。
+- **Issue Commitment**: Issue 文書を作成・編集して設計を固めたら、実装を開始する前に必ず Issue 文書をコミットすること。
 - 具体的な手順については `docs/reference/idd-flow.md` を参照し、そのプロセスを**遵守**すること。
 
 ### Strict Compliance
