@@ -3,6 +3,17 @@ const path = require('path');
 const { spawnSync } = require('child_process');
 
 const cacheDir = path.resolve(__dirname, '..', '..', 'hooks', 'cache');
+const debugLog = path.join(cacheDir, 'debug.log');
+
+function log(msg) {
+    const time = new Date().toISOString();
+    try {
+        if (!fs.existsSync(cacheDir)) {
+            fs.mkdirSync(cacheDir, { recursive: true });
+        }
+        fs.appendFileSync(debugLog, `[${time}] ${msg}\n`, 'utf8');
+    } catch (e) {}
+}
 
 function sendAllow() {
     process.stdout.write(JSON.stringify({ decision: 'allow' }) + '\n');
@@ -15,19 +26,16 @@ function processEvent(inputData) {
         return sendAllow();
     }
 
-    if (!fs.existsSync(cacheDir)) {
-        try {
-            fs.mkdirSync(cacheDir, { recursive: true });
-        } catch (e) {}
-    }
-
     const lockFile = path.join(cacheDir, `${session_id}.lock`);
+    const thresholdMs = parseInt(process.env.JINTRICK_TOAST_THRESHOLD_MS || '30000', 10);
 
     if (hook_event_name === 'BeforeAgent') {
         try {
-            // Write current time into file content to be more robust than mtime
             fs.writeFileSync(lockFile, Date.now().toString(), 'utf8');
-        } catch (e) {}
+            log(`Timer started: BeforeAgent (session: ${session_id})`);
+        } catch (e) {
+            log(`Failed to start timer: ${e.message}`);
+        }
     } else if (hook_event_name === 'AfterAgent') {
         if (fs.existsSync(lockFile)) {
             try {
@@ -36,15 +44,16 @@ function processEvent(inputData) {
                 const now = Date.now();
                 const durationMs = now - startTimeMs;
 
-                fs.unlinkSync(lockFile);
-
-                // Threshold from setting (envVar defined in manifest) or default 30s
-                const thresholdMs = parseInt(process.env.JINTRICK_TOAST_THRESHOLD_MS || '30000', 10);
-
                 if (durationMs >= thresholdMs) {
+                    log(`Task completed. Duration ${durationMs}ms >= Threshold ${thresholdMs}ms. Sending robust toast.`);
                     showToast(cwd, durationMs);
                 }
-            } catch (e) {}
+
+                fs.unlinkSync(lockFile);
+                log(`Timer cleaned up: AfterAgent (session: ${session_id})`);
+            } catch (e) {
+                log(`AfterAgent logic failed: ${e.message}`);
+            }
         }
     }
 
@@ -57,32 +66,43 @@ function showToast(cwd, durationMs) {
     const title = `Gemini CLI: ${projectName}`.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
     const body = `タスク完了: 実行時間 ${durationSec}s`.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
+    // Robust Delivery Settings (Lessons from v2.5.0):
+    // 1. Use 'Microsoft.Windows.Explorer' AppID to bypass terminal-specific suppression.
+    // 2. Set Priority to 'High' to ensure it's not discarded by Windows Focus Assist.
+    const appId = 'Microsoft.Windows.Explorer';
+
     const psScript = `\uFEFF
 $ErrorActionPreference = 'SilentlyContinue'
 try {
     [Windows.UI.Notifications.ToastNotificationManager, Windows.UI.Notifications, ContentType = WindowsRuntime] | Out-Null
     [Windows.Data.Xml.Dom.XmlDocument, Windows.Data.Xml.Dom.XmlDocument, ContentType = WindowsRuntime] | Out-Null
+    [Windows.UI.Notifications.ToastNotificationPriority, Windows.UI.Notifications, ContentType = WindowsRuntime] | Out-Null
+
     $xml = New-Object Windows.Data.Xml.Dom.XmlDocument
     $xml.LoadXml('<toast><visual><binding template="ToastGeneric"><text>${title}</text><text>${body}</text></binding></visual></toast>')
-    $appId = '{1AC14E77-02E7-4E5D-B744-2EB1AE5198B7}\\WindowsPowerShell\\v1.0\\powershell.exe'
+    
     $toast = [Windows.UI.Notifications.ToastNotification]::new($xml)
-    [Windows.UI.Notifications.ToastNotificationManager]::CreateToastNotifier($appId).Show($toast)
+    $toast.Priority = [Windows.UI.Notifications.ToastNotificationPriority]::High
+    
+    [Windows.UI.Notifications.ToastNotificationManager]::CreateToastNotifier('${appId}').Show($toast)
+    # Ensure registration is processed by OS
+    [System.Threading.Thread]::Sleep(500)
 } catch {}
 `;
 
-    const tmpFile = path.join(cacheDir, 'toast_runner.ps1');
+    const tmpFile = path.join(cacheDir, `toast_runner.ps1`);
     try {
         fs.writeFileSync(tmpFile, psScript, 'utf8');
-
         spawnSync('powershell.exe', [
             '-NoProfile',
             '-ExecutionPolicy', 'Bypass',
             '-File', tmpFile
-        ], {
-            windowsHide: true,
-            timeout: 5000
-        });
-    } catch (e) {}
+        ], { windowsHide: true });
+        
+        log(`Toast delivered successfully (Sync/HighPriority).`);
+    } catch (e) {
+        log(`Failed to deliver toast: ${e.message}`);
+    }
 }
 
 let chunks = '';

@@ -6,12 +6,9 @@ try {
     [Windows.UI.Notifications.ToastNotificationPriority, Windows.UI.Notifications, ContentType = WindowsRuntime] | Out-Null
 
     $xml = New-Object Windows.Data.Xml.Dom.XmlDocument
-    $xml.LoadXml('<toast><visual><binding template="ToastGeneric"><text>Gemini CLI: jintrick-coding-extension</text><text>タスク完了: 実行時間 50.6s</text></binding></visual></toast>')
-    
+    $xml.LoadXml('<toast><visual><binding template="ToastGeneric"><text>Blocking Test</text><text>Should appear DURING prompt</text></binding></visual></toast>')
     $toast = [Windows.UI.Notifications.ToastNotification]::new($xml)
     $toast.Priority = [Windows.UI.Notifications.ToastNotificationPriority]::High
-    
     [Windows.UI.Notifications.ToastNotificationManager]::CreateToastNotifier('Microsoft.Windows.Explorer').Show($toast)
-    # Ensure registration is processed by OS
     [System.Threading.Thread]::Sleep(500)
 } catch {}

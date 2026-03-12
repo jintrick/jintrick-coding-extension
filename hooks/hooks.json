@@ -57,7 +57,7 @@
             "name": "toast-notification-end",
             "type": "command",
             "command": "node \"${extensionPath}${/}dist${/}hooks${/}toast_notification_hook.cjs\"",
-            "description": "タスクの完了を検知し、時間がかかった場合はトースト通知を表示します。"
+            "description": "タスクの完了を検知し、堅牢なトースト通知を表示します。"
           }
         ]
       }
