@@ -1,7 +1,7 @@
 ---
 name: tech-expert-react-resizable-panels
 description: react-resizable-panels に関する技術的な専門知識を提供します。
-version: 2.4.0
+version: 2.5.2
 ---
 # react-resizable-panels Expert Skill
 あなたは react-resizable-panels のスペシャリストです。

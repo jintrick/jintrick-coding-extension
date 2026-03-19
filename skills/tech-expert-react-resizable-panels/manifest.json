@@ -2,7 +2,7 @@
   "id": "tech-expert-react-resizable-panels",
   "name": "React-resizable-panels Expert",
   "description": "react-resizable-panels に関する技術的な専門知識を提供します。",
-  "version": "2.4.0",
+  "version": "2.5.2",
   "detectors": [
     {
       "type": "file_contains",
