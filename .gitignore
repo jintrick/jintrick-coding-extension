@@ -3,4 +3,5 @@ node_modules/
 *.log
 coverage/
 tests/exp/
-`nhooks/cache/*`n!hooks/cache/.gitkeep
+hooks/cache/*
+!hooks/cache/.gitkeep
