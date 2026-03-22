@@ -35,7 +35,18 @@
         ]
       }
     ],
-    "AfterTool": [],
+    "AfterTool": [
+      {
+        "matcher": "^read_file$",
+        "hooks": [
+          {
+            "name": "coding-rules-hook",
+            "type": "command",
+            "command": "node \"${extensionPath}${/}dist${/}hooks${/}coding_rules_hook.cjs\""
+          }
+        ]
+      }
+    ],
     "BeforeAgent": [
       {
         "matcher": "*",
