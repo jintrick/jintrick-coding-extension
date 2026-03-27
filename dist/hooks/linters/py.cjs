@@ -140,6 +140,17 @@ def check_node(node, read_scope, write_scope):
         for t in targets: collect_target(t, write_scope)
         return
 
+    if isinstance(node, ast.Lambda):
+        lambda_scope = set(final_globals) | set(read_scope)
+        for arg in node.args.args: lambda_scope.add(arg.arg)
+        if hasattr(node.args, 'posonlyargs'):
+            for arg in node.args.posonlyargs: lambda_scope.add(arg.arg)
+        for arg in node.args.kwonlyargs: lambda_scope.add(arg.arg)
+        if node.args.vararg: lambda_scope.add(node.args.vararg.arg)
+        if node.args.kwarg: lambda_scope.add(node.args.kwarg.arg)
+        check_node(node.body, lambda_scope, lambda_scope)
+        return
+
     if isinstance(node, (ast.ListComp, ast.SetComp, ast.DictComp, ast.GeneratorExp)):
         comp_scope = set(read_scope)
         for gen in node.generators:
@@ -183,10 +194,9 @@ for node in tree.body:
 `;
 module.exports = function(content, filePath, tool_name) {
   try {
-    const processedContent = content.replace(/\\n/g, "\n").replace(/\\r/g, "\r");
     const runPython = (cmd) => {
       return spawnSync(cmd, ["-c", LINTER_SCRIPT], {
-        input: processedContent,
+        input: content,
         encoding: "utf8",
         timeout: 5e3,
         shell: false,
