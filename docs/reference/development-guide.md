@@ -87,5 +87,5 @@ gemini extensions link .
 
 ## 8. 配布と同梱設定 (.geminiignore)
 インストール時にコピーされるファイルの制御。
-- **同梱**: `dist/`, `hooks/hooks.json`, `gemini-extension.json`, `skills/`, `agents/`, `README.md`
+- **同梱**: `dist/`, `hooks/hooks.json`, `gemini-extension.json`, `skills/`, `agents/`, `knowledge/`, `README.md`
 - **除外**: `hooks/scripts/` (ソース), `tests/`, `node_modules/`, `tools/`
