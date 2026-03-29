@@ -1,3 +1,0 @@
-Second new file for testing non-blocking behavior.
-Creating this one to be absolutely sure.
-The VSCode tab should open, and the agent should respond immediately.
