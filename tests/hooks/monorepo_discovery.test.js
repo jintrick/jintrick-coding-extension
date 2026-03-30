@@ -46,8 +46,8 @@ describe('tech_stack_discovery_hook monorepo support', () => {
       cwd: tempDir
     });
 
-    expect(result.systemMessage).toBeDefined();
-    expect(result.systemMessage).toContain('Material-ui');
+    expect(result.hookSpecificOutput).toBeDefined();
+    expect(result.hookSpecificOutput.additionalContext).toContain('Material-ui');
   });
 
   it('should detect Vitest in a sub-directory (packages/api/package.json)', () => {
@@ -66,8 +66,8 @@ describe('tech_stack_discovery_hook monorepo support', () => {
       cwd: tempDir
     });
 
-    expect(result.systemMessage).toBeDefined();
-    expect(result.systemMessage).toContain('Vitest');
+    expect(result.hookSpecificOutput).toBeDefined();
+    expect(result.hookSpecificOutput.additionalContext).toContain('Vitest');
   });
 
   it('should ignore node_modules directory even if it contains signature files', () => {
@@ -87,6 +87,6 @@ describe('tech_stack_discovery_hook monorepo support', () => {
     });
 
     // It should NOT detect anything from node_modules
-    expect(result.systemMessage).not.toBeDefined();
+    expect(result.hookSpecificOutput).not.toBeDefined();
   });
 });

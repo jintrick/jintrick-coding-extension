@@ -56,7 +56,6 @@ describe('tech_stack_discovery_hook', () => {
     });
 
     expect(result.decision).toBe('allow');
-    expect(result.systemMessage).toContain('[tech-expert] Available experts: Material-ui Expert');
     expect(result.hookSpecificOutput.additionalContext).toContain('[SYSTEM] このプロジェクトでは以下の技術スタックが検出されました: Material-ui Expert');
   });
 

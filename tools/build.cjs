@@ -48,8 +48,6 @@ function promoteKnowledge({ knowledgeDir, skillsDir, extensionVersion, clean = t
     .map(dirent => dirent.name);
 
   for (const stack of stacks) {
-    if (stack === 'system_prompt') continue;
-
     const targetDir = path.join(skillsDir, `tech-expert-${stack}`);
     if (clean && fs.existsSync(targetDir)) {
       fs.rmSync(targetDir, { recursive: true, force: true });
