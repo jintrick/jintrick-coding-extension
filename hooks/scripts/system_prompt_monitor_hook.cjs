@@ -20,7 +20,10 @@ async function main() {
     const originalPath = path.join(targetDir, 'original.md');
 
     if (fs.existsSync(originalPath)) {
-      process.stdout.write(JSON.stringify({ decision: "allow" }));
+      process.stdout.write(JSON.stringify({
+        decision: "allow",
+        systemMessage: `[system-prompt-monitor] Gemini CLI system prompt for ${version} is already recorded.`
+      }));
       return;
     }
 
