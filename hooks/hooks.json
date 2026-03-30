@@ -82,6 +82,12 @@
             "type": "command",
             "command": "node \"${extensionPath}${/}dist${/}hooks${/}tech_stack_discovery_hook.cjs\"",
             "description": "セッション開始時にプロジェクトの技術スタックを検知し、初期コンテキストとして注入します。"
+          },
+          {
+            "name": "system-prompt-monitor-hook",
+            "type": "command",
+            "command": "node \"${extensionPath}${/}dist${/}hooks${/}system_prompt_monitor_hook.cjs\"",
+            "description": "CLIのバージョンアップを検知し、システムプロンプトの変更をアーカイブします。"
           }
         ]
       }
