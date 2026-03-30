@@ -18,8 +18,7 @@ async function main() {
     const originalPath = path.join(targetDir, "original.md");
     if (fs.existsSync(originalPath)) {
       process.stdout.write(JSON.stringify({
-        decision: "allow",
-        systemMessage: `[system-prompt-monitor] Gemini CLI system prompt for ${version} is already recorded.`
+        decision: "allow"
       }));
       return;
     }
@@ -71,7 +70,7 @@ async function main() {
     fs.writeFileSync(originalPath, content.trim() + "\n");
     process.stdout.write(JSON.stringify({
       decision: "allow",
-      systemMessage: `[system-prompt-monitor] Gemini CLI system prompt updated to ${version}. Latest version archived to knowledge/system_prompt/${vDir}/original.md`
+      systemMessage: `[system-prompt-monitor] New Gemini CLI version (${version}) detected. System prompt archived to knowledge/system_prompt/${vDir}/original.md`
     }));
   } catch (err) {
     console.error(`[system-prompt-monitor] Error: ${err.message}`);
