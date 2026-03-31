@@ -17,6 +17,7 @@ This skill does NOT use a central index file like `catalog.json`. Instead, it re
     - `references/introduction/`: Core concepts and project overview.
     - `references/guide/`: How-to guides, tutorials, and workflows.
     - `references/reference/`: Detailed API specs, command manuals, and technical details.
+    - `references/system_prompts/`: Historical system prompts archived by version.
     - `references/appendix/`: Release notes, security policies, and extra examples.
 2.  **Selection**: Identify the most relevant files based on their **long, descriptive filenames**. The filenames are designed to be self-explanatory and act as the primary index.
 3.  **Targeted Reading**: Read the content of the selected markdown files using `read_file`.

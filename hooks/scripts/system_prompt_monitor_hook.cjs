@@ -16,7 +16,7 @@ async function main() {
     const version = execSync('gemini --version').toString().trim();
     const vDir = `v${version}`;
     const extensionRoot = path.resolve(__dirname, '../../');
-    const targetDir = path.join(extensionRoot, 'knowledge/system_prompt', vDir);
+    const targetDir = path.join(extensionRoot, 'skills/gemini-cli-expert/references/system_prompts', vDir);
     const originalPath = path.join(targetDir, 'original.md');
 
     if (fs.existsSync(originalPath)) {
@@ -87,7 +87,7 @@ async function main() {
     // 3. Notify
     process.stdout.write(JSON.stringify({
       decision: "allow",
-      systemMessage: `[system-prompt-monitor] New Gemini CLI version (${version}) detected. System prompt archived to knowledge/system_prompt/${vDir}/original.md`
+      systemMessage: `[system-prompt-monitor] New Gemini CLI version (${version}) detected. System prompt archived to skills/gemini-cli-expert/references/system_prompts/${vDir}/original.md`
     }));
 
   } catch (err) {
