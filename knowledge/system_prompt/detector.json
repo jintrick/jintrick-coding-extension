@@ -1,0 +1,8 @@
+{
+  "patterns": [
+    {
+      "file": "GEMINI.md",
+      "pattern": "Gemini CLI"
+    }
+  ]
+}
