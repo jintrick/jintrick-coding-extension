@@ -1,7 +1,7 @@
 ---
 name: git-expert
 description: Git リポジトリの状態管理、精密な変更制御、および安全なコミットワークフローに特化した汎用エージェント。
-model: gemini-2.0-flash
+model: gemini-3-flash-preview
 tools:
   - run_shell_command
   - read_file
