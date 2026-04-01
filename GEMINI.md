@@ -24,3 +24,6 @@ You are developing `jintrick-coding-extension`, a Gemini CLI extension that prov
 ## Deployment
 - The `.geminiignore` file excludes source files and `node_modules`, only including `dist/` and configuration files.
 - Users install via `gemini extensions install <url>` and get a ready-to-use bundled extension.
+
+## Gemini CLIのGitHubリポジトリ
+- google-gemini/gemini-cli 
