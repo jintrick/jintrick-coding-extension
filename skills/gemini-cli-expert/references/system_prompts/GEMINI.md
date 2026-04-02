@@ -15,7 +15,9 @@
 - **Goal**: Maintain human-readable rationale in the source while providing a high-density, noise-free prompt to the agent at runtime.
 
 ## 3. Modification Ritual (Traceability)
-- **Constraint**: Every significant logic or style change in `jintrick.md` MUST preserve the previous version using HTML comments.
+- **Constraint**: Every significant logic or style change in jintrick.md MUST preserve the previous version using HTML comments.
+- **Strict Scope**: この儀式（ORIGINAL/INTENT）は **jintrick.md 専用**である。他の一切のファイルに適用してはならない。
+
 - **Format**: 
   ```markdown
   <!-- ORIGINAL: [Exactly preserve the previous block of text]
