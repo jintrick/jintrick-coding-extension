@@ -5,6 +5,12 @@
         "matcher": "write_file|replace",
         "hooks": [
           {
+            "name": "single-edit-per-turn",
+            "type": "command",
+            "command": "node \"${extensionPath}${/}dist${/}hooks${/}single_edit_per_turn_hook.cjs\"",
+            "description": "同一ターン内での同一ファイルへの複数回編集を阻止します。"
+          },
+          {
             "name": "linter-hook",
             "type": "command",
             "command": "node \"${extensionPath}${/}dist${/}hooks${/}linter_hook.cjs\"",
@@ -64,6 +70,12 @@
       {
         "matcher": "*",
         "hooks": [
+          {
+            "name": "single-edit-per-turn-reset",
+            "type": "command",
+            "command": "node \"${extensionPath}${/}dist${/}hooks${/}single_edit_per_turn_hook.cjs\"",
+            "description": "ターン終了時にファイル編集制限をリセットします。"
+          },
           {
             "name": "toast-notification-end",
             "type": "command",

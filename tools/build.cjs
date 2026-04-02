@@ -3,6 +3,7 @@ const path = require('path');
 const fs = require('fs');
 
 const hooks = [
+  'hooks/scripts/single_edit_per_turn_hook.cjs',
   'hooks/scripts/linter_hook.cjs',
   'hooks/scripts/expert_docs_hook.cjs',
   'hooks/scripts/command_fixer_hook.cjs',
