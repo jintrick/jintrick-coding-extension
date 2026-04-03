@@ -1,7 +1,48 @@
 const fs = require('fs');
 const path = require('path');
 
-const sourcePath = path.resolve(__dirname, '../skills/gemini-cli-expert/references/system_prompts/v0.35.3/jintrick.md');
+function getLatestSourcePath() {
+  const systemPromptsDir = path.resolve(__dirname, '../skills/gemini-cli-expert/references/system_prompts');
+  
+  if (!fs.existsSync(systemPromptsDir)) {
+    console.error(`System prompts directory not found: ${systemPromptsDir}`);
+    process.exit(1);
+  }
+
+  const entries = fs.readdirSync(systemPromptsDir, { withFileTypes: true });
+  const versions = entries
+    .filter(entry => entry.isDirectory() && /^v\d+\.\d+\.\d+$/.test(entry.name))
+    .map(entry => entry.name);
+
+  if (versions.length === 0) {
+    console.error(`No version directories (vX.Y.Z) found in ${systemPromptsDir}`);
+    process.exit(1);
+  }
+
+  // Sort versions: Parse as numbers and sort in descending order
+  versions.sort((a, b) => {
+    const aParts = a.substring(1).split('.').map(Number);
+    const bParts = b.substring(1).split('.').map(Number);
+
+    for (let i = 0; i < 3; i++) {
+      if (aParts[i] !== bParts[i]) {
+        return bParts[i] - aParts[i];
+      }
+    }
+    return 0;
+  });
+
+  const latestVersion = versions[0];
+  const sourcePath = path.join(systemPromptsDir, latestVersion, 'jintrick.md');
+
+  if (!fs.existsSync(sourcePath)) {
+    console.error(`jintrick.md not found in the latest version directory: ${sourcePath}`);
+    process.exit(1);
+  }
+
+  return sourcePath;
+}
+
 const destPath = path.resolve(__dirname, '../.gemini/system.md');
 
 function sanitize(content) {
@@ -17,10 +58,7 @@ function sanitize(content) {
 
 if (require.main === module) {
   try {
-    if (!fs.existsSync(sourcePath)) {
-      console.error(`Source file not found: ${sourcePath}`);
-      process.exit(1);
-    }
+    const sourcePath = getLatestSourcePath();
 
     console.log(`Sanitizing and generating .gemini/system.md from ${sourcePath} ...`);
 
@@ -35,4 +73,4 @@ if (require.main === module) {
   }
 }
 
-module.exports = { sanitize };
+module.exports = { sanitize, getLatestSourcePath };
