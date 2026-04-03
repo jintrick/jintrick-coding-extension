@@ -17,10 +17,26 @@ You are developing `jintrick-coding-extension`, a Gemini CLI extension that prov
 - **Release Automation**: Release tags are managed by CI/CD. Do NOT create tags manually.
 - **Reference First**: Always read `docs/reference/idd-flow.md` before starting a task.
 
+## Release & Versioning
+- **Release Manager Skill**: バージョンの同期（`package.json` 等）から Git リリース操作（commit, push）までを一気通貫で実行するため、必ず `release-manager` スキル（`skills/release-manager/`）を使用してリリースを完遂すること。手動でのバージョン書き換えや Git 操作によるリリースは、整合性維持のため原則禁止とする。
+
 ## Documentation
 - **CRITICAL**: Refer to `docs/reference/development-guide.md` for the extension's Build & Release process. This is REQUIRED reading.
 - Refer to `docs/reference/hooks-spec.md` for complete Hook API specifications.
 - Refer to `docs/reference/skills-spec.md` for Agent Skill development guidelines.
+
+## System Prompt Maintenance (jintrick.md)
+`jintrick.md` およびその同期プロセスにおいて、以下の制約を厳格に遵守すること。
+
+- **Originality Preservation:** `jintrick.md` は常に `original.md` の内容を完全に復元できる状態でなければならない。
+- **Modification Ritual (ORIGINAL/INTENT):** すべての変更（削除、簡素化、統合）は、必ず以下の形式で `original.md` または以前のブロックをコメントとして残すこと。
+    ```markdown
+    <!-- ORIGINAL: [Exactly preserve the previous or original block of text]
+         INTENT: [Explain the specific technical or behavioral reason for the change] -->
+    [New simplified or modified version]
+    ```
+- **Minimal Diff:** 編集は `original.md` の構造をベースラインとし、差分を最小限に抑えること。
+- **Synchronization:** 更新後は必ず `node tools/jintrick_to_system.cjs` を実行し、`.gemini/system.md` を同期すること。
 
 ## Deployment
 - The `.geminiignore` file excludes source files and `node_modules`, only including `dist/` and configuration files.
