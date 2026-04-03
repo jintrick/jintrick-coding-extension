@@ -119,4 +119,26 @@ describe('single_edit_per_turn_hook', () => {
     });
     expect(res.decision).toBe('allow');
   });
+
+  it('BeforeTool: 古いキャッシュ（5分以上前）が存在する場合はセルフヒーリングで削除され allow されること', () => {
+    // 擬似的に古いキャッシュを作成
+    fs.writeFileSync(cacheFile, JSON.stringify(['test.txt']));
+    const oldTime = new Date(Date.now() - 300001); // 5分 + 1ms前
+    fs.utimesSync(cacheFile, oldTime, oldTime);
+
+    const res = runHook({
+      hook_event_name: 'BeforeTool',
+      tool_name: 'write_file',
+      session_id: sessionId,
+      tool_input: { file_path: 'test.txt' }
+    });
+    
+    // 古い test.txt の記録は消され、今回の write_file が allow される
+    expect(res.decision).toBe('allow');
+    
+    // allowされた結果、新たに test.txt がキャッシュに記録されているはず
+    expect(fs.existsSync(cacheFile)).toBe(true);
+    const cache = JSON.parse(fs.readFileSync(cacheFile, 'utf8'));
+    expect(cache).toContain('test.txt');
+  });
 });

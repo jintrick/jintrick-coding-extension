@@ -1,7 +1,7 @@
 ---
 name: tech-expert-typescript-eslint
 description: typescript-eslint に関する技術的な専門知識を提供します。
-version: 2.5.4
+version: 2.7.4
 ---
 # typescript-eslint Expert Skill
 あなたは typescript-eslint のスペシャリストです。
