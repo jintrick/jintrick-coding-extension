@@ -14,9 +14,11 @@
   2. Run `node tools/jintrick_to_system.cjs` to synchronize and deploy.
 - **Goal**: Maintain human-readable rationale in the source while providing a high-density, noise-free prompt to the agent at runtime.
 
-## 3. Modification Ritual (Traceability)
-- **Constraint**: Every significant logic or style change in jintrick.md MUST preserve the previous version using HTML comments.
-- **Strict Scope**: この儀式（ORIGINAL/INTENT）は **jintrick.md 専用**である。他の一切のファイルに適用してはならない。
+## 3. Modification Ritual (Bit-perfect Restorability)
+- **Restoration Point**: `jintrick.md` の HTML コメント（`ORIGINAL` ブロック）は、単なる履歴ではない。これは **Bit-perfect Restoration Point** であり、`jintrick.md` を過去の任意の時点（`original.md`）へ、一字一句の狂いもなく機械的に復元することを保証する唯一の手段である。
+- **Constraint**: 重要なロジックやスタイルの変更を行う際は、直前のテキストブロックを `ORIGINAL` 内に **Exactly preserve（完全保存）** せよ。改行や空白に至るまで、一切の改変を禁ずる。
+- **Intent Binding**: 変更理由（`INTENT`）は、現在の実装と過去の `ORIGINAL` を繋ぐ論理的楔（くさび）である。これが欠落した変更は「根拠なき改変」と見なされる。
+- **Strict Scope**: この儀式は **jintrick.md 専用**である。他の一切のファイルに適用してはならない。
 
 - **Format**: 
   ```markdown
@@ -24,12 +26,5 @@
        INTENT: [Explain the specific technical or behavioral reason for the change] -->
   [New version of the text]
   ```
-- **Goal**: Ensure that the diff and the engineering rationale remain visible within the source file even after implementation.
-
-# Plan Mode Constraints (Deterministic Execution)
-
-## 1. Path Specification
-- **Constraint**: When using `write_file` in Plan Mode, you MUST use absolute paths with forward slashes (`/`) pointing to the managed temporary plans directory.
-- **Prohibition**: Do NOT use relative paths or backslashes (`\`) for file system tools during Plan Mode. 
-- **Goal**: Prevent policy-engine blocks and ensure reliable planning artifact generation.
+- **Goal**: システムプロンプトの進化における「不可逆性」を物理的に排除し、完全な決定論的復帰（Deterministic Revert）を可能にする。
 
