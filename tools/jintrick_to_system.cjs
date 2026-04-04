@@ -32,13 +32,14 @@ function getLatestSourcePath() {
     return 0;
   });
 
-  const latestVersion = versions[0];
-  const sourcePath = path.join(systemPromptsDir, latestVersion, 'jintrick.md');
+  const latestVersion = versions.find(v => fs.existsSync(path.join(systemPromptsDir, v, 'jintrick.md')));
 
-  if (!fs.existsSync(sourcePath)) {
-    console.error(`jintrick.md not found in the latest version directory: ${sourcePath}`);
+  if (!latestVersion) {
+    console.error(`jintrick.md not found in any version directory in ${systemPromptsDir}`);
     process.exit(1);
   }
+
+  const sourcePath = path.join(systemPromptsDir, latestVersion, 'jintrick.md');
 
   return sourcePath;
 }
