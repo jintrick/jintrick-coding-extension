@@ -1,30 +1,32 @@
-# System Prompt Constraints (Idempotent Maintenance)
+# システムプロンプト運用規約 (System Prompt Maintenance)
 
-## 1. Dynamic Placeholders
-- **Constraint**: Templates (e.g., `jintrick.md`) MUST preserve dynamic placeholders (`${SubAgents}`, `${AgentSkills}`). 
-- **Prohibition**: NEVER manually overwrite these placeholders with static tool/skill lists. 
-- **Mechanism**: The Gemini CLI auto-injects current resources at runtime. Manual overrides break this dynamic synchronization.
+本ディレクトリの `jintrick.md` は、Gemini CLI 本体が実行時にロードする最終的なシステムプロンプト（`.gemini/system.md`）を生成するための**開発用ソースコード（The Source Code）**である。
+ソースコードからコンパイル済みアーティファクトへの一方向のフローと復元性を担保するため、以下の規約に厳格に従うこと。
 
-## 2. System Prompt Workflow (Source of Truth)
-- **Source**: `jintrick.md` is the development blueprint containing comments (`<!-- ... -->`) for rationale and intent.
-- **Tool**: `node tools/jintrick_to_system.cjs` - Sanitizes the source by removing comments and collapsing redundant newlines.
-- **Artifact**: `.gemini/system.md` is the sanitized execution prompt generated from the source.
-- **Update Flow**: 
-  1. Modify `jintrick.md` with detailed rationale in comments.
-  2. Run `node tools/jintrick_to_system.cjs` to synchronize and deploy.
-- **Goal**: Maintain human-readable rationale in the source while providing a high-density, noise-free prompt to the agent at runtime.
+## 1. ワークフローとアーキテクチャ (Workflow & Architecture)
+システムプロンプトは直接編集せず、ビルドプロセスを経て生成される。
 
-## 3. Modification Ritual (Bit-perfect Restorability)
-- **Restoration Point**: `jintrick.md` の HTML コメント（`ORIGINAL` ブロック）は、単なる履歴ではない。これは **Bit-perfect Restoration Point** であり、`jintrick.md` を過去の任意の時点（`original.md`）へ、一字一句の狂いもなく機械的に復元することを保証する唯一の手段である。
-- **Constraint**: 重要なロジックやスタイルの変更を行う際は、直前のテキストブロックを `ORIGINAL` 内に **Exactly preserve（完全保存）** せよ。改行や空白に至るまで、一切の改変を禁ずる。
-- **Intent Binding**: 変更理由（`INTENT`）は、現在の実装と過去の `ORIGINAL` を繋ぐ論理的楔（くさび）である。これが欠落した変更は「根拠なき改変」と見なされる。
-- **Strict Scope**: この儀式は **jintrick.md 専用**である。他の一切のファイルに適用してはならない。
+- **ソース (`jintrick.md`)**: 変更の背景や意図をコメント（`<!-- ... -->`）として保持する開発用ブループリント。人間とAIが意図を共有するためのファイルである。
+- **ツール (`node tools/jintrick_to_system.cjs`)**: ソースからコメントを削除し、余分な改行を詰めることで最適化（サニタイズ）を行うコンパイラ。
+- **成果物 (`.gemini/system.md`)**: コンパイルによって生成された、エージェントが実行時に読み込む高密度なアーティファクト。
+- **更新手順**: 
+  1. `jintrick.md` を編集し、コメント内に詳細な変更理由を記述する。
+  2. `node tools/jintrick_to_system.cjs` を実行して `.gemini/system.md` を生成（同期）する。
 
+## 2. 変更記録ルール (Modification Ritual: ORIGINAL/INTENT)
+`jintrick.md` を編集する際は、過去の状態へ確実にロールバックするための正確なデータ（Bit-perfect Restoration Point）を残さなければならない。
+
+- **復帰データの完全保存**: 変更前のテキストブロックは、改行や空白を含め一切改変せずに `ORIGINAL` コメント内へ保存すること。
+- **変更理由の必須化**: 変更理由は `INTENT` コメントに明確に記述すること。理由のない変更は禁止する。
+- **適用範囲**: 本ルールは `jintrick.md` 専用である。他のファイルには適用しない。
 - **Format**: 
   ```markdown
-  <!-- ORIGINAL: [Exactly preserve the previous block of text]
-       INTENT: [Explain the specific technical or behavioral reason for the change] -->
-  [New version of the text]
+  <!-- ORIGINAL: [変更前のテキストを改行・空白を含め完全に保存する]
+       INTENT: [変更の技術的または行動的な理由を記述する] -->
+  [変更後のテキスト]
   ```
-- **Goal**: システムプロンプトの進化における「不可逆性」を物理的に排除し、完全な決定論的復帰（Deterministic Revert）を可能にする。
 
+## 3. 動的プレースホルダーの保護 (Dynamic Placeholders)
+- **制約**: `jintrick.md` 内の動的プレースホルダー（`${SubAgents}`, `${AgentSkills}`）は絶対に保持すること。
+- **禁止**: これらのプレースホルダーを手動で静的なツールリストやスキルリストの文字列で上書きしてはならない。
+- **理由**: Gemini CLI は実行時に利用可能なリソース（エージェントやスキル）を自動的に注入する。手動で上書きすると、この動的コンテキスト注入機能が破壊され、拡張機能の動作に致命的な影響を与える。
