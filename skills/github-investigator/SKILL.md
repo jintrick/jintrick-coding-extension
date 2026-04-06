@@ -63,7 +63,7 @@ gh search code -R <owner>/<repo> "<keyword>" --filename "*.ts" --limit 10
 # 特定のファイルの最新の内容を取得する
 gh api repos/<owner>/<repo>/contents/<path/to/file> --jq ".content" | base64 -d
 # (Windows 環境で base64 コマンドが失敗する場合は、代わりに以下を使用せよ)
-# gh api repos/<owner>/<repo>/contents/<path/to/file> --jq ".content" > temp.b64 ; powershell "[System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String((Get-Content temp.b64 -Raw)))"
+# gh api repos/<owner>/<repo>/contents/<path/to/file> --jq ".content" > $env:TEMP\temp.b64 ; powershell "[System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String((Get-Content $env:TEMP\temp.b64 -Raw)))"
 ```
 
 ## 出力要件 (Reporting)
