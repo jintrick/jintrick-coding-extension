@@ -7,9 +7,15 @@ version: 1.1.0
 # Release Manager Skill
 
 ## 1. 目的
-本スキルの目的は、指定されたバージョンに基づきプロジェクトのマニフェストを同期し、`RELEASE.md` またはプロジェクト規約（IDDフロー）に従って、リリースに関わる Git 操作を自律的に完遂することである。
+本スキルの目的は、ターゲットプロジェクトのリリース条件（Issue の同期・検証）を満たしていることを物理的事実に基づき確認し、指定されたバージョンへのマニフェスト更新および、`RELEASE.md` または標準的な Git ワークフローに従ってリリース操作を自律的に完遂することである。
 
 ## 2. ワークフロー
+
+### ステップ 0: Issue の同期と検証 (Issue Sync)
+- `run_shell_command` で `node skills/release-manager/scripts/issue-sync.cjs` を実行せよ。
+- **検証 (強制中断)**: 
+  - スクリプトが exit 1（エラー）を返した場合は、**理由を問わず直ちに全プロセスを停止せよ。** 
+  - その後、未完了のタスク内容のみを報告して終了せよ。ステップ 1 以降へ進むことは一切禁止する。
 
 ### ステップ 1: バージョンの同期と検証
 - `run_shell_command` で `node skills/release-manager/scripts/update_version.cjs <version>` を実行せよ。

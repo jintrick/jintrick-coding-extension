@@ -123,21 +123,38 @@ function syncIssue(filePath, forceIdAndType = false) {
 }
 
 if (require.main === module) {
-  const target = process.argv[2];
-  if (target) {
-    const finalStatus = syncIssue(target, true);
-    if (finalStatus !== 'completed') {
-      console.error(`Error: Issue ${target} is not completed (status: ${finalStatus}). Release blocked.`);
-      process.exit(1);
-    }
-  } else {
-    // Sync all issues in docs/issue/
-    const issueDir = path.join('docs', 'issue');
-    if (fs.existsSync(issueDir)) {
-      const files = fs.readdirSync(issueDir).filter(f => f.endsWith('.md') && f !== 'TEMPLATE.md');
-      for (const file of files) {
-        syncIssue(path.join(issueDir, file), false);
+  const branch = getGitBranch();
+  let branchId = null;
+  const branchParts = branch.split('/');
+  
+  if (branchParts.length === 2) {
+    branchId = branchParts[1];
+  } else if (branch.startsWith('v')) {
+    branchId = branch;
+  }
+
+  // If on an issue branch, sync and verify THAT issue
+  if (branchId) {
+    const targetPath = path.join('docs', 'issue', `${branchId}.md`);
+    if (fs.existsSync(targetPath)) {
+      const finalStatus = syncIssue(targetPath, true);
+      if (finalStatus !== 'completed') {
+        console.error(`Error: Issue ${targetPath} is not completed (status: ${finalStatus}). Release blocked.`);
+        process.exit(1);
       }
+      console.log(`Success: Issue ${targetPath} is completed. Ready for release.`);
+      process.exit(0);
+    } else {
+      console.log(`Warning: Issue file ${targetPath} not found for branch ${branch}. Fallback to directory sync.`);
+    }
+  }
+
+  // Fallback: Sync all issues if not on a specific issue branch
+  const issueDir = path.join('docs', 'issue');
+  if (fs.existsSync(issueDir)) {
+    const files = fs.readdirSync(issueDir).filter(f => f.endsWith('.md') && f !== 'TEMPLATE.md');
+    for (const file of files) {
+      syncIssue(path.join(issueDir, file), false);
     }
   }
 }

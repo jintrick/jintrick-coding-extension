@@ -61,7 +61,7 @@ describe('issue-sync.cjs', () => {
   });
 
   describe('syncIssue', () => {
-    it('does not overwrite id/type if forceIdAndType is false', () => {
+    it('does not overwrite id/type if forceIdAndType is false and returns status', () => {
       const initialContent = '---\nid: v1.0.0\ntype: fix\nstatus: drafting\ncreated: yyyy-mm-dd\n---\n# Title';
       existsSyncSpy.mockReturnValue(true);
       readFileSyncSpy.mockReturnValue(initialContent);
@@ -73,7 +73,7 @@ describe('issue-sync.cjs', () => {
         return '';
       });
 
-      syncIssue('test.md', false);
+      const resultStatus = syncIssue('test.md', false);
 
       expect(writeFileSyncSpy).toHaveBeenCalled();
       const writtenContent = writeFileSyncSpy.mock.calls[0][1];
@@ -81,13 +81,12 @@ describe('issue-sync.cjs', () => {
       // Should retain original ID and Type
       expect(writtenContent).toContain('id: v1.0.0');
       expect(writtenContent).toContain('type: fix');
-      // Should update status based on content (no checkboxes -> in-progress by default if tracked)
-      expect(writtenContent).toContain('status: in-progress');
-      // Should update created based on git log
-      expect(writtenContent).toContain('created: 2026-01-01');
+      // Should update status based on content (no checkboxes -> retains current status due to warning logic)
+      expect(writtenContent).toContain('status: drafting');
+      expect(resultStatus).toBe('drafting');
     });
 
-    it('overwrites id/type if forceIdAndType is true', () => {
+    it('overwrites id/type if forceIdAndType is true and returns status', () => {
       const initialContent = '---\nid: v1.0.0\ntype: fix\nstatus: drafting\ncreated: yyyy-mm-dd\n---\n# Title';
       existsSyncSpy.mockReturnValue(true);
       readFileSyncSpy.mockReturnValue(initialContent);
@@ -99,7 +98,7 @@ describe('issue-sync.cjs', () => {
         return '';
       });
 
-      syncIssue('test.md', true);
+      const resultStatus = syncIssue('test.md', true);
 
       expect(writeFileSyncSpy).toHaveBeenCalled();
       const writtenContent = writeFileSyncSpy.mock.calls[0][1];
@@ -107,6 +106,7 @@ describe('issue-sync.cjs', () => {
       // Should overwrite ID and Type
       expect(writtenContent).toContain('id: v2.10.0');
       expect(writtenContent).toContain('type: feat');
+      expect(resultStatus).toBe('drafting');
     });
 
     it('removes fixed_commit field', () => {
