@@ -1,6 +1,6 @@
 ---
 name: issue-closer
-description: 実装完了後の Issue 文書の最終化と、リリース操作を一気通貫で代行する。
+description: 実装完了後の「最終的な締めくくり（タスク/Issueのクローズ、ブランチ統合・削除、リモート同期）」を独占的に一括代行する。手動の Git 操作や個別の文書編集を排除し、作業の物理的な完結（リリース・同期）を保証する唯一のエージェント。
 max_turns: 20
 tools:
   - activate_skill
