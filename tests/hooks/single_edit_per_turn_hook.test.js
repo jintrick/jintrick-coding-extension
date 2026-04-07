@@ -2,9 +2,10 @@ import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import { execSync } from 'child_process';
 import path from 'path';
 import fs from 'fs';
+import os from 'os';
 
 const hookScript = path.resolve(__dirname, '../../hooks/scripts/single_edit_per_turn_hook.cjs');
-const cacheDir = path.resolve(__dirname, '../../hooks/cache');
+const cacheDir = os.tmpdir();
 
 function runHook(input) {
   try {
@@ -23,7 +24,7 @@ function runHook(input) {
 
 describe('single_edit_per_turn_hook', () => {
   const sessionId = 'test-session-123';
-  const cacheFile = path.join(cacheDir, `modified_${sessionId}.json`);
+  const cacheFile = path.join(cacheDir, `gemini_cli_modified_${sessionId}.json`);
 
   beforeEach(() => {
     if (fs.existsSync(cacheFile)) {
@@ -37,10 +38,10 @@ describe('single_edit_per_turn_hook', () => {
     }
   });
 
-  it('BeforeTool: 初回の write_file が allow されること', () => {
+  it('BeforeTool: 初回の replace が allow されること', () => {
     const res = runHook({
       hook_event_name: 'BeforeTool',
-      tool_name: 'write_file',
+      tool_name: 'replace',
       session_id: sessionId,
       tool_input: { file_path: 'test.txt' }
     });
@@ -50,10 +51,33 @@ describe('single_edit_per_turn_hook', () => {
     expect(cache).toContain('test.txt');
   });
 
-  it('BeforeTool: 同一セッションでの2回目の replace が deny されること', () => {
+  it('BeforeTool: write_file は制限対象外（常に allow）であること', () => {
+    // 1回目
     runHook({
       hook_event_name: 'BeforeTool',
       tool_name: 'write_file',
+      session_id: sessionId,
+      tool_input: { file_path: 'test.txt' }
+    });
+    // 2回目も allow
+    const res = runHook({
+      hook_event_name: 'BeforeTool',
+      tool_name: 'write_file',
+      session_id: sessionId,
+      tool_input: { file_path: 'test.txt' }
+    });
+    expect(res.decision).toBe('allow');
+    // cacheFile は生成されない（または書き込まれない）
+    if (fs.existsSync(cacheFile)) {
+        const cache = JSON.parse(fs.readFileSync(cacheFile, 'utf8'));
+        expect(cache).not.toContain('test.txt');
+    }
+  });
+
+  it('BeforeTool: 同一セッションでの2回目の replace が deny されること', () => {
+    runHook({
+      hook_event_name: 'BeforeTool',
+      tool_name: 'replace',
       session_id: sessionId,
       tool_input: { file_path: 'test.txt' }
     });
@@ -64,13 +88,13 @@ describe('single_edit_per_turn_hook', () => {
       tool_input: { file_path: 'test.txt' }
     });
     expect(res.decision).toBe('deny');
-    expect(res.reason).toBe('Duplicate file edit in a single turn');
+    expect(res.reason).toBe('Duplicate file edit (replace) in a single turn');
   });
 
   it('BeforeTool: 別の file_path であれば 2回目でも allow されること', () => {
     runHook({
       hook_event_name: 'BeforeTool',
-      tool_name: 'write_file',
+      tool_name: 'replace',
       session_id: sessionId,
       tool_input: { file_path: 'test.txt' }
     });
@@ -83,10 +107,27 @@ describe('single_edit_per_turn_hook', () => {
     expect(res.decision).toBe('allow');
   });
 
+  it('BeforeAgent: ターン開始時に記録ファイルが削除（初期化）されること', () => {
+    runHook({
+      hook_event_name: 'BeforeTool',
+      tool_name: 'replace',
+      session_id: sessionId,
+      tool_input: { file_path: 'test.txt' }
+    });
+    expect(fs.existsSync(cacheFile)).toBe(true);
+
+    const res = runHook({
+      hook_event_name: 'BeforeAgent',
+      session_id: sessionId
+    });
+    expect(res.decision).toBe('allow');
+    expect(fs.existsSync(cacheFile)).toBe(false);
+  });
+
   it('AfterAgent: 実行後に記録ファイルが削除されること', () => {
     runHook({
       hook_event_name: 'BeforeTool',
-      tool_name: 'write_file',
+      tool_name: 'replace',
       session_id: sessionId,
       tool_input: { file_path: 'test.txt' }
     });
@@ -103,7 +144,7 @@ describe('single_edit_per_turn_hook', () => {
   it('AfterAgent 実行後、再び BeforeTool で同じファイルへの編集が allow されること', () => {
     runHook({
       hook_event_name: 'BeforeTool',
-      tool_name: 'write_file',
+      tool_name: 'replace',
       session_id: sessionId,
       tool_input: { file_path: 'test.txt' }
     });
@@ -113,7 +154,7 @@ describe('single_edit_per_turn_hook', () => {
     });
     const res = runHook({
       hook_event_name: 'BeforeTool',
-      tool_name: 'write_file',
+      tool_name: 'replace',
       session_id: sessionId,
       tool_input: { file_path: 'test.txt' }
     });
@@ -128,12 +169,12 @@ describe('single_edit_per_turn_hook', () => {
 
     const res = runHook({
       hook_event_name: 'BeforeTool',
-      tool_name: 'write_file',
+      tool_name: 'replace',
       session_id: sessionId,
       tool_input: { file_path: 'test.txt' }
     });
     
-    // 古い test.txt の記録は消され、今回の write_file が allow される
+    // 古い test.txt の記録は消され、今回の replace が allow される
     expect(res.decision).toBe('allow');
     
     // allowされた結果、新たに test.txt がキャッシュに記録されているはず

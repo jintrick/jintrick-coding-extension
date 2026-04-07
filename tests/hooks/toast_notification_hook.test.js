@@ -1,23 +1,24 @@
 import fs from 'fs';
 import path from 'path';
+import os from 'os';
 import { spawnSync } from 'child_process';
 import { describe, it, expect, beforeEach, afterAll } from 'vitest';
 
 const hookScript = path.resolve(__dirname, '../../hooks/scripts/toast_notification_hook.cjs');
-const cacheDir = path.resolve(__dirname, '../../hooks/cache');
+const cacheDir = os.tmpdir();
 
 describe('toast_notification_hook.cjs', () => {
     const sessionId = 'test-session-id-for-toast';
-    const lockFile = path.join(cacheDir, `${sessionId}.lock`);
+    const lockFile = path.join(cacheDir, `gemini_cli_toast_${sessionId}.lock`);
 
     beforeEach(() => {
-        if (fs.existsSync(cacheDir) && fs.existsSync(lockFile)) {
+        if (fs.existsSync(lockFile)) {
             fs.unlinkSync(lockFile);
         }
     });
 
     afterAll(() => {
-        if (fs.existsSync(cacheDir) && fs.existsSync(lockFile)) {
+        if (fs.existsSync(lockFile)) {
             fs.unlinkSync(lockFile);
         }
     });
@@ -39,10 +40,7 @@ describe('toast_notification_hook.cjs', () => {
     });
 
     it('AfterAgent should remove lock file', () => {
-        if (!fs.existsSync(cacheDir)) {
-            fs.mkdirSync(cacheDir, { recursive: true });
-        }
-        fs.writeFileSync(lockFile, '');
+        fs.writeFileSync(lockFile, Date.now().toString());
 
         const input = {
             hook_event_name: 'AfterAgent',
