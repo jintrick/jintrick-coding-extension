@@ -1,10 +1,10 @@
-const { execSync } = require('child_process');
+const child_process = require('child_process');
 const fs = require('fs');
 const path = require('path');
 
 function getGitBranch() {
   try {
-    return execSync('git branch --show-current', { encoding: 'utf8' }).trim();
+    return child_process.execSync('git branch --show-current', { encoding: 'utf8' }).trim();
   } catch (e) {
     return '';
   }
@@ -13,7 +13,7 @@ function getGitBranch() {
 function getFirstCommitDate(filePath) {
   try {
     // Get the date of the first commit for the file
-    const dateStr = execSync(`git log --diff-filter=A --format=%as -- "${filePath}"`, { encoding: 'utf8' }).split('\n')[0].trim();
+    const dateStr = child_process.execSync(`git log --diff-filter=A --format=%as -- "${filePath}"`, { encoding: 'utf8' }).split('\n')[0].trim();
     return dateStr || null;
   } catch (e) {
     return null;
@@ -22,7 +22,7 @@ function getFirstCommitDate(filePath) {
 
 function hasDiff(filePath) {
   try {
-    const status = execSync(`git status --porcelain -- "${filePath}"`, { encoding: 'utf8' }).trim();
+    const status = child_process.execSync(`git status --porcelain -- "${filePath}"`, { encoding: 'utf8' }).trim();
     return status !== '';
   } catch (e) {
     return false;
@@ -31,7 +31,7 @@ function hasDiff(filePath) {
 
 function isTracked(filePath) {
   try {
-    execSync(`git ls-files --error-unmatch -- "${filePath}"`, { stdio: 'ignore' });
+    child_process.execSync(`git ls-files --error-unmatch -- "${filePath}"`, { stdio: 'ignore' });
     return true;
   } catch (e) {
     return false;
@@ -41,6 +41,12 @@ function isTracked(filePath) {
 function getStatus(content, filePath) {
   const hasUnchecked = /^- \[ \]/m.test(content);
   const hasChecked = /^- \[x\]/m.test(content);
+
+  if (!hasUnchecked && !hasChecked) {
+    console.error(`Warning: No task list (DoD) found in ${filePath}. Status will not be automatically updated.`);
+    const match = content.match(/^status:\s*(.*)/m);
+    return match ? match[1].trim() : 'drafting';
+  }
 
   if (!hasUnchecked && hasChecked) {
     return 'completed';
@@ -52,7 +58,7 @@ function getStatus(content, filePath) {
 
   // Check if there are any changes in the repo (other than this issue file)
   try {
-    const diff = execSync('git status --porcelain', { encoding: 'utf8' }).trim();
+    const diff = child_process.execSync('git status --porcelain', { encoding: 'utf8' }).trim();
     const lines = diff.split('\n').filter(line => line.trim() !== '' && !line.includes(filePath));
     if (lines.length > 0) {
       return 'in-progress';
@@ -62,7 +68,7 @@ function getStatus(content, filePath) {
   return 'in-progress';
 }
 
-function syncIssue(filePath) {
+function syncIssue(filePath, forceIdAndType = false) {
   if (!fs.existsSync(filePath)) {
     console.error(`File not found: ${filePath}`);
     return;
@@ -81,14 +87,15 @@ function syncIssue(filePath) {
     branchId = branch;
   }
 
-  // Update ID
-  if (branchId) {
-    content = content.replace(/^id: .*/m, `id: ${branchId}`);
-  }
-
-  // Update Type
-  if (branchType) {
-    content = content.replace(/^type: .*/m, `type: ${branchType}`);
+  // Update ID and Type only if explicitly requested (e.g., specific file targeted)
+  // or if they are missing from the frontmatter.
+  if (forceIdAndType) {
+    if (branchId) {
+      content = content.replace(/^id: .*/m, `id: ${branchId}`);
+    }
+    if (branchType) {
+      content = content.replace(/^type: .*/m, `type: ${branchType}`);
+    }
   }
 
   // Update Created
@@ -111,19 +118,22 @@ function syncIssue(filePath) {
   content = content.replace(/^fixed_commit:.*\n?/m, '');
 
   fs.writeFileSync(filePath, content);
-  console.log(`Synced ${filePath}: id=${branchId || 'keep'}, type=${branchType || 'keep'}, status=${newStatus}`);
+  console.log(`Synced ${filePath}: id=${forceIdAndType && branchId ? branchId : 'keep'}, type=${forceIdAndType && branchType ? branchType : 'keep'}, status=${newStatus}`);
 }
 
-const target = process.argv[2];
-if (target) {
-  syncIssue(target);
-} else {
-  // Sync all issues in docs/issue/
-  const issueDir = path.join('docs', 'issue');
-  if (fs.existsSync(issueDir)) {
-    const files = fs.readdirSync(issueDir).filter(f => f.endsWith('.md') && f !== 'TEMPLATE.md');
-    for (const file of files) {
-      syncIssue(path.join(issueDir, file));
+if (require.main === module) {
+  const target = process.argv[2];
+  if (target) {
+    syncIssue(target, true);
+  } else {
+    // Sync all issues in docs/issue/
+    const issueDir = path.join('docs', 'issue');
+    if (fs.existsSync(issueDir)) {
+      const files = fs.readdirSync(issueDir).filter(f => f.endsWith('.md') && f !== 'TEMPLATE.md');
+      for (const file of files) {
+        syncIssue(path.join(issueDir, file), false);
+      }
     }
   }
 }
+module.exports = { syncIssue, getStatus, getGitBranch, getFirstCommitDate, hasDiff, isTracked };

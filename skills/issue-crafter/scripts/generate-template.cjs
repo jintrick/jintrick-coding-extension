@@ -1,10 +1,10 @@
-const { execSync } = require('child_process');
+const child_process = require('child_process');
 const fs = require('fs');
 const path = require('path');
 
 function getGitInfo() {
   try {
-    const branch = execSync('git branch --show-current', { encoding: 'utf8' }).trim();
+    const branch = child_process.execSync('git branch --show-current', { encoding: 'utf8' }).trim();
     // Expected format: [type]/[id] (e.g., feat/v2.10.0 or v2.10.0)
     const parts = branch.split('/');
     let type = null;
@@ -52,17 +52,23 @@ function generate() {
   const today = new Date().toISOString().split('T')[0];
 
   const id = gitId || inferNextVersion(currentVersion, gitType || 'feat');
-  const type = gitType || 'feat';
 
   const templatePath = path.join(__dirname, '..', 'references', 'TEMPLATE.md');
   let content = fs.readFileSync(templatePath, 'utf8');
 
   content = content.replace(/^id: .*/m, `id: ${id}`);
-  content = content.replace(/^type: .*/m, `type: ${type}`);
+  if (gitType) {
+    content = content.replace(/^type: .*/m, `type: ${gitType}`);
+  } else {
+    content = content.replace(/^type: .*/m, `type: [TYPE] # ユーザーのIntentから推論して埋めてください (feat, fix, docs, chore, refactor)`);
+  }
   content = content.replace(/^created: .*/m, `created: ${today}`);
   content = content.replace(/^status: .*/m, `status: drafting`);
 
   console.log(content);
 }
 
-generate();
+if (require.main === module) {
+  generate();
+}
+module.exports = { generate, getGitInfo, inferNextVersion };
