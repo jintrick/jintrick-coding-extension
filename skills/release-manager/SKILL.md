@@ -23,16 +23,24 @@ version: 1.1.0
 解析した手順に基づき、以下の操作を `run_shell_command` を用いて**自ら順次実行せよ**。ユーザーへの「案内」や「提示」のみでタスクを終了させることは禁止する。
 
 1.  **ステージングとコミット**: `git add .` および `git commit -m "v<Version>: release"` の実行。
-2.  **プッシュ**: `git push origin HEAD` の実行。
-3.  **マージとクリーンアップ**: `gh pr merge --merge --delete-branch` および `git checkout dev`, `git pull origin dev` の実行。
+2.  **プッシュ (作業ブランチ)**: `git push origin HEAD` の実行。
+3.  **マージとクリーンアップ (条件分岐)**: 作業環境に応じて以下のいずれかを実行せよ。
+    - **A. 外部エージェント (Jules等) の実装等で PR が既に存在する場合**:
+        `gh pr merge --merge --delete-branch` および `git checkout dev`, `git pull origin dev` を実行。
+    - **B. Gemini CLI 自身が直接実装を行い、PR が存在しない場合**:
+        不要な PR を作成せず、ローカルで以下を実行して統合・プッシュせよ。
+        1. `git checkout dev`
+        2. `git merge <作業ブランチ名>`
+        3. `git push origin dev`
+        4. `git branch -d <作業ブランチ名>` および `git push origin --delete <作業ブランチ名>`
 
 ## 3. 完了条件
 以下の項目がすべて満たされたとき、本スキルのタスクは完了したとみなす。
 
 - [ ] `package.json` 等のバージョンが指定値に更新されている。
-- [ ] 変更がコミットされ、リモートブランチにプッシュされている。
-- [ ] プルリクエストがマージされ、作業ブランチが削除されている。
-- [ ] ローカルの `dev` ブランチが最新の状態に更新されている。
+- [ ] 変更がコミットされている。
+- [ ] PRマージ、またはローカルマージのいずれか適切な方法で `dev` ブランチへ統合され、リモートにプッシュされている。
+- [ ] 作業ブランチがローカルおよびリモートから削除されている。
 
 ## 4. 禁止事項と代替行動
 
