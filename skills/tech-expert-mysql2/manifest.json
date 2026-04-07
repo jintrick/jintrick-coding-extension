@@ -2,7 +2,7 @@
   "id": "tech-expert-mysql2",
   "name": "Mysql2 Expert",
   "description": "mysql2 に関する技術的な専門知識を提供します。",
-  "version": "2.9.1",
+  "version": "2.10.0",
   "detectors": [
     {
       "type": "file_contains",
