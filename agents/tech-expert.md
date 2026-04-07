@@ -1,7 +1,7 @@
 ---
 name: tech-expert
 model: gemini-3-flash-preview
-description: 統合型ナレッジ・サブエージェント。プロジェクトで使用されている技術スタック（React, MUI等）のアーキテクチャ、仕様、エラー解決などの専門知識を提供する。
+description: プロジェクト採用技術（React, Vitest等）の公式仕様、ベストプラクティス、およびエラー解決策を内部ドキュメントから調査・回答する。
 tools:
   - activate_skill
   - list_directory
