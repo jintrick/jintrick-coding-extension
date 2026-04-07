@@ -2,6 +2,16 @@
   "hooks": {
     "BeforeTool": [
       {
+        "matcher": "^(read_file|write_file|replace)$",
+        "hooks": [
+          {
+            "name": "coding-rules-hook",
+            "type": "command",
+            "command": "node \"${extensionPath}${/}dist${/}hooks${/}coding_rules_hook.cjs\""
+          }
+        ]
+      },
+      {
         "matcher": "^replace$",
         "hooks": [
           {
@@ -48,18 +58,6 @@
             "type": "command",
             "command": "node \"${extensionPath}${/}dist${/}hooks${/}command_fixer_hook.cjs\"",
             "description": "Windows環境向けにコマンド内の && を ; に自動置換します。"
-          }
-        ]
-      }
-    ],
-    "AfterTool": [
-      {
-        "matcher": "^read_file$",
-        "hooks": [
-          {
-            "name": "coding-rules-hook",
-            "type": "command",
-            "command": "node \"${extensionPath}${/}dist${/}hooks${/}coding_rules_hook.cjs\""
           }
         ]
       }

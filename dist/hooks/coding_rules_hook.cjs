@@ -66,11 +66,15 @@ async function main() {
   try {
     const input = await readStdin();
     if (!input) process.exit(0);
-    if (input.hook_event_name !== "AfterTool" || input.tool_name !== "read_file") {
+    if (input.hook_event_name !== "BeforeTool") {
       console.log(JSON.stringify({ decision: "allow" }));
       process.exit(0);
     }
-    let filePath = input.tool_input && input.tool_input.file_path;
+    if (!["read_file", "write_file", "replace"].includes(input.tool_name)) {
+      console.log(JSON.stringify({ decision: "allow" }));
+      process.exit(0);
+    }
+    let filePath = input.tool_input && (input.tool_input.file_path || input.tool_input.path);
     const cwd = input.cwd;
     if (!filePath || !cwd) {
       console.log(JSON.stringify({ decision: "allow" }));
@@ -114,7 +118,13 @@ ${body}
     }
     const output = { decision: "allow" };
     if (additionalContext) {
-      output.hookSpecificOutput = { additionalContext: additionalContext.trimEnd() + "\n" };
+      output.hookSpecificOutput = {
+        systemMessage: `
+<coding_rules>
+${additionalContext.trim()}
+</coding_rules>
+`
+      };
     }
     console.log(JSON.stringify(output));
   } catch (error) {

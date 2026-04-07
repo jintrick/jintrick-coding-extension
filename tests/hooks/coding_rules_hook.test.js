@@ -56,9 +56,9 @@ describe('coding_rules_hook', () => {
     });
   };
 
-  it('ルール未発見時の正常終了 (additionalContext なし)', async () => {
+  it('ルール未発見時の正常終了 (systemMessage なし)', async () => {
     const input = {
-      hook_event_name: 'AfterTool',
+      hook_event_name: 'BeforeTool',
       tool_name: 'read_file',
       cwd: tempDir,
       tool_input: { file_path: 'src/main.ts' }
@@ -74,8 +74,8 @@ describe('coding_rules_hook', () => {
 
   it('フロントマターの正常パースと単一 glob による合致', async () => {
     const input = {
-      hook_event_name: 'AfterTool',
-      tool_name: 'read_file',
+      hook_event_name: 'BeforeTool',
+      tool_name: 'write_file',
       cwd: tempDir,
       tool_input: { file_path: 'src/main.ts' }
     };
@@ -86,14 +86,15 @@ describe('coding_rules_hook', () => {
     const result = await executeHook(JSON.stringify(input));
     expect(result.decision).toBe('allow');
     expect(result.hookSpecificOutput).toBeDefined();
-    expect(result.hookSpecificOutput.additionalContext).toContain('[RULE APPLIED: match.md]');
-    expect(result.hookSpecificOutput.additionalContext).toContain('This is a TS rule');
+    expect(result.hookSpecificOutput.systemMessage).toContain('<coding_rules>');
+    expect(result.hookSpecificOutput.systemMessage).toContain('[RULE APPLIED: match.md]');
+    expect(result.hookSpecificOutput.systemMessage).toContain('This is a TS rule');
   });
 
   it('/**/ による0階層ディレクトリの合致および特殊文字のエスケープ', async () => {
     const input = {
-      hook_event_name: 'AfterTool',
-      tool_name: 'read_file',
+      hook_event_name: 'BeforeTool',
+      tool_name: 'replace',
       cwd: tempDir,
       tool_input: { file_path: 'src/index.js' }
     };
@@ -104,12 +105,12 @@ describe('coding_rules_hook', () => {
     const result = await executeHook(JSON.stringify(input));
     expect(result.decision).toBe('allow');
     expect(result.hookSpecificOutput).toBeDefined();
-    expect(result.hookSpecificOutput.additionalContext).toContain('[RULE APPLIED: match.md]');
-    expect(result.hookSpecificOutput.additionalContext).toContain('Zero directories match');
+    expect(result.hookSpecificOutput.systemMessage).toContain('[RULE APPLIED: match.md]');
+    expect(result.hookSpecificOutput.systemMessage).toContain('Zero directories match');
 
     // Test with 1+ directory
     const input2 = {
-      hook_event_name: 'AfterTool',
+      hook_event_name: 'BeforeTool',
       tool_name: 'read_file',
       cwd: tempDir,
       tool_input: { file_path: 'src/app/index.js' }
@@ -120,7 +121,7 @@ describe('coding_rules_hook', () => {
 
   it('複数ファイルの合致と結合', async () => {
     const input = {
-      hook_event_name: 'AfterTool',
+      hook_event_name: 'BeforeTool',
       tool_name: 'read_file',
       cwd: tempDir,
       tool_input: { file_path: 'src/app/index.js' }
@@ -132,32 +133,32 @@ describe('coding_rules_hook', () => {
 
     const result = await executeHook(JSON.stringify(input));
     expect(result.decision).toBe('allow');
-    expect(result.hookSpecificOutput.additionalContext).toContain('[RULE APPLIED: rule1.md]');
-    expect(result.hookSpecificOutput.additionalContext).toContain('Rule 1');
-    expect(result.hookSpecificOutput.additionalContext).toContain('[RULE APPLIED: rule2.md]');
-    expect(result.hookSpecificOutput.additionalContext).toContain('Rule 2');
+    expect(result.hookSpecificOutput.systemMessage).toContain('[RULE APPLIED: rule1.md]');
+    expect(result.hookSpecificOutput.systemMessage).toContain('Rule 1');
+    expect(result.hookSpecificOutput.systemMessage).toContain('[RULE APPLIED: rule2.md]');
+    expect(result.hookSpecificOutput.systemMessage).toContain('Rule 2');
   });
 
   it('先頭の ** およびファイル名の特殊記号に対する合致', async () => {
     // 1) **/*.js が main.js にマッチする
     fs.writeFileSync(path.join(rulesDir, 'root_match.md'), '---\ntrigger: glob\nglobs: **/*.js\n---\nRoot match');
     const input1 = {
-      hook_event_name: 'AfterTool', tool_name: 'read_file', cwd: tempDir,
+      hook_event_name: 'BeforeTool', tool_name: 'read_file', cwd: tempDir,
       tool_input: { file_path: 'main.js' }
     };
     const result1 = await executeHook(JSON.stringify(input1));
     expect(result1.hookSpecificOutput).toBeDefined();
-    expect(result1.hookSpecificOutput.additionalContext).toContain('Root match');
+    expect(result1.hookSpecificOutput.systemMessage).toContain('Root match');
 
     // 2) ファイル名に +, (, ) 等の特殊記号を含む場合
     fs.writeFileSync(path.join(rulesDir, 'special_chars.md'), '---\ntrigger: glob\nglobs: src/**/file+(1).js\n---\nSpecial chars');
     const input2 = {
-      hook_event_name: 'AfterTool', tool_name: 'read_file', cwd: tempDir,
+      hook_event_name: 'BeforeTool', tool_name: 'read_file', cwd: tempDir,
       tool_input: { file_path: 'src/file+(1).js' }
     };
     const result2 = await executeHook(JSON.stringify(input2));
     expect(result2.hookSpecificOutput).toBeDefined();
-    expect(result2.hookSpecificOutput.additionalContext).toContain('Special chars');
+    expect(result2.hookSpecificOutput.systemMessage).toContain('Special chars');
     
     // Cleanup rules for next tests
     fs.rmSync(path.join(rulesDir, 'root_match.md'));
@@ -166,7 +167,7 @@ describe('coding_rules_hook', () => {
 
   it('trigger 条件が glob 以外の場合は無視される', async () => {
     const input = {
-      hook_event_name: 'AfterTool',
+      hook_event_name: 'BeforeTool',
       tool_name: 'read_file',
       cwd: tempDir,
       tool_input: { file_path: 'src/main.ts' }
@@ -182,10 +183,25 @@ describe('coding_rules_hook', () => {
 
   it('条件外イベントでは何もしない', async () => {
     const input = {
-      hook_event_name: 'BeforeTool', // Not AfterTool
+      hook_event_name: 'AfterTool', // Not BeforeTool anymore
       tool_name: 'read_file',
       cwd: tempDir,
       tool_input: { file_path: 'src/main.ts' }
+    };
+
+    fs.writeFileSync(path.join(rulesDir, 'rule.md'), '---\ntrigger: glob\nglobs: *.ts\n---\nRule');
+
+    const result = await executeHook(JSON.stringify(input));
+    expect(result.decision).toBe('allow');
+    expect(result.hookSpecificOutput).toBeUndefined();
+  });
+
+  it('対象外のツールでは何もしない', async () => {
+    const input = {
+      hook_event_name: 'BeforeTool',
+      tool_name: 'run_shell_command',
+      cwd: tempDir,
+      tool_input: { command: 'echo 1' }
     };
 
     fs.writeFileSync(path.join(rulesDir, 'rule.md'), '---\ntrigger: glob\nglobs: *.ts\n---\nRule');

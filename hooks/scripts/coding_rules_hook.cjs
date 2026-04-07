@@ -80,12 +80,17 @@ async function main() {
     if (!input) process.exit(0);
     
     // Check execution conditions
-    if (input.hook_event_name !== 'AfterTool' || input.tool_name !== 'read_file') {
+    if (input.hook_event_name !== 'BeforeTool') {
       console.log(JSON.stringify({ decision: "allow" }));
       process.exit(0);
     }
     
-    let filePath = input.tool_input && input.tool_input.file_path;
+    if (!['read_file', 'write_file', 'replace'].includes(input.tool_name)) {
+      console.log(JSON.stringify({ decision: "allow" }));
+      process.exit(0);
+    }
+    
+    let filePath = input.tool_input && (input.tool_input.file_path || input.tool_input.path);
     const cwd = input.cwd;
     
     if (!filePath || !cwd) {
@@ -139,9 +144,9 @@ async function main() {
     
     const output = { decision: "allow" };
     if (additionalContext) {
-      // Remove trailing newline if it exists, to exactly match the problem description 
-      // where it shows \n[RULE APPLIED: ${filename}]\n${content} format
-      output.hookSpecificOutput = { additionalContext: additionalContext.trimEnd() + '\n' };
+      output.hookSpecificOutput = { 
+        systemMessage: `\n<coding_rules>\n${additionalContext.trim()}\n</coding_rules>\n` 
+      };
     }
     
     console.log(JSON.stringify(output));
