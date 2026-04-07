@@ -1,16 +1,15 @@
 const fs = require('fs');
 const path = require('path');
+const os = require('os');
 const { spawnSync } = require('child_process');
 
-const cacheDir = path.resolve(__dirname, '..', '..', 'hooks', 'cache');
-const debugLog = path.join(cacheDir, 'debug.log');
+// 規約遵守: プロジェクト外（OSの一時ディレクトリ）に一時ファイルを配置
+const cacheDir = os.tmpdir();
+const debugLog = path.join(cacheDir, 'gemini_cli_toast_debug.log');
 
 function log(msg) {
     const time = new Date().toISOString();
     try {
-        if (!fs.existsSync(cacheDir)) {
-            fs.mkdirSync(cacheDir, { recursive: true });
-        }
         fs.appendFileSync(debugLog, `[${time}] ${msg}\n`, 'utf8');
     } catch (e) {}
 }
@@ -26,7 +25,7 @@ function processEvent(inputData) {
         return sendAllow();
     }
 
-    const lockFile = path.join(cacheDir, `${session_id}.lock`);
+    const lockFile = path.join(cacheDir, `gemini_cli_toast_${session_id}.lock`);
     const thresholdMs = parseInt(process.env.JINTRICK_TOAST_THRESHOLD_MS || '30000', 10);
 
     if (hook_event_name === 'BeforeAgent') {
@@ -46,7 +45,7 @@ function processEvent(inputData) {
 
                 if (durationMs >= thresholdMs) {
                     log(`Task completed. Duration ${durationMs}ms >= Threshold ${thresholdMs}ms. Sending robust toast.`);
-                    showToast(cwd, durationMs);
+                    showToast(cwd, durationMs, session_id);
                 }
 
                 fs.unlinkSync(lockFile);
@@ -60,7 +59,7 @@ function processEvent(inputData) {
     sendAllow();
 }
 
-function showToast(cwd, durationMs) {
+function showToast(cwd, durationMs, session_id) {
     const projectName = path.basename(cwd);
     const durationSec = (durationMs / 1000).toFixed(1);
     const title = `Gemini CLI: ${projectName}`.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
@@ -90,7 +89,7 @@ try {
 } catch {}
 `;
 
-    const tmpFile = path.join(cacheDir, `toast_runner.ps1`);
+    const tmpFile = path.join(cacheDir, `gemini_cli_toast_${session_id}.ps1`);
     try {
         fs.writeFileSync(tmpFile, psScript, 'utf8');
         spawnSync('powershell.exe', [
@@ -99,6 +98,10 @@ try {
             '-File', tmpFile
         ], { windowsHide: true });
         
+        // 処理完了後に一時ファイルを削除
+        if (fs.existsSync(tmpFile)) {
+            fs.unlinkSync(tmpFile);
+        }
         log(`Toast delivered successfully (Sync/HighPriority).`);
     } catch (e) {
         log(`Failed to deliver toast: ${e.message}`);

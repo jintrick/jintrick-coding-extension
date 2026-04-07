@@ -3,6 +3,7 @@
 // hooks/scripts/single_edit_per_turn_hook.cjs
 var fs = require("fs");
 var path = require("path");
+var os = require("os");
 function main() {
   let input;
   try {
@@ -16,13 +17,17 @@ function main() {
   if (!session_id) {
     allow();
   }
-  const cacheDir = path.resolve(__dirname, "..", "..", "hooks", "cache");
-  if (!fs.existsSync(cacheDir)) {
-    fs.mkdirSync(cacheDir, { recursive: true });
-  }
-  const cacheFile = path.join(cacheDir, `modified_${session_id}.json`);
-  if (hook_event_name === "BeforeTool") {
-    if (tool_name !== "write_file" && tool_name !== "replace") {
+  const cacheFile = path.join(os.tmpdir(), `gemini_cli_modified_${session_id}.json`);
+  if (hook_event_name === "BeforeAgent") {
+    try {
+      if (fs.existsSync(cacheFile)) {
+        fs.unlinkSync(cacheFile);
+      }
+    } catch (e) {
+    }
+    allow();
+  } else if (hook_event_name === "BeforeTool") {
+    if (tool_name !== "replace") {
       allow();
     }
     const filePath = tool_input && tool_input.file_path;
@@ -48,8 +53,8 @@ function main() {
     }
     if (modifiedFiles.includes(filePath)) {
       deny(
-        "Duplicate file edit in a single turn",
-        "\u540C\u4E00\u30BF\u30FC\u30F3\u5185\u3067\u306E\u540C\u4E00\u30D5\u30A1\u30A4\u30EB\u306B\u5BFE\u3059\u308B\u8907\u6570\u56DE\u306E\u7DE8\u96C6\uFF08replace/write_file\uFF09\u306F\u7981\u6B62\u3055\u308C\u3066\u3044\u307E\u3059\u3002\u3059\u3079\u3066\u306E\u5909\u66F4\u30921\u3064\u306E write_file \u306B\u307E\u3068\u3081\u308B\u304B\u3001\u4E00\u65E6\u601D\u8003\u3092\u6B62\u3081\u3066\u30E6\u30FC\u30B6\u30FC\u306B\u5831\u544A\u3057\u3001\u6B21\u306E\u30BF\u30FC\u30F3\u3067\u6B8B\u308A\u306E\u7DE8\u96C6\u3092\u884C\u3063\u3066\u304F\u3060\u3055\u3044\u3002"
+        "Duplicate file edit (replace) in a single turn",
+        "\u540C\u4E00\u30BF\u30FC\u30F3\u5185\u3067\u306E\u540C\u4E00\u30D5\u30A1\u30A4\u30EB\u306B\u5BFE\u3059\u308B\u8907\u6570\u56DE\u306E\u5916\u79D1\u7684\u7DE8\u96C6\uFF08replace\uFF09\u306F\u7981\u6B62\u3055\u308C\u3066\u3044\u307E\u3059\u3002\u5916\u79D1\u7684\u7DE8\u96C6\u306F\u30D5\u30A1\u30A4\u30EB\u306E\u72B6\u614B\u3092\u5909\u5316\u3055\u305B\u308B\u305F\u3081\u3001\u8907\u6570\u306E\u7DE8\u96C6\u304C\u5FC5\u8981\u306A\u5834\u5408\u306F\u30BF\u30FC\u30F3\u3092\u5206\u3051\u3066\u5B9F\u884C\u3059\u308B\u304B\u3001write_file \u306B\u3088\u308B\u4E00\u62EC\u66F4\u65B0\u3092\u691C\u8A0E\u3057\u3066\u304F\u3060\u3055\u3044\u3002"
       );
     } else {
       modifiedFiles.push(filePath);

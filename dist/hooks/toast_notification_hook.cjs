@@ -1,15 +1,13 @@
 // hooks/scripts/toast_notification_hook.cjs
 var fs = require("fs");
 var path = require("path");
+var os = require("os");
 var { spawnSync } = require("child_process");
-var cacheDir = path.resolve(__dirname, "..", "..", "hooks", "cache");
-var debugLog = path.join(cacheDir, "debug.log");
+var cacheDir = os.tmpdir();
+var debugLog = path.join(cacheDir, "gemini_cli_toast_debug.log");
 function log(msg) {
   const time = (/* @__PURE__ */ new Date()).toISOString();
   try {
-    if (!fs.existsSync(cacheDir)) {
-      fs.mkdirSync(cacheDir, { recursive: true });
-    }
     fs.appendFileSync(debugLog, `[${time}] ${msg}
 `, "utf8");
   } catch (e) {
@@ -23,7 +21,7 @@ function processEvent(inputData) {
   if (!session_id || !cwd) {
     return sendAllow();
   }
-  const lockFile = path.join(cacheDir, `${session_id}.lock`);
+  const lockFile = path.join(cacheDir, `gemini_cli_toast_${session_id}.lock`);
   const thresholdMs = parseInt(process.env.JINTRICK_TOAST_THRESHOLD_MS || "30000", 10);
   if (hook_event_name === "BeforeAgent") {
     try {
@@ -41,7 +39,7 @@ function processEvent(inputData) {
         const durationMs = now - startTimeMs;
         if (durationMs >= thresholdMs) {
           log(`Task completed. Duration ${durationMs}ms >= Threshold ${thresholdMs}ms. Sending robust toast.`);
-          showToast(cwd, durationMs);
+          showToast(cwd, durationMs, session_id);
         }
         fs.unlinkSync(lockFile);
         log(`Timer cleaned up: AfterAgent (session: ${session_id})`);
@@ -52,7 +50,7 @@ function processEvent(inputData) {
   }
   sendAllow();
 }
-function showToast(cwd, durationMs) {
+function showToast(cwd, durationMs, session_id) {
   const projectName = path.basename(cwd);
   const durationSec = (durationMs / 1e3).toFixed(1);
   const title = `Gemini CLI: ${projectName}`.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
@@ -76,7 +74,7 @@ try {
     [System.Threading.Thread]::Sleep(500)
 } catch {}
 `;
-  const tmpFile = path.join(cacheDir, `toast_runner.ps1`);
+  const tmpFile = path.join(cacheDir, `gemini_cli_toast_${session_id}.ps1`);
   try {
     fs.writeFileSync(tmpFile, psScript, "utf8");
     spawnSync("powershell.exe", [
@@ -86,6 +84,9 @@ try {
       "-File",
       tmpFile
     ], { windowsHide: true });
+    if (fs.existsSync(tmpFile)) {
+      fs.unlinkSync(tmpFile);
+    }
     log(`Toast delivered successfully (Sync/HighPriority).`);
   } catch (e) {
     log(`Failed to deliver toast: ${e.message}`);

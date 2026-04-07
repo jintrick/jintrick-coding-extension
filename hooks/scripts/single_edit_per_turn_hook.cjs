@@ -1,7 +1,15 @@
 #!/usr/bin/env node
 const fs = require('fs');
 const path = require('path');
+const os = require('os');
 
+/**
+ * single_edit_per_turn_hook.cjs
+ *
+ * 同一ターン内での同一ファイルに対する複数回の外科的編集（replace）を阻止するフック。
+ * ターンの不整合（古い行番号やコンテキストへの適用）を防ぐことを目的とする。
+ * write_file は副作用がないため制限から除外する。
+ */
 function main() {
   let input;
   try {
@@ -17,14 +25,22 @@ function main() {
     allow();
   }
 
-  const cacheDir = path.resolve(__dirname, '..', '..', 'hooks', 'cache');
-  if (!fs.existsSync(cacheDir)) {
-    fs.mkdirSync(cacheDir, { recursive: true });
-  }
-  const cacheFile = path.join(cacheDir, `modified_${session_id}.json`);
+  // 規約遵守: プロジェクト外（OSの一時ディレクトリ）にロックファイルを作成
+  const cacheFile = path.join(os.tmpdir(), `gemini_cli_modified_${session_id}.json`);
 
-  if (hook_event_name === 'BeforeTool') {
-    if (tool_name !== 'write_file' && tool_name !== 'replace') {
+  // ターン開始時にロックを確実に初期化
+  if (hook_event_name === 'BeforeAgent') {
+    try {
+      if (fs.existsSync(cacheFile)) {
+        fs.unlinkSync(cacheFile);
+      }
+    } catch (e) {
+      // ignore
+    }
+    allow();
+  } else if (hook_event_name === 'BeforeTool') {
+    // replace ツールのみを制限対象とする
+    if (tool_name !== 'replace') {
       allow();
     }
     const filePath = tool_input && tool_input.file_path;
@@ -32,10 +48,11 @@ function main() {
       allow();
     }
 
+    // 古いロック（5分以上経過）のクリーンアップ
     if (fs.existsSync(cacheFile)) {
       try {
         const stats = fs.statSync(cacheFile);
-        if (Date.now() - stats.mtimeMs > 300000) { // 5 minutes
+        if (Date.now() - stats.mtimeMs > 300000) {
           fs.unlinkSync(cacheFile);
         }
       } catch (e) {
@@ -54,8 +71,8 @@ function main() {
 
     if (modifiedFiles.includes(filePath)) {
       deny(
-        "Duplicate file edit in a single turn",
-        "同一ターン内での同一ファイルに対する複数回の編集（replace/write_file）は禁止されています。すべての変更を1つの write_file にまとめるか、一旦思考を止めてユーザーに報告し、次のターンで残りの編集を行ってください。"
+        "Duplicate file edit (replace) in a single turn",
+        "同一ターン内での同一ファイルに対する複数回の外科的編集（replace）は禁止されています。外科的編集はファイルの状態を変化させるため、複数の編集が必要な場合はターンを分けて実行するか、write_file による一括更新を検討してください。"
       );
     } else {
       modifiedFiles.push(filePath);
@@ -63,6 +80,7 @@ function main() {
       allow();
     }
   } else if (hook_event_name === 'AfterAgent') {
+    // ターン終了時にもクリーンアップを行う
     try {
       if (fs.existsSync(cacheFile)) {
         fs.unlinkSync(cacheFile);
