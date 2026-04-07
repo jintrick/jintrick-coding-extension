@@ -21,19 +21,15 @@ version: 1.1.0
 - `run_shell_command` で `node skills/release-manager/scripts/update_version.cjs <version>` を実行せよ。
 - **検証**: 指定されたバージョンが SemVer 形式でない場合、またはスクリプトがエラーを返した場合は、直ちに処理を中断し、理由を報告せよ。
 
-### ステップ 2: リリース手順の解析
-- `read_file` で `RELEASE.md` を読み込み、実行すべき Git コマンドを抽出せよ。
-- `RELEASE.md` が存在しない場合は、`docs/reference/idd-flow.md` または以下の標準手順を採用せよ。
-
-### ステップ 3: リリース操作の実行
+### ステップ 2: リリース操作の実行
 解析した手順に基づき、以下の操作を `run_shell_command` を用いて**自ら順次実行せよ**。ユーザーへの「案内」や「提示」のみでタスクを終了させることは禁止する。
 
 1.  **ステージングとコミット**: `git add .` および `git commit -m "v<Version>: release"` の実行。
 2.  **プッシュ (作業ブランチ)**: `git push origin HEAD` の実行。
 3.  **マージとクリーンアップ (条件分岐)**: 作業環境に応じて以下のいずれかを実行せよ。
-    - **A. 外部エージェント (Jules等) の実装等で PR が既に存在する場合**:
+    - **A. 外部エージェント (Jules) の実装等で PR が既に存在する場合**:
         `gh pr merge --merge --delete-branch` および `git checkout dev`, `git pull origin dev` を実行。
-    - **B. Gemini CLI 自身が直接実装を行い、PR が存在しない場合**:
+    - **B. PR が存在しない場合**:
         不要な PR を作成せず、ローカルで以下を実行して統合・プッシュせよ。
         1. `git checkout dev`
         2. `git merge <作業ブランチ名>`
