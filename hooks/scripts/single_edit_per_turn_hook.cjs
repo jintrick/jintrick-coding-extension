@@ -69,14 +69,17 @@ function main() {
       }
     }
 
-    if (modifiedFiles.includes(filePath)) {
+    const waitForPrevious = tool_input && tool_input.wait_for_previous === true;
+    if (modifiedFiles.includes(filePath) && !waitForPrevious) {
       deny(
         "Duplicate file edit (replace) in a single turn",
-        "同一ターン内での同一ファイルに対する複数回の外科的編集（replace）は禁止されています。外科的編集はファイルの状態を変化させるため、複数の編集が必要な場合はターンを分けて実行するか、write_file による一括更新を検討してください。"
+        "同一ターン内での同一ファイルに対する並列した複数回の外科的編集（replace）は禁止されています。外科的編集はファイルの状態を変化させるため、複数の編集が必要な場合は `wait_for_previous: true` を指定して順次実行するか、ターンを分けて実行してください。"
       );
     } else {
-      modifiedFiles.push(filePath);
-      fs.writeFileSync(cacheFile, JSON.stringify(modifiedFiles));
+      if (!modifiedFiles.includes(filePath)) {
+        modifiedFiles.push(filePath);
+        fs.writeFileSync(cacheFile, JSON.stringify(modifiedFiles));
+      }
       allow();
     }
   } else if (hook_event_name === 'AfterAgent') {

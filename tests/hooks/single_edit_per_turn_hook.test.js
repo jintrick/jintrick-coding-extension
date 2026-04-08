@@ -161,6 +161,22 @@ describe('single_edit_per_turn_hook', () => {
     expect(res.decision).toBe('allow');
   });
 
+  it('BeforeTool: 同一セッションでの2回目の replace でも wait_for_previous: true があれば allow されること', () => {
+    runHook({
+      hook_event_name: 'BeforeTool',
+      tool_name: 'replace',
+      session_id: sessionId,
+      tool_input: { file_path: 'test.txt' }
+    });
+    const res = runHook({
+      hook_event_name: 'BeforeTool',
+      tool_name: 'replace',
+      session_id: sessionId,
+      tool_input: { file_path: 'test.txt', wait_for_previous: true }
+    });
+    expect(res.decision).toBe('allow');
+  });
+
   it('BeforeTool: 古いキャッシュ（5分以上前）が存在する場合はセルフヒーリングで削除され allow されること', () => {
     // 擬似的に古いキャッシュを作成
     fs.writeFileSync(cacheFile, JSON.stringify(['test.txt']));
