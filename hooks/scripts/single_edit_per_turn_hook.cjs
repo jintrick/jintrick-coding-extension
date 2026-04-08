@@ -72,8 +72,8 @@ function main() {
     const waitForPrevious = tool_input && tool_input.wait_for_previous === true;
     if (modifiedFiles.includes(filePath) && !waitForPrevious) {
       deny(
-        "Duplicate file edit (replace) in a single turn",
-        "同一ターン内での同一ファイルに対する並列した複数回の外科的編集（replace）は禁止されています。外科的編集はファイルの状態を変化させるため、複数の編集が必要な場合は `wait_for_previous: true` を指定して順次実行するか、ターンを分けて実行してください。"
+        "Duplicate file edit. Set 'wait_for_previous: true' to edit the same file multiple times in one turn.",
+        "同一ターン内での同一ファイルに対する並列した複数回の外科的編集（replace）は禁止されています。外科的編集はファイルの状態を変化させるため、複数の編集が必要な場合は `wait_for_previous: true` を指定して順次実行してください。"
       );
     } else {
       if (!modifiedFiles.includes(filePath)) {

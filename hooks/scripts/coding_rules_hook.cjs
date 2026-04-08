@@ -55,7 +55,7 @@ function parseFrontmatter(content) {
     const kvMatch = line.match(/^([a-zA-Z0-9_-]+):\s*(.*)$/);
     if (kvMatch) {
       currentKey = kvMatch[1];
-      const val = kvMatch[2].trim();
+      const val = kvMatch[2].trim().replace(/^["'](.*)["']$/, '$1');
       if (val === '') {
           frontmatter[currentKey] = [];
       } else {
@@ -67,7 +67,7 @@ function parseFrontmatter(content) {
         const existingVal = frontmatter[currentKey];
         frontmatter[currentKey] = existingVal ? [existingVal] : [];
       }
-      frontmatter[currentKey].push(line.replace(/^\s*-\s*/, '').trim());
+      frontmatter[currentKey].push(line.replace(/^\s*-\s*/, '').trim().replace(/^["'](.*)["']$/, '$1'));
     }
   }
   

@@ -134,7 +134,15 @@ if (require.main === module) {
     // Sync all issues in docs/issue/
     const issueDir = path.join('docs', 'issue');
     if (fs.existsSync(issueDir)) {
-      const files = fs.readdirSync(issueDir).filter(f => f.endsWith('.md') && f !== 'TEMPLATE.md');
+      const files = fs.readdirSync(issueDir).filter(f => {
+        if (!f.endsWith('.md')) return false;
+        try {
+          const content = fs.readFileSync(path.join(issueDir, f), 'utf8');
+          return /^---[\s\S]*?^id:\s*v/m.test(content);
+        } catch (e) {
+          return false;
+        }
+      });
       for (const file of files) {
         syncIssue(path.join(issueDir, file), false);
       }

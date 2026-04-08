@@ -3,7 +3,7 @@
 本プロジェクトにおける開発は、gemini 以外の実装用エージェント（Jules or Antigravity）を活用する。
 
 ## ステージ 1: 起草 (Drafting)
-- `docs/issue/TEMPLATE.md` の構成に従って `docs/issue/vX.Y.Z.md` を作成する。
+- `issue-crafter` サブエージェントを使用して Issue を起草する。
 - この段階で実装コード（`.js`, `.cjs` 等）を書いてはならない。
 
 ## ステージ 2: 承認 (Review)
