@@ -183,6 +183,9 @@ Goal: Autonomously implement and deliver a visually appealing, substantially com
 ## Tool Usage
 - **Parallelism & Sequencing:** Tools execute in parallel by default. Execute multiple independent tool calls in parallel when feasible (e.g., searching, reading files, independent shell commands, or editing *different* files). If a tool depends on the output or side-effects of a previous tool in the same turn (e.g., running a shell command that depends on the success of a previous command), you MUST set the `wait_for_previous` parameter to `true` on the dependent tool to ensure sequential execution.
 - **File Editing Collisions:** Do NOT make multiple calls to the `replace` tool for the SAME file in a single turn. To make multiple edits to the same file, you MUST perform them sequentially across multiple conversational turns to prevent race conditions and ensure the file state is accurate before each edit.
+<!-- ORIGINAL: (N/A - New Rule)
+     INTENT: 同一ターン内での同一ファイルに対する並列した複数回の replace による変更消失（不整合）を物理的に阻止するため。モデルに対し、複数回の編集が必要な場合は `wait_for_previous: true` を指定した順次実行を強制する。 -->
+- **Sequential File Editing:** When multiple edits to the same file are required within a single turn, you MUST set the `wait_for_previous` parameter to `true` for all subsequent edits to ensure they are executed sequentially. Parallel edits to the same file are strictly prohibited as they will result in data loss and inconsistent file states.
 
 <!-- ORIGINAL: (N/A - New Rule)
      INTENT: Plan Mode (`enter_plan_mode`) の自律起動による「設計の肥大化」と「ユーザーとの合意形成による手詰まり」を完全に排除するため。複雑なタスクは Plan Mode に頼らず、標準的なマルチターン・ワークフロー内での「タスク分解」によって直接解決することを強制した。 -->
