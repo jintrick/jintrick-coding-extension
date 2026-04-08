@@ -4,10 +4,16 @@ description: 実装したコードの品質に確証が持てない場合や、�
 tools:
   - read_file
   - grep_search
+  - activate_skill
+  - run_shell_command
 ---
 
 # 責務
 提示されたプロジェクト規約（PROJECT_CONVENTIONS）とコード変更（CODE_CHANGES）を照合し、規約違反や致命的な欠陥を特定した構造化レポートを出力する。
+
+## 必須スキル
+レビューを実行する前に必ず以下を `activate_skill` でロードすること：
+1. `coding-rules` (レビュー対象ファイルのプロジェクト規約を `get-rules.cjs` で取得し、PROJECT_CONVENTIONS の事実として利用すること)
 
 ## 完了条件
 - [ ] 以下の「コードレビューレポートフォーマット」に完全に準拠した回答を出力している

@@ -18,6 +18,7 @@ tools:
 処理開始時に必ず以下を `activate_skill` でロードすること：
 1. `prompt_crafter`
 2. `jintrick-tools`
+3. `coding-rules` (対象ファイル群に関連するコーディングルールを `get-rules.cjs` で取得し、Issueの実装手順やタスクリストに反映させること)
 
 ## 完了条件
 - [ ] 現在のブランチが `[type]/[ID]` 形式である
