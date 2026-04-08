@@ -3,7 +3,8 @@ import child_process from 'child_process';
 import fs from 'fs';
 import path from 'path';
 
-import { generate, getGitInfo, inferNextVersion } from '../skills/issue-crafter/scripts/generate-template.cjs';
+import { generate, getGitInfo } from '../skills/jintrick-tools/scripts/generate-template.cjs';
+// Note: inferNextVersion is now tested in its own test file
 
 describe('generate-template.cjs', () => {
   let consoleLogSpy;
@@ -40,31 +41,36 @@ describe('generate-template.cjs', () => {
     });
   });
 
-  describe('inferNextVersion', () => {
-    it('increments minor for feat', () => {
-      expect(inferNextVersion('2.9.1', 'feat')).toBe('v2.10.0');
-    });
-
-    it('increments minor for refactor', () => {
-      expect(inferNextVersion('2.9.1', 'refactor')).toBe('v2.10.0');
-    });
-
-    it('increments patch for fix', () => {
-      expect(inferNextVersion('2.9.1', 'fix')).toBe('v2.9.2');
-    });
-
-    it('increments patch for docs', () => {
-      expect(inferNextVersion('2.9.1', 'docs')).toBe('v2.9.2');
-    });
-  });
-
   describe('generate', () => {
-    it('generates template with branch info', () => {
+    let writeFileSyncSpy;
+    let mkdirSyncSpy;
+    let existsSyncSpy;
+
+    beforeEach(() => {
+      writeFileSyncSpy = vi.spyOn(fs, 'writeFileSync').mockImplementation(() => {});
+      mkdirSyncSpy = vi.spyOn(fs, 'mkdirSync').mockImplementation(() => {});
+      existsSyncSpy = vi.spyOn(fs, 'existsSync').mockImplementation(() => false);
+    });
+
+    it('generates template and writes to docs/issue/vX.Y.Z.md', () => {
       execSyncSpy.mockImplementation((cmd) => {
         if (cmd.includes('git branch')) return 'feat/v2.10.0\n';
         return '';
       });
       
+      // Mock TEMPLATE.md read only, other reads (package.json) are handled in inferNextVersion tested elsewhere
+      // but generate() still reads TEMPLATE.md
+      readFileSyncSpy.mockImplementation((file) => {
+        if (file.includes('TEMPLATE.md')) return '---\nid: vX.Y.Z\ntype: feat\ncreated: yyyy-mm-dd\nstatus: drafting\n---\n';
+        return '';
+      });
+
+      // getCurrentVersion mock
+      existsSyncSpy.mockImplementation((file) => {
+        if (file.includes('package.json')) return true;
+        if (file.includes('docs/issue')) return true;
+        return false;
+      });
       readFileSyncSpy.mockImplementation((file) => {
         if (file.includes('package.json')) return JSON.stringify({ version: '2.9.1' });
         if (file.includes('TEMPLATE.md')) return '---\nid: vX.Y.Z\ntype: feat\ncreated: yyyy-mm-dd\nstatus: drafting\n---\n';
@@ -73,33 +79,35 @@ describe('generate-template.cjs', () => {
 
       generate();
 
-      expect(consoleLogSpy).toHaveBeenCalled();
-      const output = consoleLogSpy.mock.calls[0][0];
-      expect(output).toMatch(/^id: v2\.10\.0$/m);
-      expect(output).toMatch(/^type: feat$/m);
-      expect(output).toMatch(/^status: drafting$/m);
+      expect(writeFileSyncSpy).toHaveBeenCalled();
+      const [filePath, content] = writeFileSyncSpy.mock.calls[0];
+      expect(filePath).toMatch(/v2\.10\.0\.md$/);
+      expect(content).toMatch(/^id: v2\.10\.0$/m);
+      expect(content).toMatch(/^type: feat$/m);
+      expect(content).toMatch(/^status: drafting$/m);
     });
 
-    it('generates placeholder type if branch lacks type', () => {
-      execSyncSpy.mockImplementation((cmd) => {
-        if (cmd.includes('git branch')) throw new Error('Not a git repository');
+    it('aborts if file already exists', () => {
+      // getCurrentVersion mock
+      existsSyncSpy.mockImplementation((file) => {
+        if (file.includes('package.json')) return true;
+        if (file.includes('v2.10.0.md')) return true; // Mark as existing
+        return false;
+      });
+      readFileSyncSpy.mockImplementation((file) => {
+        if (file.includes('package.json')) return JSON.stringify({ version: '2.9.1' });
+        if (file.includes('TEMPLATE.md')) return 'template';
         return '';
       });
       
-      readFileSyncSpy.mockImplementation((file) => {
-        if (file.includes('package.json')) return JSON.stringify({ version: '2.9.1' });
-        if (file.includes('TEMPLATE.md')) return '---\nid: vX.Y.Z\ntype: feat\ncreated: yyyy-mm-dd\nstatus: drafting\n---\n';
-        return '';
+      const exitSpy = vi.spyOn(process, 'exit').mockImplementation(() => {
+        throw new Error('process.exit');
       });
+      
+      expect(() => generate()).toThrow('process.exit');
 
-      generate();
-
-      expect(consoleLogSpy).toHaveBeenCalled();
-      const output = consoleLogSpy.mock.calls[0][0];
-      // Since default fallback is 'feat' for inferNextVersion if gitType is null
-      expect(output).toMatch(/^id: v2\.10\.0$/m); 
-      expect(output).toMatch(/^type: \[TYPE\]/m);
-      expect(output).toMatch(/^status: drafting$/m);
+      expect(writeFileSyncSpy).not.toHaveBeenCalled();
+      expect(exitSpy).toHaveBeenCalledWith(1);
     });
   });
 });

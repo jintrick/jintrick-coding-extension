@@ -1,6 +1,7 @@
 const child_process = require('child_process');
 const fs = require('fs');
 const path = require('path');
+const { inferNextVersion, getCurrentVersion } = require('./infer-next-version.cjs');
 
 function getGitInfo() {
   try {
@@ -23,39 +24,18 @@ function getGitInfo() {
   }
 }
 
-function getPackageVersion() {
-  try {
-    const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
-    return pkg.version;
-  } catch (e) {
-    return '0.0.0';
-  }
-}
-
-function inferNextVersion(version, type) {
-  const parts = version.split('.');
-  if (parts.length < 3) return version;
-  
-  let [major, minor, patch] = parts.map(Number);
-  if (type === 'feat' || type === 'refactor') {
-    minor++;
-    patch = 0;
-  } else {
-    patch++;
-  }
-  return `v${major}.${minor}.${patch}`;
-}
-
 function generate() {
   const { type: gitType, id: gitId } = getGitInfo();
-  const currentVersion = getPackageVersion();
+  const currentVersion = getCurrentVersion();
   const today = new Date().toISOString().split('T')[0];
 
   const id = gitId || inferNextVersion(currentVersion, gitType || 'feat');
 
+  // Load template
   const templatePath = path.join(__dirname, '..', 'references', 'TEMPLATE.md');
   let content = fs.readFileSync(templatePath, 'utf8');
 
+  // Replace placeholders
   content = content.replace(/^id: .*/m, `id: ${id}`);
   if (gitType) {
     content = content.replace(/^type: .*/m, `type: ${gitType}`);
@@ -65,10 +45,25 @@ function generate() {
   content = content.replace(/^created: .*/m, `created: ${today}`);
   content = content.replace(/^status: .*/m, `status: drafting`);
 
-  console.log(content);
+  // Write to physical file
+  const issueDir = path.resolve(process.cwd(), 'docs', 'issue');
+  if (!fs.existsSync(issueDir)) {
+    fs.mkdirSync(issueDir, { recursive: true });
+  }
+
+  const fileName = `${id}.md`;
+  const filePath = path.join(issueDir, fileName);
+
+  if (fs.existsSync(filePath)) {
+    console.error(`Error: File already exists at ${filePath}. Aborting to prevent overwrite.`);
+    process.exit(1);
+  }
+
+  fs.writeFileSync(filePath, content, 'utf8');
+  console.log(`Successfully created issue file: ${filePath}`);
 }
 
 if (require.main === module) {
   generate();
 }
-module.exports = { generate, getGitInfo, inferNextVersion };
+module.exports = { generate, getGitInfo };

@@ -6,7 +6,8 @@ prompt = """AI Agent Antigravityに実装を依頼する次のプロセスを開
 2. Antigravityに読ませるためのissue文書を作成
     2-1. ユーザーに聞き取りを行い、問題点などの概要を明らかにする
     2-2. issueの草案を作成する（`docs/Issue/{{args}}.md`）
-    2-3. `issue-crafter`サブエージェントにissueの推敲を依頼する
+    2-3. `issue-crafter`サブエージェントにissueの推敲を依頼する（`jintrick-tools`スキルを使用）
+
     2-4. `balancer`サブエージェントにissueの練り直しを依頼する
 
 3. 待機
