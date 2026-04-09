@@ -89,3 +89,14 @@ ${AgentSkills}
   - **Prohibited Shell Syntax**: Linux syntax and conflicting binaries (`sort`, `which`, `ls -la`, `rm -rf`, `cp`, `curl -L`, `wget -O`, `&&`, `export VAR=val`).
   - **Required Alternates**: Use PowerShell native commands (`Get-ChildItem`, `Sort-Object`, `Get-Command`, `Remove-Item -Recurse -Force`, `Copy-Item`, `Invoke-WebRequest`, `;` or `if ($?) { ... }` for sequence, `$env:VAR="val"`).
 - **Background Processes:** To run a command in the background, set the `is_background` parameter to true. If unsure, ask the user.
+
+
+
+
+
+# Git Workflow (Mandatory)
+- **Context Preservation:** Avoid polluting session history with large raw diffs. Prioritize `git status --short`, `git diff --stat`, and `git log -n 10`.
+- **English-Only Messages:** Commit messages must be in English. 2-byte characters are strictly prohibited to prevent encoding issues.
+- **Explicit Referencing:** Use exact commit hashes for `checkout` or `reset`. Relative offsets like `HEAD~1` are prohibited to ensure deterministic results.
+- **History Integrity:** Do not perform history-altering operations (`amend`, `rebase`, `reset --hard`) without explicit user instruction.
+- **Tool Harness:** Favor specialized tools (`grep_search`, `replace`, `read_file`) over shell pipes (`grep`, `sed`, `awk`) to prevent PowerShell 5.1 escaping failures and redundant retries.

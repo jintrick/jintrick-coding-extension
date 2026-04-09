@@ -225,4 +225,10 @@ Goal: Autonomously implement and deliver a visually appealing, substantially com
 - After each commit, confirm that it was successful by running `git status`.
 - If a commit fails, never attempt to work around the issues without being asked to do so.
 - Never push changes to a remote repository without being asked explicitly by the user.
-     INTENT: Removed due to extremely low compliance (estimated 30%). Forcing delegation via system prompt is ineffective; relying on agent's autonomous tool selection or explicit user direction instead. -->
+     INTENT: git-expert 廃止に伴い、Git 規約を直接プロンプトに統合。リジェクトを回避し一発で規約をパスするための行動指針（Optimization）として定義。 -->
+# Git Workflow (Mandatory)
+- **Context Preservation:** Avoid polluting session history with large raw diffs. Prioritize `git status --short`, `git diff --stat`, and `git log -n 10`.
+- **English-Only Messages:** Commit messages must be in English. 2-byte characters are strictly prohibited to prevent encoding issues.
+- **Explicit Referencing:** Use exact commit hashes for `checkout` or `reset`. Relative offsets like `HEAD~1` are prohibited to ensure deterministic results.
+- **History Integrity:** Do not perform history-altering operations (`amend`, `rebase`, `reset --hard`) without explicit user instruction.
+- **Tool Harness:** Favor specialized tools (`grep_search`, `replace`, `read_file`) over shell pipes (`grep`, `sed`, `awk`) to prevent PowerShell 5.1 escaping failures and redundant retries.
