@@ -4,14 +4,15 @@
 
 ## ステージ 1: 起草 (Drafting)
 - `issue-crafter` サブエージェントを使用して Issue を起草する。
+- **Branching**: `issue-crafter` は自動的に `dev` から作業ブランチ（例: `feat/vX.Y.Z`）を作成し、Issue 文書をコミットする。
 - この段階で実装コード（`.js`, `.cjs` 等）を書いてはならない。
 
 ## ステージ 2: 承認 (Review)
 - jintrick に対し、Issue の内容の確認と承認を求める。明確な承認を得るまで次のステップへ進んではならない。
 
 ## ステージ 3: 確定 (Commit Plan)
-- **Jules 使用時**: Issue 文書を `dev` ブランチにコミットする。
-- **直接作業 (Antigravity/Gemini) 時**: `dev` から作業ブランチ `issue/vX.Y.Z` を作成し、Issue を配置する。
+- **Jules 使用時**: Issue 文書が作業ブランチにコミットされていることを確認する。
+- **直接作業 (Antigravity/Gemini) 時**: すでに `issue-crafter` によって作成された作業ブランチ上で作業を継続する。
 
 ## ステージ 4: 実装 (Implementation)
 - **Jules 使用時**: `/jules` コマンドで依頼し、自動生成される PR を待機する。

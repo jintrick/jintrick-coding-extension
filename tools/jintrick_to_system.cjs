@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const { syncSystemPrompt } = require('./sync_system_prompt.cjs');
 
 function getLatestSourcePath() {
   const systemPromptsDir = path.resolve(__dirname, '../skills/gemini-cli-expert/references/system_prompts');
@@ -44,8 +45,6 @@ function getLatestSourcePath() {
   return sourcePath;
 }
 
-const destPath = path.resolve(__dirname, '../.gemini/system.md');
-
 function sanitize(content) {
   // 1. Remove HTML comments
   let sanitized = content.replace(/<!--[^]*?-->/g, '');
@@ -57,21 +56,21 @@ function sanitize(content) {
   return sanitized.trim();
 }
 
+function processAndSync() {
+  const sourcePath = getLatestSourcePath();
+  console.log(`Sanitizing and generating system prompts from ${sourcePath} ...`);
+  const content = fs.readFileSync(sourcePath, 'utf8');
+  const result = sanitize(content);
+  syncSystemPrompt(result);
+}
+
 if (require.main === module) {
   try {
-    const sourcePath = getLatestSourcePath();
-
-    console.log(`Sanitizing and generating .gemini/system.md from ${sourcePath} ...`);
-
-    const content = fs.readFileSync(sourcePath, 'utf8');
-    const result = sanitize(content);
-
-    fs.writeFileSync(destPath, result, 'utf8');
-    console.log(`Successfully generated ${destPath}`);
+    processAndSync();
   } catch (err) {
     console.error(`Error during sanitization: ${err.message}`);
     process.exit(1);
   }
 }
 
-module.exports = { sanitize, getLatestSourcePath };
+module.exports = { sanitize, getLatestSourcePath, processAndSync };

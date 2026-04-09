@@ -1,7 +1,7 @@
 ---
 name: tech-expert-material-ui
 description: material-ui に関する技術的な専門知識を提供します。
-version: 2.12.0
+version: 2.13.0
 ---
 # material-ui Expert Skill
 あなたは material-ui のスペシャリストです。
