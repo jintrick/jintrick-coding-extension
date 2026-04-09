@@ -1,6 +1,7 @@
 const esbuild = require('esbuild');
 const path = require('path');
 const fs = require('fs');
+const { processAndSync } = require('./jintrick_to_system.cjs');
 
 const hooks = [
   'hooks/scripts/single_edit_per_turn_hook.cjs',
@@ -256,6 +257,10 @@ async function build({ distDir, knowledgeDir, skillsDir, clean = true }) {
     // Wave 3: knowledge を昇格
     console.log('Promoting knowledge to skills...');
     promoteKnowledge({ knowledgeDir, skillsDir, extensionVersion, clean });
+
+    // Wave 4: sync system prompts
+    console.log('Synchronizing system prompts...');
+    processAndSync();
 
     console.log('Build completed successfully!');
   } catch (err) {
