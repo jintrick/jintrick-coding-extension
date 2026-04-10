@@ -1,7 +1,8 @@
 {
   "hooksConfig": {
     "disabled": [
-      "single-edit-per-turn-reset"
+      "single-edit-per-turn-reset",
+      "command-fixer-hook"
     ]
   }
 }
