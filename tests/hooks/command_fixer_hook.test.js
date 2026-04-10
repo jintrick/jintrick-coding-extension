@@ -27,45 +27,46 @@ describe('command_fixer_hook', () => {
     vi.clearAllMocks();
   });
 
-  it('should replace " && " with " ; " in run_shell_command', () => {
-    const input = JSON.stringify({
-      hook_event_name: 'BeforeTool',
-      tool_name: 'run_shell_command',
-      tool_input: {
-        command: 'git add . && git commit'
-      }
-    });
+  const testCases = [
+    { name: 'rm -rf test', input: 'rm -rf test', expected: 'Remove-Item -Recurse -Force test' },
+    { name: 'mkdir -p a/b/c', input: 'mkdir -p a/b/c', expected: 'New-Item -ItemType Directory -Force -Path a/b/c' },
+    { name: 'cp -r src dest', input: 'cp -r src dest', expected: 'Copy-Item -Recurse src dest' },
+    { name: 'ls -la', input: 'ls -la', expected: 'Get-ChildItem' },
+    { name: 'which node', input: 'which node', expected: 'Get-Command node' },
+    { name: 'git add . && git commit', input: 'git add . && git commit', expected: 'git add . && git commit' },
+    { name: 'echo "rm -rf"', input: 'echo "rm -rf"', expected: 'echo "rm -rf"' },
+    { name: 'storm', input: 'storm', expected: 'storm' },
+    { name: 'multiple commands', input: 'mkdir -p a && rm -rf b', expected: 'New-Item -ItemType Directory -Force -Path a && Remove-Item -Recurse -Force b' }
+  ];
 
-    fsMock.readFileSync.mockReturnValue(input);
-
-    main({ fs: fsMock, process: processMock, consoleLog: consoleLogMock });
-
-    expect(consoleLogMock).toHaveBeenCalledWith(JSON.stringify({
-      decision: 'allow',
-      hookSpecificOutput: {
+  testCases.forEach(({ name, input: cmdInput, expected }) => {
+    it(`should transform "${cmdInput}" correctly`, () => {
+      const input = JSON.stringify({
+        hook_event_name: 'BeforeTool',
+        tool_name: 'run_shell_command',
         tool_input: {
-          command: 'git add . ; git commit'
+          command: cmdInput
         }
-      }
-    }));
-    expect(processExitMock).toHaveBeenCalledWith(0);
-  });
+      });
 
-  it('should allow without changes if " && " is not present', () => {
-    const input = JSON.stringify({
-      hook_event_name: 'BeforeTool',
-      tool_name: 'run_shell_command',
-      tool_input: {
-        command: 'git status'
+      fsMock.readFileSync.mockReturnValue(input);
+
+      main({ fs: fsMock, process: processMock, consoleLog: consoleLogMock });
+
+      if (cmdInput !== expected) {
+        expect(consoleLogMock).toHaveBeenCalledWith(JSON.stringify({
+          decision: 'allow',
+          hookSpecificOutput: {
+            tool_input: {
+              command: expected
+            }
+          }
+        }));
+      } else {
+        expect(consoleLogMock).toHaveBeenCalledWith(JSON.stringify({ decision: 'allow' }));
       }
+      expect(processExitMock).toHaveBeenCalledWith(0);
     });
-
-    fsMock.readFileSync.mockReturnValue(input);
-
-    main({ fs: fsMock, process: processMock, consoleLog: consoleLogMock });
-
-    expect(consoleLogMock).toHaveBeenCalledWith(JSON.stringify({ decision: 'allow' }));
-    expect(processExitMock).toHaveBeenCalledWith(0);
   });
 
   it('should allow if tool is not run_shell_command', () => {
@@ -73,7 +74,7 @@ describe('command_fixer_hook', () => {
       hook_event_name: 'BeforeTool',
       tool_name: 'write_file',
       tool_input: {
-        command: 'something && something'
+        command: 'rm -rf test'
       }
     });
 
@@ -90,7 +91,7 @@ describe('command_fixer_hook', () => {
       hook_event_name: 'AfterTool',
       tool_name: 'run_shell_command',
       tool_input: {
-        command: 'git add . && git commit'
+        command: 'rm -rf test'
       }
     });
 
@@ -112,20 +113,4 @@ describe('command_fixer_hook', () => {
     expect(processExitMock).toHaveBeenCalledWith(0);
   });
 
-  it('should not replace if "&&" is inside a word (no spaces)', () => {
-     const input = JSON.stringify({
-      hook_event_name: 'BeforeTool',
-      tool_name: 'run_shell_command',
-      tool_input: {
-        command: 'echo foo&&bar'
-      }
-    });
-
-    fsMock.readFileSync.mockReturnValue(input);
-
-    main({ fs: fsMock, process: processMock, consoleLog: consoleLogMock });
-
-    expect(consoleLogMock).toHaveBeenCalledWith(JSON.stringify({ decision: 'allow' }));
-    expect(processExitMock).toHaveBeenCalledWith(0);
-  });
 });

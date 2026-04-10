@@ -3,8 +3,45 @@ const fs_module = require('fs');
 
 /**
  * Command Fixer Hook
- * Windows (PowerShell 5.1) compatibility: Replaces ` && ` with `; ` in shell commands.
+ * PowerShell 7 compatibility: Dynamically converts common POSIX commands (rm, mkdir, cp, ls, which)
+ * to their PowerShell equivalents. Leaves `&&` intact as it is supported in PowerShell 7.
  */
+
+function replaceCommands(commandString) {
+  // Matches commands at the start of the string or immediately after a shell separator
+  const regex = /((?:^|[;&|])\s*)(rm|mkdir|cp|ls|which)\b(\s+.*?(?=[;&|]|$))/g;
+
+  return commandString.replace(regex, (match, prefix, cmd, args) => {
+    let newCmd = cmd;
+    let newArgs = args;
+
+    if (cmd === 'rm') {
+      newCmd = 'Remove-Item';
+      newArgs = newArgs.replace(/\s-rf\b/g, ' -Recurse -Force')
+                       .replace(/\s-fr\b/g, ' -Recurse -Force')
+                       .replace(/\s-f\b/g, ' -Force')
+                       .replace(/\s-r\b/g, ' -Recurse');
+    } else if (cmd === 'mkdir') {
+      newCmd = 'New-Item -ItemType Directory -Force';
+      // -p map to -Path, or remove if we just want positional
+      // We map -p to -Path as New-Item -ItemType Directory -Force implicitly handles parent creation
+      newArgs = newArgs.replace(/\s-p\b/g, ' -Path');
+    } else if (cmd === 'cp') {
+      newCmd = 'Copy-Item';
+      newArgs = newArgs.replace(/\s-r\b/g, ' -Recurse');
+    } else if (cmd === 'ls') {
+      newCmd = 'Get-ChildItem';
+      newArgs = newArgs.replace(/\s-la\b/g, '')
+                       .replace(/\s-al\b/g, '')
+                       .replace(/\s-l\b/g, '')
+                       .replace(/\s-a\b/g, '');
+    } else if (cmd === 'which') {
+      newCmd = 'Get-Command';
+    }
+
+    return `${prefix}${newCmd}${newArgs}`;
+  });
+}
 
 function main(deps = {}) {
   const fs = deps.fs || fs_module;
@@ -24,8 +61,7 @@ function main(deps = {}) {
     input = JSON.parse(rawInput);
   } catch (e) {
     // If input is invalid, just allow
-    proc.stderr.write(`[Debug] Failed to parse input JSON: ${e.message}
-`);
+    proc.stderr.write(`[Debug] Failed to parse input JSON: ${e.message}\n`);
     allow();
     return; // Ensure we stop here if allow() returns (in tests)
   }
@@ -45,12 +81,11 @@ function main(deps = {}) {
 
   const originalCommand = tool_input.command;
 
-  // Replace ` && ` with `; ` (global replacement)
-  const fixedCommand = originalCommand.replace(/ && /g, ' ; ');
+  // Replace POSIX commands with PowerShell equivalents
+  const fixedCommand = replaceCommands(originalCommand);
 
   if (fixedCommand !== originalCommand) {
-    proc.stderr.write(`[Command Fixer] Replaced ' && ' with ' ; ' in command.
-`);
+    proc.stderr.write(`[Command Fixer] Applied POSIX to PowerShell command substitutions.\n`);
 
     consoleLog(JSON.stringify({
       decision: 'allow',
@@ -71,4 +106,4 @@ if (require.main === module) {
   main();
 }
 
-module.exports = { main };
+module.exports = { main, replaceCommands };
