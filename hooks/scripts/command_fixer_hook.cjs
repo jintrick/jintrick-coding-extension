@@ -4,102 +4,141 @@ const fs_module = require('fs');
 /**
  * Command Fixer Hook
  * PowerShell 7 compatibility: Dynamically converts common POSIX commands (rm, mkdir, cp, ls, which)
- * to their PowerShell equivalents. Leaves `&&` intact as it is supported in PowerShell 7.
+ * to their PowerShell equivalents.
  */
 
 function replaceCommands(commandString) {
+  let statements = [];
+  let currentStatement = '';
+  let separators = [];
   let inSingleQuote = false;
   let inDoubleQuote = false;
-  let commands = [];
-  let currentCmdStart = 0;
 
-  // 1. Tokenize the command string, respecting single and double quotes
+  // Tokenize the command string into statements separated by ;, &&, ||, |
+  // Respecting single and double quotes
   for (let i = 0; i < commandString.length; i++) {
-    const char = commandString[i];
-
+    let char = commandString[i];
     if (char === "'" && !inDoubleQuote) {
       inSingleQuote = !inSingleQuote;
+      currentStatement += char;
     } else if (char === '"' && !inSingleQuote) {
       inDoubleQuote = !inDoubleQuote;
-    } else if (!inSingleQuote && !inDoubleQuote) {
-      // Unquoted context, look for shell separators
-      let isSeparator = false;
-      let sepLength = 1;
-
-      if (char === ';') {
-        isSeparator = true;
-      } else if (char === '|') {
-        if (commandString[i + 1] === '|') {
-          isSeparator = true;
-          sepLength = 2;
-        } else {
-          isSeparator = true;
-        }
-      } else if (char === '&') {
-        if (commandString[i + 1] === '&') {
-          isSeparator = true;
-          sepLength = 2;
-        } else {
-          isSeparator = true;
-        }
+      currentStatement += char;
+    } else if (!inSingleQuote && !inDoubleQuote && (char === ';' || char === '&' || char === '|')) {
+      let sep = char;
+      if ((char === '&' || char === '|') && commandString[i+1] === char) {
+        sep += char;
+        i++;
       }
-
-      if (isSeparator) {
-        // Push the preceding command
-        commands.push(commandString.substring(currentCmdStart, i));
-        // Push the separator itself
-        commands.push(commandString.substring(i, i + sepLength));
-        i += sepLength - 1;
-        currentCmdStart = i + 1;
-      }
+      statements.push(currentStatement);
+      currentStatement = '';
+      separators.push(sep);
+    } else {
+      currentStatement += char;
     }
   }
+  statements.push(currentStatement);
 
-  // Push the final segment
-  if (currentCmdStart < commandString.length) {
-    commands.push(commandString.substring(currentCmdStart));
+  // Process each statement to replace target POSIX commands
+  for (let i = 0; i < statements.length; i++) {
+    statements[i] = processStatement(statements[i]);
   }
 
-  // 2. Process each tokenized command (skip separators which are at odd indices)
-  for (let i = 0; i < commands.length; i++) {
-    if (i % 2 !== 0) continue;
-
-    let cmdLine = commands[i];
-    // Match leading whitespace and target command name
-    const match = cmdLine.match(/^(\s*)(rm|mkdir|cp|ls|which)\b(.*)$/);
-    if (match) {
-      const prefix = match[1];
-      const cmd = match[2];
-      let args = match[3];
-
-      let newCmd = cmd;
-      if (cmd === 'rm') {
-        newCmd = 'Remove-Item';
-        args = args.replace(/\s-rf\b/g, ' -Recurse -Force')
-                   .replace(/\s-fr\b/g, ' -Recurse -Force')
-                   .replace(/\s-f\b/g, ' -Force')
-                   .replace(/\s-r\b/g, ' -Recurse');
-      } else if (cmd === 'mkdir') {
-        newCmd = 'New-Item -ItemType Directory -Force';
-        args = args.replace(/\s-p\b/g, ' -Path');
-      } else if (cmd === 'cp') {
-        newCmd = 'Copy-Item';
-        args = args.replace(/\s-r\b/g, ' -Recurse');
-      } else if (cmd === 'ls') {
-        newCmd = 'Get-ChildItem';
-        args = args.replace(/\s-la\b/g, '')
-                   .replace(/\s-al\b/g, '')
-                   .replace(/\s-l\b/g, '')
-                   .replace(/\s-a\b/g, '');
-      } else if (cmd === 'which') {
-        newCmd = 'Get-Command';
-      }
-
-      commands[i] = prefix + newCmd + args;
+  // Reassemble the command string
+  let result = '';
+  for (let i = 0; i < statements.length; i++) {
+    result += statements[i];
+    if (i < separators.length) {
+      result += separators[i];
     }
   }
+  return result;
+}
 
-  return commands.join('');
+function processStatement(stmt) {
+  // Only match if the command is at the beginning of the statement (ignoring leading whitespace)
+  const match = stmt.match(/^(\s*)(rm|mkdir|cp|ls|which)\b(.*)$/);
+  if (!match) return stmt;
+  
+  const prefix = match[1];
+  const cmd = match[2];
+  let rest = match[3];
+
+  const trailingMatch = rest.match(/(\s*)$/);
+  const trailing = trailingMatch ? trailingMatch[1] : '';
+  rest = rest.substring(0, rest.length - trailing.length);
+  
+  let newCmd = cmd;
+  let args = [];
+  let currentArg = '';
+  let inSingleQuote = false;
+  let inDoubleQuote = false;
+  
+  // Safely parse arguments to avoid modifying flags inside quoted strings
+  for (let i = 0; i < rest.length; i++) {
+    let char = rest[i];
+    if (char === "'" && !inDoubleQuote) {
+      inSingleQuote = !inSingleQuote;
+      currentArg += char;
+    } else if (char === '"' && !inSingleQuote) {
+      inDoubleQuote = !inDoubleQuote;
+      currentArg += char;
+    } else if (!inSingleQuote && !inDoubleQuote && /\s/.test(char)) {
+      if (currentArg.length > 0) {
+        args.push(currentArg);
+        currentArg = '';
+      }
+    } else {
+      currentArg += char;
+    }
+  }
+  if (currentArg.length > 0) {
+    args.push(currentArg);
+  }
+
+  let extraFlags = [];
+  
+  // Apply specific logic for each command
+  if (cmd === 'rm') {
+    newCmd = 'Remove-Item';
+    args = args.filter(arg => {
+      if (arg === '-rf' || arg === '-fr') { extraFlags.push('-Recurse', '-Force'); return false; }
+      if (arg === '-r') { extraFlags.push('-Recurse'); return false; }
+      if (arg === '-f') { extraFlags.push('-Force'); return false; }
+      return true;
+    });
+  } else if (cmd === 'mkdir') {
+    newCmd = 'New-Item';
+    extraFlags.push('-ItemType', 'Directory', '-Force');
+    args = args.filter(arg => arg !== '-p');
+  } else if (cmd === 'cp') {
+    newCmd = 'Copy-Item';
+    args = args.filter(arg => {
+      if (arg === '-r' || arg === '-R') { extraFlags.push('-Recurse'); return false; }
+      return true;
+    });
+  } else if (cmd === 'ls') {
+    newCmd = 'Get-ChildItem';
+    args = args.filter(arg => {
+      if (/^-[la]+$/.test(arg)) {
+        if (arg.includes('a')) extraFlags.push('-Force');
+        return false;
+      }
+      return true;
+    });
+  } else if (cmd === 'which') {
+    newCmd = 'Get-Command';
+  }
+  
+  // Deduplicate extra flags
+  extraFlags = [...new Set(extraFlags)];
+  
+  let newRest = args.join(' ');
+  if (extraFlags.length > 0) {
+    newRest = (newRest ? newRest + ' ' : '') + extraFlags.join(' ');
+  }
+  
+  return prefix + newCmd + (newRest ? ' ' + newRest : '') + trailing;
 }
 
 function main(deps = {}) {
@@ -114,20 +153,17 @@ function main(deps = {}) {
 
   let input;
   try {
-    // Read from stdin (file descriptor 0)
     const rawInput = fs.readFileSync(0, 'utf8');
     if (!rawInput) proc.exit(0);
     input = JSON.parse(rawInput);
   } catch (e) {
-    // If input is invalid, just allow
     proc.stderr.write(`[Debug] Failed to parse input JSON: ${e.message}\n`);
     allow();
-    return; // Ensure we stop here if allow() returns (in tests)
+    return;
   }
 
   const { hook_event_name, tool_name, tool_input } = input;
 
-  // Only handle BeforeTool for run_shell_command
   if (hook_event_name !== 'BeforeTool' || tool_name !== 'run_shell_command') {
     allow();
     return;
@@ -139,8 +175,6 @@ function main(deps = {}) {
   }
 
   const originalCommand = tool_input.command;
-
-  // Replace POSIX commands with PowerShell equivalents
   const fixedCommand = replaceCommands(originalCommand);
 
   if (fixedCommand !== originalCommand) {

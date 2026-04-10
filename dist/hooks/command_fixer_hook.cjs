@@ -2,6 +2,130 @@
 
 // hooks/scripts/command_fixer_hook.cjs
 var fs_module = require("fs");
+function replaceCommands(commandString) {
+  let statements = [];
+  let currentStatement = "";
+  let separators = [];
+  let inSingleQuote = false;
+  let inDoubleQuote = false;
+  for (let i = 0; i < commandString.length; i++) {
+    let char = commandString[i];
+    if (char === "'" && !inDoubleQuote) {
+      inSingleQuote = !inSingleQuote;
+      currentStatement += char;
+    } else if (char === '"' && !inSingleQuote) {
+      inDoubleQuote = !inDoubleQuote;
+      currentStatement += char;
+    } else if (!inSingleQuote && !inDoubleQuote && (char === ";" || char === "&" || char === "|")) {
+      let sep = char;
+      if ((char === "&" || char === "|") && commandString[i + 1] === char) {
+        sep += char;
+        i++;
+      }
+      statements.push(currentStatement);
+      currentStatement = "";
+      separators.push(sep);
+    } else {
+      currentStatement += char;
+    }
+  }
+  statements.push(currentStatement);
+  for (let i = 0; i < statements.length; i++) {
+    statements[i] = processStatement(statements[i]);
+  }
+  let result = "";
+  for (let i = 0; i < statements.length; i++) {
+    result += statements[i];
+    if (i < separators.length) {
+      result += separators[i];
+    }
+  }
+  return result;
+}
+function processStatement(stmt) {
+  const match = stmt.match(/^(\s*)(rm|mkdir|cp|ls|which)\b(.*)$/);
+  if (!match) return stmt;
+  const prefix = match[1];
+  const cmd = match[2];
+  let rest = match[3];
+  const trailingMatch = rest.match(/(\s*)$/);
+  const trailing = trailingMatch ? trailingMatch[1] : "";
+  rest = rest.substring(0, rest.length - trailing.length);
+  let newCmd = cmd;
+  let args = [];
+  let currentArg = "";
+  let inSingleQuote = false;
+  let inDoubleQuote = false;
+  for (let i = 0; i < rest.length; i++) {
+    let char = rest[i];
+    if (char === "'" && !inDoubleQuote) {
+      inSingleQuote = !inSingleQuote;
+      currentArg += char;
+    } else if (char === '"' && !inSingleQuote) {
+      inDoubleQuote = !inDoubleQuote;
+      currentArg += char;
+    } else if (!inSingleQuote && !inDoubleQuote && /\s/.test(char)) {
+      if (currentArg.length > 0) {
+        args.push(currentArg);
+        currentArg = "";
+      }
+    } else {
+      currentArg += char;
+    }
+  }
+  if (currentArg.length > 0) {
+    args.push(currentArg);
+  }
+  let extraFlags = [];
+  if (cmd === "rm") {
+    newCmd = "Remove-Item";
+    args = args.filter((arg) => {
+      if (arg === "-rf" || arg === "-fr") {
+        extraFlags.push("-Recurse", "-Force");
+        return false;
+      }
+      if (arg === "-r") {
+        extraFlags.push("-Recurse");
+        return false;
+      }
+      if (arg === "-f") {
+        extraFlags.push("-Force");
+        return false;
+      }
+      return true;
+    });
+  } else if (cmd === "mkdir") {
+    newCmd = "New-Item";
+    extraFlags.push("-ItemType", "Directory", "-Force");
+    args = args.filter((arg) => arg !== "-p");
+  } else if (cmd === "cp") {
+    newCmd = "Copy-Item";
+    args = args.filter((arg) => {
+      if (arg === "-r" || arg === "-R") {
+        extraFlags.push("-Recurse");
+        return false;
+      }
+      return true;
+    });
+  } else if (cmd === "ls") {
+    newCmd = "Get-ChildItem";
+    args = args.filter((arg) => {
+      if (/^-[la]+$/.test(arg)) {
+        if (arg.includes("a")) extraFlags.push("-Force");
+        return false;
+      }
+      return true;
+    });
+  } else if (cmd === "which") {
+    newCmd = "Get-Command";
+  }
+  extraFlags = [...new Set(extraFlags)];
+  let newRest = args.join(" ");
+  if (extraFlags.length > 0) {
+    newRest = (newRest ? newRest + " " : "") + extraFlags.join(" ");
+  }
+  return prefix + newCmd + (newRest ? " " + newRest : "") + trailing;
+}
 function main(deps = {}) {
   const fs = deps.fs || fs_module;
   const proc = deps.process || process;
@@ -31,9 +155,9 @@ function main(deps = {}) {
     return;
   }
   const originalCommand = tool_input.command;
-  const fixedCommand = originalCommand.replace(/ && /g, " ; ");
+  const fixedCommand = replaceCommands(originalCommand);
   if (fixedCommand !== originalCommand) {
-    proc.stderr.write(`[Command Fixer] Replaced ' && ' with ' ; ' in command.
+    proc.stderr.write(`[Command Fixer] Applied POSIX to PowerShell command substitutions.
 `);
     consoleLog(JSON.stringify({
       decision: "allow",
@@ -51,4 +175,4 @@ function main(deps = {}) {
 if (require.main === module) {
   main();
 }
-module.exports = { main };
+module.exports = { main, replaceCommands };
