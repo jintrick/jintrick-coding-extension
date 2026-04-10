@@ -8,39 +8,98 @@ const fs_module = require('fs');
  */
 
 function replaceCommands(commandString) {
-  // Matches commands at the start of the string or immediately after a shell separator
-  const regex = /((?:^|[;&|])\s*)(rm|mkdir|cp|ls|which)\b(\s+.*?(?=[;&|]|$))/g;
+  let inSingleQuote = false;
+  let inDoubleQuote = false;
+  let commands = [];
+  let currentCmdStart = 0;
 
-  return commandString.replace(regex, (match, prefix, cmd, args) => {
-    let newCmd = cmd;
-    let newArgs = args;
+  // 1. Tokenize the command string, respecting single and double quotes
+  for (let i = 0; i < commandString.length; i++) {
+    const char = commandString[i];
 
-    if (cmd === 'rm') {
-      newCmd = 'Remove-Item';
-      newArgs = newArgs.replace(/\s-rf\b/g, ' -Recurse -Force')
-                       .replace(/\s-fr\b/g, ' -Recurse -Force')
-                       .replace(/\s-f\b/g, ' -Force')
-                       .replace(/\s-r\b/g, ' -Recurse');
-    } else if (cmd === 'mkdir') {
-      newCmd = 'New-Item -ItemType Directory -Force';
-      // -p map to -Path, or remove if we just want positional
-      // We map -p to -Path as New-Item -ItemType Directory -Force implicitly handles parent creation
-      newArgs = newArgs.replace(/\s-p\b/g, ' -Path');
-    } else if (cmd === 'cp') {
-      newCmd = 'Copy-Item';
-      newArgs = newArgs.replace(/\s-r\b/g, ' -Recurse');
-    } else if (cmd === 'ls') {
-      newCmd = 'Get-ChildItem';
-      newArgs = newArgs.replace(/\s-la\b/g, '')
-                       .replace(/\s-al\b/g, '')
-                       .replace(/\s-l\b/g, '')
-                       .replace(/\s-a\b/g, '');
-    } else if (cmd === 'which') {
-      newCmd = 'Get-Command';
+    if (char === "'" && !inDoubleQuote) {
+      inSingleQuote = !inSingleQuote;
+    } else if (char === '"' && !inSingleQuote) {
+      inDoubleQuote = !inDoubleQuote;
+    } else if (!inSingleQuote && !inDoubleQuote) {
+      // Unquoted context, look for shell separators
+      let isSeparator = false;
+      let sepLength = 1;
+
+      if (char === ';') {
+        isSeparator = true;
+      } else if (char === '|') {
+        if (commandString[i + 1] === '|') {
+          isSeparator = true;
+          sepLength = 2;
+        } else {
+          isSeparator = true;
+        }
+      } else if (char === '&') {
+        if (commandString[i + 1] === '&') {
+          isSeparator = true;
+          sepLength = 2;
+        } else {
+          isSeparator = true;
+        }
+      }
+
+      if (isSeparator) {
+        // Push the preceding command
+        commands.push(commandString.substring(currentCmdStart, i));
+        // Push the separator itself
+        commands.push(commandString.substring(i, i + sepLength));
+        i += sepLength - 1;
+        currentCmdStart = i + 1;
+      }
     }
+  }
 
-    return `${prefix}${newCmd}${newArgs}`;
-  });
+  // Push the final segment
+  if (currentCmdStart < commandString.length) {
+    commands.push(commandString.substring(currentCmdStart));
+  }
+
+  // 2. Process each tokenized command (skip separators which are at odd indices)
+  for (let i = 0; i < commands.length; i++) {
+    if (i % 2 !== 0) continue;
+
+    let cmdLine = commands[i];
+    // Match leading whitespace and target command name
+    const match = cmdLine.match(/^(\s*)(rm|mkdir|cp|ls|which)\b(.*)$/);
+    if (match) {
+      const prefix = match[1];
+      const cmd = match[2];
+      let args = match[3];
+
+      let newCmd = cmd;
+      if (cmd === 'rm') {
+        newCmd = 'Remove-Item';
+        args = args.replace(/\s-rf\b/g, ' -Recurse -Force')
+                   .replace(/\s-fr\b/g, ' -Recurse -Force')
+                   .replace(/\s-f\b/g, ' -Force')
+                   .replace(/\s-r\b/g, ' -Recurse');
+      } else if (cmd === 'mkdir') {
+        newCmd = 'New-Item -ItemType Directory -Force';
+        args = args.replace(/\s-p\b/g, ' -Path');
+      } else if (cmd === 'cp') {
+        newCmd = 'Copy-Item';
+        args = args.replace(/\s-r\b/g, ' -Recurse');
+      } else if (cmd === 'ls') {
+        newCmd = 'Get-ChildItem';
+        args = args.replace(/\s-la\b/g, '')
+                   .replace(/\s-al\b/g, '')
+                   .replace(/\s-l\b/g, '')
+                   .replace(/\s-a\b/g, '');
+      } else if (cmd === 'which') {
+        newCmd = 'Get-Command';
+      }
+
+      commands[i] = prefix + newCmd + args;
+    }
+  }
+
+  return commands.join('');
 }
 
 function main(deps = {}) {

@@ -28,6 +28,8 @@ describe('command_fixer_hook', () => {
   });
 
   const testCases = [
+    { name: 'rm -rf "some;dir"', input: 'rm -rf "some;dir"', expected: 'Remove-Item -Recurse -Force "some;dir"' },
+    { name: 'echo "rm && foo"', input: 'echo "rm && foo"', expected: 'echo "rm && foo"' },
     { name: 'rm -rf test', input: 'rm -rf test', expected: 'Remove-Item -Recurse -Force test' },
     { name: 'mkdir -p a/b/c', input: 'mkdir -p a/b/c', expected: 'New-Item -ItemType Directory -Force -Path a/b/c' },
     { name: 'cp -r src dest', input: 'cp -r src dest', expected: 'Copy-Item -Recurse src dest' },
