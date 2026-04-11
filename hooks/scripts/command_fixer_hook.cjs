@@ -14,7 +14,7 @@ function replaceCommands(commandString) {
   let inSingleQuote = false;
   let inDoubleQuote = false;
 
-  // Tokenize the command string into statements separated by ;, &&, ||, |
+  // Tokenize the command string into statements separated by ;, &&, ||, |, and &
   // Respecting single and double quotes
   for (let i = 0; i < commandString.length; i++) {
     let char = commandString[i];
@@ -26,24 +26,30 @@ function replaceCommands(commandString) {
       currentStatement += char;
     } else if (!inSingleQuote && !inDoubleQuote && (char === ';' || char === '&' || char === '|')) {
       let sep = char;
-      if ((char === '&' || char === '|') && commandString[i+1] === char) {
-        sep += char;
-        i++;
-        statements.push(currentStatement);
-        currentStatement = '';
-        separators.push(sep);
-      } else if (char === ';') {
-        statements.push(currentStatement);
-        currentStatement = '';
-        separators.push(sep);
+      if (char === '&') {
+        if (commandString[i+1] === '&') {
+          sep = '&&';
+          i++;
+        } else {
+          // Check if it's part of a redirection like >&2 or 2>&1
+          let prevChar = i > 0 ? commandString[i-1] : '';
+          if (prevChar === '>' || prevChar === '<') {
+            // It's a redirection, NOT a separator
+            currentStatement += char;
+            continue; // Skip separation logic
+          }
+          // Otherwise, it's a background operator '&', treat as separator
+        }
       } else if (char === '|') {
-        statements.push(currentStatement);
-        currentStatement = '';
-        separators.push(sep);
-      } else {
-        // Single '&' (like in 2>&1 or background job)
-        currentStatement += char;
+        if (commandString[i+1] === '|') {
+          sep = '||';
+          i++;
+        }
       }
+      
+      statements.push(currentStatement);
+      currentStatement = '';
+      separators.push(sep);
     } else {
       currentStatement += char;
     }
@@ -126,7 +132,7 @@ function processStatement(stmt) {
       skipNextAsRedirectTarget = true;
       continue;
     }
-    if (arg === '2>&1' || arg === '>&2' || arg === '>&1' || arg === '&') {
+    if (arg === '2>&1' || arg === '>&2' || arg === '>&1') { // Note: single '&' is now handled by tokenizer
       redirections.push(arg);
       continue;
     }
@@ -140,19 +146,19 @@ function processStatement(stmt) {
         if (arg === '-rf' || arg === '-fr') { extraFlags.push('-Recurse', '-Force'); }
         else if (arg === '-r' || arg === '-R') { extraFlags.push('-Recurse'); }
         else if (arg === '-f') { extraFlags.push('-Force'); }
-        else { positionals.push(arg); }
+        else { extraFlags.push(arg); } // Unknown flag, keep as is
       } else if (cmd === 'mkdir') {
         if (arg === '-p') { /* ignore */ }
-        else { positionals.push(arg); }
+        else { extraFlags.push(arg); }
       } else if (cmd === 'cp') {
         if (arg === '-r' || arg === '-R') { extraFlags.push('-Recurse'); }
-        else { positionals.push(arg); }
+        else { extraFlags.push(arg); }
       } else if (cmd === 'ls') {
         if (/^-[la]+$/.test(arg)) {
           if (arg.includes('a')) extraFlags.push('-Force');
-        } else { positionals.push(arg); }
+        } else { extraFlags.push(arg); }
       } else {
-        positionals.push(arg);
+        extraFlags.push(arg);
       }
     } else {
       positionals.push(arg);
@@ -166,16 +172,28 @@ function processStatement(stmt) {
   if (cmd === 'ls') newCmd = 'Get-ChildItem';
   if (cmd === 'which') newCmd = 'Get-Command';
 
-  extraFlags = [...new Set(extraFlags)];
+  // Deduplicate known flags but preserve order
+  let uniqueExtraFlags = [];
+  extraFlags.forEach(f => {
+    if (!uniqueExtraFlags.includes(f)) uniqueExtraFlags.push(f);
+  });
+  extraFlags = uniqueExtraFlags;
 
   let finalArgs = [];
-  if (positionals.length > 0) {
+  
+  if (cmd === 'cp' && positionals.length >= 3) {
+    // Multi-source cp -> Copy-Item -Path a, b -Destination dest
+    let dest = positionals.pop();
+    finalArgs.push('-Path', positionals.join(', '));
+    finalArgs.push('-Destination', dest);
+  } else if (positionals.length > 0) {
     if (cmd === 'rm' || cmd === 'mkdir' || cmd === 'ls') {
       finalArgs.push(positionals.join(', '));
     } else {
       finalArgs.push(positionals.join(' '));
     }
   }
+
   if (extraFlags.length > 0) {
     finalArgs.push(extraFlags.join(' '));
   }

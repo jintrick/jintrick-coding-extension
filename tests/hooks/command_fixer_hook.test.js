@@ -42,6 +42,10 @@ describe('command_fixer_hook', () => {
       { name: 'redirect protection', input: 'npm install 2>&1', expected: 'npm install 2>&1' },
       { name: 'redirect protection with space', input: 'npm test > out.log', expected: 'npm test > out.log' },
       { name: 'rm multiple args with redirect', input: 'rm a b 2>&1', expected: 'Remove-Item a, b 2>&1' },
+      { name: 'background operator protection', input: 'rm file & ls', expected: 'Remove-Item file & Get-ChildItem' },
+      { name: 'unknown flag protection', input: 'ls -t dir', expected: 'Get-ChildItem dir -t' },
+      { name: 'multiple source cp', input: 'cp a b dest', expected: 'Copy-Item -Path a, b -Destination dest' },
+      { name: 'multi dir mkdir', input: 'mkdir dir1 dir2', expected: 'New-Item dir1, dir2 -ItemType Directory -Force' },
     ];
 
     testCases.forEach(({ name, input, expected }) => {

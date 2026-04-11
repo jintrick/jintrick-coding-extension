@@ -18,23 +18,26 @@ function replaceCommands(commandString) {
       currentStatement += char;
     } else if (!inSingleQuote && !inDoubleQuote && (char === ";" || char === "&" || char === "|")) {
       let sep = char;
-      if ((char === "&" || char === "|") && commandString[i + 1] === char) {
-        sep += char;
-        i++;
-        statements.push(currentStatement);
-        currentStatement = "";
-        separators.push(sep);
-      } else if (char === ";") {
-        statements.push(currentStatement);
-        currentStatement = "";
-        separators.push(sep);
+      if (char === "&") {
+        if (commandString[i + 1] === "&") {
+          sep = "&&";
+          i++;
+        } else {
+          let prevChar = i > 0 ? commandString[i - 1] : "";
+          if (prevChar === ">" || prevChar === "<") {
+            currentStatement += char;
+            continue;
+          }
+        }
       } else if (char === "|") {
-        statements.push(currentStatement);
-        currentStatement = "";
-        separators.push(sep);
-      } else {
-        currentStatement += char;
+        if (commandString[i + 1] === "|") {
+          sep = "||";
+          i++;
+        }
       }
+      statements.push(currentStatement);
+      currentStatement = "";
+      separators.push(sep);
     } else {
       currentStatement += char;
     }
@@ -101,7 +104,7 @@ function processStatement(stmt) {
       skipNextAsRedirectTarget = true;
       continue;
     }
-    if (arg === "2>&1" || arg === ">&2" || arg === ">&1" || arg === "&") {
+    if (arg === "2>&1" || arg === ">&2" || arg === ">&1") {
       redirections.push(arg);
       continue;
     }
@@ -118,27 +121,27 @@ function processStatement(stmt) {
         } else if (arg === "-f") {
           extraFlags.push("-Force");
         } else {
-          positionals.push(arg);
+          extraFlags.push(arg);
         }
       } else if (cmd === "mkdir") {
         if (arg === "-p") {
         } else {
-          positionals.push(arg);
+          extraFlags.push(arg);
         }
       } else if (cmd === "cp") {
         if (arg === "-r" || arg === "-R") {
           extraFlags.push("-Recurse");
         } else {
-          positionals.push(arg);
+          extraFlags.push(arg);
         }
       } else if (cmd === "ls") {
         if (/^-[la]+$/.test(arg)) {
           if (arg.includes("a")) extraFlags.push("-Force");
         } else {
-          positionals.push(arg);
+          extraFlags.push(arg);
         }
       } else {
-        positionals.push(arg);
+        extraFlags.push(arg);
       }
     } else {
       positionals.push(arg);
@@ -153,9 +156,17 @@ function processStatement(stmt) {
   if (cmd === "cp") newCmd = "Copy-Item";
   if (cmd === "ls") newCmd = "Get-ChildItem";
   if (cmd === "which") newCmd = "Get-Command";
-  extraFlags = [...new Set(extraFlags)];
+  let uniqueExtraFlags = [];
+  extraFlags.forEach((f) => {
+    if (!uniqueExtraFlags.includes(f)) uniqueExtraFlags.push(f);
+  });
+  extraFlags = uniqueExtraFlags;
   let finalArgs = [];
-  if (positionals.length > 0) {
+  if (cmd === "cp" && positionals.length >= 3) {
+    let dest = positionals.pop();
+    finalArgs.push("-Path", positionals.join(", "));
+    finalArgs.push("-Destination", dest);
+  } else if (positionals.length > 0) {
     if (cmd === "rm" || cmd === "mkdir" || cmd === "ls") {
       finalArgs.push(positionals.join(", "));
     } else {
