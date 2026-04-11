@@ -21,10 +21,20 @@ function replaceCommands(commandString) {
       if ((char === "&" || char === "|") && commandString[i + 1] === char) {
         sep += char;
         i++;
+        statements.push(currentStatement);
+        currentStatement = "";
+        separators.push(sep);
+      } else if (char === ";") {
+        statements.push(currentStatement);
+        currentStatement = "";
+        separators.push(sep);
+      } else if (char === "|") {
+        statements.push(currentStatement);
+        currentStatement = "";
+        separators.push(sep);
+      } else {
+        currentStatement += char;
       }
-      statements.push(currentStatement);
-      currentStatement = "";
-      separators.push(sep);
     } else {
       currentStatement += char;
     }
@@ -51,8 +61,7 @@ function processStatement(stmt) {
   const trailingMatch = rest.match(/(\s*)$/);
   const trailing = trailingMatch ? trailingMatch[1] : "";
   rest = rest.substring(0, rest.length - trailing.length);
-  let newCmd = cmd;
-  let args = [];
+  let rawArgs = [];
   let currentArg = "";
   let inSingleQuote = false;
   let inDoubleQuote = false;
@@ -66,7 +75,7 @@ function processStatement(stmt) {
       currentArg += char;
     } else if (!inSingleQuote && !inDoubleQuote && /\s/.test(char)) {
       if (currentArg.length > 0) {
-        args.push(currentArg);
+        rawArgs.push(currentArg);
         currentArg = "";
       }
     } else {
@@ -74,56 +83,92 @@ function processStatement(stmt) {
     }
   }
   if (currentArg.length > 0) {
-    args.push(currentArg);
+    rawArgs.push(currentArg);
   }
   let extraFlags = [];
-  if (cmd === "rm") {
-    newCmd = "Remove-Item";
-    args = args.filter((arg) => {
-      if (arg === "-rf" || arg === "-fr") {
-        extraFlags.push("-Recurse", "-Force");
-        return false;
+  let positionals = [];
+  let redirections = [];
+  let skipNextAsRedirectTarget = false;
+  for (let i = 0; i < rawArgs.length; i++) {
+    let arg = rawArgs[i];
+    if (skipNextAsRedirectTarget) {
+      redirections.push(arg);
+      skipNextAsRedirectTarget = false;
+      continue;
+    }
+    if (/^[0-2]?(?:>>|>|<)$/.test(arg)) {
+      redirections.push(arg);
+      skipNextAsRedirectTarget = true;
+      continue;
+    }
+    if (arg === "2>&1" || arg === ">&2" || arg === ">&1" || arg === "&") {
+      redirections.push(arg);
+      continue;
+    }
+    if (/^[0-2]?(?:>>|>|<)[^\s]+/.test(arg)) {
+      redirections.push(arg);
+      continue;
+    }
+    if (arg.startsWith("-")) {
+      if (cmd === "rm") {
+        if (arg === "-rf" || arg === "-fr") {
+          extraFlags.push("-Recurse", "-Force");
+        } else if (arg === "-r" || arg === "-R") {
+          extraFlags.push("-Recurse");
+        } else if (arg === "-f") {
+          extraFlags.push("-Force");
+        } else {
+          positionals.push(arg);
+        }
+      } else if (cmd === "mkdir") {
+        if (arg === "-p") {
+        } else {
+          positionals.push(arg);
+        }
+      } else if (cmd === "cp") {
+        if (arg === "-r" || arg === "-R") {
+          extraFlags.push("-Recurse");
+        } else {
+          positionals.push(arg);
+        }
+      } else if (cmd === "ls") {
+        if (/^-[la]+$/.test(arg)) {
+          if (arg.includes("a")) extraFlags.push("-Force");
+        } else {
+          positionals.push(arg);
+        }
+      } else {
+        positionals.push(arg);
       }
-      if (arg === "-r") {
-        extraFlags.push("-Recurse");
-        return false;
-      }
-      if (arg === "-f") {
-        extraFlags.push("-Force");
-        return false;
-      }
-      return true;
-    });
-  } else if (cmd === "mkdir") {
+    } else {
+      positionals.push(arg);
+    }
+  }
+  let newCmd = cmd;
+  if (cmd === "rm") newCmd = "Remove-Item";
+  if (cmd === "mkdir") {
     newCmd = "New-Item";
     extraFlags.push("-ItemType", "Directory", "-Force");
-    args = args.filter((arg) => arg !== "-p");
-  } else if (cmd === "cp") {
-    newCmd = "Copy-Item";
-    args = args.filter((arg) => {
-      if (arg === "-r" || arg === "-R") {
-        extraFlags.push("-Recurse");
-        return false;
-      }
-      return true;
-    });
-  } else if (cmd === "ls") {
-    newCmd = "Get-ChildItem";
-    args = args.filter((arg) => {
-      if (/^-[la]+$/.test(arg)) {
-        if (arg.includes("a")) extraFlags.push("-Force");
-        return false;
-      }
-      return true;
-    });
-  } else if (cmd === "which") {
-    newCmd = "Get-Command";
   }
+  if (cmd === "cp") newCmd = "Copy-Item";
+  if (cmd === "ls") newCmd = "Get-ChildItem";
+  if (cmd === "which") newCmd = "Get-Command";
   extraFlags = [...new Set(extraFlags)];
-  let newRest = args.join(" ");
-  if (extraFlags.length > 0) {
-    newRest = (newRest ? newRest + " " : "") + extraFlags.join(" ");
+  let finalArgs = [];
+  if (positionals.length > 0) {
+    if (cmd === "rm" || cmd === "mkdir" || cmd === "ls") {
+      finalArgs.push(positionals.join(", "));
+    } else {
+      finalArgs.push(positionals.join(" "));
+    }
   }
+  if (extraFlags.length > 0) {
+    finalArgs.push(extraFlags.join(" "));
+  }
+  if (redirections.length > 0) {
+    finalArgs.push(redirections.join(" "));
+  }
+  let newRest = finalArgs.join(" ");
   return prefix + newCmd + (newRest ? " " + newRest : "") + trailing;
 }
 function main(deps = {}) {

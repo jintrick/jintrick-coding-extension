@@ -38,6 +38,10 @@ describe('command_fixer_hook', () => {
       { name: 'multiple commands', input: 'mkdir -p a && rm -rf b', expected: 'New-Item a -ItemType Directory -Force && Remove-Item b -Recurse -Force' },
       { name: 'no change needed', input: 'git add . && git commit', expected: 'git add . && git commit' },
       { name: 'unrelated command', input: 'storm', expected: 'storm' },
+      { name: 'multiple arguments', input: 'rm path1 path2', expected: 'Remove-Item path1, path2' },
+      { name: 'redirect protection', input: 'npm install 2>&1', expected: 'npm install 2>&1' },
+      { name: 'redirect protection with space', input: 'npm test > out.log', expected: 'npm test > out.log' },
+      { name: 'rm multiple args with redirect', input: 'rm a b 2>&1', expected: 'Remove-Item a, b 2>&1' },
     ];
 
     testCases.forEach(({ name, input, expected }) => {
