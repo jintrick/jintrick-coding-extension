@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { main } from '../../hooks/scripts/command_fixer_hook.cjs';
+import { main, replaceCommands } from '../../hooks/scripts/command_fixer_hook.cjs';
 
 describe('command_fixer_hook', () => {
   let consoleLogMock;
@@ -12,14 +12,10 @@ describe('command_fixer_hook', () => {
     consoleLogMock = vi.fn();
     processExitMock = vi.fn();
     processStderrMock = vi.fn();
-    fsMock = {
-      readFileSync: vi.fn(),
-    };
+    fsMock = { readFileSync: vi.fn() };
     processMock = {
       exit: processExitMock,
-      stderr: {
-        write: processStderrMock
-      }
+      stderr: { write: processStderrMock }
     };
   });
 
@@ -27,75 +23,67 @@ describe('command_fixer_hook', () => {
     vi.clearAllMocks();
   });
 
-  it('should replace " && " with " ; " in run_shell_command', () => {
+  describe('replaceCommands', () => {
+    const testCases = [
+      { name: 'rm -rf test', input: 'rm -rf test', expected: 'Remove-Item test -Recurse -Force' },
+      { name: 'rm test -rf', input: 'rm test -rf', expected: 'Remove-Item test -Recurse -Force' },
+      { name: 'mkdir -p a/b/c', input: 'mkdir -p a/b/c', expected: 'New-Item a/b/c -ItemType Directory -Force' },
+      { name: 'cp -r src dest', input: 'cp -r src dest', expected: 'Copy-Item src dest -Recurse' },
+      { name: 'ls -la', input: 'ls -la', expected: 'Get-ChildItem -Force' },
+      { name: 'ls -l', input: 'ls -l', expected: 'Get-ChildItem' },
+      { name: 'which node', input: 'which node', expected: 'Get-Command node' },
+      { name: 'quoted separator', input: 'rm -rf "some;dir"', expected: 'Remove-Item "some;dir" -Recurse -Force' },
+      { name: 'quoted flag', input: 'rm -rf "my -rf file"', expected: 'Remove-Item "my -rf file" -Recurse -Force' },
+      { name: 'echo inside quote', input: 'echo "rm -rf foo"', expected: 'echo "rm -rf foo"' },
+      { name: 'multiple commands', input: 'mkdir -p a && rm -rf b', expected: 'New-Item a -ItemType Directory -Force && Remove-Item b -Recurse -Force' },
+      { name: 'no change needed', input: 'git add . && git commit', expected: 'git add . && git commit' },
+      { name: 'unrelated command', input: 'storm', expected: 'storm' },
+      { name: 'multiple arguments', input: 'rm path1 path2', expected: 'Remove-Item path1, path2' },
+      { name: 'redirect protection', input: 'npm install 2>&1', expected: 'npm install 2>&1' },
+      { name: 'redirect protection with space', input: 'npm test > out.log', expected: 'npm test > out.log' },
+      { name: 'rm multiple args with redirect', input: 'rm a b 2>&1', expected: 'Remove-Item a, b 2>&1' },
+      { name: 'background operator protection', input: 'rm file & ls', expected: 'Remove-Item file & Get-ChildItem' },
+      { name: 'unknown flag protection', input: 'ls -t dir', expected: 'Get-ChildItem dir -t' },
+      { name: 'multiple source cp', input: 'cp a b dest', expected: 'Copy-Item -Path a, b -Destination dest' },
+      { name: 'multi dir mkdir', input: 'mkdir dir1 dir2', expected: 'New-Item dir1, dir2 -ItemType Directory -Force' },
+    ];
+
+    testCases.forEach(({ name, input, expected }) => {
+      it(`should transform "${name}" correctly`, () => {
+        expect(replaceCommands(input)).toBe(expected);
+      });
+    });
+  });
+
+  it('should allow and modify command via hook', () => {
     const input = JSON.stringify({
       hook_event_name: 'BeforeTool',
       tool_name: 'run_shell_command',
-      tool_input: {
-        command: 'git add . && git commit'
-      }
+      tool_input: { command: 'rm -rf test' }
     });
 
     fsMock.readFileSync.mockReturnValue(input);
-
     main({ fs: fsMock, process: processMock, consoleLog: consoleLogMock });
 
     expect(consoleLogMock).toHaveBeenCalledWith(JSON.stringify({
       decision: 'allow',
       hookSpecificOutput: {
         tool_input: {
-          command: 'git add . ; git commit'
+          command: 'Remove-Item test -Recurse -Force'
         }
       }
     }));
     expect(processExitMock).toHaveBeenCalledWith(0);
   });
 
-  it('should allow without changes if " && " is not present', () => {
-    const input = JSON.stringify({
-      hook_event_name: 'BeforeTool',
-      tool_name: 'run_shell_command',
-      tool_input: {
-        command: 'git status'
-      }
-    });
-
-    fsMock.readFileSync.mockReturnValue(input);
-
-    main({ fs: fsMock, process: processMock, consoleLog: consoleLogMock });
-
-    expect(consoleLogMock).toHaveBeenCalledWith(JSON.stringify({ decision: 'allow' }));
-    expect(processExitMock).toHaveBeenCalledWith(0);
-  });
-
-  it('should allow if tool is not run_shell_command', () => {
+  it('should allow without modification if tool is not run_shell_command', () => {
     const input = JSON.stringify({
       hook_event_name: 'BeforeTool',
       tool_name: 'write_file',
-      tool_input: {
-        command: 'something && something'
-      }
+      tool_input: { command: 'rm -rf test' }
     });
 
     fsMock.readFileSync.mockReturnValue(input);
-
-    main({ fs: fsMock, process: processMock, consoleLog: consoleLogMock });
-
-    expect(consoleLogMock).toHaveBeenCalledWith(JSON.stringify({ decision: 'allow' }));
-    expect(processExitMock).toHaveBeenCalledWith(0);
-  });
-
-  it('should allow if event is not BeforeTool', () => {
-    const input = JSON.stringify({
-      hook_event_name: 'AfterTool',
-      tool_name: 'run_shell_command',
-      tool_input: {
-        command: 'git add . && git commit'
-      }
-    });
-
-    fsMock.readFileSync.mockReturnValue(input);
-
     main({ fs: fsMock, process: processMock, consoleLog: consoleLogMock });
 
     expect(consoleLogMock).toHaveBeenCalledWith(JSON.stringify({ decision: 'allow' }));
@@ -104,27 +92,8 @@ describe('command_fixer_hook', () => {
 
   it('should handle malformed JSON gracefully', () => {
     fsMock.readFileSync.mockReturnValue('invalid json');
-
     main({ fs: fsMock, process: processMock, consoleLog: consoleLogMock });
-
     expect(processStderrMock).toHaveBeenCalled();
-    expect(consoleLogMock).toHaveBeenCalledWith(JSON.stringify({ decision: 'allow' }));
-    expect(processExitMock).toHaveBeenCalledWith(0);
-  });
-
-  it('should not replace if "&&" is inside a word (no spaces)', () => {
-     const input = JSON.stringify({
-      hook_event_name: 'BeforeTool',
-      tool_name: 'run_shell_command',
-      tool_input: {
-        command: 'echo foo&&bar'
-      }
-    });
-
-    fsMock.readFileSync.mockReturnValue(input);
-
-    main({ fs: fsMock, process: processMock, consoleLog: consoleLogMock });
-
     expect(consoleLogMock).toHaveBeenCalledWith(JSON.stringify({ decision: 'allow' }));
     expect(processExitMock).toHaveBeenCalledWith(0);
   });

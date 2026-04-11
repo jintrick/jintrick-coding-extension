@@ -68,7 +68,7 @@ describe('generate-template.cjs', () => {
       // getCurrentVersion mock
       existsSyncSpy.mockImplementation((file) => {
         if (file.includes('package.json')) return true;
-        if (file.includes('docs/issue')) return true;
+        if (file.includes('docs/issue') && !file.endsWith('.md')) return true;
         return false;
       });
       readFileSyncSpy.mockImplementation((file) => {

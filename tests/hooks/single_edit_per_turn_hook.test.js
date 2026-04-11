@@ -88,7 +88,7 @@ describe('single_edit_per_turn_hook', () => {
       tool_input: { file_path: 'test.txt' }
     });
     expect(res.decision).toBe('deny');
-    expect(res.reason).toBe('Duplicate file edit (replace) in a single turn');
+    expect(res.reason).toBe("Duplicate file edit. Set 'wait_for_previous: true' to edit the same file multiple times in one turn.");
   });
 
   it('BeforeTool: 別の file_path であれば 2回目でも allow されること', () => {
