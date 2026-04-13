@@ -1,6 +1,6 @@
 ---
 name: gemini-cli-expert
-description: Gemini CLI の仕様、設定、拡張機能の開発方法（Hook, Skill, Agent等）について疑問が生じた場合は、推測を排し、必ずこのエージェントを起動して公式ドキュメントに基づく事実確認を行え。
+description: 現行のGemini CLI の仕様、設定、拡張機能の開発方法（Hook, Skill, Agent等）について疑問が生じた場合は、推測を排し、必ずこのエージェントを起動して公式ドキュメントに基づく事実確認を行え。ただし最新バージョンの調査にはgemini-cli-expertではなく、github-investigatorスキルを用いること。
 tools: 
   - grep_search
   - read_file
