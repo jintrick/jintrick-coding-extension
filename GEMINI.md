@@ -26,6 +26,7 @@ You are developing `jintrick-coding-extension`, a Gemini CLI extension that prov
 ## System Prompt Maintenance (jintrick.md)
 `jintrick.md` およびその同期プロセスにおいて、以下の制約を厳格に遵守すること。
 
+- **Dynamic Placeholders:** システムプロンプト内の `${SubAgents}` や `${AgentSkills}` は CLI によって動的に展開される。サブエージェントの説明文（`description`）を変更したい場合は、`jintrick.md` ではなく、必ず `agents/*.md` のフロントマターを直接編集すること。
 - **Originality Preservation:** `jintrick.md` は常に `original.md` の内容を完全に復元できる状態でなければならない。
 - **Modification Ritual (ORIGINAL/INTENT):** すべての変更（削除、簡素化、統合）は、必ず以下の形式で `original.md` または以前のブロックをコメントとして残すこと。
     ```markdown
