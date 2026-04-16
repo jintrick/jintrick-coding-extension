@@ -1,0 +1,3 @@
+Test file for hook inspection.
+Line 1 (Modified)
+Line 2
