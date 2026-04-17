@@ -5,7 +5,7 @@ function syncSystemPrompt(content, destinations) {
   if (!destinations || destinations.length === 0) {
     destinations = [
       path.resolve(__dirname, '../.gemini/system.md'),
-      path.resolve(__dirname, '../skills/init-jintrick-project/assets/.gemini/system.md')
+      path.resolve(__dirname, '../skills/jintrick-tools/assets/project-template/.gemini/system.md')
     ];
   }
 
