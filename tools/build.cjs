@@ -11,7 +11,8 @@ const hooks = [
   'hooks/scripts/tech_stack_discovery_hook.cjs',
   'hooks/scripts/toast_notification_hook.cjs',
   'hooks/scripts/coding_rules_hook.cjs',
-  'hooks/scripts/system_prompt_monitor_hook.cjs'
+  'hooks/scripts/system_prompt_monitor_hook.cjs',
+  'hooks/scripts/project_template_sync_hook.cjs'
 ];
 
 const linters = [

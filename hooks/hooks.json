@@ -109,6 +109,12 @@
             "type": "command",
             "command": "node \"${extensionPath}${/}dist${/}hooks${/}tech_stack_discovery_hook.cjs\"",
             "description": "セッション開始時にプロジェクトの技術スタックを検知し、初期コンテキストとして注入します。"
+          },
+          {
+            "name": "project-template-sync",
+            "type": "command",
+            "command": "node \"${extensionPath}${/}dist${/}hooks${/}project_template_sync_hook.cjs\"",
+            "description": "プロジェクトの開始時に標準アセット（システムプロンプトやルール等）を自動同期します。"
           }
         ]
       }
