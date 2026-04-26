@@ -47,13 +47,17 @@ async function main() {
     process.stdout.write(JSON.stringify({ decision: "allow" }));
     return;
   }
-  const cwd = process.cwd();
-  if (/[\\/]\.gemini[\\/]tmp[\\/]/.test(cwd)) {
+  const targetCwd = input.cwd;
+  if (!targetCwd) {
     process.stdout.write(JSON.stringify({ decision: "allow" }));
     return;
   }
-  const hasPackageJson = fs.existsSync(path.join(cwd, "package.json"));
-  const hasGit = fs.existsSync(path.join(cwd, ".git"));
+  if (/[\\/]\.gemini[\\/]tmp([\\/]|$)/i.test(targetCwd)) {
+    process.stdout.write(JSON.stringify({ decision: "allow" }));
+    return;
+  }
+  const hasPackageJson = fs.existsSync(path.join(targetCwd, "package.json"));
+  const hasGit = fs.existsSync(path.join(targetCwd, ".git"));
   if (!hasPackageJson && !hasGit) {
     process.stdout.write(JSON.stringify({
       decision: "allow",
@@ -68,16 +72,17 @@ async function main() {
     return;
   }
   try {
-    const updatedCount = copyDirWithMtimeCheck(sourceDir, cwd);
+    const updatedCount = copyDirWithMtimeCheck(sourceDir, targetCwd);
+    const evidence = ` [PID: ${process.pid}, TARGET: ${targetCwd}, TIME: ${(/* @__PURE__ */ new Date()).toISOString()}]`;
     if (updatedCount > 0) {
       process.stdout.write(JSON.stringify({
         decision: "allow",
-        systemMessage: `jintrick \u6A19\u6E96\u69CB\u6210\u306E\u30D5\u30A1\u30A4\u30EB\u3092\u540C\u671F\u30FB\u66F4\u65B0\u3057\u307E\u3057\u305F\uFF08${updatedCount}\u4EF6\uFF09`
+        systemMessage: `jintrick \u6A19\u6E96\u69CB\u6210\u306E\u30D5\u30A1\u30A4\u30EB\u3092\u540C\u671F\u30FB\u66F4\u65B0\u3057\u307E\u3057\u305F\uFF08${updatedCount}\u4EF6\uFF09${evidence}`
       }));
     } else {
       process.stdout.write(JSON.stringify({
         decision: "allow",
-        systemMessage: "jintrick \u6A19\u6E96\u69CB\u6210\u306F\u6700\u65B0\u306E\u72B6\u614B\u3067\u3059"
+        systemMessage: "jintrick \u6A19\u6E96\u69CB\u6210\u306F\u6700\u65B0\u306E\u72B6\u614B\u3067\u3059" + evidence
       }));
     }
   } catch (err) {

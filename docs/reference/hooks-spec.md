@@ -120,7 +120,28 @@ Triggered when the model generates a response (streaming chunks).
 }
 ```
 
-## 4. Core Tool Schemas (`tool_input`)
+### `SessionStart`
+セッションの開始（ターミナル起動時や再開時）にトリガーされる。
+
+**Input JSON:**
+```json
+{
+  "hook_event_name": "SessionStart",
+  "cwd": "/path/to/project"
+}
+```
+
+## 4. Troubleshooting & Known Behaviors
+
+### SessionStart における通知の二重表示 (Double Notification)
+`SessionStart` イベントで `systemMessage` を返した場合、メッセージがターミナル上に2回表示される挙動が確認されている。
+
+- **1回目の表示**: `ℹ <メッセージ> [フック名]`
+- **2回目の表示**: `ℹ <メッセージ>`
+
+これは Gemini CLI の内部仕様によるものであり、**Hook Executor（フック実行エンジン）** が実行直後にメタデータ付きで表示し、その後に **Session Manager（セッション管理）** がセッション開始サマリーとして再度表示するために発生する。フック側の実装でこれを完全に1回に抑制する方法は現在提供されていない。
+
+## 5. Core Tool Schemas (`tool_input`)
 
 When validating tools in `BeforeTool`, rely on these input structures.
 

@@ -62,17 +62,26 @@ async function main() {
     return;
   }
 
-  const cwd = process.cwd();
+  const targetCwd = input.cwd;
 
-  // [comment-preservation.md] Gemini CLI が内部生成する一時ディレクトリ（plans等）での不要な同期処理と二重通知を回避するため、
-  // パスに `.gemini/tmp` が含まれている場合はメッセージを出さずに直ちに終了（サイレント化）する。
-  if (/[\\/]\.gemini[\\/]tmp[\\/]/.test(cwd)) {
+  if (!targetCwd) {
     process.stdout.write(JSON.stringify({ decision: "allow" }));
     return;
   }
 
-  const hasPackageJson = fs.existsSync(path.join(cwd, 'package.json'));
-  const hasGit = fs.existsSync(path.join(cwd, '.git'));
+  // [comment-preservation.md] Gemini CLI から明示的に渡される `input.cwd` を「唯一の絶対的なソース」として採用する。
+  // Node.jsプロセスの `process.cwd()` は、CLIの一時ディレクトリ実行時でもメインプロジェクトを指している可能性があり、
+  // それに依存すると誤作動や二重通知の原因となるため、使用を全面的に廃止した。
+  // 
+  // また、パスに `.gemini/tmp` が含まれる場合は CLI 内部の一時的なコンテキストであるため、
+  // ユーザーへのノイズを避けるべく、一切の通知を行わずに直ちに終了（Ignore）する。
+  if (/[\\/]\.gemini[\\/]tmp([\\/]|$)/i.test(targetCwd)) {
+    process.stdout.write(JSON.stringify({ decision: "allow" }));
+    return;
+  }
+
+  const hasPackageJson = fs.existsSync(path.join(targetCwd, 'package.json'));
+  const hasGit = fs.existsSync(path.join(targetCwd, '.git'));
 
   if (!hasPackageJson && !hasGit) {
     process.stdout.write(JSON.stringify({
@@ -94,17 +103,19 @@ async function main() {
   }
 
   try {
-    const updatedCount = copyDirWithMtimeCheck(sourceDir, cwd);
+    const updatedCount = copyDirWithMtimeCheck(sourceDir, targetCwd);
+
+    const evidence = ` [PID: ${process.pid}, TARGET: ${targetCwd}, TIME: ${new Date().toISOString()}]`;
 
     if (updatedCount > 0) {
       process.stdout.write(JSON.stringify({
         decision: "allow",
-        systemMessage: `jintrick 標準構成のファイルを同期・更新しました（${updatedCount}件）`
+        systemMessage: `jintrick 標準構成のファイルを同期・更新しました（${updatedCount}件）${evidence}`
       }));
     } else {
       process.stdout.write(JSON.stringify({
         decision: "allow",
-        systemMessage: "jintrick 標準構成は最新の状態です"
+        systemMessage: "jintrick 標準構成は最新の状態です" + evidence
       }));
     }
   } catch (err) {
