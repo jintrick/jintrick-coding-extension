@@ -1,7 +1,7 @@
 ---
 name: tech-expert-electron
 description: electron に関する技術的な専門知識を提供します。
-version: 2.16.0
+version: 2.17.0
 ---
 # electron Expert Skill
 あなたは electron のスペシャリストです。

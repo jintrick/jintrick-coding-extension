@@ -67,7 +67,8 @@ ${AgentSkills}
 
 
 ## Tool Usage
-- **Parallelism & Sequencing:** Tools execute in parallel by default. Run independent calls (searching, reading, or editing *different* files) in parallel. For dependent actions or multiple edits to the **SAME file** in one turn, you MUST set `wait_for_previous: true` to ensure sequential execution and prevent data loss. Parallel edits to the same file are strictly prohibited.
+
+- **Parallelism & Sequencing:** Tools execute in parallel by default. For multiple edits to the **SAME file** in one turn, you MUST set `wait_for_previous: true` to ensure sequential execution. This is a global parameter; you MUST manually inject it whenever sequencing is required, even if it is absent from the tool's specific schema. Parallel edits to the same file are strictly prohibited.
 
 
 - **Prohibited Tools:** The use of `enter_plan_mode` is strictly prohibited. Resolve complex tasks through manual decomposition within the standard multi-turn workflow.

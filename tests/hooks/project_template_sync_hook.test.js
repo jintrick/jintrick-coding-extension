@@ -60,11 +60,21 @@ describe('project_template_sync_hook', () => {
     expect(result.systemMessage).toBeUndefined();
   });
 
+  it('一時ディレクトリの場合はサイレントにスキップする', async () => {
+    const input = { hook_event_name: 'SessionStart' };
+    // MOCK: executeHook に渡す cwd を .gemini/tmp/plans 配下にする
+    const mockTempDir = path.join(tempDir, '.gemini/tmp/plans');
+    fs.mkdirSync(mockTempDir, { recursive: true });
+    const result = await executeHook(input, mockTempDir);
+    expect(result.decision).toBe('allow');
+    expect(result.systemMessage).toBeUndefined();
+  });
+
   it('package.json も .git もない場合はスキップメッセージを返す', async () => {
     const input = { hook_event_name: 'SessionStart' };
     const result = await executeHook(input);
     expect(result.decision).toBe('allow');
-    expect(result.systemMessage).toContain('有効なプロジェクト（package.json または .git 存在下）ではないため、jintrick 標準構成の同期をスキップしました');
+    expect(result.systemMessage).toContain('jintrick プロジェクトではないため、jintrick 標準構成の同期をスキップしました');
   });
 
   it('package.json がある場合、コピーを実行しメッセージを返す', async () => {
@@ -77,17 +87,17 @@ describe('project_template_sync_hook', () => {
     const result = await executeHook(input);
 
     expect(result.decision).toBe('allow');
-    expect(result.systemMessage).toContain('jintrick 標準構成のファイルを同期・更新しました');
+    expect(result.systemMessage).toContain('jintrick 標準構成のファイルを同期・更新しました（1件）');
     expect(fs.existsSync(targetFile)).toBe(true);
     expect(fs.readFileSync(targetFile, 'utf8')).toBe('template content');
   });
 
-  it('ターゲットの mtime が新しい場合は上書きしない', async () => {
+  it('ターゲットの mtime が新しい場合は上書きしない（かつ最新のメッセージを返す）', async () => {
     fs.writeFileSync(path.join(tempDir, 'package.json'), '{}');
 
     const targetFile = path.join(tempDir, 'dummy.txt');
     fs.writeFileSync(targetFile, 'local customized content');
-    
+
     await new Promise(r => setTimeout(r, 100));
 
     const now = new Date();
@@ -99,7 +109,7 @@ describe('project_template_sync_hook', () => {
     const result = await executeHook(input);
 
     expect(result.decision).toBe('allow');
-    expect(result.systemMessage).toBeUndefined();
+    expect(result.systemMessage).toContain('jintrick 標準構成は最新の状態です');
     expect(fs.readFileSync(targetFile, 'utf8')).toBe('local customized content');
   });
 });

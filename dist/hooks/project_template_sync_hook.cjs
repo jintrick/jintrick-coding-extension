@@ -48,12 +48,16 @@ async function main() {
     return;
   }
   const cwd = process.cwd();
+  if (/[\\/]\.gemini[\\/]tmp[\\/]/.test(cwd)) {
+    process.stdout.write(JSON.stringify({ decision: "allow" }));
+    return;
+  }
   const hasPackageJson = fs.existsSync(path.join(cwd, "package.json"));
   const hasGit = fs.existsSync(path.join(cwd, ".git"));
   if (!hasPackageJson && !hasGit) {
     process.stdout.write(JSON.stringify({
       decision: "allow",
-      systemMessage: "\u6709\u52B9\u306A\u30D7\u30ED\u30B8\u30A7\u30AF\u30C8\uFF08package.json \u307E\u305F\u306F .git \u5B58\u5728\u4E0B\uFF09\u3067\u306F\u306A\u3044\u305F\u3081\u3001jintrick \u6A19\u6E96\u69CB\u6210\u306E\u540C\u671F\u3092\u30B9\u30AD\u30C3\u30D7\u3057\u307E\u3057\u305F"
+      systemMessage: "jintrick \u30D7\u30ED\u30B8\u30A7\u30AF\u30C8\u3067\u306F\u306A\u3044\u305F\u3081\u3001jintrick \u6A19\u6E96\u69CB\u6210\u306E\u540C\u671F\u3092\u30B9\u30AD\u30C3\u30D7\u3057\u307E\u3057\u305F"
     }));
     return;
   }
@@ -71,7 +75,10 @@ async function main() {
         systemMessage: `jintrick \u6A19\u6E96\u69CB\u6210\u306E\u30D5\u30A1\u30A4\u30EB\u3092\u540C\u671F\u30FB\u66F4\u65B0\u3057\u307E\u3057\u305F\uFF08${updatedCount}\u4EF6\uFF09`
       }));
     } else {
-      process.stdout.write(JSON.stringify({ decision: "allow" }));
+      process.stdout.write(JSON.stringify({
+        decision: "allow",
+        systemMessage: "jintrick \u6A19\u6E96\u69CB\u6210\u306F\u6700\u65B0\u306E\u72B6\u614B\u3067\u3059"
+      }));
     }
   } catch (err) {
     process.stdout.write(JSON.stringify({

@@ -63,13 +63,21 @@ async function main() {
   }
 
   const cwd = process.cwd();
+
+  // [comment-preservation.md] Gemini CLI が内部生成する一時ディレクトリ（plans等）での不要な同期処理と二重通知を回避するため、
+  // パスに `.gemini/tmp` が含まれている場合はメッセージを出さずに直ちに終了（サイレント化）する。
+  if (/[\\/]\.gemini[\\/]tmp[\\/]/.test(cwd)) {
+    process.stdout.write(JSON.stringify({ decision: "allow" }));
+    return;
+  }
+
   const hasPackageJson = fs.existsSync(path.join(cwd, 'package.json'));
   const hasGit = fs.existsSync(path.join(cwd, '.git'));
 
   if (!hasPackageJson && !hasGit) {
     process.stdout.write(JSON.stringify({
       decision: "allow",
-      systemMessage: "有効なプロジェクト（package.json または .git 存在下）ではないため、jintrick 標準構成の同期をスキップしました"
+      systemMessage: "jintrick プロジェクトではないため、jintrick 標準構成の同期をスキップしました"
     }));
     return;
   }
@@ -94,7 +102,10 @@ async function main() {
         systemMessage: `jintrick 標準構成のファイルを同期・更新しました（${updatedCount}件）`
       }));
     } else {
-      process.stdout.write(JSON.stringify({ decision: "allow" }));
+      process.stdout.write(JSON.stringify({
+        decision: "allow",
+        systemMessage: "jintrick 標準構成は最新の状態です"
+      }));
     }
   } catch (err) {
     // Fallback error handling
