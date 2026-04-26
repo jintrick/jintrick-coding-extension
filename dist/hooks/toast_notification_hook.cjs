@@ -53,8 +53,25 @@ function processEvent(inputData) {
 function showToast(cwd, durationMs, session_id) {
   const projectName = path.basename(cwd);
   const durationSec = (durationMs / 1e3).toFixed(1);
-  const title = `Gemini CLI: ${projectName}`.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-  const body = `\u30BF\u30B9\u30AF\u5B8C\u4E86: \u5B9F\u884C\u6642\u9593 ${durationSec}s`.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  const title = `Gemini CLI: ${projectName}`;
+  const body = `\u30BF\u30B9\u30AF\u5B8C\u4E86: \u5B9F\u884C\u6642\u9593 ${durationSec}s`;
+  if (process.platform === "win32") {
+    const escapedTitle = title.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    const escapedBody = body.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    deliverWindowsToast(escapedTitle, escapedBody, session_id);
+  } else if (process.platform === "linux") {
+    deliverLinuxNotification(title, body);
+  }
+}
+function deliverLinuxNotification(title, body) {
+  try {
+    spawnSync("notify-send", [title, body], { stdio: "ignore" });
+    log(`Linux notification delivered via notify-send.`);
+  } catch (e) {
+    log(`Failed to deliver Linux notification: ${e.message}`);
+  }
+}
+function deliverWindowsToast(title, body, session_id) {
   const appId = "Microsoft.Windows.Explorer";
   const psScript = `\uFEFF
 $ErrorActionPreference = 'SilentlyContinue'
