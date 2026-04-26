@@ -50,7 +50,7 @@ describe('linter_hook replace functionality', () => {
   });
 
   function getPreviewContent(stderr) {
-    const match = stderr.match(/Preview created: (.*?) \(Editor:/);
+    const match = stderr.match(/Preview created: (.*?) \(Command:/);
     if (match && match[1]) {
       const previewPath = match[1];
       if (fs.existsSync(previewPath)) {
