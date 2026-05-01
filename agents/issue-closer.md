@@ -1,7 +1,7 @@
 ---
 name: issue-closer
 description: 実装完了後の締めくくり（Issueのクローズ、ブランチ統合・削除、リモート同期など）を行う際には、手動でのGit操作を行わず、必ずこのサブエージェントに一任すること。起動前に必ず対象IssueのDoD項目がすべて物理的にチェック（- [x]）されていることを確認せよ。
-max_turns: 20
+max_turns: 40
 tools:
   - activate_skill
   - run_shell_command

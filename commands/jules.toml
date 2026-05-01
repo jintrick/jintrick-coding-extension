@@ -29,26 +29,28 @@ prompt = """AI Agent Julesに実装を依頼する次のプロセスを開始せ
     - **合格の場合**: `api.cjs approve <session_id>` 及び `api.cjs watch <session_id> --wait-for finish`を実行し、実装を開始させ、実装完了まで待機する。
     - **不合格の場合**: `api.cjs message <session_id> "修正指示"` を実行し、2.に戻る。
 
-4. 成果物への介入検証
+4. 成果物の物理検証 (DoD Verification)
 4-1. PR情報の取得: 
     - コマンド: `api.cjs pr <session_id>` を実行し、作成されたPR番号を取得する。
 4-2. 実装環境をローカルに復元:
     - `gh pr checkout <取得したPR番号>` を実行する。
-4-3. 自動レビューの確認:
+4-3. DoDの抽出と物理検証:
+    - `docs/issue/{{args}}.md` から「テスト・ゴール要件（DoD）」を読み取れ。
+    - 各項目に対し、`cat`, `ls`, `npm test` 等の物理的な観測コマンドを実行し、**客観的な証拠**を収集せよ。
+    - **嘘の報告を許さない**: Julesの「完了した」という言葉を一切信用せず、自分の目でコードの存在と動作を確認すること。
+4-4. 自動レビューの確認:
     - `gh api "repos/:owner/:repo/pulls/<取得したPR番号>/comments" | ConvertFrom-Json | Where-Object { $_.user.type -eq 'Bot' } | Format-List user, body, path, line` を実行し、Bot（Gemini Code Assist等）からの指摘を確認する。
-    - 指摘がある場合は、内容を精査し、修正が必要ならコードを修正してコミット・プッシュする。
-4-4. 事前の簡易レビュー:
-    - gh pr checkout 後のローカル環境でファイルを精査せよ。git diffを使ってはならない。
-    - issue文書の要件を満たしているか、簡単にチェック。
-    
-5. レビュー後の分岐
-    - まずはユーザーに報告。今回のissueに関連する問題と、それ以外に新たに発見された問題とに切り分けて報告せよ。
 
-5-1. 簡易レビューに軽微な不備（リント、テスト、定数修正等）の場合:
-    - Geminiが自ら修正を施したのち、git commit -am "fix: minor adjustments by gemini" および git push を実行せよ。
-5-2. 簡易レビューに重大な不備がある場合: 
-    - `api.cjs message <session_id> "修正指示"` を実行し、`api.cjs watch <session_id> --wait-for finish` を実行し、4.に戻る。
-5-3. 簡易レビューが合格の場合:
-    - 詳細レビューに移行するため、ユーザーに報告。「/review <取得したPR番号> を実行のこと。」
+5. 検証結果に基づくアクション
+5-1. 重大な不備・未達（DoDを満たしていない）がある場合:
+    - 不備内容を証拠と共に整理し、`api.cjs message <session_id> "修正指示"` を実行。
+    - `api.cjs watch <session_id> --wait-for finish` を実行し、4.に戻る。
+5-2. 軽微な修正で完了する場合:
+    - Gemini（あなた）が自ら修正を施し、`git commit -am "fix: minor adjustments to satisfy DoD"` および `git push` を実行せよ。
+5-3. すべてのDoDが物理的に確認された場合:
+    - `docs/issue/{{args}}.md` の対象項目を `[x]` に更新し、コミット・プッシュせよ。
+    - ユーザーに「物理的証拠（テスト結果やコード断片）」を提示しながら報告せよ。
+    - 最終確認として `/review <取得したPR番号>` の実行を促せ。
+
    
 """

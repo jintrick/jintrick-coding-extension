@@ -154,3 +154,12 @@ Authorize Jules to proceed.
 ```bash
 node scripts/api.cjs approve <session_id> [--json]
 ```
+
+## Mandatory Verification Protocol
+
+- **Never trust Jules' reports blindly**: Upon session completion (`finish`), the agent MUST independently verify the outcomes.
+- **DoD-Driven Verification**:
+    1. Read the Issue document (`docs/issue/vX.Y.Z.md`) and extract the **Definition of Done (DoD)**.
+    2. Execute physical commands (`ls`, `cat`, `npm test`, `git diff`, etc.) to gather objective evidence for each DoD item.
+    3. If any item is unverified or fails, use `api.cjs message` to instruct Jules to fix it, rather than reporting "Done" to the user.
+- **Evidence-Based Reporting**: When finally reporting to the user, include the raw output or specific code lines that prove the completion of each DoD item.
