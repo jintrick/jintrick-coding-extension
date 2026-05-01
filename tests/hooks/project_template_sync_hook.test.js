@@ -32,12 +32,12 @@ describe('project_template_sync_hook', () => {
     }
   });
 
-  const executeHook = async (inputObj, cwd = tempDir) => {
+  const executeHook = async (inputObj, processCwd = tempDir) => {
     return new Promise((resolve) => {
       // Pass the mocked source directory via an environment variable
       const env = { ...process.env, JINTRICK_MOCK_TEMPLATE_DIR: mockSourceDir };
       
-      const child = exec(`node "${hookScriptPath}"`, { cwd, env }, (error, stdout, stderr) => {
+      const child = exec(`node "${hookScriptPath}"`, { cwd: processCwd, env }, (error, stdout, stderr) => {
         if (error) {
           resolve({ error, stdout, stderr });
         } else {
@@ -60,11 +60,32 @@ describe('project_template_sync_hook', () => {
     expect(result.systemMessage).toBeUndefined();
   });
 
+  it('一時ディレクトリの場合はサイレントにスキップする (入力JSONのcwdプロパティによる判定)', async () => {
+    // 実環境のCLIの挙動をシミュレートする。
+    // プロセス自体はプロジェクトルート（tempDir）で実行されているが、
+    // フック対象のディレクトリ（一時ディレクトリ）が JSON の cwd プロパティとして渡されるケース。
+    const mockTempDir = path.join(tempDir, '.gemini/tmp/plans');
+    fs.mkdirSync(mockTempDir, { recursive: true });
+    
+    // プロジェクトルートであることを偽装するために package.json を配置
+    fs.writeFileSync(path.join(tempDir, 'package.json'), '{}');
+
+    const input = { hook_event_name: 'SessionStart', cwd: mockTempDir };
+    
+    // プロセスの cwd はプロジェクトルート (tempDir) を維持する
+    const result = await executeHook(input, tempDir);
+    
+    expect(result.decision).toBe('allow');
+    // プロセスのcwd（プロジェクトルート）ではなく、入力のcwd（一時ディレクトリ）が評価され、
+    // メッセージが undefined（サイレント）になることを期待する。
+    expect(result.systemMessage).toBeUndefined();
+  });
+
   it('package.json も .git もない場合はスキップメッセージを返す', async () => {
-    const input = { hook_event_name: 'SessionStart' };
+    const input = { hook_event_name: 'SessionStart', cwd: tempDir };
     const result = await executeHook(input);
     expect(result.decision).toBe('allow');
-    expect(result.systemMessage).toContain('有効なプロジェクト（package.json または .git 存在下）ではないため、jintrick 標準構成の同期をスキップしました');
+    expect(result.systemMessage).toContain('jintrick プロジェクトではないため、jintrick 標準構成の同期をスキップしました');
   });
 
   it('package.json がある場合、コピーを実行しメッセージを返す', async () => {
@@ -73,21 +94,21 @@ describe('project_template_sync_hook', () => {
     const targetFile = path.join(tempDir, 'dummy.txt');
     expect(fs.existsSync(targetFile)).toBe(false);
 
-    const input = { hook_event_name: 'SessionStart' };
+    const input = { hook_event_name: 'SessionStart', cwd: tempDir };
     const result = await executeHook(input);
 
     expect(result.decision).toBe('allow');
-    expect(result.systemMessage).toContain('jintrick 標準構成のファイルを同期・更新しました');
+    expect(result.systemMessage).toContain('jintrick 標準構成のファイルを同期・更新しました（1件）');
     expect(fs.existsSync(targetFile)).toBe(true);
     expect(fs.readFileSync(targetFile, 'utf8')).toBe('template content');
   });
 
-  it('ターゲットの mtime が新しい場合は上書きしない', async () => {
+  it('ターゲットの mtime が新しい場合は上書きしない（かつ最新のメッセージを返す）', async () => {
     fs.writeFileSync(path.join(tempDir, 'package.json'), '{}');
 
     const targetFile = path.join(tempDir, 'dummy.txt');
     fs.writeFileSync(targetFile, 'local customized content');
-    
+
     await new Promise(r => setTimeout(r, 100));
 
     const now = new Date();
@@ -95,11 +116,11 @@ describe('project_template_sync_hook', () => {
     fs.utimesSync(path.join(mockSourceDir, 'dummy.txt'), past, past);
     fs.utimesSync(targetFile, now, now);
 
-    const input = { hook_event_name: 'SessionStart' };
+    const input = { hook_event_name: 'SessionStart', cwd: tempDir };
     const result = await executeHook(input);
 
     expect(result.decision).toBe('allow');
-    expect(result.systemMessage).toBeUndefined();
+    expect(result.systemMessage).toContain('jintrick 標準構成は最新の状態です');
     expect(fs.readFileSync(targetFile, 'utf8')).toBe('local customized content');
   });
 });

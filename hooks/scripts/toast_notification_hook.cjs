@@ -62,9 +62,29 @@ function processEvent(inputData) {
 function showToast(cwd, durationMs, session_id) {
     const projectName = path.basename(cwd);
     const durationSec = (durationMs / 1000).toFixed(1);
-    const title = `Gemini CLI: ${projectName}`.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-    const body = `タスク完了: 実行時間 ${durationSec}s`.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    const title = `Gemini CLI: ${projectName}`;
+    const body = `タスク完了: 実行時間 ${durationSec}s`;
 
+    if (process.platform === 'win32') {
+        const escapedTitle = title.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        const escapedBody = body.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        deliverWindowsToast(escapedTitle, escapedBody, session_id);
+    } else if (process.platform === 'linux') {
+        deliverLinuxNotification(title, body);
+    }
+}
+
+function deliverLinuxNotification(title, body) {
+    try {
+        // notify-send を使用 (シンプルにタイトルと本文のみ)
+        spawnSync('notify-send', [title, body], { stdio: 'ignore' });
+        log(`Linux notification delivered via notify-send.`);
+    } catch (e) {
+        log(`Failed to deliver Linux notification: ${e.message}`);
+    }
+}
+
+function deliverWindowsToast(title, body, session_id) {
     // Robust Delivery Settings (Lessons from v2.5.0):
     // 1. Use 'Microsoft.Windows.Explorer' AppID to bypass terminal-specific suppression.
     // 2. Set Priority to 'High' to ensure it's not discarded by Windows Focus Assist.
