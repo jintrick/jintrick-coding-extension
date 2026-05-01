@@ -29,7 +29,10 @@ version: 1.1.1
 3.  **マージとクリーンアップ (条件分岐)**: 作業環境に応じて以下のいずれかを実行せよ。
     - **A. 外部エージェント (Jules) の実装等で PR が既に存在する場合**:
         `gh pr merge --merge --delete-branch` および `git checkout dev`, `git pull origin dev` を実行。
-    - **B. PR が存在しない場合**:
+    - **B. 現在のブランチが統合先 (dev/main 等) そのものである場合**:
+        1. **ブランチ削除を絶対に実行しないこと。**
+        2. すでに `git push origin HEAD` を完了しているため、そのまま作業を終了せよ。
+    - **C. PR が存在しない作業ブランチ (vX.Y.Z 等) の場合**:
         不要な PR を作成せず、ローカルで以下を実行して統合・プッシュせよ。
         1. `git checkout dev`
         2. `git merge <作業ブランチ名>`
