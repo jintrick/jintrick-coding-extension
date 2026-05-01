@@ -48,29 +48,39 @@ describe('single_edit_per_turn_hook', () => {
     expect(res.decision).toBe('allow');
     expect(fs.existsSync(cacheFile)).toBe(true);
     const cache = JSON.parse(fs.readFileSync(cacheFile, 'utf8'));
-    expect(cache).toContain('test.txt');
+    expect(cache).toHaveProperty('test.txt', 'replace');
   });
 
-  it('BeforeTool: write_file は制限対象外（常に allow）であること', () => {
-    // 1回目
-    runHook({
-      hook_event_name: 'BeforeTool',
-      tool_name: 'write_file',
-      session_id: sessionId,
-      tool_input: { file_path: 'test.txt' }
-    });
-    // 2回目も allow
+  it('BeforeTool: 初回の write_file が allow されること', () => {
     const res = runHook({
       hook_event_name: 'BeforeTool',
       tool_name: 'write_file',
       session_id: sessionId,
+      tool_input: { file_path: 'test2.txt' }
+    });
+    expect(res.decision).toBe('allow');
+    expect(fs.existsSync(cacheFile)).toBe(true);
+    const cache = JSON.parse(fs.readFileSync(cacheFile, 'utf8'));
+    expect(cache).toHaveProperty('test2.txt', 'write_file');
+  });
+
+  it('BeforeTool: 対象外のツール（read_fileなど）は制限対象外（常に allow）であること', () => {
+    runHook({
+      hook_event_name: 'BeforeTool',
+      tool_name: 'read_file',
+      session_id: sessionId,
+      tool_input: { file_path: 'test.txt' }
+    });
+    const res = runHook({
+      hook_event_name: 'BeforeTool',
+      tool_name: 'read_file',
+      session_id: sessionId,
       tool_input: { file_path: 'test.txt' }
     });
     expect(res.decision).toBe('allow');
-    // cacheFile は生成されない（または書き込まれない）
     if (fs.existsSync(cacheFile)) {
         const cache = JSON.parse(fs.readFileSync(cacheFile, 'utf8'));
-        expect(cache).not.toContain('test.txt');
+        expect(cache).not.toHaveProperty('test.txt');
     }
   });
 
@@ -88,7 +98,27 @@ describe('single_edit_per_turn_hook', () => {
       tool_input: { file_path: 'test.txt' }
     });
     expect(res.decision).toBe('deny');
-    expect(res.reason).toBe("Duplicate file edit. Set 'wait_for_previous: true' to edit the same file multiple times in one turn.");
+    expect(res.reason).toBe("[PHYSICAL CONCURRENCY ERROR] File is LOCKED: test.txt");
+    expect(res.systemMessage).toContain("【物理的並列実行エラー】対象ファイルは現在ロックされています。");
+    expect(res.systemMessage).toContain("競合ツール: replace (現在) vs replace (実行待ち)");
+  });
+
+  it('BeforeTool: replace 後の write_file が deny されること', () => {
+    runHook({
+      hook_event_name: 'BeforeTool',
+      tool_name: 'replace',
+      session_id: sessionId,
+      tool_input: { file_path: 'test.txt' }
+    });
+    const res = runHook({
+      hook_event_name: 'BeforeTool',
+      tool_name: 'write_file',
+      session_id: sessionId,
+      tool_input: { file_path: 'test.txt' }
+    });
+    expect(res.decision).toBe('deny');
+    expect(res.reason).toBe("[PHYSICAL CONCURRENCY ERROR] File is LOCKED: test.txt");
+    expect(res.systemMessage).toContain("競合ツール: write_file (現在) vs replace (実行待ち)");
   });
 
   it('BeforeTool: 別の file_path であれば 2回目でも allow されること', () => {
@@ -100,7 +130,7 @@ describe('single_edit_per_turn_hook', () => {
     });
     const res = runHook({
       hook_event_name: 'BeforeTool',
-      tool_name: 'replace',
+      tool_name: 'write_file',
       session_id: sessionId,
       tool_input: { file_path: 'other.txt' }
     });
@@ -161,7 +191,7 @@ describe('single_edit_per_turn_hook', () => {
     expect(res.decision).toBe('allow');
   });
 
-  it('BeforeTool: 同一セッションでの2回目の replace でも wait_for_previous: true があれば allow されること', () => {
+  it('BeforeTool: 同一セッションでの2回目の編集でも wait_for_previous: true があれば allow されること', () => {
     runHook({
       hook_event_name: 'BeforeTool',
       tool_name: 'replace',
@@ -170,7 +200,7 @@ describe('single_edit_per_turn_hook', () => {
     });
     const res = runHook({
       hook_event_name: 'BeforeTool',
-      tool_name: 'replace',
+      tool_name: 'write_file',
       session_id: sessionId,
       tool_input: { file_path: 'test.txt', wait_for_previous: true }
     });
@@ -179,7 +209,7 @@ describe('single_edit_per_turn_hook', () => {
 
   it('BeforeTool: 古いキャッシュ（5分以上前）が存在する場合はセルフヒーリングで削除され allow されること', () => {
     // 擬似的に古いキャッシュを作成
-    fs.writeFileSync(cacheFile, JSON.stringify(['test.txt']));
+    fs.writeFileSync(cacheFile, JSON.stringify({'test.txt': 'replace'}));
     const oldTime = new Date(Date.now() - 300001); // 5分 + 1ms前
     fs.utimesSync(cacheFile, oldTime, oldTime);
 
@@ -196,6 +226,6 @@ describe('single_edit_per_turn_hook', () => {
     // allowされた結果、新たに test.txt がキャッシュに記録されているはず
     expect(fs.existsSync(cacheFile)).toBe(true);
     const cache = JSON.parse(fs.readFileSync(cacheFile, 'utf8'));
-    expect(cache).toContain('test.txt');
+    expect(cache).toHaveProperty('test.txt', 'replace');
   });
 });
