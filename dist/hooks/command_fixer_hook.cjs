@@ -190,6 +190,10 @@ function main(deps = {}) {
     consoleLog(JSON.stringify({ decision: "allow" }));
     proc.exit(0);
   }
+  if (proc.platform !== "win32") {
+    allow();
+    return;
+  }
   let input;
   try {
     const rawInput = fs.readFileSync(0, "utf8");

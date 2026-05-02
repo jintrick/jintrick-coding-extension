@@ -215,6 +215,13 @@ function main(deps = {}) {
     proc.exit(0);
   }
 
+  // Only apply command conversion on Windows platforms where PowerShell is the default shell.
+  // On POSIX systems (Linux, Darwin), native commands should be preserved as-is.
+  if (proc.platform !== 'win32') {
+    allow();
+    return;
+  }
+
   let input;
   try {
     const rawInput = fs.readFileSync(0, 'utf8');

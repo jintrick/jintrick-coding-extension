@@ -15,12 +15,28 @@ describe('command_fixer_hook', () => {
     fsMock = { readFileSync: vi.fn() };
     processMock = {
       exit: processExitMock,
-      stderr: { write: processStderrMock }
+      stderr: { write: processStderrMock },
+      platform: 'win32'
     };
   });
 
   afterEach(() => {
     vi.clearAllMocks();
+  });
+
+  it('should skip transformation on non-Windows platforms', () => {
+    const input = JSON.stringify({
+      hook_event_name: 'BeforeTool',
+      tool_name: 'run_shell_command',
+      tool_input: { command: 'rm -rf test' }
+    });
+
+    processMock.platform = 'linux';
+    fsMock.readFileSync.mockReturnValue(input);
+    main({ fs: fsMock, process: processMock, consoleLog: consoleLogMock });
+
+    expect(consoleLogMock).toHaveBeenCalledWith(JSON.stringify({ decision: 'allow' }));
+    expect(processExitMock).toHaveBeenCalledWith(0);
   });
 
   describe('replaceCommands', () => {
