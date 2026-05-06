@@ -99,13 +99,17 @@ function syncIssue(filePath, forceIdAndType = false) {
   }
 
   // Update Created
-  const firstCommit = getFirstCommitDate(filePath);
-  if (firstCommit) {
-    content = content.replace(/^created: .*/m, `created: ${firstCommit}`);
-  } else {
-    const today = new Date().toISOString().split('T')[0];
-    const currentCreated = content.match(/^created: (.*)/m);
-    if (!currentCreated || currentCreated[1].includes('yyyy-mm-dd') || currentCreated[1].trim() === '') {
+  const currentCreatedMatch = content.match(/^created: (.*)/m);
+  const currentCreated = currentCreatedMatch ? currentCreatedMatch[1].trim() : '';
+  const isPlaceholder = currentCreated.includes('yyyy-mm-dd') || currentCreated === '';
+
+  // Only update if it's a placeholder or empty. Preserve existing valid dates.
+  if (isPlaceholder) {
+    const firstCommit = getFirstCommitDate(filePath);
+    if (firstCommit) {
+      content = content.replace(/^created: .*/m, `created: ${firstCommit}`);
+    } else {
+      const today = new Date().toISOString().split('T')[0];
       content = content.replace(/^created: .*/m, `created: ${today}`);
     }
   }
@@ -145,25 +149,11 @@ if (require.main === module) {
       console.log(`Success: Issue ${targetPath} is completed. Ready for release.`);
       process.exit(0);
     } else {
-      console.log(`Warning: Issue file ${targetPath} not found for branch ${branch}. Fallback to directory sync.`);
+      console.log(`Warning: Issue file ${targetPath} not found for branch ${branch}. No sync performed.`);
+      process.exit(0);
     }
   }
 
-  // Fallback: Sync all issues if not on a specific issue branch
-  const issueDir = path.join('docs', 'issue');
-  if (fs.existsSync(issueDir)) {
-    const files = fs.readdirSync(issueDir).filter(f => {
-      if (!f.endsWith('.md')) return false;
-      try {
-        const content = fs.readFileSync(path.join(issueDir, f), 'utf8');
-        return /^---[\s\S]*?^id:\s*v/m.test(content);
-      } catch (e) {
-        return false;
-      }
-    });
-    for (const file of files) {
-      syncIssue(path.join(issueDir, file), false);
-    }
-  }
+  console.log(`No specific issue branch detected (branch: ${branch}). Skipping sync to prevent unintended mass updates.`);
 }
 module.exports = { syncIssue, getStatus, getGitBranch, getFirstCommitDate, hasDiff, isTracked };
