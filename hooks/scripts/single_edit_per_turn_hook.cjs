@@ -76,19 +76,21 @@ function main() {
     const waitForPrevious = tool_input && tool_input.wait_for_previous === true;
     if (modifiedFiles[filePath] && !waitForPrevious) {
       const previous_tool = modifiedFiles[filePath];
-      const reason = `[PHYSICAL CONCURRENCY ERROR] File is LOCKED: ${filePath}`;
-      const systemMessage = `【物理的並列実行エラー】対象ファイルは現在ロックされています。
-同一ターン内に同一ファイルに対して複数の編集ツール（replace, write_file 等）を並列にプランニングすることは物理的に不可能です。
-ツールを変更（例: replace から write_file へ）しても、同一ファイルへの並列アクセスである限り、このエラーは回避できません。
+      // 自己治癒ロジック: denyする代わりにwait_for_previous: trueを注入してallowする
+      const systemMessage = `💡 Hook: 同一ファイルへの並列編集を検知しました (${filePath})。
+    安全のため、自動的に 'wait_for_previous: true' を注入して実行を直列化しました。 (以前のツール: ${previous_tool})`;
 
-原因: あなたの現在の実行プランは、物理的な不整合（Race Condition）を引き起こす構成になっています。
-解決策:
-1. プランを修正し、同一ファイルへの操作には 'wait_for_previous: true' を付与して直列化してください。
-2. または、複数の変更を1つのツール呼び出しに集約してください。
-
-競合ツール: ${tool_name} (現在) vs ${previous_tool} (実行待ち)`;
-
-      deny(reason, systemMessage);
+      console.log(JSON.stringify({
+        decision: 'allow',
+        systemMessage: systemMessage,
+        hookSpecificOutput: {
+          tool_input: {
+            ...tool_input,
+            wait_for_previous: true
+          }
+        }
+      }));
+      process.exit(0);
     } else {
       if (!modifiedFiles[filePath]) {
         modifiedFiles[filePath] = tool_name;
@@ -96,6 +98,7 @@ function main() {
       }
       allow();
     }
+
   } else if (hook_event_name === 'AfterAgent') {
     // ターン終了時にもクリーンアップを行う
     try {
