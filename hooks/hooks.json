@@ -34,17 +34,6 @@
         ]
       },
       {
-        "matcher": "activate_skill",
-        "hooks": [
-          {
-            "name": "expert-docs-hook",
-            "type": "command",
-            "command": "node \"${extensionPath}${/}dist${/}hooks${/}expert_docs_hook.cjs\"",
-            "description": "gemini-cli-expert スキルの起動時にドキュメントの更新を確認します。"
-          }
-        ]
-      },
-      {
         "matcher": "run_shell_command",
         "hooks": [
           {

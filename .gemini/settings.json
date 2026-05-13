@@ -4,5 +4,16 @@
       "single-edit-per-turn-reset",
       "command-fixer-hook"
     ]
+  },
+  "mcpServers": {
+    "": {
+      "command": "test-chrome",
+      "args": [
+        "npx.cmd",
+        "-y",
+        "chrome-devtools-mcp@latest",
+        "--browser-url=http://127.0.0.1:9222"
+      ]
+    }
   }
 }
