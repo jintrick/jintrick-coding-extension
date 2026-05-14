@@ -17,7 +17,7 @@ function sendAllow() {
   process.stdout.write(JSON.stringify({ decision: "allow" }) + "\n");
 }
 function processEvent(inputData) {
-  const { hook_event_name, session_id, cwd } = inputData;
+  const { hook_event_name, session_id, cwd, notification_type, tool_name } = inputData;
   if (!session_id || !cwd) {
     return sendAllow();
   }
@@ -39,7 +39,8 @@ function processEvent(inputData) {
         const durationMs = now - startTimeMs;
         if (durationMs >= thresholdMs) {
           log(`Task completed. Duration ${durationMs}ms >= Threshold ${thresholdMs}ms. Sending robust toast.`);
-          showToast(cwd, durationMs, session_id);
+          const durationSec = (durationMs / 1e3).toFixed(1);
+          showToast(cwd, `\u30BF\u30B9\u30AF\u5B8C\u4E86: \u5B9F\u884C\u6642\u9593 ${durationSec}s`, session_id);
         }
         fs.unlinkSync(lockFile);
         log(`Timer cleaned up: AfterAgent (session: ${session_id})`);
@@ -47,14 +48,23 @@ function processEvent(inputData) {
         log(`AfterAgent logic failed: ${e.message}`);
       }
     }
+  } else if (hook_event_name === "Notification") {
+    if (notification_type === "ToolPermission") {
+      log(`ToolPermission detected. Sending alert toast.`);
+      showToast(cwd, "\u5B9F\u884C\u306E\u627F\u8A8D\u5F85\u3061\u3067\u3059", session_id);
+    }
+  } else if (hook_event_name === "BeforeTool") {
+    if (tool_name === "ask_user") {
+      log(`ask_user detected. Sending input wait toast.`);
+      showToast(cwd, "\u5165\u529B\u3092\u5F85\u6A5F\u3057\u3066\u3044\u307E\u3059", session_id);
+    }
   }
   sendAllow();
 }
-function showToast(cwd, durationMs, session_id) {
+function showToast(cwd, message, session_id) {
   const projectName = path.basename(cwd);
-  const durationSec = (durationMs / 1e3).toFixed(1);
   const title = `Gemini CLI: ${projectName}`;
-  const body = `\u30BF\u30B9\u30AF\u5B8C\u4E86: \u5B9F\u884C\u6642\u9593 ${durationSec}s`;
+  const body = message;
   if (process.platform === "win32") {
     const escapedTitle = title.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
     const escapedBody = body.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
