@@ -43,6 +43,17 @@
             "description": "Windows環境向けにコマンド内の && を ; に自動置換します。"
           }
         ]
+      },
+      {
+        "matcher": "^ask_user$",
+        "hooks": [
+          {
+            "name": "toast-notification-input-wait",
+            "type": "command",
+            "command": "node \"${extensionPath}${/}dist${/}hooks${/}toast_notification_hook.cjs\"",
+            "description": "対話ツールの実行を検知して通知します。"
+          }
+        ]
       }
     ],
     "BeforeAgent": [
@@ -79,6 +90,19 @@
             "type": "command",
             "command": "node \"${extensionPath}${/}dist${/}hooks${/}toast_notification_hook.cjs\"",
             "description": "タスクの完了を検知し、堅牢なトースト通知を表示します。"
+          }
+        ]
+      }
+    ],
+    "Notification": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "name": "toast-notification-alert",
+            "type": "command",
+            "command": "node \"${extensionPath}${/}dist${/}hooks${/}toast_notification_hook.cjs\"",
+            "description": "ツール実行の承認待ちなどを検知して通知します。"
           }
         ]
       }

@@ -56,4 +56,36 @@ describe('toast_notification_hook.cjs', () => {
         expect(res.stdout.trim()).toBe('{"decision":"allow"}');
         expect(fs.existsSync(lockFile)).toBe(false);
     });
+
+    it('Notification (ToolPermission) should return allow', () => {
+        const input = {
+            hook_event_name: 'Notification',
+            notification_type: 'ToolPermission',
+            session_id: sessionId,
+            cwd: process.cwd(),
+        };
+
+        const res = spawnSync('node', [hookScript], {
+            input: JSON.stringify(input),
+            encoding: 'utf8'
+        });
+
+        expect(res.stdout.trim()).toBe('{"decision":"allow"}');
+    });
+
+    it('BeforeTool (ask_user) should return allow', () => {
+        const input = {
+            hook_event_name: 'BeforeTool',
+            tool_name: 'ask_user',
+            session_id: sessionId,
+            cwd: process.cwd(),
+        };
+
+        const res = spawnSync('node', [hookScript], {
+            input: JSON.stringify(input),
+            encoding: 'utf8'
+        });
+
+        expect(res.stdout.trim()).toBe('{"decision":"allow"}');
+    });
 });

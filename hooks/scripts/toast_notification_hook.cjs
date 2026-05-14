@@ -19,7 +19,7 @@ function sendAllow() {
 }
 
 function processEvent(inputData) {
-    const { hook_event_name, session_id, cwd } = inputData;
+    const { hook_event_name, session_id, cwd, notification_type, tool_name } = inputData;
     
     if (!session_id || !cwd) {
         return sendAllow();
@@ -45,7 +45,8 @@ function processEvent(inputData) {
 
                 if (durationMs >= thresholdMs) {
                     log(`Task completed. Duration ${durationMs}ms >= Threshold ${thresholdMs}ms. Sending robust toast.`);
-                    showToast(cwd, durationMs, session_id);
+                    const durationSec = (durationMs / 1000).toFixed(1);
+                    showToast(cwd, `タスク完了: 実行時間 ${durationSec}s`, session_id);
                 }
 
                 fs.unlinkSync(lockFile);
@@ -54,16 +55,25 @@ function processEvent(inputData) {
                 log(`AfterAgent logic failed: ${e.message}`);
             }
         }
+    } else if (hook_event_name === 'Notification') {
+        if (notification_type === 'ToolPermission') {
+            log(`ToolPermission detected. Sending alert toast.`);
+            showToast(cwd, '実行の承認待ちです', session_id);
+        }
+    } else if (hook_event_name === 'BeforeTool') {
+        if (tool_name === 'ask_user') {
+            log(`ask_user detected. Sending input wait toast.`);
+            showToast(cwd, '入力を待機しています', session_id);
+        }
     }
 
     sendAllow();
 }
 
-function showToast(cwd, durationMs, session_id) {
+function showToast(cwd, message, session_id) {
     const projectName = path.basename(cwd);
-    const durationSec = (durationMs / 1000).toFixed(1);
     const title = `Gemini CLI: ${projectName}`;
-    const body = `タスク完了: 実行時間 ${durationSec}s`;
+    const body = message;
 
     if (process.platform === 'win32') {
         const escapedTitle = title.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
