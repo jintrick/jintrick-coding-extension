@@ -1,6 +1,6 @@
 {
   "name": "jintrick-coding-extension",
-  "version": "2.25.0",
+  "version": "2.25.1",
   "description": "Coding assistance extensions including linters, skill management, and automated code review.",
   "scripts": {
     "test": "vitest run",
@@ -9,6 +9,8 @@
   },
   "devDependencies": {
     "esbuild": "^0.27.3",
+    "pyright": "^1.1.409",
+    "typescript-language-server": "^5.2.0",
     "vitest": "^1.0.0"
   },
   "private": true,

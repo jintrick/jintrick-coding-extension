@@ -6,13 +6,24 @@
     ]
   },
   "mcpServers": {
-    "": {
-      "command": "test-chrome",
+    "lsp-python": {
+      "command": "npx",
       "args": [
-        "npx.cmd",
         "-y",
-        "chrome-devtools-mcp@latest",
-        "--browser-url=http://127.0.0.1:9222"
+        "tritlo/lsp-mcp",
+        "python",
+        "pyright-langserver",
+        "--stdio"
+      ]
+    },
+    "lsp-typescript": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "tritlo/lsp-mcp",
+        "typescript",
+        "typescript-language-server",
+        "--stdio"
       ]
     }
   }
