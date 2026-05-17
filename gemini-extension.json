@@ -1,9 +1,14 @@
 {
   "$schema": "./gemini-extension.schema.json",
   "name": "jintrick-coding-extension",
-  "version": "2.24.0",
+  "version": "2.25.0",
   "description": "Coding assistance extensions including linters, skill management, and automated code review.",
   "contextFileName": ".gemini-context-empty.md",
+  "commands": [
+    {
+      "path": "commands/kickoff.toml"
+    }
+  ],
   "settings": [
     {
       "name": "Toast Threshold (ms)",
