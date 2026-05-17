@@ -2,7 +2,7 @@
 name: coding-rules
 description: >
   Fetch project-specific coding rules based on target file paths. Use this skill BEFORE designing features, creating issues, or reviewing code to ensure conventions are followed.
-version: 2026-05-18
+version: 2026-04-08
 ---
 
 # Coding Rules Skill

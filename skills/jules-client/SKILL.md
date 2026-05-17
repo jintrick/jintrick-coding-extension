@@ -1,7 +1,7 @@
 ---
 name: jules-client
 description: Manage AI coding sessions using the Jules REST API. Start coding sessions, approve plans, monitor activities, and manage session lifecycles. Supports JSON output for programmatic use by agents.
-version: 2026-05-18
+version: 2026-05-01
 ---
 
 # Jules Client

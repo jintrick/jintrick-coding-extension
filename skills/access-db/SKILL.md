@@ -1,7 +1,7 @@
 ---
 name: access-db
 description: Execute SQL queries on MS Access databases (.accdb, .mdb).
-version: 2026-05-18
+version: 2026-02-26
 ---
 
 # Access Database Skill
