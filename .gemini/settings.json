@@ -12,7 +12,7 @@
         "-y",
         "tritlo/lsp-mcp",
         "python",
-        "pyright-langserver",
+        "./node_modules/.bin/pyright-langserver",
         "--stdio"
       ]
     },
@@ -22,7 +22,7 @@
         "-y",
         "tritlo/lsp-mcp",
         "typescript",
-        "typescript-language-server",
+        "./node_modules/.bin/typescript-language-server",
         "--stdio"
       ]
     }
