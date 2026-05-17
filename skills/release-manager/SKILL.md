@@ -1,7 +1,7 @@
 ---
 name: release-manager
 description: Issue を起草せずにプロジェクトの変更を行った場合に、issue-closer の代わりに使用せよ。バージョン更新、リモート整合性確認、および Git リリース（commit, push, merge）を一気通貫で実行する。
-version: 1.1.1
+version: 2026-05-18
 ---
 
 # Release Manager Skill
