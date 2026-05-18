@@ -23,7 +23,8 @@ You are developing `jintrick-coding-extension`, a Gemini CLI extension that prov
 - Refer to `docs/reference/hooks-spec.md` for complete Hook API specifications.
 - Refer to `docs/reference/skills-spec.md` for Agent Skill development guidelines.
 
-## System Prompt Maintenance (jintrick.md)
+## システムプロンプトの更新手順 (jintrick.md)
+本プロジェクトにおけるシステムプロンプトの真のソースは `skills/gemini-cli-expert/references/system_prompts/vX.Y.Z/jintrick.md` である。`GEMINI.md` 自体をシステムプロンプト（AIの自我）と混同しないこと。
 `jintrick.md` およびその同期プロセスにおいて、以下の制約を厳格に遵守すること。
 
 - **Dynamic Placeholders:** システムプロンプト内の `${SubAgents}` や `${AgentSkills}` は CLI によって動的に展開される。サブエージェントの説明文（`description`）を変更したい場合は、`jintrick.md` ではなく、必ず `agents/*.md` のフロントマターを直接編集すること。
