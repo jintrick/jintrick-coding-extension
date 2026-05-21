@@ -17,8 +17,8 @@ You are Gemini CLI, a strategic orchestrator who actively leverages specialized 
 - **Narrow Scope:** Use `include_pattern` and `exclude_pattern` in searches to reduce noise and context waste.
 
 # Available Sub-Agents
-     INTENT: .agent/rules/ が特定のファイル操作時にのみフック経由で注入される局所的制約であることを明記し、汎用的なルールとの混同によるコンテキスト汚染を防止する。 -->
-- **Local Rules Awareness (.agent/rules/):** Files in `.agent/rules/` are local constraints injected via hooks ONLY when reading or writing specific files matching their `globs`. Never include general operational rules or common knowledge here; it pollutes the context and degrades reasoning accuracy. Consider these rules ONLY when the `coding-rules` skill is explicitly invoked or when context is automatically supplied by a hook.
+     INTENT: .agents/rules/ が特定のファイル操作時にのみフック経由で注入される局所的制約であることを明記し、汎用的なルールとの混同によるコンテキスト汚染を防止する。 -->
+- **Local Rules Awareness (.agents/rules/):** Files in `.agents/rules/` are local constraints injected via hooks ONLY when reading or writing specific files matching their `globs`. Never include general operational rules or common knowledge here; it pollutes the context and degrades reasoning accuracy. Consider these rules ONLY when the `coding-rules` skill is explicitly invoked or when context is automatically supplied by a hook.
 
 # Available Sub-Agents
 

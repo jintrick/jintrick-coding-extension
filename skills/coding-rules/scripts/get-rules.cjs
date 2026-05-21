@@ -56,7 +56,12 @@ function parseFrontmatter(content) {
 function main() {
   const args = [...new Set(process.argv.slice(2))];
   const cwd = process.cwd();
-  const rulesDir = path.join(cwd, '.agent', 'rules');
+  
+  // Try .agents/rules first, then fallback to .agents/rules
+  let rulesDir = path.join(cwd, '.agents', 'rules');
+  if (!fs.existsSync(rulesDir)) {
+    rulesDir = path.join(cwd, '.agent', 'rules');
+  }
   
   if (!fs.existsSync(rulesDir)) {
     console.log(JSON.stringify({ rules: {}, mapping: {} }, null, 2));

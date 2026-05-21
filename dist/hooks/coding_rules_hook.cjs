@@ -81,7 +81,10 @@ async function main() {
       process.exit(0);
     }
     filePath = path.relative(cwd, path.resolve(cwd, filePath));
-    const rulesDir = path.join(cwd, ".agent", "rules");
+    let rulesDir = path.join(cwd, ".agents", "rules");
+    if (!fs.existsSync(rulesDir)) {
+      rulesDir = path.join(cwd, ".agent", "rules");
+    }
     if (!fs.existsSync(rulesDir)) {
       console.log(JSON.stringify({ decision: "allow" }));
       process.exit(0);

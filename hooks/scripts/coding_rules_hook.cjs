@@ -101,7 +101,12 @@ async function main() {
     // Convert absolute paths (or ./ prefixed paths) to simple relative paths
     filePath = path.relative(cwd, path.resolve(cwd, filePath));
     
-    const rulesDir = path.join(cwd, '.agent', 'rules');
+    // Try .agents/rules first, then fallback to .agent/rules
+    let rulesDir = path.join(cwd, '.agents', 'rules');
+    if (!fs.existsSync(rulesDir)) {
+      rulesDir = path.join(cwd, '.agent', 'rules');
+    }
+
     if (!fs.existsSync(rulesDir)) {
       console.log(JSON.stringify({ decision: "allow" }));
       process.exit(0);
