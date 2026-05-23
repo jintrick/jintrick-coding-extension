@@ -1,57 +1,63 @@
 # Antigravity Hooks Specification
 
-Hooks allow running custom scripts or shell commands at specific lifecycle points of the agent's execution loop. They are powerful for enforcing rules, running linters, or capturing diagnostics.
+Hooks allow running custom scripts or shell commands at specific lifecycle points of the agent's execution loop.
 
-## Configuration (`hooks.json`)
-Hooks are defined in a `hooks.json` file located in:
-- Workspace: `<workspace-root>/.agents/hooks.json`
-- Global: `~/.gemini/config/hooks.json`
+## Configuration
+Hooks are defined in `hooks.json` (Workspace: `.agents/hooks.json`, Global: `~/.gemini/config/hooks.json`).
 
-### `hooks.json` Schema
 ```json
 {
   "hook-name": {
-    "enabled": true,
-    "PreToolUse": [
+    "PostToolUse": [
       {
         "matcher": "run_command",
-        "hooks": [{ "command": "./lint.sh", "timeout": 10 }]
+        "hooks": [
+          {
+            "type": "command",
+            "command": "./scripts/lint.sh",
+            "timeout": 10
+          }
+        ]
       }
     ]
   }
 }
 ```
 
-## Supported Events & Matchers
-- **`PreToolUse`**: Before tool execution. (Uses `matcher` regex against tool name).
-- **`PostToolUse`**: After tool completes. (Uses `matcher` regex).
-- **`PreInvocation`**: Before model call. (`matcher` ignored).
-- **`PostInvocation`**: After tool calls finish. (`matcher` ignored).
-- **`Stop`**: When execution loop terminates. (`matcher` ignored).
+## Supported Events
 
-## I/O Protocol (JSON via stdin/stdout)
-All hooks receive common metadata: `conversationId`, `workspacePaths`, `transcriptPath`, `artifactDirectoryPath`.
+| Event | Trigger Point | Matcher Target |
+| :--- | :--- | :--- |
+| **PreToolUse** | Before a tool is executed | Tool name (e.g., `run_command`) |
+| **PostToolUse** | After a tool completes | Tool name |
+| **PreInvocation** | Before the model is called | N/A (Matcher ignored) |
+| **PostInvocation** | After tool calls finish | N/A |
+| **Stop** | When execution loop terminates | N/A |
 
-### Event-Specific I/O
-#### PreToolUse
-- **Input**: `toolCall` (name, args), `stepIdx`.
-- **Output**: `decision` (`"allow"`, `"deny"`, `"ask"`, `"force_ask"`), `reason`, `permissionOverrides`.
+## Common Metadata (stdin)
+All hooks receive a JSON payload containing:
+- `conversationId`: UUID of the session.
+- `workspacePaths`: Mounted directories.
+- `transcriptPath`: Path to `transcript.jsonl`.
+- `artifactDirectoryPath`: Path for screenshots and results.
 
-#### PostToolUse
-- **Input**: `stepIdx`, `error` (if any).
-- **Output**: Empty object `{}`.
+## Event Schema Highlights
 
-#### Pre/PostInvocation
-- **Input**: `invocationNum`, `initialNumSteps`.
-- **Output**: `injectSteps` (array of `toolCall`, `userMessage`, or `ephemeralMessage`). `PostInvocation` also supports `terminationBehavior` (`"force_continue"`, `"terminate"`).
+### PreToolUse Decision
+The hook can return a `decision` to gate tool execution:
+- `allow`: Auto-execute.
+- `deny`: Block execution.
+- `ask`: Prompt user.
+- `force_ask`: Always prompt user.
 
-#### Stop
-- **Input**: `executionNum`, `terminationReason`, `error`, `fullyIdle`.
-- **Output**: `decision` (`"continue"` to re-enter loop), `reason`.
+### Injected Steps (Invocation Events)
+Hooks can return `injectSteps` to modify the conversation trajectory:
+- `toolCall`: Execute a tool.
+- `userMessage`: Add a user prompt.
+- `ephemeralMessage`: Add a transient system message.
 
 ## Supported Tools for Matchers
 - **File**: `view_file`, `write_to_file`, `replace_file_content`, `multi_replace_file_content`, `list_dir`, `find_by_name`.
-- **Search**: `grep_search`, `search_web`, `read_url_content`.
 - **System**: `run_command`, `manage_task`, `schedule`, `list_permissions`, `ask_permission`.
-- **Agent**: `invoke_subagent`, `define_subagent`, `send_message`, `manage_subagents`.
-- **Interaction**: `ask_question`, `generate_image`.
+- **Collaboration**: `invoke_subagent`, `define_subagent`, `send_message`, `manage_subagents`.
+- **Media**: `ask_question`, `generate_image`.
