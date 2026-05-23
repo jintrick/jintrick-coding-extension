@@ -42,5 +42,11 @@ You are developing `jintrick-coding-extension`, a Gemini CLI extension that prov
 - The `.geminiignore` file excludes source files and `node_modules`, only including `dist/` and configuration files.
 - Users install via `gemini extensions install <url>` and get a ready-to-use bundled extension.
 
+## Browser Capabilities
+本拡張機能は `Chrome DevTools MCP` を内包しており、エージェントはブラウザ操作を通じた高度なデバッグおよび検証が可能である。
+- **Tools**: `chrome-devtools` サーバー経由で、ページのナビゲーション、スクリーンショット取得、DOM操作、ネットワーク/パフォーマンス計測が実行可能。
+- **Workflow**: `skills/` に統合された `a11y-debugging`, `chrome-devtools`, `debug-optimize-lcp` などのスキルを適宜有効化し、ベストプラクティスに従った調査を行え。
+
 ## Gemini CLIのGitHubリポジトリ
 - google-gemini/gemini-cli 
+ 
