@@ -9,7 +9,7 @@ Artifacts are structured outputs produced by the agent during a task (Implementa
 - **Code Change**: Proposed file modifications.
 
 ## Review Flow (CLI)
-- **Review Panel**: The CLI uses a keyboard-driven panel to display and approve artifacts.
+- **Review Panel**: Use the **`/artifact`** command to explicitly open the review panel. The CLI uses a keyboard-driven panel to display and approve artifacts.
 - **Inline Feedback**: You can add comments directly to specific parts of a plan to steer the agent.
 - **Proceed**: Use the designated hotkey (e.g., `Shift+Tab`) or button to approve and execute.
 

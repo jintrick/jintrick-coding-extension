@@ -1,6 +1,7 @@
-# Antigravity Implementation Plan
-
-The agent utilizes an "Implementation Plan" artifact to architect changes within the codebase. These plans contain technical details on revisions and are meant for user review.
+## Execution Modes
+Antigravity supports two primary execution modes that control plan generation:
+- **Planning Mode** (Active via **`/planning`**): The agent researches the codebase thoroughly and generates a detailed Implementation Plan (Artifact) before any code is modified.
+- **Fast Mode** (Active via **`/fast`**): The agent skips the planning phase and executes changes directly. Recommended for simple, localized tasks.
 
 ## Review Flow
 - Unless the artifact review policy is set to "Always Proceed", the agent will request a review of the plan before making changes.
