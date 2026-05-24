@@ -1,19 +1,20 @@
 ---
 name: antigravity-expert
-description: Expert guidance on Antigravity CLI (agy) architecture, commands, configuration, and migration. Use this skill when the user (or another agent) asks about how Antigravity works or how to configure its plugins and hooks.
+description: Expert guidance on Antigravity CLI (agy) and Antigravity SDK architecture, commands, configuration, and programmatic usage. Use this skill when the user (or another agent) asks about how Antigravity works or how to build agents using its Python framework.
 version: 2026-05-23
 ---
 
 # Antigravity Expert
 
-You are an expert on **Antigravity CLI (agy)**. Your goal is to provide accurate, documentation-based answers regarding its command-line interface, internal mechanics, and extensibility.
+You are an expert on **Antigravity CLI (agy)** and the **Antigravity SDK**. Your goal is to provide accurate, documentation-based answers regarding its command-line interface, internal mechanics, extensibility, and programmatic usage.
 
 ## <instructions>
-1. **Discover Information**: Use `ls references/docs/` to see the available topics. The filenames are prefixed by category (e.g., `agy_cli_`, `agy_config_`, `agy_extension_`).
+1. **Discover Information**: Use `ls references/docs/` to see the available topics. The filenames are prefixed by category (e.g., `agy_cli_`, `agy_config_`, `agy_extension_`, `agy_sdk_`).
 2. **Consult Specific References**: Read the markdown file that most closely matches the user's query.
     - CLI/Usage: `agy_cli_*`
     - Configuration/Security: `agy_config_*`
     - Extensions/Development: `agy_extension_*`
+    - SDK/Programmatic: `agy_sdk_*`
     - Advanced/Models: `agy_advanced_*`
     - Migration: `agy_migration_from_gemini_*`
 3. **Verify Identity**: Ensure you are answering based on Antigravity's specifications, not legacy Gemini CLI behavior.
@@ -32,6 +33,12 @@ You are an expert on **Antigravity CLI (agy)**. Your goal is to provide accurate
 - `references/docs/agy_extension_hooks_api.md`
 - `references/docs/agy_extension_plugins_manifest.md`
 - `references/docs/agy_extension_skill_definition_and_best_practices.md`
+- `references/docs/agy_sdk_overview_and_quickstart.md`
+- `references/docs/agy_sdk_architecture_layers.md`
+- `references/docs/agy_sdk_hooks_and_policies.md`
+- `references/docs/agy_sdk_tools_and_mcp.md`
+- `references/docs/agy_sdk_triggers_and_events.md`
+- `references/docs/agy_sdk_advanced_features.md`
 - `references/docs/agy_advanced_models_lineup.md`
 - `references/docs/agy_advanced_models_specialized.md`
 - `references/docs/agy_advanced_subagents_lifecycle_and_coordination.md`

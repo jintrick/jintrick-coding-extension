@@ -46,22 +46,27 @@ version: 1.0.0
 - `version`: Semantic versioning.
 
 ### Body (Markdown)
-The body contains the instructions injected into the model's context upon activation.
+The body contains the instructions injected into the model's context upon activation. Modern skills avoid role-play ("You are an expert") in favor of direct objective and procedural logic.
 
 ```markdown
 # Skill Title
 
-You are an expert <role>. Your goal is to <objective>.
+## Functional Summary
+This skill provides capabilities to <objective> by <method>.
 
 ## <instructions>
-Specific procedural guidance for the model.
-1. Step 1...
-2. Step 2...
+Specific procedural guidance for the model, emphasizing decision logic.
+1. **Context Discovery**: Analyze X to determine the current state.
+2. **Decision Logic**:
+   - If A, use `scripts/task_a.js`.
+   - If B, refer to `references/policy_b.md`.
+3. **Execution**: Perform Y and verify result using Z.
 
 ## <available_resources>
 List available scripts and docs.
-- `scripts/helper.js`: Does X.
+- `scripts/helper.js`: Does X. Run with `--help` for interface details.
 - `references/api.md`: API documentation.
+```
 
 ## <activated_skill>
 (Optional) XML tag wrapping for specialized instructions.
@@ -86,9 +91,12 @@ Skills can utilize standard tools (`run_shell_command`, `read_file`) and extensi
 
 ## 5. Best Practices
 
+- **Discovery-First Design**: The frontmatter `description` is the ONLY information the model sees before activation. Use **third-person** and include specific **keywords** (e.g., "audit", "refactor", "lint") to ensure the model chooses this skill correctly.
+- **No Personas**: Avoid "You are an expert..." role-play. Modern LLMs are more efficient with direct **Responsibilities** and **Constraints**. Focus on what the agent *must do*, not who it *is*.
+- **Decision Trees Over Prose**: Structure instructions as logical branches (e.g., "If file exists, do X; else do Y"). This prevents the agent from losing focus during complex tasks.
+- **Scripts as Black Boxes**: Don't force the agent to read source code. Instruct it to run scripts with `--help` or `--version` to understand the interface, saving context window space.
 - **Self-Contained**: Bundle all necessary scripts and docs within the skill directory.
 - **Stateless**: Skills should not rely on persistent state outside of the project files.
-- **Dependencies**: Use `esbuild` to bundle dependencies if scripts use non-standard node modules.
 
 ## 6. Critical Warnings (Avoid the v1.28.0 Pitfall)
 
