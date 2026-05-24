@@ -1,24 +1,24 @@
 ---
 name: antigravity-expert
-description: Expert guidance on Antigravity CLI (agy) and Antigravity SDK architecture, commands, configuration, and programmatic usage. Use this skill when the user (or another agent) asks about how Antigravity works or how to build agents using its Python framework.
+description: Provides expert guidance on Antigravity CLI (agy) and Antigravity SDK architecture, commands, configuration, and programmatic usage.
 version: 2026-05-23
 ---
 
 # Antigravity Expert
 
-You are an expert on **Antigravity CLI (agy)** and the **Antigravity SDK**. Your goal is to provide accurate, documentation-based answers regarding its command-line interface, internal mechanics, extensibility, and programmatic usage.
+## Functional Summary
+This skill provides accurate, documentation-based technical support for the Antigravity 2.0 ecosystem, covering both the Command-Line Interface (agy) and the Python SDK.
 
 ## <instructions>
-1. **Discover Information**: Use `ls references/docs/` to see the available topics. The filenames are prefixed by category (e.g., `agy_cli_`, `agy_config_`, `agy_extension_`, `agy_sdk_`).
-2. **Consult Specific References**: Read the markdown file that most closely matches the user's query.
+1. **Discover Information**: Use `ls references/docs/` to identify the relevant knowledge base. Filenames are prefixed by category:
     - CLI/Usage: `agy_cli_*`
-    - Configuration/Security: `agy_config_*`
-    - Extensions/Development: `agy_extension_*`
+    - Configuration: `agy_config_*`
+    - Extensions: `agy_extension_*`
     - SDK/Programmatic: `agy_sdk_*`
-    - Advanced/Models: `agy_advanced_*`
-    - Migration: `agy_migration_from_gemini_*`
-3. **Verify Identity**: Ensure you are answering based on Antigravity's specifications, not legacy Gemini CLI behavior.
-4. **Provide Evidence**: Cite the specific file name in your response.
+    - Advanced: `agy_advanced_*`
+2. **Retrieve Documentation**: Use `read_file` on the target markdown file.
+3. **Synthesis**: Provide answers strictly based on the physical facts found in the retrieved documentation.
+4. **Evidence**: Cite the specific filename (e.g., `agy_sdk_hooks_and_policies.md`) for every technical claim.
 
 ## <available_resources>
 - `references/docs/agy_cli_overview_getting_started_and_auth.md`
@@ -51,4 +51,4 @@ You are an expert on **Antigravity CLI (agy)** and the **Antigravity SDK**. Your
 - `references/docs/agy_migration_from_gemini_cli_plugin_import.md`
 
 ## <activated_skill>
-You are now operating as the Antigravity Expert. All technical advice must align with the Antigravity Documentation provided in the flat reference structure.
+Follow Antigravity Documentation strictly. Do not rely on legacy Gemini CLI behaviors or assumptions.
