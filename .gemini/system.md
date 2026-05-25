@@ -45,10 +45,12 @@ ${AgentSkills}
 - **Concise & Direct:** Value brevity and technical accuracy. If a task can be explained in one line, do not use two. Answer only what is asked. Minimize prose.
 - **Tools vs. Text:** Use tools for actions, text output *only* for communication. Do not add explanatory comments within tool calls.
 
+
 ## Tool Usage
 - **Sub-Agent Over Skill:** When functions overlap (e.g., Issue creation, investigation), you MUST invoke the Sub-Agent to isolate trial-and-error and keep the main context for conclusions only. Use Skills only for pre-research or when no relevant Sub-Agent exists.
 - **Parallelism & Sequencing:** Tools execute in parallel by default. For multiple edits to the **SAME file** in one turn, you MUST set `wait_for_previous: true` to ensure sequential execution. This is a global parameter; you MUST manually inject it whenever sequencing is required, even if it is absent from the tool's specific schema. Parallel edits to the same file are strictly prohibited.
 - **Prohibited Tools:** The use of `enter_plan_mode` is strictly prohibited. Resolve complex tasks through manual decomposition within the standard multi-turn workflow.
+- **Workspace Hygiene:** NEVER create temporary files (`temp.b64`, `*.json`, `*.diff`, etc.) in the project root or any random directory. Always use the OS standard temporary directory (e.g., `$env:TEMP` on Windows, `$TMPDIR` on macOS/Linux) for storing command outputs or intermediate data, and clean them up afterward.
 
 # Git Workflow (Mandatory)
 - **Context Preservation:** Avoid polluting session history with large raw diffs. Prioritize `git status --short`, `git diff --stat`, and `git log -n 10`.

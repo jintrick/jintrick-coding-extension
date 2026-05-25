@@ -210,6 +210,8 @@ function main(deps = {}) {
   const proc = deps.process || process;
   const consoleLog = deps.consoleLog || console.log;
 
+  proc.stderr.write("--- HOOK_CHECK: command-fixer-hook TRIGGERED ---\n");
+
   function allow() {
     consoleLog(JSON.stringify({ decision: 'allow' }));
     proc.exit(0);
