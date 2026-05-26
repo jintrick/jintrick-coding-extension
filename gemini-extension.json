@@ -1,7 +1,7 @@
 {
   "$schema": "./gemini-extension.schema.json",
   "name": "jintrick-coding-extension",
-  "version": "2.31.3",
+  "version": "2.32.0",
   "description": "Coding assistance extensions including linters, skill management, and automated code review.",
   "contextFileName": ".gemini-context-empty.md",
   "commands": [
