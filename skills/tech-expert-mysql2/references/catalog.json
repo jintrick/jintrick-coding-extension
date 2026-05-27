@@ -2,11 +2,11 @@
   {
     "path": "references/Changelog.md",
     "title": "Changelog",
-    "summary": "## [3.18.2](https://github.com/sidorares/node-mysql2/compare/v3.18.1...v3.18.2) (2026-02-26)"
+    "summary": "## [3.18.2](https://github.com/sidorares/node-mysql2/compare/v3.18.1...v3.18.2) (2026-02-26)\r"
   },
   {
     "path": "references/README.md",
     "title": "MySQL2",
-    "summary": "[npm-image]: https://img.shields.io/npm/v/mysql2.svg"
+    "summary": "[npm-image]: https://img.shields.io/npm/v/mysql2.svg\r"
   }
 ]
