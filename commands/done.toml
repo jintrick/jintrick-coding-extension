@@ -1,0 +1,4 @@
+description = "指定されたバージョンでのリリース準備（同期、および RELEASE.md に基づく後続作業）を開始する"
+prompt = """
+release-manager スキルを activate_skill し、引数 {{args}}  を渡してワークフローを開始せよ。
+"""

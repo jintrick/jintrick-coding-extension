@@ -1,0 +1,46 @@
+{
+  "$schema": "./gemini-extension.schema.json",
+  "name": "jintrick-coding-extension",
+  "version": "2.33.3",
+  "description": "Coding assistance extensions including linters, skill management, and automated code review.",
+  "contextFileName": ".gemini-context-empty.md",
+  "commands": [
+    {
+      "path": "commands/kickoff.toml"
+    },
+    {
+      "path": "commands/define.toml"
+    },
+    {
+      "path": "commands/done.toml"
+    },
+    {
+      "path": "commands/review.toml"
+    },
+    {
+      "path": "commands/jules.toml"
+    },
+    {
+      "path": "commands/antigravity.toml"
+    }
+  ],
+  "mcpServers": {
+    "chrome-devtools": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "chrome-devtools-mcp@latest",
+        "--headless",
+        "--isolated"
+      ]
+    }
+  },
+  "settings": [
+    {
+      "name": "Toast Threshold (ms)",
+      "description": "Threshold in milliseconds to show a toast notification after a task.",
+      "envVar": "JINTRICK_TOAST_THRESHOLD_MS",
+      "default": "30000"
+    }
+  ]
+}

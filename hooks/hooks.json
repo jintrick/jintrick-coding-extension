@@ -1,0 +1,136 @@
+{
+  "hooks": {
+    "BeforeTool": [
+      {
+        "matcher": "^(read_file|write_file|replace)$",
+        "hooks": [
+          {
+            "name": "coding-rules-hook",
+            "type": "command",
+            "command": "node \"${extensionPath}${/}dist${/}hooks${/}coding_rules_hook.cjs\""
+          }
+        ]
+      },
+      {
+        "matcher": "^(write_file|replace)$",
+        "hooks": [
+          {
+            "name": "linter-hook",
+            "type": "command",
+            "command": "node \"${extensionPath}${/}dist${/}hooks${/}linter_hook.cjs\"",
+            "description": "ファイルの書き込み・置換前に構文エラー（JS/TS/JSON等）をチェックします。"
+          }
+        ]
+      },
+      {
+        "matcher": "^replace$",
+        "hooks": [
+          {
+            "name": "single-edit-per-turn",
+            "type": "command",
+            "command": "node \"${extensionPath}${/}dist${/}hooks${/}single_edit_per_turn_hook.cjs\"",
+            "description": "同一ターン内での同一ファイルへの複数回編集（replace）を阻止します。"
+          }
+        ]
+      },
+      {
+        "matcher": "run_shell_command",
+        "hooks": [
+          {
+            "name": "command-fixer-hook",
+            "type": "command",
+            "command": "node \"${extensionPath}${/}dist${/}hooks${/}command_fixer_hook.cjs\"",
+            "description": "Windows環境向けにコマンド内の && を ; に自動置換します。"
+          }
+        ]
+      },
+      {
+        "matcher": "^ask_user$",
+        "hooks": [
+          {
+            "name": "toast-notification-input-wait",
+            "type": "command",
+            "command": "node \"${extensionPath}${/}dist${/}hooks${/}toast_notification_hook.cjs\"",
+            "description": "対話ツールの実行を検知して通知します。"
+          }
+        ]
+      }
+    ],
+    "BeforeAgent": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "name": "single-edit-per-turn-reset",
+            "type": "command",
+            "command": "node \"${extensionPath}${/}dist${/}hooks${/}single_edit_per_turn_hook.cjs\"",
+            "description": "ターン開始時にファイル編集制限をリセットします。"
+          },
+          {
+            "name": "toast-notification-start",
+            "type": "command",
+            "command": "node \"${extensionPath}${/}dist${/}hooks${/}toast_notification_hook.cjs\"",
+            "description": "タスクの開始時刻をロックファイルに記録します。"
+          }
+        ]
+      }
+    ],
+    "AfterAgent": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "name": "single-edit-per-turn-reset",
+            "type": "command",
+            "command": "node \"${extensionPath}${/}dist${/}hooks${/}single_edit_per_turn_hook.cjs\"",
+            "description": "ターン終了時にファイル編集制限をリセットします。"
+          },
+          {
+            "name": "toast-notification-end",
+            "type": "command",
+            "command": "node \"${extensionPath}${/}dist${/}hooks${/}toast_notification_hook.cjs\"",
+            "description": "タスクの完了を検知し、堅牢なトースト通知を表示します。"
+          }
+        ]
+      }
+    ],
+    "Notification": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "name": "toast-notification-alert",
+            "type": "command",
+            "command": "node \"${extensionPath}${/}dist${/}hooks${/}toast_notification_hook.cjs\"",
+            "description": "ツール実行の承認待ちなどを検知して通知します。"
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "name": "system-prompt-monitor-hook",
+            "type": "command",
+            "command": "node \"${extensionPath}${/}dist${/}hooks${/}system_prompt_monitor_hook.cjs\"",
+            "description": "CLIのバージョンアップを検知し、システムプロンプトの変更をアーカイブします。"
+          },
+          {
+            "name": "tech-stack-discovery-hook",
+            "type": "command",
+            "command": "node \"${extensionPath}${/}dist${/}hooks${/}tech_stack_discovery_hook.cjs\"",
+            "description": "セッション開始時にプロジェクトの技術スタックを検知し、初期コンテキストとして注入します。"
+          },
+          {
+            "name": "project-template-sync",
+            "type": "command",
+            "command": "node \"${extensionPath}${/}dist${/}hooks${/}project_template_sync_hook.cjs\"",
+            "description": "プロジェクトの開始時に標準アセット（システムプロンプトやルール等）を自動同期します。"
+          }
+        ]
+      }
+    ]
+  }
+}

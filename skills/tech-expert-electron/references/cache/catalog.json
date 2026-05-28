@@ -1,0 +1,951 @@
+{
+  "documents": [
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/api/structures/referrer.md",
+      "path": "docs/api/structures/referrer.md",
+      "title": "Referrer Object",
+      "summary": "Defines the HTTP Referrer URL and its associated security policy in Electron."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/api/structures/render-process-gone-details.md",
+      "path": "docs/api/structures/render-process-gone-details.md",
+      "title": "RenderProcessGoneDetails Object",
+      "summary": "Details regarding why a render process was terminated, including reasons like crash, OOM, or killed."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/api/structures/resolved-endpoint.md",
+      "path": "docs/api/structures/resolved-endpoint.md",
+      "title": "ResolvedEndpoint Object",
+      "summary": "Represents a resolved network endpoint with its IP address and family (IPv4/IPv6)."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/api/structures/resolved-host.md",
+      "path": "docs/api/structures/resolved-host.md",
+      "title": "ResolvedHost Object",
+      "summary": "A list of ResolvedEndpoint objects representing the DNS entries for a specific hostname."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/api/structures/scrubber-item.md",
+      "path": "docs/api/structures/scrubber-item.md",
+      "title": "ScrubberItem Object",
+      "summary": "Defines an item in a Touch Bar scrubber, including its optional label and icon."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/api/structures/segmented-control-segment.md",
+      "path": "docs/api/structures/segmented-control-segment.md",
+      "title": "SegmentedControlSegment Object",
+      "summary": "Represents a single segment in a segmented control, with label, icon, and enabled state."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/api/structures/serial-port.md",
+      "path": "docs/api/structures/serial-port.md",
+      "title": "SerialPort Object",
+      "summary": "Metadata for a serial port device, including IDs, display names, and vendor/product information."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/api/structures/service-worker-info.md",
+      "path": "docs/api/structures/service-worker-info.md",
+      "title": "ServiceWorkerInfo Object",
+      "summary": "Information about a running service worker, including its script URL, scope, and process ID."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/api/structures/shared-dictionary-info.md",
+      "path": "docs/api/structures/shared-dictionary-info.md",
+      "title": "SharedDictionaryInfo Object",
+      "summary": "Metadata for a shared dictionary used in compression, including match patterns, URLs, and timing."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/api/structures/shared-dictionary-usage-info.md",
+      "path": "docs/api/structures/shared-dictionary-usage-info.md",
+      "title": "SharedDictionaryUsageInfo Object",
+      "summary": "Usage statistics for shared dictionaries, focusing on frame origin and storage size."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/api/structures/shared-texture-handle.md",
+      "path": "docs/api/structures/shared-texture-handle.md",
+      "title": "SharedTextureHandle Object",
+      "summary": "Low-level OS-specific handle for shared textures, covering Windows NT handles, macOS IOSurfaces, and Linux planes."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/api/structures/shared-texture-import-texture-info.md",
+      "path": "docs/api/structures/shared-texture-import-texture-info.md",
+      "title": "SharedTextureImportTextureInfo Object",
+      "summary": "Configuration for importing a shared texture, including pixel format, color space, and dimensions."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/api/structures/shared-texture-imported-subtle.md",
+      "path": "docs/api/structures/shared-texture-imported-subtle.md",
+      "title": "SharedTextureImportedSubtle Object",
+      "summary": "Advanced APIs for interacting with imported shared textures, including sync tokens and manual resource release."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/api/structures/shared-texture-imported.md",
+      "path": "docs/api/structures/shared-texture-imported.md",
+      "title": "SharedTextureImported Object",
+      "summary": "Represents a successfully imported shared texture with basic methods for VideoFrame creation and resource release."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/api/structures/shared-texture-subtle.md",
+      "path": "docs/api/structures/shared-texture-subtle.md",
+      "title": "SharedTextureSubtle Object",
+      "summary": "Advanced entry points for importing or finishing the transfer of shared textures across processes."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/api/structures/shared-texture-sync-token.md",
+      "path": "docs/api/structures/shared-texture-sync-token.md",
+      "title": "SharedTextureSyncToken Object",
+      "summary": "Opaque synchronization data used for managing shared texture lifetimes across different processes."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/api/structures/shared-texture-transfer.md",
+      "path": "docs/api/structures/shared-texture-transfer.md",
+      "title": "SharedTextureTransfer Object",
+      "summary": "Serializable data used to transfer shared texture references between Electron processes."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/api/structures/shared-worker-info.md",
+      "path": "docs/api/structures/shared-worker-info.md",
+      "title": "SharedWorkerInfo Object",
+      "summary": "Basic metadata for a running Shared Worker, including its unique ID and URL."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/api/structures/sharing-item.md",
+      "path": "docs/api/structures/sharing-item.md",
+      "title": "SharingItem Object",
+      "summary": "Collection of content (text, files, URLs) to be shared through native OS sharing features."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/api/structures/shortcut-details.md",
+      "path": "docs/api/structures/shortcut-details.md",
+      "title": "ShortcutDetails Object",
+      "summary": "Detailed configuration for OS shortcuts, covering target paths, working directories, icons, and IDs."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/api/structures/size.md",
+      "path": "docs/api/structures/size.md",
+      "title": "Size Object",
+      "summary": "Simple data structure representing width and height dimensions."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/api/structures/task.md",
+      "path": "docs/api/structures/task.md",
+      "title": "Task Object",
+      "summary": "Configuration for JumpList tasks on Windows, including program paths, arguments, and icons."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/api/structures/thumbar-button.md",
+      "path": "docs/api/structures/thumbar-button.md",
+      "title": "ThumbarButton Object",
+      "summary": "Defines a button in the Windows taskbar thumbnail toolbar with custom icons and tooltips."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/api/structures/trace-categories-and-options.md",
+      "path": "docs/api/structures/trace-categories-and-options.md",
+      "title": "TraceCategoriesAndOptions Object",
+      "summary": "Filtering and recording options for Electron's tracing system."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/api/structures/trace-config.md",
+      "path": "docs/api/structures/trace-config.md",
+      "title": "TraceConfig Object",
+      "summary": "Detailed configuration for performance tracing, including buffer sizes and category filters."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/api/structures/transaction.md",
+      "path": "docs/api/structures/transaction.md",
+      "title": "Transaction Object",
+      "summary": "Represents an In-App Purchase transaction from the App Store, including status and product IDs."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/api/structures/upload-data.md",
+      "path": "docs/api/structures/upload-data.md",
+      "title": "UploadData Object",
+      "summary": "Container for data being uploaded in a network request, supporting bytes, files, and blobs."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/api/structures/upload-file.md",
+      "path": "docs/api/structures/upload-file.md",
+      "title": "UploadFile Object",
+      "summary": "Metadata for a file being uploaded, including path, offsets, and modification times."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/api/structures/upload-raw-data.md",
+      "path": "docs/api/structures/upload-raw-data.md",
+      "title": "UploadRawData Object",
+      "summary": "Represents raw byte data intended for upload in a network request."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/api/structures/usb-device.md",
+      "path": "docs/api/structures/usb-device.md",
+      "title": "USBDevice Object",
+      "summary": "Comprehensive metadata for a USB device, covering class, protocol, manufacturer, and configuration details."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/api/structures/user-default-types.md",
+      "path": "docs/api/structures/user-default-types.md",
+      "title": "UserDefaultTypes Object",
+      "summary": "A helper alias for primitive and collection types used in Electron's user default systems."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/api/structures/web-preferences.md",
+      "path": "docs/api/structures/web-preferences.md",
+      "title": "WebPreferences Object",
+      "summary": "Comprehensive settings for controlling the behavior and security of web content in a BrowserWindow, covering sandbox, node integration, and preload scripts."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/api/structures/web-request-filter.md",
+      "path": "docs/api/structures/web-request-filter.md",
+      "title": "WebRequestFilter Object",
+      "summary": "Filtering options for intercepting and modifying network requests within an Electron session."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/api/structures/web-source.md",
+      "path": "docs/api/structures/web-source.md",
+      "title": "WebSource Object",
+      "summary": "Represents the source data for a web page, including the URL and optional base URL."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/api/structures/window-open-handler-response.md",
+      "path": "docs/api/structures/window-open-handler-response.md",
+      "title": "WindowOpenHandlerResponse Object",
+      "summary": "Response structure for the setWindowOpenHandler, used to allow or deny the creation of new windows."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/api/structures/window-session-end-event.md",
+      "path": "docs/api/structures/window-session-end-event.md",
+      "title": "WindowSessionEndEvent Object",
+      "summary": "Details provided when a window session is ended, typically during OS shutdown or logout."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/fiddles/features/dark-mode/index.md",
+      "path": "docs/fiddles/features/dark-mode/index.md",
+      "title": "Fiddle: Dark Mode",
+      "summary": "Sample implementation showing how to toggle between light and dark themes and sync with system settings."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/fiddles/features/drag-and-drop/index.md",
+      "path": "docs/fiddles/features/drag-and-drop/index.md",
+      "title": "Fiddle: Native Drag and Drop",
+      "summary": "Example of dragging files from an Electron app to the host operating system."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/fiddles/features/keyboard-shortcuts/interception-from-main/index.md",
+      "path": "docs/fiddles/features/keyboard-shortcuts/interception-from-main/index.md",
+      "title": "Fiddle: Main Process Keyboard Interception",
+      "summary": "Demonstrates intercepting keyboard events in the main process using global shortcuts."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/fiddles/features/keyboard-shortcuts/web-apis/index.md",
+      "path": "docs/fiddles/features/keyboard-shortcuts/web-apis/index.md",
+      "title": "Fiddle: Renderer Keyboard Shortcuts",
+      "summary": "Shows how to handle keyboard events using standard web APIs within a renderer process."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/fiddles/features/navigation-history/index.md",
+      "path": "docs/fiddles/features/navigation-history/index.md",
+      "title": "Fiddle: Navigation History",
+      "summary": "Showcases the NavigationHistory API for managing back/forward browsing history in a custom browser UI."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/fiddles/features/notifications/main/index.md",
+      "path": "docs/fiddles/features/notifications/main/index.md",
+      "title": "Fiddle: Main Process Notifications",
+      "summary": "Simple example of triggering native OS notifications from the main process."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/fiddles/features/notifications/renderer/index.md",
+      "path": "docs/fiddles/features/notifications/renderer/index.md",
+      "title": "Fiddle: Renderer Process Notifications",
+      "summary": "Demonstrates how to display and interact with system notifications from a renderer process."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/fiddles/features/online-detection/index.md",
+      "path": "docs/fiddles/features/online-detection/index.md",
+      "title": "Fiddle: Online/Offline Detection",
+      "summary": "Example of monitoring the application's network connection status."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/fiddles/features/progress-bar/index.md",
+      "path": "docs/fiddles/features/progress-bar/index.md",
+      "title": "Fiddle: Taskbar Progress Bar",
+      "summary": "Shows how to update the application's progress bar in the Windows taskbar or macOS dock."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/fiddles/features/recent-documents/index.md",
+      "path": "docs/fiddles/features/recent-documents/index.md",
+      "title": "Fiddle: Recent Documents",
+      "summary": "Demonstrates managing and displaying a list of recently used files in the OS-native application menu."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/fiddles/features/represented-file/index.md",
+      "path": "docs/fiddles/features/represented-file/index.md",
+      "title": "Fiddle: Represented File",
+      "summary": "Example showing how to set a represented file for a window, which is displayed in the title bar on macOS."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/fiddles/features/web-bluetooth/index.md",
+      "path": "docs/fiddles/features/web-bluetooth/index.md",
+      "title": "Fiddle: Web Bluetooth API",
+      "summary": "Demonstrates how to use the Web Bluetooth API within Electron to interact with nearby devices."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/fiddles/features/web-hid/index.md",
+      "path": "docs/fiddles/features/web-hid/index.md",
+      "title": "Fiddle: WebHID API",
+      "summary": "Example of using the WebHID API to access Human Interface Devices, including permission handling."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/fiddles/features/web-serial/index.md",
+      "path": "docs/fiddles/features/web-serial/index.md",
+      "title": "Fiddle: Web Serial API",
+      "summary": "Shows how to communicate with serial devices, like Arduino, using the Web Serial API in Electron."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/fiddles/features/web-usb/index.md",
+      "path": "docs/fiddles/features/web-usb/index.md",
+      "title": "Fiddle: WebUSB API",
+      "summary": "Demonstrates accessing USB devices directly through the WebUSB API with Electron's permission handlers."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/fiddles/features/window-customization/custom-title-bar/custom-drag-region/index.md",
+      "path": "docs/fiddles/features/window-customization/custom-title-bar/custom-drag-region/index.md",
+      "title": "Fiddle: Custom Drag Region",
+      "summary": "Example of defining custom draggable regions in a frameless window."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/fiddles/features/window-customization/custom-title-bar/custom-title-bar/index.md",
+      "path": "docs/fiddles/features/window-customization/custom-title-bar/custom-title-bar/index.md",
+      "title": "Fiddle: Custom Title Bar",
+      "summary": "Shows how to implement a fully custom title bar using HTML and CSS in a frameless window."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/fiddles/features/window-customization/custom-window-styles/transparent-windows/index.md",
+      "path": "docs/fiddles/features/window-customization/custom-window-styles/transparent-windows/index.md",
+      "title": "Fiddle: Transparent Windows",
+      "summary": "Demonstrates creating windows with transparent backgrounds in Electron."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/fiddles/ipc/pattern-1/index.md",
+      "path": "docs/fiddles/ipc/pattern-1/index.md",
+      "title": "Fiddle: IPC Pattern 1 (One-Way)",
+      "summary": "Concrete example of one-way communication from a renderer process to the main process."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/fiddles/ipc/pattern-2/index.md",
+      "path": "docs/fiddles/ipc/pattern-2/index.md",
+      "title": "Fiddle: IPC Pattern 2 (Two-Way)",
+      "summary": "Demonstrates two-way inter-process communication using ipcRenderer.invoke and ipcMain.handle."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/fiddles/ipc/pattern-3/index.md",
+      "path": "docs/fiddles/ipc/pattern-3/index.md",
+      "title": "Fiddle: IPC Pattern 3 (Main to Renderer)",
+      "summary": "Demonstrates sending messages from the main process to a specific renderer process using the webContents module."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/fiddles/ipc/webview-new-window/child.md",
+      "path": "docs/fiddles/ipc/webview-new-window/child.md",
+      "title": "Fiddle: WebView New Window",
+      "summary": "Example of handling window creation requests originating from within a WebView."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/fiddles/media/screenshot/take-screenshot/index.md",
+      "path": "docs/fiddles/media/screenshot/take-screenshot/index.md",
+      "title": "Fiddle: Desktop Capturer (Screenshot)",
+      "summary": "Shows how to use the desktopCapturer module to take a screenshot of the user's screen."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/fiddles/menus/context-menu/dom/index.md",
+      "path": "docs/fiddles/menus/context-menu/dom/index.md",
+      "title": "Fiddle: DOM Context Menu",
+      "summary": "Demonstrates creating a context menu triggered by DOM elements in the renderer process."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/fiddles/menus/context-menu/web-contents/index.md",
+      "path": "docs/fiddles/menus/context-menu/web-contents/index.md",
+      "title": "Fiddle: WebContents Context Menu",
+      "summary": "Example of intercepting context-menu events on the webContents and displaying a native menu."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/fiddles/menus/dock-menu/index.md",
+      "path": "docs/fiddles/menus/dock-menu/index.md",
+      "title": "Fiddle: macOS Dock Menu",
+      "summary": "Shows how to add custom menu items to the application's dock icon on macOS."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/fiddles/menus/shortcuts/index.md",
+      "path": "docs/fiddles/menus/shortcuts/index.md",
+      "title": "Fiddle: Keyboard Accelerators",
+      "summary": "Demonstrates setting up keyboard shortcuts (accelerators) via the Menu and globalShortcut modules."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/fiddles/menus/tray-menu/index.md",
+      "path": "docs/fiddles/menus/tray-menu/index.md",
+      "title": "Fiddle: System Tray Menu",
+      "summary": "Example of creating a system tray icon with a custom context menu and interactive features."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/fiddles/native-ui/dialogs/error-dialog/index.md",
+      "path": "docs/fiddles/native-ui/dialogs/error-dialog/index.md",
+      "title": "Fiddle: Native Error Dialog",
+      "summary": "Shows how to display a native system error dialog using the dialog module."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/fiddles/native-ui/dialogs/information-dialog/index.md",
+      "path": "docs/fiddles/native-ui/dialogs/information-dialog/index.md",
+      "title": "Fiddle: Native Information Dialog",
+      "summary": "Demonstrates displaying informational dialogs with buttons and handling user responses."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/fiddles/native-ui/dialogs/open-file-or-directory/index.md",
+      "path": "docs/fiddles/native-ui/dialogs/open-file-or-directory/index.md",
+      "title": "Fiddle: Open File/Directory Dialog",
+      "summary": "Example of using native system dialogs to let users select files or directories."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/fiddles/native-ui/dialogs/save-dialog/index.md",
+      "path": "docs/fiddles/native-ui/dialogs/save-dialog/index.md",
+      "title": "Fiddle: Native Save Dialog",
+      "summary": "Demonstrates how to display a native 'Save As' dialog and handle the resulting file path."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/fiddles/native-ui/drag-and-drop/index.md",
+      "path": "docs/fiddles/native-ui/drag-and-drop/index.md",
+      "title": "Fiddle: Outbound Drag and Drop",
+      "summary": "Shows how to initiate a native drag-and-drop operation to move files from Electron to the OS."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/fiddles/native-ui/external-links-file-manager/index.md",
+      "path": "docs/fiddles/native-ui/external-links-file-manager/index.md",
+      "title": "Fiddle: Shell API (External Links & Files)",
+      "summary": "Example of opening URLs in the default browser and revealing files in the OS file manager."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/fiddles/native-ui/notifications/index.md",
+      "path": "docs/fiddles/native-ui/notifications/index.md",
+      "title": "Fiddle: HTML5 Notifications",
+      "summary": "Demonstrates sending desktop notifications using the standard HTML5 Notification API supported by Electron."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/fiddles/quick-start/index.md",
+      "path": "docs/fiddles/quick-start/index.md",
+      "title": "Fiddle: Quick Start Template",
+      "summary": "A basic 'Hello World' template showing the minimum required files for an Electron application."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/fiddles/system/clipboard/copy/index.md",
+      "path": "docs/fiddles/system/clipboard/copy/index.md",
+      "title": "Fiddle: Clipboard Copy",
+      "summary": "Simple example showing how to programmatically copy text to the system clipboard."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/fiddles/system/clipboard/paste/index.md",
+      "path": "docs/fiddles/system/clipboard/paste/index.md",
+      "title": "Fiddle: Clipboard Paste",
+      "summary": "Demonstrates how to read (paste) content from the system clipboard into the application."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/fiddles/system/protocol-handler/launch-app-from-URL-in-another-app/index.md",
+      "path": "docs/fiddles/system/protocol-handler/launch-app-from-URL-in-another-app/index.md",
+      "title": "Fiddle: Custom Protocol Handler",
+      "summary": "Shows how to register a custom URL protocol to launch your Electron app from a browser or other applications."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/fiddles/system/system-app-user-information/app-information/index.md",
+      "path": "docs/fiddles/system/system-app-user-information/app-information/index.md",
+      "title": "Fiddle: App Path Information",
+      "summary": "Example of retrieving the application's installation path on the user's system via the app module."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/fiddles/system/system-information/get-version-information/index.md",
+      "path": "docs/fiddles/system/system-information/get-version-information/index.md",
+      "title": "Fiddle: Version Information",
+      "summary": "Simple example showing how to retrieve the versions of Electron, Node.js, and Chromium in use."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/fiddles/tutorial-first-app/index.md",
+      "path": "docs/fiddles/tutorial-first-app/index.md",
+      "title": "Fiddle: Tutorial First App",
+      "summary": "Basic 'Hello World' implementation from the first part of the Electron tutorial."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/fiddles/tutorial-preload/index.md",
+      "path": "docs/fiddles/tutorial-preload/index.md",
+      "title": "Fiddle: Tutorial Preload",
+      "summary": "Sample code demonstrating the use of a preload script to expose selective APIs to the renderer."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/fiddles/windows/manage-windows/frameless-window/index.md",
+      "path": "docs/fiddles/windows/manage-windows/frameless-window/index.md",
+      "title": "Fiddle: Frameless Window",
+      "summary": "Demonstrates creating a window without native toolbars or borders, optionally with transparency."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/fiddles/windows/manage-windows/manage-window-state/index.md",
+      "path": "docs/fiddles/windows/manage-window-state/index.md"
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/fiddles/windows/manage-windows/new-window/index.md",
+      "path": "docs/fiddles/windows/manage-windows/new-window/index.md",
+      "title": "Fiddle: New Window Creation",
+      "summary": "Example of programmatically spawning new BrowserWindow instances from the main process."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/fiddles/windows/manage-windows/window-events/index.md",
+      "path": "docs/fiddles/windows/manage-windows/window-events/index.md",
+      "title": "Fiddle: Window Lifecycle Events",
+      "summary": "Demonstrates listening for window events like 'blur' and managing focus between parent and child windows."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/tutorial/accessibility.md",
+      "path": "docs/tutorial/accessibility.md",
+      "title": "Accessibility",
+      "summary": "Guide to making Electron applications accessible, including support for screen readers and assistive technologies."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/tutorial/application-debugging.md",
+      "path": "docs/tutorial/application-debugging.md",
+      "title": "Application Debugging",
+      "summary": "Comprehensive guide to debugging Electron applications using Chromium DevTools for both main and renderer processes."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/tutorial/application-distribution.md",
+      "path": "docs/tutorial/application-distribution.md",
+      "title": "Application Packaging and Distribution",
+      "summary": "Overview of packaging Electron apps for distribution, covering Electron Forge and manual asar-based methods."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/tutorial/application-menu.md",
+      "path": "docs/tutorial/application-menu.md",
+      "title": "Application Menu",
+      "summary": "How to create and customize the top-level application menu across different operating systems."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/tutorial/asar-archives.md",
+      "path": "docs/tutorial/asar-archives.md",
+      "title": "ASAR Archives",
+      "summary": "Explains the ASAR archive format used to bundle Electron app source code, its benefits, and how to use it with Node.js and Web APIs."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/tutorial/asar-integrity.md",
+      "path": "docs/tutorial/asar-integrity.md",
+      "title": "ASAR Integrity",
+      "summary": "Details on the security feature that validates ASAR archive contents at runtime to prevent tampering."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/tutorial/automated-testing.md",
+      "path": "docs/tutorial/automated-testing.md",
+      "title": "Automated Testing",
+      "summary": "Guide to setting up automated tests for Electron applications using tools like Playwright and Vitest."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/tutorial/boilerplates-and-clis.md",
+      "path": "docs/tutorial/boilerplates-and-clis.md",
+      "title": "Boilerplates and CLIs",
+      "summary": "Overview of community-maintained boilerplates and command-line tools to jumpstart Electron development."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/tutorial/code-signing.md",
+      "path": "docs/tutorial/code-signing.md",
+      "title": "Code Signing",
+      "summary": "Essential guide for signing Electron applications on Windows and macOS to ensure authenticity and avoid OS security warnings."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/tutorial/context-isolation.md",
+      "path": "docs/tutorial/context-isolation.md",
+      "title": "Context Isolation",
+      "summary": "Deep dive into context isolation, a key security feature that separates preload scripts from the main renderer world."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/tutorial/context-menu.md",
+      "path": "docs/tutorial/context-menu.md",
+      "title": "Context Menu",
+      "summary": "How to implement and customize native-looking context (right-click) menus in Electron apps."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/tutorial/custom-title-bar.md",
+      "path": "docs/tutorial/custom-title-bar.md",
+      "title": "Custom Title Bar",
+      "summary": "Tutorial on removing the default OS title bar and implementing a fully custom one using HTML, CSS, and draggable regions."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/tutorial/custom-window-interactions.md",
+      "path": "docs/tutorial/custom-window-interactions.md",
+      "title": "Custom Window Interactions",
+      "summary": "Techniques for managing custom draggable regions and creating click-through windows in Electron."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/tutorial/custom-window-styles.md",
+      "path": "docs/tutorial/custom-window-styles.md",
+      "title": "Custom Window Styles",
+      "summary": "Guide to creating frameless and transparent windows to achieve unique and modern application designs."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/tutorial/dark-mode.md",
+      "path": "docs/tutorial/dark-mode.md",
+      "title": "Dark Mode Support",
+      "summary": "How to implement and manage dark mode in Electron apps, including syncing with system settings and manual overrides."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/tutorial/debugging-main-process.md",
+      "path": "docs/tutorial/debugging-main-process.md"
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/tutorial/debugging-vscode.md",
+      "path": "docs/tutorial/debugging-vscode.md"
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/tutorial/devices.md",
+      "path": "docs/tutorial/devices.md",
+      "title": "Device Access (Bluetooth, HID, USB, Serial)",
+      "summary": "Guide to accessing hardware devices in Electron using Web Bluetooth, WebHID, Web Serial, and WebUSB APIs, including permission handling."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/tutorial/devtools-extension.md",
+      "path": "docs/tutorial/devtools-extension.md",
+      "title": "DevTools Extension",
+      "summary": "How to load and use Chrome DevTools extensions in Electron for enhanced debugging capabilities."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/tutorial/distribution-overview.md",
+      "path": "docs/tutorial/distribution-overview.md",
+      "title": "Distribution Overview",
+      "summary": "An overview of the different ways to package and distribute Electron applications for end-users."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/tutorial/electron-timelines.md",
+      "path": "docs/tutorial/electron-timelines.md",
+      "title": "Electron Timelines",
+      "summary": "Understanding Electron's release cycle, supported versions, and the relationship with Chromium and Node.js versions."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/tutorial/electron-versioning.md",
+      "path": "docs/tutorial/electron-versioning.md",
+      "title": "Electron Versioning",
+      "summary": "Detailed explanation of Electron's versioning scheme and how to manage upgrades."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/tutorial/esm.md",
+      "path": "docs/tutorial/esm.md",
+      "title": "ES Modules in Electron",
+      "summary": "Guide to using ECMAScript Modules (ESM) in both the main and renderer processes of an Electron application."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/tutorial/examples.md",
+      "path": "docs/tutorial/examples.md",
+      "title": "Tutorial Examples",
+      "summary": "A collection of practical examples and links to open-source Electron apps for learning."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/tutorial/forge-overview.md",
+      "path": "docs/tutorial/forge-overview.md",
+      "title": "Electron Forge Overview",
+      "summary": "Introduction to Electron Forge, the recommended tool for scaffolding, building, and publishing Electron apps."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/tutorial/fuses.md",
+      "path": "docs/tutorial/fuses.md",
+      "title": "Electron Fuses",
+      "summary": "Explains Electron Fuses, a mechanism to toggle packaged-time features without rebuilding Electron from source."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/tutorial/in-app-purchases.md",
+      "path": "docs/tutorial/in-app-purchases.md",
+      "title": "In-App Purchases",
+      "summary": "How to implement in-app purchases in Electron using the inAppPurchase API for macOS App Store builds."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/tutorial/installation.md",
+      "path": "docs/tutorial/installation.md",
+      "title": "Advanced Installation Instructions",
+      "summary": "Detailed guide for installing Electron prebuilt binaries, including handling binary downloads, proxies, and custom mirrors."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/tutorial/introduction.md",
+      "path": "docs/tutorial/introduction.md",
+      "title": "Introduction to Electron",
+      "summary": "An overview of the Electron framework, explaining how it combines Chromium and Node.js for cross-platform desktop development."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/tutorial/ipc.md",
+      "path": "docs/tutorial/ipc.md",
+      "title": "Inter-Process Communication",
+      "summary": "Comprehensive guide on using ipcMain and ipcRenderer for communication between Electron's main and renderer processes."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/tutorial/keyboard-shortcuts.md",
+      "path": "docs/tutorial/keyboard-shortcuts.md",
+      "title": "Keyboard Shortcuts Guide",
+      "summary": "Comprehensive guide on defining global and local keyboard shortcuts in Electron."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/tutorial/launch-app-from-url-in-another-app.md",
+      "path": "docs/tutorial/launch-app-from-url-in-another-app.md",
+      "title": "Launching App from URL",
+      "summary": "How to register your Electron app as a default handler for a custom protocol URI."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/tutorial/linux-desktop-actions.md",
+      "path": "docs/tutorial/linux-desktop-actions.md",
+      "title": "Linux Desktop Actions",
+      "summary": "Guide to implementing Linux-specific desktop actions and shortcuts in the application menu."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/tutorial/mac-app-store-submission-guide.md",
+      "path": "docs/tutorial/mac-app-store-submission-guide.md",
+      "title": "Mac App Store Submission",
+      "summary": "Step-by-step guide for signing and submitting Electron applications to the Mac App Store."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/tutorial/macos-dock.md",
+      "path": "docs/tutorial/macos-dock.md",
+      "title": "macOS Dock Customization",
+      "summary": "How to customize the application's dock icon, menu, and bounce effects on macOS."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/tutorial/menus.md",
+      "path": "docs/tutorial/menus.md",
+      "title": "Menus in Electron",
+      "summary": "Comprehensive guide to creating and managing application and context menus using Menu and MenuItem."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/tutorial/message-ports.md",
+      "path": "docs/tutorial/message-ports.md",
+      "title": "Message Ports",
+      "summary": "Using the MessagePort API for high-performance communication between different contexts in Electron."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/tutorial/multithreading.md",
+      "path": "docs/tutorial/multithreading.md",
+      "title": "Multithreading in Electron",
+      "summary": "Techniques for offloading heavy tasks to background threads using Web Workers and Node.js worker threads."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/tutorial/native-code-and-electron-cpp-linux.md",
+      "path": "docs/tutorial/native-code-and-electron-cpp-linux.md"
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/tutorial/native-code-and-electron-cpp-win32.md",
+      "path": "docs/tutorial/native-code-and-electron-cpp-win32.md"
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/tutorial/native-code-and-electron-objc-macos.md",
+      "path": "docs/tutorial/native-code-and-electron-objc-macos.md"
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/tutorial/native-code-and-electron-swift-macos.md",
+      "path": "docs/tutorial/native-code-and-electron-swift-macos.md"
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/tutorial/native-code-and-electron.md",
+      "path": "docs/tutorial/native-code-and-electron.md",
+      "title": "Using Native Node Modules",
+      "summary": "How to compile and use native C/C++ Node.js modules in your Electron application."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/tutorial/native-file-drag-drop.md",
+      "path": "docs/tutorial/native-file-drag-drop.md",
+      "title": "Native File Drag and Drop",
+      "summary": "Implementing native-like file drag-and-drop interactions from your app to the OS."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/tutorial/navigation-history.md",
+      "path": "docs/tutorial/navigation-history.md",
+      "title": "Navigation History API",
+      "summary": "Using the NavigationHistory API to manage and display browsing history in custom browser interfaces."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/tutorial/notifications.md",
+      "path": "docs/tutorial/notifications.md",
+      "title": "Notifications Guide",
+      "summary": "How to send and handle native OS notifications from both main and renderer processes."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/tutorial/offscreen-rendering.md",
+      "path": "docs/tutorial/offscreen-rendering.md",
+      "title": "Offscreen Rendering",
+      "summary": "Using offscreen rendering to capture page content as bitmaps without displaying a window."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/tutorial/online-offline-events.md",
+      "path": "docs/tutorial/online-offline-events.md",
+      "title": "Online and Offline Events",
+      "summary": "Monitoring and responding to the application's network connectivity status."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/tutorial/performance.md",
+      "path": "docs/tutorial/performance.md",
+      "title": "Performance Optimization",
+      "summary": "Best practices and tips for optimizing the performance of Electron applications."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/tutorial/process-model.md",
+      "path": "docs/tutorial/process-model.md",
+      "title": "Process Model",
+      "summary": "Deep dive into Electron's multi-process architecture, explaining the main, renderer, and utility processes."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/tutorial/progress-bar.md",
+      "path": "docs/tutorial/progress-bar.md",
+      "title": "Taskbar Progress Bar",
+      "summary": "How to display and update an application's progress in the OS-native taskbar or dock."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/tutorial/recent-documents.md",
+      "path": "docs/tutorial/recent-documents.md",
+      "title": "Recent Documents",
+      "summary": "Managing and displaying a list of recently opened files in the OS-native application menu."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/tutorial/repl.md",
+      "path": "docs/tutorial/repl.md",
+      "title": "Electron REPL",
+      "summary": "Using the Read-Eval-Print Loop (REPL) for interactive Electron development and debugging."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/tutorial/represented-file.md",
+      "path": "docs/tutorial/represented-file.md",
+      "title": "Represented File (macOS)",
+      "summary": "Setting the represented file for a window to enable macOS-specific title bar features."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/tutorial/sandbox.md",
+      "path": "docs/tutorial/sandbox.md",
+      "title": "Process Sandboxing",
+      "summary": "Explains Chromium's sandbox implementation in Electron, its security benefits, and how to configure it for renderer processes."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/tutorial/security.md",
+      "path": "docs/tutorial/security.md",
+      "title": "Security Best Practices",
+      "summary": "Essential security checklist and in-depth guide for Electron developers, covering XSS prevention, IPC validation, and process isolation."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/tutorial/snapcraft.md",
+      "path": "docs/tutorial/snapcraft.md",
+      "title": "Packaging for Snapcraft",
+      "summary": "Guide to packaging and distributing Electron apps on Linux using the Snap format."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/tutorial/spellchecker.md",
+      "path": "docs/tutorial/spellchecker.md",
+      "title": "Spellchecker Support",
+      "summary": "Configuring and using Electron's built-in spellchecker for input fields."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/tutorial/support.md",
+      "path": "docs/tutorial/support.md",
+      "title": "Support and Community",
+      "summary": "Resources for getting help and staying connected with the Electron community."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/tutorial/testing-on-headless-ci.md",
+      "path": "docs/tutorial/testing-on-headless-ci.md",
+      "title": "Testing on Headless CI",
+      "summary": "How to run automated Electron tests in headless environments like GitHub Actions."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/tutorial/tray.md",
+      "path": "docs/tutorial/tray.md",
+      "title": "System Tray Guide",
+      "summary": "How to create and manage system tray icons, menus, and tooltips across different platforms."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/tutorial/tutorial-1-prerequisites.md",
+      "path": "docs/tutorial/tutorial-1-prerequisites.md",
+      "title": "Tutorial 1: Prerequisites",
+      "summary": "Preparation steps for starting the Electron tutorial, ensuring the necessary tools and environment are set up."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/tutorial/tutorial-2-first-app.md",
+      "path": "docs/tutorial/tutorial-2-first-app.md",
+      "title": "Tutorial 2: First App",
+      "summary": "Walkthrough of creating a basic Electron application, covering project structure and essential lifecycle events."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/tutorial/tutorial-3-preload.md",
+      "path": "docs/tutorial/tutorial-3-preload.md",
+      "title": "Tutorial 3: Preload Scripts",
+      "summary": "Explains how to use preload scripts to securely expose Node.js and Electron APIs to the renderer process."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/tutorial/tutorial-4-adding-features.md",
+      "path": "docs/tutorial/tutorial-4-adding-features.md",
+      "title": "Tutorial 4: Adding Features",
+      "summary": "Guide to adding common desktop features like native menus and system tray integration to an Electron app."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/tutorial/tutorial-5-packaging.md",
+      "path": "docs/tutorial/tutorial-5-packaging.md",
+      "title": "Tutorial 5: Packaging",
+      "summary": "Instructions for packaging and distributing Electron applications for different operating systems."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/tutorial/tutorial-6-publishing-updating.md",
+      "path": "docs/tutorial/tutorial-6-publishing-updating.md",
+      "title": "Tutorial 6: Publishing and Updating",
+      "summary": "Best practices for publishing Electron apps and implementing automatic update mechanisms."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/tutorial/updates.md",
+      "path": "docs/tutorial/updates.md",
+      "title": "Auto-Updater Guide",
+      "summary": "Implementing automatic update mechanisms in Electron using the autoUpdater module or Electron Forge."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/tutorial/using-native-node-modules.md",
+      "path": "docs/tutorial/using-native-node-modules.md",
+      "title": "Native Modules Tutorial",
+      "summary": "In-depth tutorial on compiling and managing native Node.js modules for Electron."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/tutorial/using-pepper-flash-plugin.md",
+      "path": "docs/tutorial/using-pepper-flash-plugin.md",
+      "title": "Pepper Flash (Deprecated)",
+      "summary": "Note on the removal of Flash support in modern Electron versions."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/tutorial/web-embeds.md",
+      "path": "docs/tutorial/web-embeds.md",
+      "title": "Embedding Web Content",
+      "summary": "Comparison of iframe, webview, and WebContentsView for embedding third-party content."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/tutorial/window-customization.md",
+      "path": "docs/tutorial/window-customization.md",
+      "title": "Window Customization Overview",
+      "summary": "Introduction to the various ways to customize BrowserWindow appearance and behavior."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/tutorial/windows-arm.md",
+      "path": "docs/tutorial/windows-arm.md",
+      "title": "Windows on ARM Support",
+      "summary": "Guide to building and testing Electron applications for Windows 10/11 on ARM devices."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/tutorial/windows-store-guide.md",
+      "path": "docs/tutorial/windows-store-guide.md",
+      "title": "Windows Store Submission",
+      "summary": "How to package and submit Electron apps to the Microsoft Store using the Desktop Bridge."
+    },
+    {
+      "url": "https://github.com/electron/electron/blob/main/docs/tutorial/windows-taskbar.md",
+      "path": "docs/tutorial/windows-taskbar.md",
+      "title": "Windows Taskbar Customization",
+      "summary": "Detailed guide on customizing the application's presence in the Windows taskbar, including JumpLists and thumbnail toolbars."
+    }
+  ],
+  "metadata": {
+    "source": "github_fetch",
+    "repo_url": "https://github.com/electron/electron"
+  },
+  "title": "Electron Documentation",
+  "summary": "Comprehensive documentation for the Electron framework, covering API structures, development guides, and step-by-step tutorials for building cross-platform desktop applications.",
+  "src_type": "github",
+  "source_url": "https://github.com/electron/electron",
+  "unknowns": [
+    {
+      "uri": "https://github.com/electron/electron"
+    }
+  ]
+}

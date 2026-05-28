@@ -1,0 +1,15 @@
+description = "指定されたPRの厳格なガイドライン準拠レビューを行う（/review <PR番号>）"
+prompt = """
+PR #{{args}} について、`code-reviewer` サブエージェントを起動して厳格かつ批判的なコードレビューを実行せよ。
+
+## レビューの準備
+1. **情報の収集**
+   - `gh pr view {{args}} --comments` でPR概要を確認。
+   - `gh api repos/:owner/:repo/pulls/{{args}}/comments --jq ".[] | {path: .path, line: .line, body: .body, user: .user.login}"` でインラインコメントをすべて取得。
+   - 関連するIssue文書（`docs/issue/` 配下）を読み込む。
+2. **コードの取得**
+   - `gh pr checkout {{args}}` でPRブランチをローカルにチェックアウト。
+
+## レビューの実行
+`REVIEW.md`の内容に従い、サブエージェント`code-reviewer`にレビューを実行させる。
+"""
